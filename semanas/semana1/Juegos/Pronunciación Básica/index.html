@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica de Hebreo Bíblico - Vivos para Servir</title>
+    <link rel="stylesheet" href="hebreo-estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-logo-container">
+            <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir" class="header-logo">
+        </div>
+        <div class="header-title">
+            <h1>Práctica de Hebreo Bíblico</h1>
+            <p class="subtitle">Vivos para Servir - Herramienta educativa para el estudio bíblico</p>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="app-container">
+        <!-- Navegación de niveles -->
+        <nav class="levels-nav">
+            <button class="level-btn active" data-level="1">
+                <i class="fas fa-font"></i> Nivel 1: Alfabeto
+            </button>
+            <button class="level-btn" data-level="2">
+                <i class="fas fa-volume-up"></i> Nivel 2: Vocales
+            </button>
+            <button class="level-btn" data-level="3">
+                <i class="fas fa-book"></i> Nivel 3: Palabras Básicas
+            </button>
+            <button class="level-btn" data-level="4">
+                <i class="fas fa-headphones"></i> Nivel 4: Práctica Auditiva
+            </button>
+        </nav>
+
+        <!-- Pantallas de práctica -->
+        
+        <!-- Nivel 1: Alfabeto (3 pantallas) -->
+        <div class="practice-screen active" id="screen-1-1" data-level="1" data-screen="1">
+            <div class="screen-header">
+                <h2><i class="fas fa-font"></i> Nivel 1: Alfabeto Hebreo - Pantalla 1 de 3</h2>
+                <div class="progress-container">
+                    <span class="progress-text">Progreso: <span class="current-progress">0/5</span></span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns-container">
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Letras Hebreas</h3>
+                    </div>
+                    <div class="items-container" id="column-a-1-1">
+                        <!-- Las letras se cargan con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Nombres</h3>
+                    </div>
+                    <div class="items-container" id="column-b-1-1">
+                        <!-- Los nombres se cargan y mezclan con JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-feedback"></div>
+            
+            <div class="navigation-controls">
+                <button class="nav-btn prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" disabled>
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Nivel 2: Vocales (3 pantallas) -->
+        <div class="practice-screen" id="screen-2-1" data-level="2" data-screen="1">
+            <div class="screen-header">
+                <h2><i class="fas fa-volume-up"></i> Nivel 2: Vocales y Letras - Pantalla 1 de 3</h2>
+                <div class="progress-container">
+                    <span class="progress-text">Progreso: <span class="current-progress">0/5</span></span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns-container">
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Letras con Vocales</h3>
+                    </div>
+                    <div class="items-container" id="column-a-2-1">
+                        <!-- Las letras con vocales se cargan con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Pronunciación</h3>
+                    </div>
+                    <div class="items-container" id="column-b-2-1">
+                        <!-- Las pronunciaciones se cargan y mezclan con JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-feedback"></div>
+            
+            <div class="navigation-controls">
+                <button class="nav-btn prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" disabled>
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Nivel 3: Palabras Básicas (4 pantallas) -->
+        <div class="practice-screen" id="screen-3-1" data-level="3" data-screen="1">
+            <div class="screen-header">
+                <h2><i class="fas fa-book"></i> Nivel 3: Palabras Básicas - Pantalla 1 de 4</h2>
+                <div class="progress-container">
+                    <span class="progress-text">Progreso: <span class="current-progress">0/5</span></span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns-container">
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Palabras Hebreas</h3>
+                    </div>
+                    <div class="items-container" id="column-a-3-1">
+                        <!-- Las palabras hebreas se cargan con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Significados</h3>
+                    </div>
+                    <div class="items-container" id="column-b-3-1">
+                        <!-- Los significados se cargan y mezclan con JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-feedback"></div>
+            
+            <div class="navigation-controls">
+                <button class="nav-btn prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" disabled>
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Nivel 4: Práctica Auditiva (4 pantallas) -->
+        <div class="practice-screen" id="screen-4-1" data-level="4" data-screen="1">
+            <div class="screen-header">
+                <h2><i class="fas fa-headphones"></i> Nivel 4: Práctica Auditiva - Pantalla 1 de 4</h2>
+                <div class="progress-container">
+                    <span class="progress-text">Progreso: <span class="current-progress">0/5</span></span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns-container">
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Palabras Hebreas</h3>
+                    </div>
+                    <div class="items-container" id="column-a-4-1">
+                        <!-- Las palabras hebreas se cargan con JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="column-header">
+                        <h3>Audio</h3>
+                    </div>
+                    <div class="items-container" id="column-b-4-1">
+                        <!-- Los botones de audio se cargan con JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-feedback"></div>
+            
+            <div class="navigation-controls">
+                <button class="nav-btn prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" disabled>
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir">
+            </div>
+            <div class="footer-info">
+                <p><strong>Vivos para Servir</strong> - Ministerio de estudio bíblico</p>
+                <p>Herramienta educativa para el aprendizaje del hebreo bíblico</p>
+                <p class="copyright">© 2025 Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio Player (oculto) -->
+    <audio id="audio-player" preload="none"></audio>
+
+    <script src="hebreo-script.js"></script>
+</body>
+</html>

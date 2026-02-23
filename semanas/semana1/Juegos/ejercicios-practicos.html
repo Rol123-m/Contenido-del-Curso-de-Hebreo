@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Prácticos | Semana 1 | Vivos para Servir</title>
+    <link rel="stylesheet" href="semana.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg">
+    <style>
+        /* Estilos específicos para ejercicios */
+        .exercise-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .exercise-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .exercise-counter {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .exercise-progress {
+            width: 200px;
+            height: 10px;
+            background: var(--gray-light);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .exercise-progress-fill {
+            height: 100%;
+            background: var(--gradient-success);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .exercise-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            display: none;
+        }
+        
+        .exercise-card.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .exercise-card:hover {
+            border-color: var(--primary-light);
+        }
+        
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .exercise-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .exercise-title h2 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .exercise-title p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Tipos de ejercicios */
+        .matching-exercise {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-height: 400px;
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--radius);
+        }
+        
+        .match-item {
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            cursor: grab;
+            transition: var(--transition);
+            user-select: none;
+            text-align: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .match-item:hover:not(.matched) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        
+        .match-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+        
+        .match-item.matched {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.2));
+            border-color: var(--success);
+            cursor: default;
+            opacity: 0.7;
+        }
+        
+        .match-item.drop-target {
+            border-color: var(--primary);
+            background: rgba(74, 111, 165, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .match-item.incorrect-match {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: var(--danger);
+            animation: shake 0.3s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .match-pair-indicator {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--success);
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .fill-blanks-exercise {
+            background: linear-gradient(135deg, rgba(74, 111, 165, 0.05) 0%, rgba(139, 95, 191, 0.05) 100%);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .blank-sentence {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .blank-input {
+            display: inline-block;
+            width: 100px;
+            margin: 0 10px;
+            padding: 8px 12px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            background: white;
+            text-align: center;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .blank-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+        
+        .blank-input.correct {
+            border-color: var(--success);
+            background: rgba(46, 204, 113, 0.1);
+        }
+        
+        .blank-input.incorrect {
+            border-color: var(--danger);
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .multiple-choice-exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .choice-option {
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .choice-option:hover {
+            border-color: var(--primary);
+            transform: translateX(10px);
+        }
+        
+        .choice-option.selected {
+            border-color: var(--primary);
+            background: rgba(74, 111, 165, 0.05);
+        }
+        
+        .choice-option.correct {
+            border-color: var(--success);
+            background: rgba(46, 204, 113, 0.1);
+        }
+        
+        .choice-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .choice-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .writing-exercise {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid var(--gray-light);
+        }
+        
+        .writing-area {
+            width: 100%;
+            height: 150px;
+            padding: 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', serif;
+            resize: vertical;
+            direction: rtl;
+            text-align: right;
+            letter-spacing: 2px;
+        }
+        
+        .writing-area:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+        
+        .writing-hint {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+        
+        .comparison-exercise {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .comparison-box {
+            padding: 25px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+        
+        .comparison-letter {
+            font-size: 4rem;
+            font-family: 'Times New Roman', serif;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+        
+        .comparison-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .comparison-option {
+            padding: 12px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .comparison-option:hover {
+            border-color: var(--primary);
+            background: rgba(74, 111, 165, 0.05);
+        }
+        
+        .comparison-option.selected {
+            border-color: var(--primary);
+            background: rgba(74, 111, 165, 0.1);
+        }
+        
+        .feedback-panel {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: var(--radius);
+            background: var(--light);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback-panel.show {
+            display: block;
+        }
+        
+        .feedback-correct {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--success);
+        }
+        
+        .feedback-incorrect {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .exercise-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--gray-light);
+        }
+        
+        .hint-button {
+            background: var(--gradient-accent);
+            color: var(--dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .hint-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .results-summary {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            display: none;
+        }
+        
+        .results-summary.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .results-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-box {
+            padding: 25px;
+            background: var(--light);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .hint-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hint-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .hint-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+        
+        .close-hint {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .timer-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .achievement-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .match-progress {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: var(--radius);
+            font-weight: 600;
+        }
+
+        .reset-matching {
+            background: var(--gradient-warning);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .reset-matching:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="week-header">
+        <div class="header-logo">
+            <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir" class="logo-main">
+        </div>
+        <div class="header-title">
+            <h1>Ejercicios Prácticos</h1>
+            <div class="subtitle">Semana 1 - Aplicando lo Aprendido</div>
+        </div>
+    </header>
+
+    <!-- Contenedor de Ejercicios -->
+    <div class="exercise-container">
+        
+        <!-- Navegación y Progreso -->
+        <div class="exercise-nav">
+            <div class="exercise-counter">
+                <div style="font-weight: 600; color: var(--dark);">
+                    Ejercicio <span id="current-exercise">1</span> de <span id="total-exercises">6</span>
+                </div>
+                <div class="exercise-progress">
+                    <div class="exercise-progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="timer-display">
+                <i class="fas fa-clock"></i>
+                <span id="exercise-timer">00:00</span>
+            </div>
+        </div>
+
+        <!-- Ejercicio 1: Identificación de Letras -->
+        <div class="exercise-card active" id="exercise-1">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Identificación de Letras</h2>
+                    <p>Selecciona el nombre correcto para cada letra hebrea</p>
+                </div>
+            </div>
+            
+            <div class="comparison-exercise">
+                <div class="comparison-box">
+                    <div class="comparison-letter">א</div>
+                    <div class="comparison-options">
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'א', 'Alef')">Alef</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'א', 'Bet')">Bet</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'א', 'Gimel')">Gimel</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-box">
+                    <div class="comparison-letter">ב</div>
+                    <div class="comparison-options">
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ב', 'Alef')">Alef</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ב', 'Bet')">Bet</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ב', 'Dalet')">Dalet</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-box">
+                    <div class="comparison-letter">ה</div>
+                    <div class="comparison-options">
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ה', 'He')">He</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ה', 'Ḥet')">Ḥet</div>
+                        <div class="comparison-option" onclick="selectLetterAnswer(this, 'ה', 'Taw')">Taw</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feedback-panel" id="feedback-1"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(1)">
+                    <i class="fas fa-lightbulb"></i> Pista
+                </button>
+                <button class="week-button" onclick="checkExercise(1)">
+                    Verificar Respuesta
+                </button>
+            </div>
+        </div>
+
+        <!-- Ejercicio 2: Formas Finales (MEJORADO) -->
+        <div class="exercise-card" id="exercise-2">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Formas Finales (Soffit)</h2>
+                    <p>Arrastra cada letra regular a su forma final correspondiente</p>
+                </div>
+            </div>
+            
+            <div class="matching-exercise">
+                <div class="matching-column" id="regular-column">
+                    <h3 style="text-align: center; color: var(--primary); margin-bottom: 15px;">Formas Regulares</h3>
+                    <div class="match-item" data-letter="כ" data-pair="kaf" draggable="true">כ (Kaf)</div>
+                    <div class="match-item" data-letter="מ" data-pair="mem" draggable="true">מ (Mem)</div>
+                    <div class="match-item" data-letter="נ" data-pair="nun" draggable="true">נ (Nun)</div>
+                    <div class="match-item" data-letter="פ" data-pair="pe" draggable="true">פ (Pe)</div>
+                    <div class="match-item" data-letter="צ" data-pair="tsade" draggable="true">צ (Tsade)</div>
+                </div>
+                
+                <div class="matching-column" id="final-column">
+                    <h3 style="text-align: center; color: var(--primary); margin-bottom: 15px;">Formas Finales</h3>
+                    <div class="match-item" data-letter="ך" data-pair="kaf" draggable="true">ך (Kaf Final)</div>
+                    <div class="match-item" data-letter="ם" data-pair="mem" draggable="true">ם (Mem Final)</div>
+                    <div class="match-item" data-letter="ן" data-pair="nun" draggable="true">ן (Nun Final)</div>
+                    <div class="match-item" data-letter="ף" data-pair="pe" draggable="true">ף (Pe Final)</div>
+                    <div class="match-item" data-letter="ץ" data-pair="tsade" draggable="true">ץ (Tsade Final)</div>
+                </div>
+            </div>
+            
+            <div class="match-progress" id="match-progress">
+                Pares emparejados: <span id="matched-count">0</span>/5
+            </div>
+            
+            <button class="reset-matching" onclick="resetMatchingExercise()">
+                <i class="fas fa-redo"></i> Reiniciar Emparejamientos
+            </button>
+            
+            <div class="feedback-panel" id="feedback-2"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(2)">
+                    <i class="fas fa-lightbulb"></i> Pista
+                </button>
+                <button class="week-button" onclick="checkExercise(2)">
+                    Verificar Emparejamientos
+                </button>
+            </div>
+        </div>
+
+        <!-- Ejercicio 3: Begadkefat -->
+        <div class="exercise-card" id="exercise-3">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Letras Begadkefat</h2>
+                    <p>Completa las palabras con la pronunciación correcta</p>
+                </div>
+            </div>
+            
+            <div class="fill-blanks-exercise">
+                <div class="blank-sentence">
+                    La letra <span class="hebrew-letter">ב</span> sin Daguesh se pronuncia como 
+                    <input type="text" class="blank-input" id="blank-1" maxlength="1" style="width: 50px;" placeholder="?">
+                    (como en <em>v</em>aca)
+                </div>
+                
+                <div class="blank-sentence">
+                    La letra <span class="hebrew-letter">כּ</span> con Daguesh se pronuncia como 
+                    <input type="text" class="blank-input" id="blank-2" maxlength="1" style="width: 50px;" placeholder="?">
+                    (como en <em>k</em>ilo)
+                </div>
+                
+                <div class="blank-sentence">
+                    La letra <span class="hebrew-letter">פ</span> sin Daguesh se pronuncia como 
+                    <input type="text" class="blank-input" id="blank-3" maxlength="1" style="width: 50px;" placeholder="?">
+                    (como en <em>f</em>aro)
+                </div>
+            </div>
+            
+            <div class="feedback-panel" id="feedback-3"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(3)">
+                    <i class="fas fa-lightbulb"></i> Pista
+                </button>
+                <button class="week-button" onclick="checkExercise(3)">
+                    Verificar Respuestas
+                </button>
+            </div>
+        </div>
+
+        <!-- Ejercicio 4: Dirección de Escritura -->
+        <div class="exercise-card" id="exercise-4">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Dirección de Escritura</h2>
+                    <p>Escribe las letras en el orden correcto (de derecha a izquierda)</p>
+                </div>
+            </div>
+            
+            <div class="writing-exercise">
+                <p style="margin-bottom: 20px; color: var(--dark);">
+                    <strong>Instrucción:</strong> Escribe las primeras 5 letras del alfabeto hebreo en el orden correcto, de derecha a izquierda.
+                </p>
+                
+                <textarea class="writing-area" id="writing-answer" placeholder="א ב ג ד ה ..."></textarea>
+                
+                <div class="writing-hint">
+                    <i class="fas fa-info-circle"></i> Recuerda: El hebreo se escribe de derecha a izquierda. La primera letra debe ir al extremo derecho.
+                </div>
+            </div>
+            
+            <div class="feedback-panel" id="feedback-4"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(4)">
+                    <i class="fas fa-lightbulb"></i> Mostrar Respuesta
+                </button>
+                <button class="week-button" onclick="checkExercise(4)">
+                    Verificar Escritura
+                </button>
+            </div>
+        </div>
+
+        <!-- Ejercicio 5: Gutturales -->
+        <div class="exercise-card" id="exercise-5">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Letras Gutturales</h2>
+                    <p>Identifica las letras gutturales entre las opciones</p>
+                </div>
+            </div>
+            
+            <div class="multiple-choice-exercise">
+                <div class="choice-option" onclick="selectGuttural(this, 'א')">
+                    <div class="choice-number">A</div>
+                    <div>
+                        <div style="font-family: 'Times New Roman', serif; font-size: 1.5rem; margin-bottom: 5px;">א (Alef)</div>
+                        <div style="color: var(--gray); font-size: 0.95rem;">Silenciosa, portadora de vocales</div>
+                    </div>
+                </div>
+                
+                <div class="choice-option" onclick="selectGuttural(this, 'ב')">
+                    <div class="choice-number">B</div>
+                    <div>
+                        <div style="font-family: 'Times New Roman', serif; font-size: 1.5rem; margin-bottom: 5px;">ב (Bet)</div>
+                        <div style="color: var(--gray); font-size: 0.95rem;">Letra begadkefat, sonido b/v</div>
+                    </div>
+                </div>
+                
+                <div class="choice-option" onclick="selectGuttural(this, 'ע')">
+                    <div class="choice-number">C</div>
+                    <div>
+                        <div style="font-family: 'Times New Roman', serif; font-size: 1.5rem; margin-bottom: 5px;">ע (Ayin)</div>
+                        <div style="color: var(--gray); font-size: 0.95rem;">Sonido gutural sutil</div>
+                    </div>
+                </div>
+                
+                <div class="choice-option" onclick="selectGuttural(this, 'ח')">
+                    <div class="choice-number">D</div>
+                    <div>
+                        <div style="font-family: 'Times New Roman', serif; font-size: 1.5rem; margin-bottom: 5px;">ח (Ḥet)</div>
+                        <div style="color: var(--gray); font-size: 0.95rem;">Sonido gutural como "Bach"</div>
+                    </div>
+                </div>
+                
+                <div class="choice-option" onclick="selectGuttural(this, 'ה')">
+                    <div class="choice-number">E</div>
+                    <div>
+                        <div style="font-family: 'Times New Roman', serif; font-size: 1.5rem; margin-bottom: 5px;">ה (He)</div>
+                        <div style="color: var(--gray); font-size: 0.95rem;">Sonido de h aspirada</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: var(--light); border-radius: var(--radius);">
+                <p style="color: var(--dark); margin-bottom: 10px;"><strong>Selección múltiple:</strong> Puedes seleccionar más de una opción. Las letras gutturales son aquellas que se pronuncian en la parte posterior de la garganta.</p>
+                <p id="selection-count" style="color: var(--primary); font-weight: 600;">0 letras gutturales seleccionadas</p>
+            </div>
+            
+            <div class="feedback-panel" id="feedback-5"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(5)">
+                    <i class="fas fa-lightbulb"></i> Pista
+                </button>
+                <button class="week-button" onclick="checkExercise(5)">
+                    Verificar Selección
+                </button>
+            </div>
+        </div>
+
+        <!-- Ejercicio 6: Evaluación Final -->
+        <div class="exercise-card" id="exercise-6">
+            <div class="exercise-header">
+                <div class="exercise-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="exercise-title">
+                    <h2>Evaluación Integral</h2>
+                    <p>Preguntas de opción múltiple sobre todos los temas</p>
+                </div>
+            </div>
+            
+            <div class="multiple-choice-exercise">
+                <div class="quiz-question" style="margin-bottom: 25px;">
+                    <p><strong>1. ¿Cuál es la dirección correcta de escritura del hebreo?</strong></p>
+                    <div class="quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q1" value="A" onclick="clearQuizSelection('final-q1')">
+                            De izquierda a derecha
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q1" value="B" onclick="clearQuizSelection('final-q1')">
+                            De derecha a izquierda
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q1" value="C" onclick="clearQuizSelection('final-q1')">
+                            De arriba hacia abajo
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" style="margin-bottom: 25px;">
+                    <p><strong>2. ¿Cuántas letras tienen formas finales (soffit)?</strong></p>
+                    <div class="quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q2" value="A" onclick="clearQuizSelection('final-q2')">
+                            3 letras
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q2" value="B" onclick="clearQuizSelection('final-q2')">
+                            5 letras
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q2" value="C" onclick="clearQuizSelection('final-q2')">
+                            7 letras
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" style="margin-bottom: 25px;">
+                    <p><strong>3. ¿Qué letra NO es una begadkefat?</strong></p>
+                    <div class="quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q3" value="A" onclick="clearQuizSelection('final-q3')">
+                            ב (Bet)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q3" value="B" onclick="clearQuizSelection('final-q3')">
+                            ג (Gimel)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q3" value="C" onclick="clearQuizSelection('final-q3')">
+                            ס (Samek)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" style="margin-bottom: 25px;">
+                    <p><strong>4. ¿Cuál de estas es una letra guttural?</strong></p>
+                    <div class="quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q4" value="A" onclick="clearQuizSelection('final-q4')">
+                            ת (Taw)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q4" value="B" onclick="clearQuizSelection('final-q4')">
+                            ח (Ḥet)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="final-q4" value="C" onclick="clearQuizSelection('final-q4')">
+                            ל (Lamed)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feedback-panel" id="feedback-6"></div>
+            
+            <div class="exercise-actions">
+                <button class="hint-button" onclick="showHint(6)">
+                    <i class="fas fa-lightbulb"></i> Revisar Temas
+                </button>
+                <button class="week-button success" onclick="checkExercise(6)">
+                    Finalizar Evaluación
+                </button>
+            </div>
+        </div>
+
+        <!-- Resultados Finales -->
+        <div class="results-summary" id="results-summary">
+            <div class="exercise-icon" style="margin: 0 auto 20px auto;">
+                <i class="fas fa-trophy"></i>
+            </div>
+            
+            <h2 style="color: var(--dark); margin-bottom: 10px;">¡Ejercicios Completados!</h2>
+            <p style="color: var(--gray); margin-bottom: 30px;">Has terminado todos los ejercicios de la Semana 1</p>
+            
+            <div class="results-score">
+                <span id="final-score">0</span>/6
+            </div>
+            
+            <div id="achievement-message"></div>
+            
+            <div class="results-stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="correct-answers">0</div>
+                    <div>Respuestas Correctas</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number" id="exercise-time">00:00</div>
+                    <div>Tiempo Total</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number" id="accuracy-rate">0%</div>
+                    <div>Precisión</div>
+                </div>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <h3 style="color: var(--dark); margin-bottom: 20px;">Recomendaciones de Estudio</h3>
+                <div id="study-recommendations"></div>
+            </div>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                <button class="week-button" onclick="retakeExercises()">
+                    <i class="fas fa-redo"></i> Repetir Ejercicios
+                </button>
+                <button class="week-button success" onclick="continueToNextWeek()">
+                    Continuar a Semana 2
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal de Pistas -->
+        <div class="hint-modal" id="hint-modal">
+            <div class="hint-content">
+                <button class="close-hint" onclick="closeHint()">&times;</button>
+                <h3 id="hint-title">Pista del Ejercicio</h3>
+                <div id="hint-content">
+                    <!-- El contenido de la pista se cargará aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="week-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir">
+            </div>
+            <div class="footer-info">
+                <p><strong>Ministerio "Vivos para Servir"</strong></p>
+                <p>Curso de Hebreo Bíblico - Semana 1: Ejercicios Prácticos</p>
+                <p>Practicando para servir con excelencia</p>
+                <p class="copyright">© 2026 - Todos los derechos reservados</p>
+                <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                    <i class="fas fa-heart" style="color: #FFB74D;"></i> 
+                    La práctica hace al maestro, el servicio hace al discípulo
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        let currentExercise = 1;
+        const totalExercises = 6;
+        let exerciseScores = [false, false, false, false, false, false];
+        let startTime = new Date();
+        let timerInterval;
+        let selectedGutturals = [];
+        const gutturalAnswers = ['א', 'ע', 'ח', 'ה']; // Letras gutturales correctas
+        
+        // Variables para el ejercicio de emparejamiento
+        let matchedPairs = {};
+        let draggedItem = null;
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            startTimer();
+            setupDragAndDrop();
+            loadProgress();
+        });
+
+        // Configurar arrastrar y soltar MEJORADO
+        function setupDragAndDrop() {
+            const matchItems = document.querySelectorAll('.match-item[draggable="true"]');
+            
+            matchItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('dragleave', handleDragLeave);
+                item.addEventListener('drop', handleDrop);
+            });
+        }
+
+        // Funciones de arrastrar y soltar MEJORADAS
+        function handleDragStart(e) {
+            if (this.classList.contains('matched')) {
+                e.preventDefault();
+                return;
+            }
+            
+            this.classList.add('dragging');
+            draggedItem = this;
+            
+            // Guardar datos del elemento arrastrado
+            e.dataTransfer.setData('text/plain', JSON.stringify({
+                letter: this.dataset.letter,
+                pair: this.dataset.pair,
+                elementId: this.id || 'unknown'
+            }));
+            
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            
+            // Solo permitir soltar en elementos que no están emparejados y no son el mismo tipo de columna
+            if (!this.classList.contains('matched') && this !== draggedItem) {
+                this.classList.add('drop-target');
+                e.dataTransfer.dropEffect = 'move';
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drop-target');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drop-target');
+            
+            if (!draggedItem) return;
+            
+            // Obtener datos del elemento arrastrado
+            const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
+            
+            // Prevenir soltar en el mismo elemento
+            if (this === draggedItem) return;
+            
+            // Prevenir si alguno ya está emparejado
+            if (this.classList.contains('matched') || draggedItem.classList.contains('matched')) {
+                showTemporaryFeedback('Estos elementos ya están emparejados', 'warning');
+                return;
+            }
+            
+            // Verificar si es un emparejamiento correcto
+            const isMatch = checkMatch(dragData.pair, this.dataset.pair);
+            
+            if (isMatch) {
+                // Marcar ambos como emparejados
+                this.classList.add('matched');
+                draggedItem.classList.add('matched');
+                
+                // Guardar el par
+                matchedPairs[dragData.pair] = true;
+                
+                // Remover eventos de arrastre
+                this.draggable = false;
+                draggedItem.draggable = false;
+                
+                // Remover clase dragging
+                draggedItem.classList.remove('dragging');
+                
+                // Mostrar feedback positivo
+                showMatchFeedback(true, `¡Correcto! ${dragData.letter} se empareja con ${this.dataset.letter}`);
+                
+                // Actualizar contador
+                updateMatchProgress();
+            } else {
+                // Mostrar feedback de error
+                showMatchFeedback(false, 'Emparejamiento incorrecto. Intenta nuevamente.');
+                
+                // Efecto visual de error
+                this.classList.add('incorrect-match');
+                setTimeout(() => {
+                    this.classList.remove('incorrect-match');
+                }, 300);
+            }
+            
+            draggedItem = null;
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            document.querySelectorAll('.match-item').forEach(item => {
+                item.classList.remove('drop-target');
+            });
+            draggedItem = null;
+        }
+
+        // Verificar emparejamiento de formas finales
+        function checkMatch(regularPair, finalPair) {
+            return regularPair === finalPair;
+        }
+
+        // Actualizar progreso de emparejamientos
+        function updateMatchProgress() {
+            const matchedCount = Object.keys(matchedPairs).length;
+            document.getElementById('matched-count').textContent = matchedCount;
+        }
+
+        // Reiniciar ejercicio de emparejamiento
+        function resetMatchingExercise() {
+            if (confirm('¿Estás seguro de que quieres reiniciar todos los emparejamientos?')) {
+                // Resetear variables
+                matchedPairs = {};
+                
+                // Resetear todos los elementos
+                document.querySelectorAll('.match-item').forEach(item => {
+                    item.classList.remove('matched', 'incorrect-match');
+                    item.draggable = true;
+                });
+                
+                // Actualizar contador
+                updateMatchProgress();
+                
+                // Ocultar feedback
+                document.getElementById('feedback-2').classList.remove('show');
+            }
+        }
+
+        // Mostrar feedback temporal
+        function showTemporaryFeedback(message, type) {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background: ${type === 'success' ? 'var(--success)' : type === 'warning' ? 'var(--warning)' : 'var(--danger)'};
+                color: white;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                animation: slideInRight 0.3s ease;
+            `;
+            feedback.textContent = message;
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                feedback.remove();
+            }, 2000);
+        }
+
+        // Mostrar feedback de emparejamiento
+        function showMatchFeedback(isCorrect, message) {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background: ${isCorrect ? 'var(--success)' : 'var(--danger)'};
+                color: white;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                animation: slideInRight 0.3s ease;
+            `;
+            feedback.innerHTML = `<i class="fas fa-${isCorrect ? 'check-circle' : 'times-circle'}"></i> ${message}`;
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                feedback.remove();
+            }, 2000);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        // Navegación entre ejercicios
+        function nextExercise() {
+            if (currentExercise < totalExercises) {
+                document.getElementById(`exercise-${currentExercise}`).classList.remove('active');
+                currentExercise++;
+                document.getElementById(`exercise-${currentExercise}`).classList.add('active');
+                updateProgress();
+                document.getElementById('current-exercise').textContent = currentExercise;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevExercise() {
+            if (currentExercise > 1) {
+                document.getElementById(`exercise-${currentExercise}`).classList.remove('active');
+                currentExercise--;
+                document.getElementById(`exercise-${currentExercise}`).classList.add('active');
+                updateProgress();
+                document.getElementById('current-exercise').textContent = currentExercise;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Actualizar barra de progreso
+        function updateProgress() {
+            const progress = ((currentExercise - 1) / totalExercises) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        // Temporizador
+        function startTimer() {
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = Math.floor((now - startTime) / 1000);
+            const minutes = Math.floor(diff / 60).toString().padStart(2, '0');
+            const seconds = (diff % 60).toString().padStart(2, '0');
+            document.getElementById('exercise-timer').textContent = `${minutes}:${seconds}`;
+        }
+
+        function getElapsedTime() {
+            const now = new Date();
+            const diff = Math.floor((now - startTime) / 1000);
+            const minutes = Math.floor(diff / 60).toString().padStart(2, '0');
+            const seconds = (diff % 60).toString().padStart(2, '0');
+            return `${minutes}:${seconds}`;
+        }
+
+        // Sistema de verificación por ejercicio
+        function checkExercise(exerciseNum) {
+            let isCorrect = false;
+            let feedback = '';
+            
+            switch(exerciseNum) {
+                case 1:
+                    isCorrect = checkLetterExercise();
+                    feedback = isCorrect 
+                        ? '¡Excelente! Has identificado correctamente las letras hebreas.'
+                        : 'Algunas respuestas son incorrectas. Revisa los nombres de las letras.';
+                    break;
+                    
+                case 2:
+                    const matchedCount = Object.keys(matchedPairs).length;
+                    isCorrect = matchedCount === 5;
+                    feedback = isCorrect
+                        ? '¡Perfecto! Todas las formas finales están correctamente emparejadas.'
+                        : `Tienes ${matchedCount} de 5 pares correctos. Sigue practicando.`;
+                    break;
+                    
+                case 3:
+                    isCorrect = checkBegadkefatExercise();
+                    feedback = isCorrect
+                        ? '¡Correcto! Dominas las pronunciaciones de las letras begadkefat.'
+                        : 'Revisa las pronunciaciones. Recuerda: con Daguesh = fuerte, sin Daguesh = suave.';
+                    break;
+                    
+                case 4:
+                    isCorrect = checkWritingExercise();
+                    feedback = isCorrect
+                        ? '¡Excelente! Escribiste correctamente de derecha a izquierda.'
+                        : 'Recuerda: El hebreo se escribe de derecha a izquierda. Las primeras 5 letras son: א ב ג ד ה';
+                    break;
+                    
+                case 5:
+                    isCorrect = checkGutturalExercise();
+                    feedback = isCorrect
+                        ? '¡Perfecto! Identificaste todas las letras gutturales.'
+                        : `Seleccionaste ${selectedGutturals.length} de 4 letras gutturales. Las gutturales son: א, ע, ה, ח`;
+                    break;
+                    
+                case 6:
+                    isCorrect = checkFinalExercise();
+                    const score = calculateFinalScore();
+                    feedback = `Puntuación: ${score}/4. ${score === 4 ? '¡Excelente dominio de todos los temas!' : 'Revisa los temas donde tuviste dificultades.'}`;
+                    break;
+            }
+            
+            // Guardar resultado
+            exerciseScores[exerciseNum - 1] = isCorrect;
+            
+            // Mostrar feedback
+            showFeedback(exerciseNum, isCorrect, feedback);
+            
+            // Si es el último ejercicio, mostrar resultados finales
+            if (exerciseNum === totalExercises) {
+                setTimeout(showFinalResults, 1000);
+            }
+        }
+
+        // Verificaciones específicas por ejercicio
+        function checkLetterExercise() {
+            // Verificar que cada letra tenga una opción seleccionada
+            const boxes = document.querySelectorAll('.comparison-box');
+            let correctCount = 0;
+            
+            boxes.forEach(box => {
+                const selected = box.querySelector('.comparison-option.selected');
+                if (selected) {
+                    const letter = box.querySelector('.comparison-letter').textContent;
+                    const selectedText = selected.textContent;
+                    
+                    // Verificar si la selección es correcta
+                    if ((letter === 'א' && selectedText === 'Alef') ||
+                        (letter === 'ב' && selectedText === 'Bet') ||
+                        (letter === 'ה' && selectedText === 'He')) {
+                        correctCount++;
+                    }
+                }
+            });
+            
+            return correctCount === 3;
+        }
+
+        function checkBegadkefatExercise() {
+            const blank1 = document.getElementById('blank-1').value.toLowerCase().trim();
+            const blank2 = document.getElementById('blank-2').value.toLowerCase().trim();
+            const blank3 = document.getElementById('blank-3').value.toLowerCase().trim();
+            
+            const correct1 = blank1 === 'v' || blank1 === 'v';
+            const correct2 = blank2 === 'k' || blank2 === 'k';
+            const correct3 = blank3 === 'f' || blank3 === 'f';
+            
+            // Aplicar clases de feedback
+            document.getElementById('blank-1').className = `blank-input ${correct1 ? 'correct' : 'incorrect'}`;
+            document.getElementById('blank-2').className = `blank-input ${correct2 ? 'correct' : 'incorrect'}`;
+            document.getElementById('blank-3').className = `blank-input ${correct3 ? 'correct' : 'incorrect'}`;
+            
+            return correct1 && correct2 && correct3;
+        }
+
+        function checkWritingExercise() {
+            const answer = document.getElementById('writing-answer').value.trim().replace(/\s+/g, '');
+            const correctAnswer = 'אבגדה'; // א ב ג ד ה en orden
+            return answer === correctAnswer;
+        }
+
+        function checkGutturalExercise() {
+            // Ordenar y comparar arrays
+            const sortedSelected = [...selectedGutturals].sort();
+            const sortedCorrect = [...gutturalAnswers].sort();
+            
+            // Convertir a strings para comparación fácil
+            return JSON.stringify(sortedSelected) === JSON.stringify(sortedCorrect);
+        }
+
+        function checkFinalExercise() {
+            // Verificar respuestas del quiz final
+            const q1 = document.querySelector('input[name="final-q1"]:checked')?.value === 'B';
+            const q2 = document.querySelector('input[name="final-q2"]:checked')?.value === 'B';
+            const q3 = document.querySelector('input[name="final-q3"]:checked')?.value === 'C';
+            const q4 = document.querySelector('input[name="final-q4"]:checked')?.value === 'B';
+            
+            return q1 && q2 && q3 && q4;
+        }
+
+        function calculateFinalScore() {
+            let score = 0;
+            if (document.querySelector('input[name="final-q1"]:checked')?.value === 'B') score++;
+            if (document.querySelector('input[name="final-q2"]:checked')?.value === 'B') score++;
+            if (document.querySelector('input[name="final-q3"]:checked')?.value === 'C') score++;
+            if (document.querySelector('input[name="final-q4"]:checked')?.value === 'B') score++;
+            return score;
+        }
+
+        // Limpiar selección de radio buttons
+        function clearQuizSelection(name) {
+            const radios = document.getElementsByName(name);
+            radios.forEach(radio => {
+                if (radio !== event.target) {
+                    radio.checked = false;
+                }
+            });
+        }
+
+        // Funciones de selección
+        function selectLetterAnswer(element, letter, selectedName) {
+            // Remover selección previa para esta letra
+            const box = element.closest('.comparison-box');
+            box.querySelectorAll('.comparison-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Marcar como seleccionada
+            element.classList.add('selected');
+        }
+
+        function selectGuttural(element, letter) {
+            const index = selectedGutturals.indexOf(letter);
+            
+            if (index === -1) {
+                // Añadir a la selección
+                selectedGutturals.push(letter);
+                element.classList.add('selected');
+            } else {
+                // Remover de la selección
+                selectedGutturals.splice(index, 1);
+                element.classList.remove('selected');
+            }
+            
+            // Actualizar contador
+            document.getElementById('selection-count').textContent = 
+                `${selectedGutturals.length} letras gutturales seleccionadas`;
+        }
+
+        // Mostrar feedback
+        function showFeedback(exerciseNum, isCorrect, message) {
+            const feedbackPanel = document.getElementById(`feedback-${exerciseNum}`);
+            feedbackPanel.className = `feedback-panel ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'} show`;
+            feedbackPanel.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 40px; height: 40px; background: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-${isCorrect ? 'check' : 'times'}"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; margin: 0;">
+                            ${isCorrect ? '¡Correcto!' : 'Necesitas practicar más'}
+                        </h4>
+                    </div>
+                </div>
+                <p style="margin: 0; color: var(--dark);">${message}</p>
+                ${exerciseNum < totalExercises ? `
+                    <div style="margin-top: 20px;">
+                        <button class="week-button ${isCorrect ? 'success' : 'secondary'}" onclick="nextExercise()" style="width: 100%;">
+                            <i class="fas fa-arrow-right"></i>
+                            ${isCorrect ? 'Siguiente Ejercicio' : 'Continuar de Todos Modos'}
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+            
+            // Desplazar al feedback
+            feedbackPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Mostrar resultados finales
+        function showFinalResults() {
+            // Calcular puntuación final
+            const correctCount = exerciseScores.filter(score => score).length;
+            const accuracy = Math.round((correctCount / totalExercises) * 100);
+            const timeElapsed = getElapsedTime();
+            
+            // Actualizar UI
+            document.getElementById('final-score').textContent = correctCount;
+            document.getElementById('correct-answers').textContent = correctCount;
+            document.getElementById('exercise-time').textContent = timeElapsed;
+            document.getElementById('accuracy-rate').textContent = `${accuracy}%`;
+            
+            // Mostrar mensaje de logro
+            const achievementMessage = document.getElementById('achievement-message');
+            let message = '';
+            let badge = '';
+            
+            if (accuracy === 100) {
+                message = '¡Dominio Perfecto! Has demostrado excelente comprensión de todos los temas.';
+                badge = '<div class="achievement-badge"><i class="fas fa-crown"></i> Maestro del Alfabeto</div>';
+            } else if (accuracy >= 80) {
+                message = '¡Muy bien! Tienes un buen dominio de los conceptos fundamentales.';
+                badge = '<div class="achievement-badge"><i class="fas fa-star"></i> Buen Progreso</div>';
+            } else if (accuracy >= 60) {
+                message = 'Progreso satisfactorio. Sigue practicando para mejorar.';
+                badge = '<div class="achievement-badge"><i class="fas fa-check-circle"></i> En Camino</div>';
+            } else {
+                message = 'Necesitas repasar los conceptos básicos antes de continuar.';
+                badge = '<div class="achievement-badge"><i class="fas fa-redo"></i> Necesita Práctica</div>';
+            }
+            
+            achievementMessage.innerHTML = badge + '<p style="margin-top: 15px;">' + message + '</p>';
+            
+            // Generar recomendaciones de estudio
+            const recommendations = document.getElementById('study-recommendations');
+            let recs = '<ul style="text-align: left; max-width: 600px; margin: 0 auto;">';
+            
+            if (!exerciseScores[0]) recs += '<li>Repasa la identificación de letras del alfabeto</li>';
+            if (!exerciseScores[1]) recs += '<li>Practica las formas finales (soffit)</li>';
+            if (!exerciseScores[2]) recs += '<li>Estudia las letras begadkefat y sus pronunciaciones</li>';
+            if (!exerciseScores[3]) recs += '<li>Repasa la dirección de escritura de derecha a izquierda</li>';
+            if (!exerciseScores[4]) recs += '<li>Memoriza las letras gutturales</li>';
+            if (!exerciseScores[5]) recs += '<li>Repasa todos los conceptos para la evaluación integral</li>';
+            
+            if (recs === '<ul style="text-align: left; max-width: 600px; margin: 0 auto;">') {
+                recs += '<li>¡Excelente trabajo! Estás listo para continuar.</li>';
+            }
+            
+            recs += '</ul>';
+            recommendations.innerHTML = recs;
+            
+            // Mostrar resultados y ocultar último ejercicio
+            document.getElementById(`exercise-${totalExercises}`).style.display = 'none';
+            document.getElementById('results-summary').classList.add('show');
+            
+            // Guardar progreso
+            saveProgress(correctCount, accuracy, timeElapsed);
+        }
+
+        // Sistema de pistas
+        const hints = {
+            1: 'Las primeras letras del alfabeto son: א (Alef), ב (Bet), ג (Gimel)... La letra ה se pronuncia como "h" aspirada.',
+            2: 'Las formas finales son: כ→ך, מ→ם, נ→ן, פ→ף, צ→ץ. Solo cambian al final de palabra.',
+            3: 'Begadkefat: ב (Bet) = b/v, כ (Kaf) = k/ch, פ (Pe) = p/f. Con punto (Daguesh) = sonido fuerte.',
+            4: 'El alfabeto hebreo comienza: א ב ג ד ה ו ז... Escríbelo de derecha a izquierda.',
+            5: 'Las gutturales se pronuncian en la garganta: א (silente), ע (gutural), ה (h), ח (ch fuerte).',
+            6: 'Repasa: 1) Dirección escritura, 2) Formas finales (5 letras), 3) Begadkefat (6 letras), 4) Gutturales (4 letras).'
+        };
+
+        function showHint(exerciseNum) {
+            document.getElementById('hint-title').textContent = `Pista para Ejercicio ${exerciseNum}`;
+            document.getElementById('hint-content').innerHTML = `
+                <p>${hints[exerciseNum]}</p>
+                ${exerciseNum === 4 ? '<p style="font-family: \'Times New Roman\', serif; font-size: 1.5rem; text-align: right; direction: rtl; margin-top: 15px;">א ב ג ד ה</p>' : ''}
+            `;
+            document.getElementById('hint-modal').classList.add('show');
+        }
+
+        function closeHint() {
+            document.getElementById('hint-modal').classList.remove('show');
+        }
+
+        // Guardar y cargar progreso
+        function saveProgress(score, accuracy, time) {
+            const progress = {
+                score: score,
+                accuracy: accuracy,
+                time: time,
+                date: new Date().toISOString(),
+                exercises: exerciseScores
+            };
+            localStorage.setItem('hebrew-exercises-progress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('hebrew-exercises-progress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                const date = new Date(progress.date).toLocaleDateString();
+                
+                // Mostrar notificación
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    background: linear-gradient(135deg, rgba(74, 111, 165, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%);
+                    border-radius: var(--radius);
+                    padding: 15px;
+                    margin-bottom: 20px;
+                    border-left: 4px solid var(--primary);
+                    font-size: 0.95rem;
+                `;
+                notification.innerHTML = `
+                    <p><strong><i class="fas fa-history"></i> Último intento:</strong> ${date}</p>
+                    <p>Puntuación: <strong>${progress.score}/6 (${progress.accuracy}%)</strong> en ${progress.time}</p>
+                    <p style="margin-top: 10px;"><a href="#" onclick="viewPreviousAttempt()" style="color: var(--primary); text-decoration: none; font-weight: 500;">Ver detalles del intento anterior</a></p>
+                `;
+                
+                document.querySelector('.exercise-container').insertBefore(notification, document.querySelector('.exercise-nav'));
+            }
+        }
+
+        function viewPreviousAttempt() {
+            const saved = JSON.parse(localStorage.getItem('hebrew-exercises-progress'));
+            if (saved) {
+                alert(`Intento anterior (${new Date(saved.date).toLocaleDateString()}):\n\nPuntuación: ${saved.score}/6 (${saved.accuracy}%)\nTiempo: ${saved.time}\n\n¡Intenta superar tu marca!`);
+            }
+        }
+
+        // Funciones de navegación final
+        function retakeExercises() {
+            if (confirm('¿Estás seguro de que quieres repetir todos los ejercicios? Se borrará tu progreso actual.')) {
+                // Resetear todo
+                exerciseScores = [false, false, false, false, false, false];
+                currentExercise = 1;
+                selectedGutturals = [];
+                matchedPairs = {};
+                
+                // Resetear UI
+                document.querySelectorAll('.exercise-card').forEach((card, index) => {
+                    card.style.display = 'block';
+                    if (index === 0) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                
+                // Resetear elementos específicos
+                document.querySelectorAll('.match-item').forEach(item => {
+                    item.classList.remove('matched', 'incorrect-match');
+                    item.draggable = true;
+                });
+                
+                document.querySelectorAll('.blank-input').forEach(input => {
+                    input.value = '';
+                    input.className = 'blank-input';
+                });
+                
+                document.querySelectorAll('.comparison-option, .choice-option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+                
+                document.getElementById('writing-answer').value = '';
+                document.getElementById('selection-count').textContent = '0 letras gutturales seleccionadas';
+                document.getElementById('matched-count').textContent = '0';
+                
+                // Ocultar resultados
+                document.getElementById('results-summary').classList.remove('show');
+                document.getElementById(`exercise-${totalExercises}`).style.display = 'block';
+                
+                // Actualizar contadores
+                document.getElementById('current-exercise').textContent = '1';
+                updateProgress();
+                
+                // Reiniciar timer
+                clearInterval(timerInterval);
+                startTimer();
+                
+                // Desplazar al inicio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function continueToNextWeek() {
+            alert('¡Felicidades por completar la Semana 1! Próximamente: Semana 2 - Vocales y Sílabas.');
+            // En una implementación real, redirigiría a la siguiente semana
+        }
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeHint();
+            }
+        });
+
+        // Prevenir comportamiento por defecto del navegador en drag & drop
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('drop', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

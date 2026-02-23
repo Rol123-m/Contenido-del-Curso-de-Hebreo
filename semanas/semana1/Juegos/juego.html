@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Práctica - Hebreo Bíblico</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+  <style>
+    /* Variables CSS consistentes */
+    :root {
+      --primary: #4A6FA5;
+      --primary-dark: #2A4A7A;
+      --secondary: #8B5FBF;
+      --secondary-dark: #6A3FA0;
+      --success: #2ECC71;
+      --danger: #E74C3C;
+      --warning: #F1C40F;
+      --light: #F8F9FA;
+      --dark: #2C3E50;
+      --gray-light: #ECF0F1;
+      
+      --gradient-primary: linear-gradient(135deg, #4A6FA5 0%, #8B5FBF 100%);
+      --gradient-dark: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+      --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+      
+      --shadow-sm: 0 4px 6px rgba(0,0,0,0.07);
+      --shadow-md: 0 8px 15px rgba(0,0,0,0.1);
+      --shadow-lg: 0 15px 30px rgba(0,0,0,0.15);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --transition: all 0.3s ease;
+    }
+
+    /* Reset y estilos base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+      color: var(--dark);
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Header */
+    .game-header {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 25px 30px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-header h1 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.9) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .game-header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    /* Selector de modo de juego */
+    .game-mode-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mode-btn.active {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mode-btn:hover:not(.active) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Contenedor del juego */
+    .game-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+    }
+
+    /* Estadísticas */
+    .game-stats {
+      display: flex;
+      justify-content: space-around;
+      background: var(--gray-light);
+      padding: 20px;
+      border-radius: var(--radius);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .stat-item {
+      flex: 1;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--dark);
+      opacity: 0.8;
+    }
+
+    /* Flash Cards - Alfabeto */
+    .flashcard {
+      perspective: 1000px;
+      width: 300px;
+      height: 400px;
+      margin: 0 auto 30px;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .flashcard-front {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .flashcard-back {
+      background: white;
+      color: var(--dark);
+      transform: rotateY(180deg);
+      border: 3px solid var(--primary);
+    }
+
+    .hebrew-letter {
+      font-family: 'Times New Roman', serif;
+      font-size: 8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .letter-name {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .letter-info {
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    /* Controles del juego */
+    .game-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .control-btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-btn.primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .control-btn.secondary {
+      background: var(--gray-light);
+      color: var(--dark);
+    }
+
+    .control-btn.success {
+      background: var(--gradient-success);
+      color: white;
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Juego de Vocales */
+    .vowel-game {
+      text-align: center;
+    }
+
+    .vowel-display {
+      font-family: 'Times New Roman', serif;
+      font-size: 6rem;
+      margin: 40px 0;
+      min-height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .vowel-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .vowel-btn {
+      padding: 20px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--radius);
+      background: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .vowel-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .vowel-btn.correct {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .vowel-btn.incorrect {
+      background: var(--danger);
+      color: white;
+      border-color: var(--danger);
+    }
+
+    /* Juego de Lectura */
+    .reading-game {
+      text-align: center;
+    }
+
+    .word-display {
+      font-family: 'Times New Roman', serif;
+      font-size: 4rem;
+      direction: rtl;
+      margin: 40px 0;
+      min-height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: var(--gray-light);
+      border-radius: var(--radius);
+    }
+
+    .translation-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 30px 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .translation-btn {
+      padding: 20px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--radius);
+      background: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .translation-btn:hover {
+      border-color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    /* Feedback */
+    .feedback {
+      padding: 20px;
+      border-radius: var(--radius);
+      margin: 20px 0;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feedback.correct {
+      background: rgba(46, 204, 113, 0.1);
+      color: #27AE60;
+      border-left: 4px solid var(--success);
+    }
+
+    .feedback.incorrect {
+      background: rgba(231, 76, 60, 0.1);
+      color: #C0392B;
+      border-left: 4px solid var(--danger);
+    }
+
+    /* Footer */
+    .game-footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--dark);
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .game-header h1 {
+        font-size: 2rem;
+      }
+      
+      .game-mode-selector {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .mode-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .flashcard {
+        width: 250px;
+        height: 350px;
+      }
+      
+      .hebrew-letter {
+        font-size: 6rem;
+      }
+      
+      .vowel-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .word-display {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .game-container {
+        padding: 20px;
+      }
+      
+      .game-stats {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .vowel-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .hebrew-letter {
+        font-size: 4rem;
+      }
+      
+      .word-display {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="game-header">
+    <h1><i class="fas fa-star-of-david"></i> Juego de Práctica - Hebreo Bíblico</h1>
+    <p>Practica el alfabeto, vocales y lectura de palabras hebreas</p>
+  </header>
+
+  <div class="game-mode-selector">
+    <button class="mode-btn active" data-mode="alphabet">
+      <i class="fas fa-font"></i> Alfabeto Hebreo
+    </button>
+    <button class="mode-btn" data-mode="vowels">
+      <i class="fas fa-volume-up"></i> Vocales y Pronunciación
+    </button>
+    <button class="mode-btn" data-mode="reading">
+      <i class="fas fa-book-reader"></i> Lectura de Palabras
+    </button>
+  </div>
+
+  <div class="game-container">
+    <div class="game-stats">
+      <div class="stat-item">
+        <div class="stat-value" id="score">0</div>
+        <div class="stat-label">Puntuación</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="correct">0</div>
+        <div class="stat-label">Correctas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="attempts">0</div>
+        <div class="stat-label">Intentos</div>
+      </div>
+    </div>
+
+    <!-- Modo Alfabeto -->
+    <div id="alphabet-game" class="game-mode active">
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="hebrew-letter" id="current-letter">א</div>
+            <div class="letter-name" id="letter-name">Alef</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="letter-info">
+              <h3 id="back-letter-name">Alef</h3>
+              <p><strong>Sonido:</strong> <span id="letter-sound">Silenciosa / vocal portadora</span></p>
+              <p><strong>Valor numérico:</strong> <span id="letter-value">1</span></p>
+              <p><strong>Ejemplo:</strong> <span id="letter-example">אֱלֹהִים (Elohim)</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="game-controls">
+        <button class="control-btn secondary" onclick="prevLetter()">
+          <i class="fas fa-arrow-left"></i> Anterior
+        </button>
+        <button class="control-btn primary" onclick="flipCard()">
+          <i class="fas fa-sync-alt"></i> Voltear Tarjeta
+        </button>
+        <button class="control-btn secondary" onclick="nextLetter()">
+          Siguiente <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modo Vocales -->
+    <div id="vowels-game" class="game-mode" style="display: none;">
+      <div class="vowel-game">
+        <h2>¿Cómo se pronuncia esta vocal?</h2>
+        <div class="vowel-display" id="vowel-display"></div>
+        
+        <div class="feedback" id="vowel-feedback" style="display: none;"></div>
+        
+        <div class="vowel-options" id="vowel-options"></div>
+        
+        <div class="game-controls">
+          <button class="control-btn success" onclick="nextVowel()">
+            <i class="fas fa-forward"></i> Siguiente Vocal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modo Lectura -->
+    <div id="reading-game" class="game-mode" style="display: none;">
+      <div class="reading-game">
+        <h2>¿Qué significa esta palabra/frase en hebreo?</h2>
+        <div class="word-display" id="word-display"></div>
+        
+        <div class="feedback" id="reading-feedback" style="display: none;"></div>
+        
+        <div class="translation-options" id="translation-options"></div>
+        
+        <div class="game-controls">
+          <button class="control-btn success" onclick="nextWord()">
+            <i class="fas fa-forward"></i> Siguiente Palabra
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-footer">
+    <p>Ministerio "Vivos para Servir" - Curso de Hebreo Bíblico © 2026</p>
+  </div>
+
+  <script>
+    // ===================== DATOS DEL JUEGO =====================
+    
+    // Alfabeto Hebreo completo
+    const hebrewAlphabet = [
+      { letter: "א", name: "Alef", sound: "Silenciosa / vocal portadora", value: "1", example: "אֱלֹהִים (Elohim)" },
+      { letter: "ב", name: "Bet / Vet", sound: "b / v", value: "2", example: "בֵּן (ben - hijo)" },
+      { letter: "ג", name: "Gímel", sound: "g", value: "3", example: "גָּדוֹל (gadol - grande)" },
+      { letter: "ד", name: "Dálet", sound: "d", value: "4", example: "דֶּלֶת (delet - puerta)" },
+      { letter: "ה", name: "He", sound: "h", value: "5", example: "הַר (har - montaña)" },
+      { letter: "ו", name: "Vav", sound: "v", value: "6", example: "וְ (ve - y)" },
+      { letter: "ז", name: "Zayin", sound: "z", value: "7", example: "זֶהַב (zahav - oro)" },
+      { letter: "ח", name: "Jet", sound: "j (aspirada)", value: "8", example: "חַיִּים (jaim - vida)" },
+      { letter: "ט", name: "Tet", sound: "t", value: "9", example: "טוֹב (tov - bueno)" },
+      { letter: "י", name: "Yod", sound: "y", value: "10", example: "יָד (yad - mano)" },
+      { letter: "כ", name: "Kaf / Jaf", sound: "k / j", value: "20", example: "כֹּהֵן (kohen - sacerdote)" },
+      { letter: "ל", name: "Lámed", sound: "l", value: "30", example: "לֵב (lev - corazón)" },
+      { letter: "מ", name: "Mem", sound: "m", value: "40", example: "מַיִם (mayim - agua)" },
+      { letter: "נ", name: "Nun", sound: "n", value: "50", example: "נֶפֶשׁ (nefesh - alma)" },
+      { letter: "ס", name: "Sámej", sound: "s", value: "60", example: "סֵפֶר (sefer - libro)" },
+      { letter: "ע", name: "Ayin", sound: "Silenciosa / gutural", value: "70", example: "עִיר (ir - ciudad)" },
+      { letter: "פ", name: "Pe / Fe", sound: "p / f", value: "80", example: "פֶּה (pe - boca)" },
+      { letter: "צ", name: "Tsadi", sound: "ts", value: "90", example: "צֶדֶק (tzedek - justicia)" },
+      { letter: "ק", name: "Qof", sound: "k", value: "100", example: "קוֹל (kol - voz)" },
+      { letter: "ר", name: "Resh", sound: "r", value: "200", example: "רֹאשׁ (rosh - cabeza)" },
+      { letter: "ש", name: "Shin / Sin", sound: "sh / s", value: "300", example: "שָׁלוֹם (shalom - paz)" },
+      { letter: "ת", name: "Tav", sound: "t", value: "400", example: "תּוֹרָה (torah - ley)" }
+    ];
+
+    // Vocales Hebreas - USAR ESTE NOMBRE DE VARIABLE
+    const hebrewVowels = [
+      { symbol: "ָ", name: "Qamats", pronunciation: "a (casa)", example: "דָּוִד (David)" },
+      { symbol: "ַ", name: "Pataj", pronunciation: "a (corta)", example: "יַעֲקֹב (Yaakov)" },
+      { symbol: "ֵ", name: "Tsere", pronunciation: "e (mesa)", example: "אֵל (El)" },
+      { symbol: "ֶ", name: "Segol", pronunciation: "e (corta)", example: "שֶׁמֶשׁ (shemesh)" },
+      { symbol: "ִ", name: "Jiriq", pronunciation: "i (mi)", example: "יִשְׂרָאֵל (Israel)" },
+      { symbol: "ֹ", name: "Jolam", pronunciation: "o (oso)", example: "שֹׁפָר (shofar)" },
+      { symbol: "וֹ", name: "Jolam male", pronunciation: "o (largo)", example: "תּוֹרָה (Torah)" },
+      { symbol: "ֻ", name: "Qubuts", pronunciation: "u (luna)", example: "סֻכָּה (sukkah)" },
+      { symbol: "וּ", name: "Shuruk", pronunciation: "u (largo)", example: "יוּד (yud)" },
+      { symbol: "ְ", name: "Shva", pronunciation: "e muda / pausa", example: "מַלְכֵּי (malkei)" }
+    ];
+
+    // Palabras y frases en Hebreo
+    const hebrewWords = [
+      { hebrew: "שָׁלוֹם", transliteration: "shalom", translation: "Paz", options: ["Paz", "Amor", "Dios", "Luz"] },
+      { hebrew: "אֱלֹהִים", transliteration: "Elohim", translation: "Dios", options: ["Dios", "Rey", "Espíritu", "Cielo"] },
+      { hebrew: "אָדָם", transliteration: "adam", translation: "Hombre/Humanidad", options: ["Hombre/Humanidad", "Tierra", "Animal", "Ángel"] },
+      { hebrew: "אִשָּׁה", transliteration: "ishah", translation: "Mujer", options: ["Mujer", "Madre", "Esposa", "Hija"] },
+      { hebrew: "מַיִם", transliteration: "mayim", translation: "Agua", options: ["Agua", "Fuego", "Tierra", "Aire"] },
+      { hebrew: "אוֹר", transliteration: "or", translation: "Luz", options: ["Luz", "Oscuridad", "Día", "Sol"] },
+      { hebrew: "שְׁמַיִם", transliteration: "shamayim", translation: "Cielos", options: ["Cielos", "Estrellas", "Nubes", "Universo"] },
+      { hebrew: "אֶרֶץ", transliteration: "erets", translation: "Tierra", options: ["Tierra", "País", "Mundo", "Continente"] },
+      { hebrew: "בְּרֵאשִׁית", transliteration: "Bereshit", translation: "En el principio", options: ["En el principio", "En el cielo", "En la tierra", "En el mar"] },
+      { hebrew: "יְהוָה", transliteration: "YHWH", translation: "El Señor (nombre de Dios)", options: ["El Señor (nombre de Dios)", "El Creador", "El Todopoderoso", "El Eterno"] },
+      { hebrew: "אַהֲבָה", transliteration: "ahavah", translation: "Amor", options: ["Amor", "Misericordia", "Gracia", "Verdad"] },
+      { hebrew: "צֶדֶק", transliteration: "tzedek", translation: "Justicia", options: ["Justicia", "Rectitud", "Verdad", "Santidad"] }
+    ];
+
+    // ===================== VARIABLES DEL JUEGO =====================
+    let currentMode = "alphabet";
+    let currentLetterIndex = 0;
+    let currentVowelIndex = 0;
+    let currentWordIndex = 0;
+    
+    let score = 0;
+    let correctAnswers = 0;
+    let totalAttempts = 0;
+
+    // ===================== FUNCIONES DEL JUEGO =====================
+    
+    // Cambiar modo de juego
+    document.querySelectorAll('.mode-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Remover clase active de todos los botones
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+        // Ocultar todos los modos de juego
+        document.querySelectorAll('.game-mode').forEach(mode => mode.style.display = 'none');
+        
+        // Activar el botón clickeado
+        this.classList.add('active');
+        currentMode = this.dataset.mode;
+        
+        // Mostrar el modo correspondiente
+        document.getElementById(`${currentMode}-game`).style.display = 'block';
+        
+        // Inicializar el juego según el modo
+        if (currentMode === 'alphabet') {
+          showCurrentLetter();
+        } else if (currentMode === 'vowels') {
+          showVowelQuestion();
+        } else if (currentMode === 'reading') {
+          showWordQuestion();
+        }
+      });
+    });
+
+    // ===================== MODO ALFABETO =====================
+    function showCurrentLetter() {
+      const letter = hebrewAlphabet[currentLetterIndex];
+      document.getElementById('current-letter').textContent = letter.letter;
+      document.getElementById('letter-name').textContent = letter.name;
+      document.getElementById('back-letter-name').textContent = letter.name;
+      document.getElementById('letter-sound').textContent = letter.sound;
+      document.getElementById('letter-value').textContent = letter.value;
+      document.getElementById('letter-example').textContent = letter.example;
+      
+      // Asegurarse de que la tarjeta esté en el frente
+      document.getElementById('flashcard').classList.remove('flipped');
+    }
+
+    function flipCard() {
+      document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextLetter() {
+      currentLetterIndex = (currentLetterIndex + 1) % hebrewAlphabet.length;
+      showCurrentLetter();
+    }
+
+    function prevLetter() {
+      currentLetterIndex = (currentLetterIndex - 1 + hebrewAlphabet.length) % hebrewAlphabet.length;
+      showCurrentLetter();
+    }
+
+    // ===================== MODO VOCALES =====================
+    function showVowelQuestion() {
+      currentVowelIndex = Math.floor(Math.random() * hebrewVowels.length);
+      const vowel = hebrewVowels[currentVowelIndex];
+      
+      document.getElementById('vowel-display').textContent = vowel.symbol;
+      document.getElementById('vowel-feedback').style.display = 'none';
+      
+      // Crear opciones aleatorias
+      const optionsContainer = document.getElementById('vowel-options');
+      optionsContainer.innerHTML = '';
+      
+      // Crear array de opciones (la correcta + 3 incorrectas aleatorias)
+      let options = [vowel];
+      while (options.length < 4) {
+        const randomVowel = hebrewVowels[Math.floor(Math.random() * hebrewVowels.length)];
+        if (!options.some(opt => opt.name === randomVowel.name)) {
+          options.push(randomVowel);
+        }
+      }
+      
+      // Mezclar las opciones
+      options = options.sort(() => Math.random() - 0.5);
+      
+      // Crear botones para cada opción
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'vowel-btn';
+        button.textContent = `${option.name} - ${option.pronunciation}`;
+        button.onclick = () => checkVowelAnswer(option.name === vowel.name, button);
+        optionsContainer.appendChild(button);
+      });
+    }
+
+    function checkVowelAnswer(isCorrect, button) {
+      totalAttempts++;
+      document.getElementById('attempts').textContent = totalAttempts;
+      
+      // Deshabilitar todos los botones
+      document.querySelectorAll('.vowel-btn').forEach(btn => {
+        btn.disabled = true;
+        btn.onclick = null;
+      });
+      
+      const feedback = document.getElementById('vowel-feedback');
+      
+      if (isCorrect) {
+        button.classList.add('correct');
+        score += 10;
+        correctAnswers++;
+        feedback.textContent = `¡Correcto! La vocal "${hebrewVowels[currentVowelIndex].symbol}" es ${hebrewVowels[currentVowelIndex].name} y se pronuncia "${hebrewVowels[currentVowelIndex].pronunciation}". Ejemplo: ${hebrewVowels[currentVowelIndex].example}`;
+        feedback.className = 'feedback correct';
+      } else {
+        button.classList.add('incorrect');
+        score = Math.max(0, score - 5);
+        feedback.textContent = `Incorrecto. La vocal "${hebrewVowels[currentVowelIndex].symbol}" es ${hebrewVowels[currentVowelIndex].name} y se pronuncia "${hebrewVowels[currentVowelIndex].pronunciation}". Ejemplo: ${hebrewVowels[currentVowelIndex].example}`;
+        feedback.className = 'feedback incorrect';
+      }
+      
+      feedback.style.display = 'block';
+      
+      // Actualizar estadísticas
+      document.getElementById('score').textContent = score;
+      document.getElementById('correct').textContent = correctAnswers;
+    }
+
+    function nextVowel() {
+      showVowelQuestion();
+    }
+
+    // ===================== MODO LECTURA =====================
+    function showWordQuestion() {
+      currentWordIndex = Math.floor(Math.random() * hebrewWords.length);
+      const word = hebrewWords[currentWordIndex];
+      
+      document.getElementById('word-display').textContent = word.hebrew;
+      document.getElementById('reading-feedback').style.display = 'none';
+      
+      // Crear opciones aleatorias
+      const optionsContainer = document.getElementById('translation-options');
+      optionsContainer.innerHTML = '';
+      
+      // Crear array de opciones (la correcta + 3 incorrectas aleatorias)
+      let options = [word.translation];
+      while (options.length < 4) {
+        // Buscar una traducción aleatoria de otra palabra
+        const randomWord = hebrewWords[Math.floor(Math.random() * hebrewWords.length)];
+        if (!options.includes(randomWord.translation)) {
+          options.push(randomWord.translation);
+        }
+      }
+      
+      // Mezclar las opciones
+      options = options.sort(() => Math.random() - 0.5);
+      
+      // Crear botones para cada opción
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'translation-btn';
+        button.textContent = option;
+        button.onclick = () => checkReadingAnswer(option === word.translation, button, word);
+        optionsContainer.appendChild(button);
+      });
+    }
+
+    function checkReadingAnswer(isCorrect, button, word) {
+      totalAttempts++;
+      document.getElementById('attempts').textContent = totalAttempts;
+      
+      // Deshabilitar todos los botones
+      document.querySelectorAll('.translation-btn').forEach(btn => {
+        btn.disabled = true;
+        btn.onclick = null;
+      });
+      
+      const feedback = document.getElementById('reading-feedback');
+      
+      if (isCorrect) {
+        button.style.background = 'var(--success)';
+        button.style.color = 'white';
+        button.style.borderColor = 'var(--success)';
+        score += 15;
+        correctAnswers++;
+        feedback.textContent = `¡Correcto! "${word.hebrew}" se pronuncia "${word.transliteration}" y significa "${word.translation}".`;
+        feedback.className = 'feedback correct';
+      } else {
+        button.style.background = 'var(--danger)';
+        button.style.color = 'white';
+        button.style.borderColor = 'var(--danger)';
+        score = Math.max(0, score - 5);
+        feedback.textContent = `Incorrecto. "${word.hebrew}" se pronuncia "${word.transliteration}" y significa "${word.translation}".`;
+        feedback.className = 'feedback incorrect';
+      }
+      
+      feedback.style.display = 'block';
+      
+      // Actualizar estadísticas
+      document.getElementById('score').textContent = score;
+      document.getElementById('correct').textContent = correctAnswers;
+    }
+
+    function nextWord() {
+      showWordQuestion();
+    }
+
+    // ===================== INICIALIZACIÓN =====================
+    // Mostrar la primera letra al cargar
+    showCurrentLetter();
+  </script>
+</body>
+</html>
