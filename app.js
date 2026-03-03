@@ -1,23 +1,23 @@
-// app.js - CURSO DE HEBREO BÍBLICO - VERSIÓN SIMPLIFICADA
+// app.js - CURSO DE HEBREO BÍBLICO - VERSIÓN CORREGIDA
 // ================================
 // CONFIGURACIÓN INICIAL
 // ================================
 const CONFIG = {
     PASSWORD_UNICA: "hebreo2026",
     CODIGO_ADMIN: "ADMIN2026",
-    TOTAL_SEMANAS: 30, // Escalable: puedes aumentar según necesites
+    TOTAL_SEMANAS: 38,
     
-    // Configuración del curso - Un solo grupo
     CURSO: {
-        nombre: "Curso de Hebreo Bíblico",
+        nombre: "Introducción a la Gramática Hebrea",
         profesor: "Rolando Y. Desdín García",
-        email: "vivosparaservir@gmail.com",
-        telefono: "+53 58169444"
+        email: "lenguasbiblicasmvps@gmail.com",
+        telefono: "+53 58169444",
+        inicio: "3 de marzo, 2026"
     }
 };
 
 // ================================
-// DATOS DE ESTUDIANTES (SOLO 10)
+// DATOS DE ESTUDIANTES
 // ================================
 const ESTUDIANTES = [
     { id: 1, nombre: "Raydel Ramón Toranzo Hidalgo", email: "raydelrth@icloud.com", telefono: "58371320", nacionalidad: "Cuba" },
@@ -33,7 +33,6 @@ const ESTUDIANTES = [
     { id: 11, nombre: "Yordanka Álvarez Pérez.", email: "alvarezyordanka1@gmail.com", telefono: "58169444", nacionalidad: "Cuba" }
 ];
 
-// ID de profesor (ID reservado: 100)
 const PROFESOR = {
     id: 100,
     nombre: "Rolando Y. Desdín García",
@@ -42,49 +41,58 @@ const PROFESOR = {
 };
 
 // ================================
-// CLASE PRINCIPAL DE LA APLICACIÓN
+// CLASE PRINCIPAL
 // ================================
 class CursoHebreoApp {
     constructor() {
         this.usuarioActual = null;
+        this.eventosInicializados = false;
         this.inicializar();
     }
 
     inicializar() {
         this.verificarAutenticacion();
-        this.inicializarEventos();
+        if (!this.eventosInicializados) {
+            this.inicializarEventosGlobales();
+            this.eventosInicializados = true;
+        }
     }
 
-    // ================================
-    // AUTENTICACIÓN SIMPLIFICADA
-    // ================================
     verificarAutenticacion() {
-        const usuario = localStorage.getItem('usuarioActual');
-        const autenticado = localStorage.getItem('autenticado');
-        
-        if (usuario && autenticado === 'true') {
-            this.usuarioActual = JSON.parse(usuario);
-            this.mostrarDashboard();
-        } else {
+        try {
+            const usuario = localStorage.getItem('usuarioActual');
+            const autenticado = localStorage.getItem('autenticado');
+            
+            if (usuario && autenticado === 'true') {
+                this.usuarioActual = JSON.parse(usuario);
+                this.mostrarDashboard();
+            } else {
+                this.mostrarLogin();
+            }
+        } catch (error) {
+            console.error('Error en autenticación:', error);
             this.mostrarLogin();
         }
     }
 
     mostrarLogin() {
         const container = document.getElementById('app-container');
+        if (!container) return;
+        
         container.innerHTML = `
             <div class="login-container fade-in">
                 <div class="login-header">
-                    <img src="mas logos.jpeg" alt="Ministerio Vivos para Servir" class="logo-main">
-                    <h1>Curso de Hebreo Bíblico</h1>
+                    <img src="mas%20logos.jpeg" alt="Ministerio Vivos para Servir" class="logo-main" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23722F37%22/><text x=%2220%22 y=%2265%22 fill=%22white%22 font-size=%2250%22>📖</text></svg>'">
+                    <h1>Introducción a la Gramática Hebrea</h1>
                     <p class="text-muted">Ministerio "Vivos para Servir"</p>
+                    <p class="text-muted"><small>Inicio: 3 de marzo, 2026</small></p>
                 </div>
                 
                 <div class="form-group">
                     <label for="tipoUsuario">
                         <i class="fas fa-user-tag"></i> Acceder como:
                     </label>
-                    <select id="tipoUsuario" class="form-control" onchange="app.cambiarTipoUsuario()">
+                    <select id="tipoUsuario" class="form-control">
                         <option value="">-- Selecciona --</option>
                         <option value="estudiante">Estudiante</option>
                         <option value="profesor">Profesor (Rolando Desdín)</option>
@@ -153,12 +161,20 @@ class CursoHebreoApp {
                 </div>
             </div>
         `;
+
+        // Agregar evento change al select
+        const tipoSelect = document.getElementById('tipoUsuario');
+        if (tipoSelect) {
+            tipoSelect.addEventListener('change', (e) => this.cambiarTipoUsuario(e));
+        }
     }
 
-    cambiarTipoUsuario() {
-        const tipo = document.getElementById('tipoUsuario').value;
+    cambiarTipoUsuario(event) {
+        const tipo = event.target.value;
         const estudianteSection = document.getElementById('estudianteSection');
         const profesorSection = document.getElementById('profesorSection');
+        
+        if (!estudianteSection || !profesorSection) return;
         
         estudianteSection.classList.add('d-none');
         profesorSection.classList.add('d-none');
@@ -171,99 +187,107 @@ class CursoHebreoApp {
     }
 
     loginEstudiante() {
-        const estudianteId = parseInt(document.getElementById('estudianteSelect').value);
-        const userId = document.getElementById('userId').value.trim();
-        const password = document.getElementById('password').value;
-        
-        // Validaciones
-        if (!estudianteId) {
-            this.mostrarError('Debes seleccionar tu nombre');
-            return;
-        }
-        
-        if (!userId) {
-            this.mostrarError('Debes ingresar tu ID numérico');
-            return;
-        }
-        
-        if (!password) {
-            this.mostrarError('Debes ingresar la contraseña');
-            return;
-        }
-        
-        // Verificar que el ID coincida
-        if (userId !== estudianteId.toString()) {
-            this.mostrarError('El ID no coincide con el estudiante seleccionado');
-            return;
-        }
-        
-        // Verificar contraseña
-        if (password === CONFIG.PASSWORD_UNICA) {
-            const estudiante = ESTUDIANTES.find(e => e.id === estudianteId);
+        try {
+            const estudianteId = parseInt(document.getElementById('estudianteSelect').value);
+            const userId = document.getElementById('userId').value.trim();
+            const password = document.getElementById('password').value;
             
-            if (!estudiante) {
-                this.mostrarError('Estudiante no encontrado');
+            if (!estudianteId) {
+                this.mostrarError('Debes seleccionar tu nombre');
                 return;
             }
             
-            const usuario = {
-                id: estudianteId.toString(),
-                nombre: estudiante.nombre,
-                email: estudiante.email,
-                telefono: estudiante.telefono,
-                nacionalidad: estudiante.nacionalidad,
-                fechaRegistro: new Date().toISOString(),
-                rol: 'estudiante',
-                progreso: this.obtenerProgresoUsuario(estudianteId.toString())
-            };
+            if (!userId) {
+                this.mostrarError('Debes ingresar tu ID numérico');
+                return;
+            }
             
-            localStorage.setItem('usuarioActual', JSON.stringify(usuario));
-            localStorage.setItem('autenticado', 'true');
+            if (!password) {
+                this.mostrarError('Debes ingresar la contraseña');
+                return;
+            }
             
-            this.usuarioActual = usuario;
-            this.mostrarDashboard();
-        } else {
-            this.mostrarError('Contraseña incorrecta');
+            if (userId !== estudianteId.toString()) {
+                this.mostrarError('El ID no coincide con el estudiante seleccionado');
+                return;
+            }
+            
+            if (password === CONFIG.PASSWORD_UNICA) {
+                const estudiante = ESTUDIANTES.find(e => e.id === estudianteId);
+                
+                if (!estudiante) {
+                    this.mostrarError('Estudiante no encontrado');
+                    return;
+                }
+                
+                const usuario = {
+                    id: estudianteId.toString(),
+                    nombre: estudiante.nombre,
+                    email: estudiante.email,
+                    telefono: estudiante.telefono,
+                    nacionalidad: estudiante.nacionalidad,
+                    fechaRegistro: new Date().toISOString(),
+                    rol: 'estudiante',
+                    esProfesor: false,
+                    progreso: this.obtenerProgresoUsuario(estudianteId.toString())
+                };
+                
+                localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+                localStorage.setItem('autenticado', 'true');
+                
+                this.usuarioActual = usuario;
+                this.mostrarDashboard();
+            } else {
+                this.mostrarError('Contraseña incorrecta');
+            }
+        } catch (error) {
+            console.error('Error en login:', error);
+            this.mostrarError('Error al iniciar sesión');
         }
     }
 
     loginProfesor() {
-        const userId = document.getElementById('profesorId').value.trim();
-        const password = document.getElementById('profesorPassword').value;
-        
-        if (!userId) {
-            this.mostrarError('Debes ingresar tu ID');
-            return;
-        }
-        
-        if (!password) {
-            this.mostrarError('Debes ingresar la contraseña');
-            return;
-        }
-        
-        if (userId !== PROFESOR.id.toString()) {
-            this.mostrarError('ID de profesor incorrecto');
-            return;
-        }
-        
-        if (password === CONFIG.PASSWORD_UNICA || password === CONFIG.CODIGO_ADMIN) {
-            const usuario = {
-                id: PROFESOR.id.toString(),
-                nombre: PROFESOR.nombre,
-                email: PROFESOR.email,
-                rol: 'profesor',
-                fechaRegistro: new Date().toISOString(),
-                esProfesor: true,
-                permisos: ['ver_todos', 'editar_contenido', 'generar_codigos', 'ver_estadisticas']
-            };
+        try {
+            const userId = document.getElementById('profesorId').value.trim();
+            const password = document.getElementById('profesorPassword').value;
             
-            localStorage.setItem('usuarioActual', JSON.stringify(usuario));
-            localStorage.setItem('autenticado', 'true');
+            if (!userId) {
+                this.mostrarError('Debes ingresar tu ID');
+                return;
+            }
             
-            this.usuarioActual = usuario;
-            this.mostrarDashboard();
-        } else {
-            this.mostrarError('Contraseña incorrecta');
+            if (!password) {
+                this.mostrarError('Debes ingresar la contraseña');
+                return;
+            }
+            
+            if (userId !== PROFESOR.id.toString()) {
+                this.mostrarError('ID de profesor incorrecto');
+                return;
+            }
+            
+            if (password === CONFIG.PASSWORD_UNICA || password === CONFIG.CODIGO_ADMIN) {
+                const usuario = {
+                    id: PROFESOR.id.toString(),
+                    nombre: PROFESOR.nombre,
+                    email: PROFESOR.email,
+                    rol: 'profesor',
+                    esProfesor: true,
+                    fechaRegistro: new Date().toISOString(),
+                    permisos: ['ver_todos', 'editar_contenido', 'generar_codigos', 'ver_estadisticas']
+                };
+                
+                localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+                localStorage.setItem('autenticado', 'true');
+                
+                this.usuarioActual = usuario;
+                this.mostrarDashboard();
+            } else {
+                this.mostrarError('Contraseña incorrecta');
+            }
+        } catch (error) {
+            console.error('Error en login profesor:', error);
+            this.mostrarError('Error al iniciar sesión');
         }
     }
 
@@ -274,18 +298,18 @@ class CursoHebreoApp {
         this.mostrarLogin();
     }
 
-    // ================================
-    // DASHBOARD
-    // ================================
     mostrarDashboard() {
+        if (!this.usuarioActual) return;
+        
         const esProfesor = this.usuarioActual.esProfesor || false;
         const progreso = this.usuarioActual.progreso || {};
         const semanasHTML = this.generarGridSemanas();
         
         const container = document.getElementById('app-container');
+        if (!container) return;
+        
         container.innerHTML = `
             <div class="dashboard fade-in">
-                <!-- Header -->
                 <div class="dashboard-header">
                     <div class="user-info">
                         <div class="user-avatar ${esProfesor ? 'avatar-profesor' : 'avatar-estudiante'}">
@@ -297,9 +321,9 @@ class CursoHebreoApp {
                                 ${esProfesor ? 
                                     '<i class="fas fa-chalkboard-teacher"></i> Profesor - ' : 
                                     '<i class="fas fa-user-graduate"></i> Estudiante - '}
-                                Curso de Hebreo Bíblico
+                                Introducción a la Gramática Hebrea
                             </p>
-                            ${!esProfesor ? `<p class="text-muted">ID: ${this.usuarioActual.id}</p>` : ''}
+                            <p class="text-muted"><small>Inicio: 3 de marzo, 2026</small></p>
                         </div>
                     </div>
                     
@@ -312,7 +336,6 @@ class CursoHebreoApp {
                 
                 ${!esProfesor ? this.generarResumenProgreso(progreso) : ''}
                 
-                <!-- Semanas del Curso -->
                 <div class="weeks-section">
                     <div class="section-title">
                         <i class="fas fa-scroll"></i>
@@ -328,14 +351,9 @@ class CursoHebreoApp {
                 ${esProfesor ? this.generarPanelAdministracion() : ''}
             </div>
             
-            <!-- Modal Desbloquear -->
             ${!esProfesor ? this.generarModalDesbloqueo() : ''}
-            
-            <!-- Modal Administración -->
             ${esProfesor ? this.generarModalAdministracion() : ''}
         `;
-        
-        this.inicializarEventosDashboard();
     }
 
     generarResumenProgreso(progreso) {
@@ -387,7 +405,7 @@ class CursoHebreoApp {
 
     generarGridSemanas() {
         let html = '';
-        const esProfesor = this.usuarioActual.esProfesor || false;
+        const esProfesor = this.usuarioActual?.esProfesor || false;
         
         if (esProfesor) {
             for (let semana = 1; semana <= CONFIG.TOTAL_SEMANAS; semana++) {
@@ -398,11 +416,7 @@ class CursoHebreoApp {
                         <div class="week-number">${semana}</div>
                         <h4>${tituloSemana.titulo}</h4>
                         <p class="text-muted">${tituloSemana.tema}</p>
-                        <div class="mt-10">
-                            <button onclick="event.stopPropagation(); app.gestionarSemana(${semana})" class="btn btn-sm btn-info">
-                                <i class="fas fa-cog"></i> Gestionar
-                            </button>
-                        </div>
+                        <p class="text-muted small">${tituloSemana.fecha || ''}</p>
                     </div>
                 `;
             }
@@ -410,11 +424,13 @@ class CursoHebreoApp {
             const semanasDesbloqueadas = JSON.parse(localStorage.getItem(`semanasDesbloqueadas_${this.usuarioActual.id}`) || '[]');
             const semanasCompletadas = JSON.parse(localStorage.getItem(`semanasCompletadas_${this.usuarioActual.id}`) || '[]');
             
-            const fechaInicio = new Date(localStorage.getItem('fechaInicioCurso') || new Date().toISOString());
-            const semanaActual = Math.floor((Date.now() - fechaInicio.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1;
+            const fechaInicio = new Date(2026, 2, 3);
+            const hoy = new Date();
+            const diffDias = Math.floor((hoy - fechaInicio) / (1000 * 60 * 60 * 24));
+            const semanaActual = Math.min(Math.max(Math.floor(diffDias / 7) + 1, 1), CONFIG.TOTAL_SEMANAS);
             
             for (let semana = 1; semana <= CONFIG.TOTAL_SEMANAS; semana++) {
-                const estaDesbloqueada = semanasDesbloqueadas.includes(semana) || semana <= semanaActual;
+                const estaDesbloqueada = semanasDesbloqueadas.includes(semana) || semana <= semanaActual || semana === 1;
                 const estaCompletada = semanasCompletadas.includes(semana);
                 const esActual = semana === semanaActual && !estaCompletada;
                 
@@ -435,8 +451,9 @@ class CursoHebreoApp {
                         <div class="week-number">${semana}</div>
                         <h4>${tituloSemana.titulo}</h4>
                         <p class="text-muted">${tituloSemana.tema}</p>
+                        <p class="text-muted small">${tituloSemana.fecha || ''}</p>
                         ${!estaDesbloqueada ? 
-                            `<p><small><i class="fas fa-lock"></i> Disponible pronto</small></p>` : ''}
+                            `<p><small><i class="fas fa-lock"></i> Disponible ${tituloSemana.fecha || 'pronto'}</small></p>` : ''}
                     </div>
                 `;
             }
@@ -446,46 +463,50 @@ class CursoHebreoApp {
     }
 
     obtenerTituloSemana(numero) {
-        // PLANTILLA ESCALABLE - Modifica aquí los títulos de las semanas
         const semanas = {
-            1: { titulo: "Alefato Hebreo", tema: "Introducción al alfabeto" },
-            2: { titulo: "Las Vocales", tema: "Sistema vocálico" },
-            3: { titulo: "Sustantivos", tema: "Género y número" },
-            4: { titulo: "El Artículo", tema: "Artículo definido" },
-            5: { titulo: "Preposiciones", tema: "Preposiciones básicas" },
-            6: { titulo: "Adjetivos", tema: "Concordancia" },
-            7: { titulo: "Pronombres Personales", tema: "Pronombres independientes" },
-            8: { titulo: "Pronombres Sufijos", tema: "Pronombres en sufijos" },
-            9: { titulo: "Verbo Qal Perfecto", tema: "Formas perfectas" },
-            10: { titulo: "Verbo Qal Imperfecto", tema: "Formas imperfectas" },
-            11: { titulo: "Verbos Débiles I", tema: "Introducción" },
-            12: { titulo: "Verbos Débiles II", tema: "Clasificación" },
-            13: { titulo: "Estado Constructo", tema: "Relación de pertenencia" },
-            14: { titulo: "Números", tema: "Numeración hebrea" },
-            15: { titulo: "Repaso General I", tema: "Consolidación" },
-            16: { titulo: "Verbos Fuertes", tema: "Conjugaciones" },
-            17: { titulo: "Imperativo", tema: "Modo imperativo" },
-            18: { titulo: "Infinitivos", tema: "Infinitivo constructo" },
-            19: { titulo: "Participios", tema: "Participios activos" },
-            20: { titulo: "Sintaxis Básica", tema: "Orden de palabras" },
-            21: { titulo: "Oraciones Verbales", tema: "Estructura" },
-            22: { titulo: "Oraciones Nominales", tema: "Estructura" },
-            23: { titulo: "Vav Conversivo", tema: "Uso del vav" },
-            24: { titulo: "Salmos Seleccionados", tema: "Lectura guiada" },
-            25: { titulo: "Génesis 1-3", tema: "Lectura guiada" },
-            26: { titulo: "Rut 1-2", tema: "Lectura guiada" },
-            27: { titulo: "Jonás", tema: "Lectura completa" },
-            28: { titulo: "Repaso General II", tema: "Consolidación" },
-            29: { titulo: "Traducción Avanzada", tema: "Textos proféticos" },
-            30: { titulo: "Examen Final", tema: "Evaluación completa" }
+            1: { titulo: "El Alfabeto Hebreo", tema: "Alefato y escritura", fecha: "3 mar - 9 mar" },
+            2: { titulo: "Las Vocales Hebreas", tema: "Sistema vocálico", fecha: "10 mar - 16 mar" },
+            3: { titulo: "Silabeo y Pronunciación", tema: "Reglas de silabeo", fecha: "17 mar - 23 mar" },
+            4: { titulo: "Sustantivos Hebreos", tema: "Género y número", fecha: "24 mar - 30 mar" },
+            5: { titulo: "Artículo Definido y Waw", tema: "Artículo y conjunción", fecha: "31 mar - 6 abr" },
+            6: { titulo: "Preposiciones Hebreas", tema: "Preposiciones básicas", fecha: "7 abr - 13 abr" },
+            7: { titulo: "Adjetivos Hebreos", tema: "Concordancia", fecha: "14 abr - 20 abr" },
+            8: { titulo: "Pronombres", tema: "Personales, demostrativos", fecha: "21 abr - 27 abr" },
+            9: { titulo: "Sufijos Pronominales", tema: "Sufijos en nombres", fecha: "28 abr - 4 may" },
+            10: { titulo: "Cadena Constructa", tema: "Estado constructo", fecha: "5 may - 11 may" },
+            11: { titulo: "Números", tema: "Numeración hebrea", fecha: "12 may - 18 may" },
+            12: { titulo: "Introducción a Verbos", tema: "Fundamentos verbales", fecha: "19 may - 25 may" },
+            13: { titulo: "Qal Perfecto - Fuertes", tema: "Verbos fuertes", fecha: "26 may - 1 jun" },
+            14: { titulo: "Qal Perfecto - Débiles", tema: "Verbos débiles", fecha: "2 jun - 8 jun" },
+            15: { titulo: "Qal Imperfecto - Fuertes", tema: "Imperfecto fuerte", fecha: "9 jun - 15 jun" },
+            16: { titulo: "Qal Imperfecto - Débiles", tema: "Imperfecto débil", fecha: "16 jun - 22 jun" },
+            17: { titulo: "Waw Consecutivo", tema: "Vav conversivo", fecha: "23 jun - 29 jun" },
+            18: { titulo: "Qal Imperativo", tema: "Imperativo, cohortativo", fecha: "30 jun - 5 jul" },
+            19: { titulo: "EXAMEN INTERMEDIO", tema: "Repaso temas 1-18", fecha: "6 jul - 12 jul" },
+            20: { titulo: "Sufijos Pronominales en Verbos", tema: "Sufijos verbales", fecha: "1 sep - 7 sep" },
+            21: { titulo: "Qal Infinitivo Constructo", tema: "Infinitivo constructo", fecha: "8 sep - 14 sep" },
+            22: { titulo: "Qal Infinitivo Absoluto", tema: "Infinitivo absoluto", fecha: "15 sep - 21 sep" },
+            23: { titulo: "Qal Participio", tema: "Participios", fecha: "22 sep - 28 sep" },
+            24: { titulo: "Sintaxis de la Oración", tema: "Estructura oracional", fecha: "29 sep - 5 oct" },
+            25: { titulo: "Niphal - Verbos Fuertes", tema: "Niphal fuerte", fecha: "6 oct - 12 oct" },
+            26: { titulo: "Niphal - Verbos Débiles", tema: "Niphal débil", fecha: "13 oct - 19 oct" },
+            27: { titulo: "Piel - Verbos Fuertes", tema: "Piel fuerte", fecha: "20 oct - 26 oct" },
+            28: { titulo: "Piel - Verbos Débiles", tema: "Piel débil", fecha: "27 oct - 2 nov" },
+            29: { titulo: "Pual - Verbos Fuertes", tema: "Pual fuerte", fecha: "3 nov - 9 nov" },
+            30: { titulo: "Pual - Verbos Débiles", tema: "Pual débil", fecha: "10 nov - 16 nov" },
+            31: { titulo: "Hiphil - Verbos Fuertes", tema: "Hiphil fuerte", fecha: "17 nov - 23 nov" },
+            32: { titulo: "Hiphil - Verbos Débiles", tema: "Hiphil débil", fecha: "24 nov - 30 nov" },
+            33: { titulo: "Hophal - Verbos Fuertes", tema: "Hophal fuerte", fecha: "1 dic - 7 dic" },
+            34: { titulo: "Hophal - Verbos Débiles", tema: "Hophal débil", fecha: "8 dic - 14 dic" },
+            35: { titulo: "Hithpael - Verbos Fuertes", tema: "Hithpael fuerte", fecha: "15 dic - 21 dic" },
+            36: { titulo: "Hithpael - Verbos Débiles", tema: "Hithpael débil", fecha: "22 dic - 28 dic" },
+            37: { titulo: "EXAMEN FINAL", tema: "Repuesto temas 20-36", fecha: "5 ene - 11 ene" },
+            38: { titulo: "¿A dónde vamos ahora?", tema: "Continuidad en el estudio", fecha: "12 ene - 19 ene" }
         };
         
-        return semanas[numero] || { titulo: `Semana ${numero}`, tema: "Contenido del curso" };
+        return semanas[numero] || { titulo: `Semana ${numero}`, tema: "Contenido del curso", fecha: "" };
     }
 
-    // ================================
-    // GESTIÓN DE SEMANAS
-    // ================================
     abrirSemana(numero) {
         localStorage.setItem('semanaActual', numero);
         window.location.href = `semana.html?semana=${numero}`;
@@ -496,32 +517,26 @@ class CursoHebreoApp {
         window.location.href = `semana.html?semana=${numero}&mode=edit`;
     }
 
-    gestionarSemana(numero) {
-        alert(`Gestión de semana ${numero}\nAquí puedes editar contenido, ver estadísticas, etc.`);
-    }
-
-    // ================================
-    // PROGRESO Y DESBLOQUEO
-    // ================================
     obtenerProgresoUsuario(userId) {
-        return JSON.parse(localStorage.getItem(`progreso_${userId}`)) || {
-            semanasCompletadas: 0,
-            leccionesCompletadas: 0,
-            juegosCompletados: 0,
-            examenesCompletados: 0,
-            ultimaActividad: new Date().toISOString()
-        };
-    }
-
-    guardarProgreso() {
-        if (this.usuarioActual && !this.usuarioActual.esProfesor) {
-            localStorage.setItem(`progreso_${this.usuarioActual.id}`, JSON.stringify(this.usuarioActual.progreso));
+        try {
+            return JSON.parse(localStorage.getItem(`progreso_${userId}`)) || {
+                semanasCompletadas: 0,
+                leccionesCompletadas: 0,
+                juegosCompletados: 0,
+                examenesCompletados: 0,
+                ultimaActividad: new Date().toISOString()
+            };
+        } catch {
+            return {
+                semanasCompletadas: 0,
+                leccionesCompletadas: 0,
+                juegosCompletados: 0,
+                examenesCompletados: 0,
+                ultimaActividad: new Date().toISOString()
+            };
         }
     }
 
-    // ================================
-    // MODALES
-    // ================================
     generarModalDesbloqueo() {
         return `
             <div class="modal" id="unlockModal">
@@ -568,7 +583,7 @@ class CursoHebreoApp {
                         <div class="control-group">
                             <h4><i class="fas fa-calendar-alt"></i> Configurar Fecha de Inicio</h4>
                             <input type="date" id="fechaInicio" class="form-control mt-10" 
-                                   value="${new Date().toISOString().split('T')[0]}">
+                                   value="2026-03-03">
                             <button onclick="app.configurarFechaInicio()" class="btn btn-secondary mt-10">
                                 <i class="fas fa-save"></i> Establecer Fecha
                             </button>
@@ -642,19 +657,23 @@ class CursoHebreoApp {
     }
 
     mostrarModalDesbloqueo() {
-        document.getElementById('unlockModal').classList.add('active');
+        const modal = document.getElementById('unlockModal');
+        if (modal) modal.classList.add('active');
     }
 
     cerrarModalDesbloqueo() {
-        document.getElementById('unlockModal').classList.remove('active');
+        const modal = document.getElementById('unlockModal');
+        if (modal) modal.classList.remove('active');
     }
 
     mostrarModalAdmin() {
-        document.getElementById('adminModal').classList.add('active');
+        const modal = document.getElementById('adminModal');
+        if (modal) modal.classList.add('active');
     }
 
     cerrarModalAdmin() {
-        document.getElementById('adminModal').classList.remove('active');
+        const modal = document.getElementById('adminModal');
+        if (modal) modal.classList.remove('active');
     }
 
     desbloquearSemana() {
@@ -673,10 +692,6 @@ class CursoHebreoApp {
             } else {
                 this.mostrarErrorDesbloqueo('Código inválido');
             }
-        }
-        else if (codigo === this.generarCodigoDesbloqueo(semana)) {
-            this.agregarSemanaDesbloqueada(semana);
-            this.mostrarExito(`¡Semana ${semana} desbloqueada!`);
         }
         else {
             this.mostrarErrorDesbloqueo('Código de desbloqueo inválido');
@@ -697,22 +712,14 @@ class CursoHebreoApp {
         localStorage.setItem(`semanasDesbloqueadas_${this.usuarioActual.id}`, JSON.stringify(todasSemanas));
     }
 
-    generarCodigoDesbloqueo(semana) {
-        return `SEMANA_${semana}_${this.usuarioActual.id}`;
-    }
-
-    // ================================
-    // ADMINISTRACIÓN
-    // ================================
     configurarFechaInicio() {
         const fecha = document.getElementById('fechaInicio').value;
         localStorage.setItem('fechaInicioCurso', new Date(fecha).toISOString());
         alert('Fecha de inicio actualizada correctamente');
-        this.mostrarDashboard();
     }
 
     generarCodigos() {
-        const cantidad = parseInt(document.getElementById('cantidadCodigos').value);
+        const cantidad = parseInt(document.getElementById('cantidadCodigos').value) || 5;
         const codigos = [];
         const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         
@@ -725,15 +732,17 @@ class CursoHebreoApp {
         }
         
         const contenedor = document.getElementById('codigosGenerados');
-        contenedor.innerHTML = `
-            <h5>Códigos generados (${cantidad}):</h5>
-            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; max-height: 200px; overflow-y: auto; font-family: monospace;">
-                ${codigos.map(c => `<div>${c}</div>`).join('')}
-            </div>
-            <button onclick="this.parentElement.innerHTML=''" class="btn btn-sm btn-danger mt-10">
-                <i class="fas fa-times"></i> Ocultar
-            </button>
-        `;
+        if (contenedor) {
+            contenedor.innerHTML = `
+                <h5>Códigos generados (${cantidad}):</h5>
+                <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; max-height: 200px; overflow-y: auto; font-family: monospace;">
+                    ${codigos.map(c => `<div>${c}</div>`).join('')}
+                </div>
+                <button onclick="this.innerHTML=''" class="btn btn-sm btn-danger mt-10">
+                    <i class="fas fa-times"></i> Ocultar
+                </button>
+            `;
+        }
         
         const codigosValidos = JSON.parse(localStorage.getItem('codigosValidos') || '[]');
         codigosValidos.push(...codigos);
@@ -762,16 +771,15 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
     }
 
     verEstudiantes() {
-        let listaHTML = '<h4>Lista de Estudiantes</h4><ul style="max-height: 300px; overflow-y: auto;">';
+        let mensaje = 'Lista de Estudiantes:\n\n';
         ESTUDIANTES.forEach(est => {
             const progreso = localStorage.getItem(`progreso_${est.id}`);
             const prog = progreso ? JSON.parse(progreso) : null;
             const semanas = prog ? prog.semanasCompletadas || 0 : 0;
-            listaHTML += `<li><strong>ID ${est.id}:</strong> ${est.nombre} - Semanas completadas: ${semanas}</li>`;
+            mensaje += `ID ${est.id}: ${est.nombre} - Semanas: ${semanas}\n`;
         });
-        listaHTML += '</ul>';
         
-        alert(listaHTML);
+        alert(mensaje);
     }
 
     desbloquearParaEstudiante() {
@@ -779,7 +787,7 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
         const idEstudiante = prompt(`ID del estudiante:\n${estudiantesLista}`);
         if (!idEstudiante) return;
         
-        const semana = prompt('Número de semana a desbloquear (1-30):');
+        const semana = prompt('Número de semana a desbloquear (1-38):');
         if (!semana) return;
         
         const semanasDesbloqueadas = JSON.parse(localStorage.getItem(`semanasDesbloqueadas_${idEstudiante}`) || '[]');
@@ -794,7 +802,7 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
 
     exportarDatos() {
         const datos = {
-            curso: "Hebreo Bíblico",
+            curso: "Introducción a la Gramática Hebrea",
             fecha: new Date().toISOString(),
             estudiantes: ESTUDIANTES.map(e => {
                 const progreso = localStorage.getItem(`progreso_${e.id}`);
@@ -851,13 +859,11 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
         URL.revokeObjectURL(url);
     }
 
-    // ================================
-    // MENSAJES DE ERROR Y ÉXITO
-    // ================================
     mostrarError(mensaje) {
         const error = document.getElementById('loginError');
-        if (error) {
-            document.getElementById('errorText').textContent = mensaje;
+        const errorText = document.getElementById('errorText');
+        if (error && errorText) {
+            errorText.textContent = mensaje;
             error.classList.remove('d-none');
             setTimeout(() => error.classList.add('d-none'), 5000);
         } else {
@@ -867,8 +873,9 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
 
     mostrarErrorDesbloqueo(mensaje) {
         const error = document.getElementById('unlockError');
-        if (error) {
-            document.getElementById('unlockErrorText').textContent = mensaje;
+        const errorText = document.getElementById('unlockErrorText');
+        if (error && errorText) {
+            errorText.textContent = mensaje;
             error.classList.remove('d-none');
             setTimeout(() => error.classList.add('d-none'), 5000);
         }
@@ -880,16 +887,13 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
         this.mostrarDashboard();
     }
 
-    // ================================
-    // EVENTOS
-    // ================================
-    inicializarEventos() {
+    inicializarEventosGlobales() {
         document.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 const tipo = document.getElementById('tipoUsuario')?.value;
-                if (tipo === 'estudiante' && document.getElementById('password')) {
+                if (tipo === 'estudiante') {
                     this.loginEstudiante();
-                } else if (tipo === 'profesor' && document.getElementById('profesorPassword')) {
+                } else if (tipo === 'profesor') {
                     this.loginProfesor();
                 }
             }
@@ -901,15 +905,15 @@ Promedio de semanas: ${(semanasCompletadasTotal / estudiantesActivos).toFixed(1)
             }
         });
     }
-
-    inicializarEventosDashboard() {
-        // Los eventos se manejan con onclick
-    }
 }
 
 // ================================
 // INICIALIZAR APLICACIÓN
 // ================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Limpiar cualquier instancia anterior
+    if (window.app) {
+        delete window.app;
+    }
     window.app = new CursoHebreoApp();
 });
