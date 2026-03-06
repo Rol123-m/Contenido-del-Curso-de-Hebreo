@@ -1,4 +1,6 @@
 /* semana.css - Plantilla de estilo moderna para contenidos del curso */
+/* MEJORA RESPONSIVE COMPLETA - Versión 2.0 */
+
 /* Variables CSS consistentes con el sistema principal */
 :root {
     --primary: #4A6FA5;
@@ -38,6 +40,11 @@
     /* Transiciones */
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     --transition-fast: all 0.15s ease;
+    
+    /* Espaciado responsive */
+    --container-padding: clamp(16px, 5vw, 40px);
+    --card-padding: clamp(20px, 4vw, 40px);
+    --header-padding: clamp(20px, 4vw, 40px);
 }
 
 /* Reset y estilos base */
@@ -49,31 +56,35 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
     font-family: 'Poppins', 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
     color: var(--dark);
-    line-height: 1.7;
+    line-height: 1.6;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
 }
 
-/* Header moderno */
+/* Header moderno - MEJORADO */
 .week-header {
     background: var(--gradient-dark);
     color: white;
-    padding: 30px 40px;
+    padding: var(--header-padding);
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: clamp(15px, 3vw, 30px);
     box-shadow: var(--shadow-lg);
+    width: 100%;
 }
 
 .week-header::before {
@@ -95,9 +106,10 @@ body {
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-size: min(30px, 5vw) min(30px, 5vw);
     opacity: 0.3;
     animation: float 25s linear infinite;
+    pointer-events: none;
 }
 
 @keyframes float {
@@ -108,10 +120,11 @@ body {
 .header-logo {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: clamp(10px, 2vw, 20px);
     position: relative;
     z-index: 1;
     transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .header-logo:hover {
@@ -119,7 +132,7 @@ body {
 }
 
 .logo-main {
-    width: 180px;
+    width: clamp(140px, 20vw, 180px);
     height: auto;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
@@ -128,51 +141,55 @@ body {
 }
 
 .logo-main:hover {
-    transform: rotate(-5deg) scale(1.05);
+    transform: rotate(-3deg) scale(1.03);
     box-shadow: var(--shadow-lg);
 }
 
 .header-title {
     flex: 1;
-    min-width: 300px;
+    min-width: min(280px, 100%);
 }
 
 .header-title h1 {
     font-family: 'Roboto Slab', serif;
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 0.25em;
     background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.9) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    line-height: 1.2;
 }
 
 .header-title .subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     opacity: 0.9;
     font-weight: 300;
 }
 
-/* Contenedor principal */
+/* Contenedor principal - MEJORADO */
 .week-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
+    max-width: min(1200px, 95%);
+    margin: clamp(20px, 5vw, 40px) auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
 }
 
-/* Tarjetas de contenido */
+/* Tarjetas de contenido - MEJORADO */
 .content-card {
     background: white;
     border-radius: var(--radius-lg);
-    padding: 40px;
-    margin-bottom: 40px;
+    padding: var(--card-padding);
+    margin-bottom: clamp(20px, 4vw, 40px);
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255,255,255,0.2);
     position: relative;
     overflow: hidden;
     transition: var(--transition);
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .content-card:hover {
@@ -193,14 +210,15 @@ body {
 
 .content-card h2 {
     font-family: 'Roboto Slab', serif;
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     color: var(--primary-dark);
-    margin-bottom: 25px;
-    padding-bottom: 15px;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
     position: relative;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: clamp(10px, 2vw, 15px);
+    flex-wrap: wrap;
 }
 
 .content-card h2::after {
@@ -208,7 +226,7 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 80px;
+    width: min(80px, 20%);
     height: 3px;
     background: var(--gradient-primary);
     border-radius: 2px;
@@ -220,7 +238,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
 }
 
 /* Tipos especiales de tarjetas */
@@ -257,42 +275,54 @@ body {
     background-clip: text;
 }
 
-/* Estilos para listas */
+/* Estilos para listas - MEJORADO */
 .content-card ul, 
 .content-card ol {
-    margin: 20px 0;
-    padding-left: 30px;
+    margin: 1.25em 0;
+    padding-left: clamp(20px, 4vw, 30px);
 }
 
 .content-card li {
-    margin-bottom: 15px;
-    padding-left: 10px;
+    margin-bottom: 0.75em;
+    padding-left: 0.5em;
     position: relative;
+    font-size: clamp(0.95rem, 2vw, 1rem);
 }
 
 .content-card li::before {
     content: '▸';
     position: absolute;
-    left: -20px;
+    left: -1.2em;
     color: var(--primary);
     font-weight: bold;
+}
+
+.content-card ol {
+    list-style-type: none;
+    counter-reset: item;
+}
+
+.content-card ol li {
+    counter-increment: item;
 }
 
 .content-card ol li::before {
-    content: counter(list-item) '.';
+    content: counter(item) '.';
     font-weight: bold;
     color: var(--primary);
+    left: -2em;
 }
 
-/* Ejemplos y notas especiales */
+/* Ejemplos y notas especiales - MEJORADO */
 .example-box {
     background: linear-gradient(135deg, rgba(74, 111, 165, 0.05) 0%, rgba(139, 95, 191, 0.05) 100%);
     border-radius: var(--radius);
-    padding: 25px;
-    margin: 25px 0;
+    padding: clamp(15px, 3vw, 25px);
+    margin: 1.5em 0;
     border-left: 4px solid var(--primary);
     position: relative;
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 .example-box::before {
@@ -302,8 +332,8 @@ body {
     right: 0;
     background: var(--primary);
     color: white;
-    padding: 5px 15px;
-    font-size: 0.8rem;
+    padding: 0.3em 1em;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
     font-weight: 600;
     border-radius: 0 0 0 var(--radius);
 }
@@ -316,10 +346,11 @@ body {
 .important-note {
     background: linear-gradient(135deg, rgba(241, 196, 15, 0.1) 0%, rgba(255, 153, 102, 0.1) 100%);
     border-radius: var(--radius);
-    padding: 25px;
-    margin: 25px 0;
+    padding: clamp(15px, 3vw, 25px);
+    margin: 1.5em 0;
     border-left: 4px solid var(--warning);
     position: relative;
+    word-wrap: break-word;
 }
 
 .important-note::before {
@@ -329,18 +360,53 @@ body {
     right: 0;
     background: var(--warning);
     color: var(--dark);
-    padding: 5px 15px;
-    font-size: 0.8rem;
+    padding: 0.3em 1em;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
     font-weight: 600;
     border-radius: 0 0 0 var(--radius);
 }
 
-/* Quiz moderno */
+/* Tablas - NUEVO (para mejorar visualización de tablas en móviles) */
+.content-card table,
+.example-box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .content-card table,
+    .example-box table {
+        display: table;
+        white-space: normal;
+    }
+}
+
+.content-card th,
+.example-box th {
+    background: linear-gradient(135deg, rgba(74, 111, 165, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%);
+    padding: clamp(8px, 1.5vw, 12px);
+    text-align: left;
+    border-bottom: 2px solid var(--primary);
+}
+
+.content-card td,
+.example-box td {
+    padding: clamp(8px, 1.5vw, 12px);
+    border-bottom: 1px solid var(--gray-light);
+}
+
+/* Quiz moderno - MEJORADO */
 .quiz-question {
     background: white;
     border-radius: var(--radius);
-    padding: 25px;
-    margin-bottom: 25px;
+    padding: clamp(15px, 3vw, 25px);
+    margin-bottom: 1.5em;
     box-shadow: var(--shadow-sm);
     border: 2px solid transparent;
     transition: var(--transition);
@@ -353,20 +419,21 @@ body {
 
 .quiz-question p {
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 1em;
     color: var(--dark);
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
 }
 
 .quiz-options {
     display: grid;
-    gap: 12px;
+    gap: 0.75em;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 }
 
 .quiz-options label {
     display: flex;
     align-items: center;
-    padding: 16px 20px;
+    padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px);
     background: var(--light);
     border: 2px solid var(--gray-light);
     border-radius: var(--radius-sm);
@@ -374,6 +441,8 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    word-break: break-word;
 }
 
 .quiz-options label::before {
@@ -393,28 +462,31 @@ body {
 }
 
 .quiz-options label:hover {
-    transform: translateX(5px);
+    transform: translateX(3px);
     border-color: var(--primary);
 }
 
 .quiz-options input[type="radio"] {
-    margin-right: 15px;
-    width: 20px;
-    height: 20px;
+    margin-right: 0.75em;
+    width: clamp(16px, 2vw, 20px);
+    height: clamp(16px, 2vw, 20px);
     accent-color: var(--primary);
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 /* Resultados del quiz */
 .result {
-    margin-top: 15px;
-    padding: 15px;
+    margin-top: 1em;
+    padding: 1em;
     border-radius: var(--radius-sm);
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.75em;
     animation: slideIn 0.3s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    word-wrap: break-word;
 }
 
 @keyframes slideIn {
@@ -444,6 +516,7 @@ body {
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: 1.2rem;
+    content: '✓';
 }
 
 .result.correct::before {
@@ -454,18 +527,18 @@ body {
     content: '✗';
 }
 
-/* Botones modernos */
+/* Botones modernos - MEJORADO */
 .week-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 16px 32px;
+    gap: 0.75em;
+    padding: clamp(12px, 2.5vw, 16px) clamp(20px, 4vw, 32px);
     background: var(--gradient-primary);
     color: white;
     border: none;
     border-radius: var(--radius);
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -473,8 +546,10 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
-    margin-top: 20px;
+    margin-top: 1.25em;
     box-shadow: var(--shadow-md);
+    width: fit-content;
+    min-width: min(200px, 100%);
 }
 
 .week-button::before {
@@ -522,14 +597,15 @@ body {
     background: linear-gradient(135deg, #27AE60 0%, var(--success) 100%);
 }
 
-/* Footer moderno */
+/* Footer moderno - MEJORADO */
 .week-footer {
     background: var(--gradient-dark);
     color: white;
-    padding: 40px 20px;
-    margin-top: 80px;
+    padding: clamp(30px, 5vw, 40px) clamp(15px, 3vw, 20px);
+    margin-top: clamp(40px, 8vw, 80px);
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .week-footer::before {
@@ -543,13 +619,13 @@ body {
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: min(1200px, 95%);
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: clamp(20px, 4vw, 40px);
     position: relative;
     z-index: 1;
 }
@@ -557,8 +633,9 @@ body {
 .footer-logo {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1.25em;
     transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .footer-logo:hover {
@@ -566,7 +643,7 @@ body {
 }
 
 .footer-logo img {
-    width: 200px;
+    width: clamp(160px, 25vw, 200px);
     height: auto;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
@@ -575,156 +652,236 @@ body {
 }
 
 .footer-logo img:hover {
-    transform: rotate(3deg) scale(1.05);
+    transform: rotate(2deg) scale(1.03);
     box-shadow: var(--shadow-lg);
 }
 
 .footer-info {
     flex: 1;
-    min-width: 300px;
+    min-width: min(280px, 100%);
     text-align: center;
 }
 
 .footer-info p {
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     opacity: 0.9;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .footer-info .copyright {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
     font-weight: 600;
-    margin-top: 15px;
+    margin-top: 1em;
     color: var(--accent);
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
-    .week-header {
-        padding: 25px 30px;
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
+/* Media Queries - Refinadas y mejoradas */
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+    :root {
+        --container-padding: 15px;
     }
     
-    .header-title h1 {
-        font-size: 2.2rem;
-    }
-    
-    .header-logo {
-        justify-content: center;
+    .week-container {
+        margin: 20px auto;
     }
     
     .content-card {
-        padding: 30px;
+        padding: 20px;
+        margin-bottom: 25px;
     }
     
     .content-card h2 {
-        font-size: 1.8rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .week-container {
-        padding: 0 15px;
-        margin: 30px auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
     }
     
-    .content-card {
-        padding: 25px;
-        margin-bottom: 30px;
+    .content-card h2 i {
+        font-size: 1.5rem;
     }
     
-    .header-title h1 {
-        font-size: 1.8rem;
-    }
-    
-    .logo-main {
-        width: 150px;
+    .quiz-options {
+        grid-template-columns: 1fr;
     }
     
     .footer-content {
         flex-direction: column;
         text-align: center;
-        gap: 30px;
+        gap: 25px;
     }
     
     .footer-logo {
         justify-content: center;
     }
-    
-    .footer-logo img {
-        width: 180px;
-    }
-    
-    .quiz-options label {
-        padding: 14px 16px;
-    }
 }
 
+/* Móviles pequeños */
 @media (max-width: 480px) {
+    :root {
+        --container-padding: 12px;
+        --card-padding: 18px;
+    }
+    
     .week-header {
-        padding: 20px;
+        padding: 15px;
+        gap: 15px;
     }
     
     .header-title h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     
-    .content-card {
-        padding: 20px;
+    .header-title .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .logo-main {
+        width: 120px;
     }
     
     .content-card h2 {
-        font-size: 1.5rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        font-size: 1.3rem;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .content-card h2 i {
+        font-size: 1.3rem;
+    }
+    
+    .content-card ul, 
+    .content-card ol {
+        padding-left: 20px;
+    }
+    
+    .content-card li {
+        font-size: 0.9rem;
+    }
+    
+    .example-box, .important-note {
+        padding: 15px;
     }
     
     .week-button {
         width: 100%;
-        padding: 14px 20px;
-        font-size: 1rem;
+        padding: 12px 20px;
+        font-size: 0.95rem;
     }
     
-    .quiz-options {
-        gap: 8px;
+    .quiz-question {
+        padding: 15px;
     }
     
     .quiz-options label {
-        padding: 12px 14px;
-        font-size: 0.95rem;
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .footer-logo img {
+        width: 140px;
+    }
+    
+    .footer-info p {
+        font-size: 0.85rem;
+    }
+    
+    /* Mejora para tablas en móviles */
+    .content-card table,
+    .example-box table {
+        font-size: 0.8rem;
+    }
+    
+    .content-card th,
+    .content-card td,
+    .example-box th,
+    .example-box td {
+        padding: 6px 8px;
     }
 }
 
-/* Estilos específicos para texto griego */
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    .header-title h1 {
+        font-size: 1.3rem;
+    }
+    
+    .logo-main {
+        width: 100px;
+    }
+    
+    .content-card h2 {
+        font-size: 1.2rem;
+    }
+    
+    .content-card h2 i {
+        font-size: 1.2rem;
+    }
+    
+    .week-button {
+        font-size: 0.9rem;
+        padding: 10px 16px;
+    }
+}
+
+/* Ajustes de orientación landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    .week-header {
+        padding: 10px 20px;
+    }
+    
+    .logo-main {
+        width: 100px;
+    }
+    
+    .header-title h1 {
+        font-size: 1.3rem;
+    }
+    
+    .content-card {
+        padding: 15px;
+    }
+}
+
+/* Estilos específicos para texto hebreo - MEJORADO */
+.hebrew-text, .hebrew-example {
+    font-family: 'Times New Roman', 'Arial Hebrew', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    direction: rtl;
+    unicode-bidi: embed;
+    word-break: break-word;
+}
+
 .greek-text {
     font-family: 'Times New Roman', serif;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
     color: var(--primary-dark);
     font-weight: 500;
     padding: 2px 4px;
     background: rgba(74, 111, 165, 0.05);
     border-radius: 4px;
+    word-break: break-word;
 }
 
 .greek-example {
     font-family: 'Times New Roman', serif;
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     color: var(--secondary-dark);
     font-weight: 600;
     display: block;
-    margin: 10px 0;
-    padding: 10px 15px;
+    margin: 0.75em 0;
+    padding: 0.75em 1em;
     background: linear-gradient(135deg, rgba(139, 95, 191, 0.05) 0%, rgba(74, 111, 165, 0.05) 100%);
     border-radius: var(--radius-sm);
     border-left: 4px solid var(--secondary);
+    word-break: break-word;
 }
 
-/* Scrollbar personalizada */
+/* Scrollbar personalizada - MEJORADA */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -735,8 +892,42 @@ body {
 ::-webkit-scrollbar-thumb {
     background: var(--gradient-primary);
     border-radius: 5px;
+    transition: var(--transition);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-dark);
+}
+
+/* Utilidades responsive adicionales */
+@media (max-width: 768px) {
+    .hide-on-mobile {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hide-on-tablet {
+        display: none;
+    }
+}
+
+/* Mejora para imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mejora para contenedores flexibles */
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(10px, 2vw, 20px);
+}
+
+/* Mejora para grids */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: clamp(15px, 3vw, 25px);
 }
