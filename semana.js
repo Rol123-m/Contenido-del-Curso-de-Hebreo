@@ -42,7 +42,7 @@ class SemanaManager {
                 fecha: "10 mar - 16 mar",
                 evaluacion: "Examen 2",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Las Vocales', url: '#', icono: '📄' },
+                    { tipo: 'pdf', titulo: 'PDF: Las Vocales', url: 'https://drive.google.com/file/d/1wc-LJHDjFX9rv-w160BkevMhnkknzhbG/view?usp=sharing', icono: '📄' },
                     { tipo: 'html', titulo: 'Curiosidad Exegética', url: 'semanas/semana2/html/Curiosidad.html', icono: 'אָ' },
                     { tipo: 'html', titulo: 'Vocales Hebreas', url: 'semanas/semana2/html/vocales.html', icono: 'אַ' },
                     { tipo: 'html', titulo: 'Primer repaso', url: 'semanas/semana2/html/resumen1.html', icono: 'אִ' },
