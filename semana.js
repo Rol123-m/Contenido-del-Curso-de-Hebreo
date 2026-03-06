@@ -55,7 +55,8 @@ class SemanaManager {
                 ],
                 juegos: [
                     { titulo: 'Reconoce las Vocales', url: 'semanas/semana2/juegos/vocalesnormales.html', icono: '🎯' },
-                    { titulo: 'Matris lectionis', url: 'semanas/semana2/juegos/otrasvocales.html', icono: '📢' }
+                    { titulo: 'Matris lectionis', url: 'semanas/semana2/juegos/otrasvocales.html', icono: '📢' },
+                    { titulo: 'Más sobre vocales', url: 'semanas/semana2/juegos/otrojuego.html', icono: '📢' }
                 ]
             },
             

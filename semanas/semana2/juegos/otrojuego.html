@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧪 Laboratorio de Vocales Hebreas</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(145deg, #1a2639, #0f1a2f);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .game-wrapper {
+      flex: 1;
+      max-width: 1300px;
+      margin: 30px auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    /* Header */
+    .week-header {
+      background: linear-gradient(135deg, #0b1a2e, #1e3a5f);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      border-bottom: 3px solid #4d7eb3;
+    }
+    .header-logo img { width: 160px; border-radius: 12px; }
+    .header-title h1 { font-size: 2.2rem; background: linear-gradient(135deg, #ffd700, #ffb347);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    /* Estadísticas estilo laboratorio */
+    .lab-stats {
+      background: #0f212e;
+      border: 2px solid #3a6d8c;
+      border-radius: 60px;
+      padding: 15px 30px;
+      margin: 20px 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #b3e4ff;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+    .exp-meter {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      max-width: 400px;
+    }
+    .exp-bar {
+      flex: 1;
+      height: 20px;
+      background: #1e3b4a;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #4fa3c9;
+    }
+    .exp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #00b7ff);
+      width: 0%;
+      transition: width 0.3s;
+      box-shadow: 0 0 15px #00ffff;
+    }
+    .level-badge {
+      background: linear-gradient(135deg, #4d7eb3, #2a4d7a);
+      padding: 8px 25px;
+      border-radius: 40px;
+      font-weight: 700;
+      border: 2px solid #ffd700;
+      color: gold;
+    }
+    
+    /* Área principal de juego */
+    .lab-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    
+    /* Panel de construcción */
+    .construction-panel {
+      background: #122b39;
+      border: 3px solid #3d7ea6;
+      border-radius: 40px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-title {
+      color: #9fd9ff;
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px dashed #3d7ea6;
+      padding-bottom: 15px;
+    }
+    
+    .target-display {
+      text-align: center;
+      margin: 15px 0 25px;
+    }
+    .target-question {
+      color: #ffdb9d;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .target-symbol {
+      font-family: 'Times New Roman', serif;
+      font-size: 8rem;
+      line-height: 1;
+      color: gold;
+      text-shadow: 0 0 30px #ffaa00, 0 0 60px #ff7700;
+      direction: rtl;
+      margin: 10px 0;
+      background: rgba(0,0,0,0.3);
+      display: inline-block;
+      padding: 0 30px;
+      border-radius: 60px;
+      border: 2px solid #ffaa00;
+    }
+    
+    /* Área de construcción */
+    .build-area {
+      background: #0a1c26;
+      border-radius: 50px;
+      padding: 25px;
+      margin: 20px 0;
+      border: 2px solid #3a8fb0;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .build-preview {
+      font-family: 'Times New Roman', serif;
+      font-size: 7rem;
+      color: #b3e4ff;
+      direction: rtl;
+      text-shadow: 0 0 20px cyan;
+    }
+    .build-placeholder {
+      color: #4a7f9c;
+      font-size: 2rem;
+      font-style: italic;
+    }
+    
+    /* Componentes (consonantes y signos) */
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .component-card {
+      background: #1d3e4f;
+      border: 2px solid #4fa3c9;
+      border-radius: 30px;
+      padding: 20px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: white;
+      box-shadow: 0 5px 0 #0f2a36;
+    }
+    .component-card:hover:not(.disabled) {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 0 #0f2a36, 0 0 20px #00ffff;
+      border-color: cyan;
+    }
+    .component-card.selected {
+      background: #2d5e7a;
+      border-color: gold;
+      box-shadow: 0 0 20px gold;
+    }
+    .component-card.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+    }
+    .component-hebrew {
+      font-family: 'Times New Roman', serif;
+      font-size: 2.2rem;
+      direction: rtl;
+      margin-bottom: 5px;
+    }
+    .component-name {
+      font-size: 0.8rem;
+      color: #aad0f5;
+    }
+    
+    /* Panel derecho - Información y acciones */
+    .info-panel {
+      background: #102633;
+      border: 3px solid #5a3d8c;
+      border-radius: 40px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .info-title {
+      color: #c7a5ff;
+      font-size: 1.3rem;
+      border-bottom: 2px dashed #6f4fb3;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .hint-box {
+      background: #1e2f47;
+      border-left: 6px solid #b589ff;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      color: #e0d0ff;
+    }
+    
+    .history-log {
+      background: #0d1a24;
+      border-radius: 30px;
+      padding: 20px;
+      margin: 25px 0;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      padding: 10px;
+      border-bottom: 1px solid #2c4b5e;
+      color: #98c1d9;
+      font-size: 0.9rem;
+    }
+    .log-success { color: #a3e4a3; }
+    .log-fail { color: #ffa2a2; }
+    
+    .action-buttons-lab {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    .lab-btn {
+      padding: 18px;
+      border: none;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-build {
+      background: linear-gradient(135deg, #00b09b, #96c93d);
+      color: #1a2a1a;
+    }
+    .btn-build:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 30px #96c93d; }
+    .btn-clear {
+      background: #2d4b65;
+      color: white;
+      border: 2px solid #7aa3c2;
+    }
+    .btn-clear:hover { background: #3e627a; }
+    .btn-next {
+      background: linear-gradient(135deg, #8B5FBF, #C45A9F);
+      color: white;
+    }
+    .btn-next:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 30px #bf8fff; }
+    .lab-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    
+    /* Modal */
+    .modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none; place-items: center;
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+    }
+    .modal-content {
+      background: #1a2f3f;
+      padding: 50px;
+      border-radius: 60px;
+      text-align: center;
+      border: 3px solid gold;
+      max-width: 500px;
+    }
+    .modal-content i { font-size: 5rem; color: gold; margin-bottom: 20px; }
+    .modal-content h2 { color: white; font-size: 2.5rem; }
+    .modal-content p { color: #b3d9ff; font-size: 1.5rem; margin: 20px 0; }
+    
+    .footer {
+      background: #05161f;
+      color: #7f9fb5;
+      text-align: center;
+      padding: 30px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo"></div>
+    <div class="header-title"><h1>🧪 LABORATORIO DE VOCALES HEBREAS</h1></div>
+  </header>
+
+  <div class="game-wrapper">
+    <!-- Experiencia y nivel -->
+    <div class="lab-stats">
+      <div><i class="fas fa-flask"></i> INVESTIGADOR: <span id="playerName">ESTUDIANTE</span></div>
+      <div class="exp-meter">
+        <span><i class="fas fa-brain"></i> EXP</span>
+        <div class="exp-bar"><div class="exp-fill" id="expBar" style="width:0%"></div></div>
+      </div>
+      <div class="level-badge" id="levelDisplay">NIVEL 1</div>
+    </div>
+
+    <div class="lab-container">
+      <!-- Panel izquierdo: construcción -->
+      <div class="construction-panel">
+        <div class="panel-title"><i class="fas fa-microscope"></i> MESA DE TRABAJO</div>
+        
+        <div class="target-display">
+          <div class="target-question" id="questionText">Construye la vocal:</div>
+          <div class="target-symbol" id="targetSymbol">בָּה</div>
+        </div>
+        
+        <div class="build-area" id="buildArea">
+          <div class="build-preview" id="buildPreview">🔬</div>
+          <div class="build-placeholder" id="buildPlaceholder">Selecciona componentes abajo</div>
+        </div>
+        
+        <div style="color:#b3d0ff; margin: 10px 0; font-size:0.9rem;">
+          <i class="fas fa-hand-pointer"></i> Componentes disponibles:
+        </div>
+        <div class="components-grid" id="componentsContainer">
+          <!-- Se llenará con JS -->
+        </div>
+        
+        <div style="display: flex; gap:10px; margin-top:20px;">
+          <button class="lab-btn btn-clear" id="clearBtn" style="flex:1"><i class="fas fa-eraser"></i> LIMPIAR</button>
+          <button class="lab-btn btn-build" id="buildBtn" style="flex:2"><i class="fas fa-flask"></i> INTENTAR SÍNTESIS</button>
+        </div>
+      </div>
+      
+      <!-- Panel derecho: información y log -->
+      <div class="info-panel">
+        <div class="info-title"><i class="fas fa-scroll"></i> CUADERNO DE NOTAS</div>
+        
+        <div class="hint-box" id="hintBox">
+          <strong><i class="fas fa-lightbulb"></i> PISTA:</strong> <span id="hintText">Arrastra mentalmente los componentes para formar la vocal</span>
+        </div>
+        
+        <div><i class="fas fa-history"></i> HISTORIAL DEL LABORATORIO:</div>
+        <div class="history-log" id="logContainer">
+          <div class="log-entry">⚗️ Laboratorio iniciado</div>
+        </div>
+        
+        <div class="action-buttons-lab">
+          <button class="lab-btn btn-next" id="nextBtn" disabled><i class="fas fa-arrow-right"></i> SIGUIENTE EXPERIMENTO</button>
+          <button class="lab-btn btn-clear" id="resetGameBtn"><i class="fas fa-redo-alt"></i> REINICIAR LABORATORIO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal final -->
+  <div class="modal" id="completionModal">
+    <div class="modal-content">
+      <i class="fas fa-trophy"></i>
+      <h2>¡INVESTIGACIÓN COMPLETADA!</h2>
+      <p>Has sintetizado <span id="finalScoreSpan">0</span>/10 vocales</p>
+      <button class="lab-btn btn-build" id="restartLabBtn" style="margin:20px auto 0; padding:15px 40px;">
+        <i class="fas fa-flask"></i> NUEVO EXPERIMENTO
+      </button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Ministerio "Vivos para Servir" · Laboratorio de Hebreo · Todas las vocales</p>
+  </footer>
+
+  <script>
+    (function() {
+      // ---------- BASE DE DATOS COMPLETA (TODAS LAS VOCALES) ----------
+      const allVowels = [
+        // Básicas sin matres
+        { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a', components: 'base:בּ + ָ' },
+        { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e', components: 'base:בּ + ֵ' },
+        { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o', components: 'base:בּ + ֹ' },
+        { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a', components: 'base:בּ + ַ' },
+        { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e', components: 'base:בּ + ֶ' },
+        { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i', components: 'base:בּ + ִ' },
+        { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u', components: 'base:בּ + ֻ' },
+        { symbol: 'בֲּ', name: 'Hateph Pathach', type: 'reducida', class: 'a', components: 'base:בּ + ֲ' },
+        { symbol: 'בֱּ', name: 'Hateph Seghol', type: 'reducida', class: 'e', components: 'base:בּ + ֱ' },
+        { symbol: 'בֳּ', name: 'Hateph Qamets', type: 'reducida', class: 'o', components: 'base:בּ + ֳ' },
+        
+        // Matres lectionis con He (solo final)
+        { symbol: 'בָּה', name: 'Qamets He', type: 'matres he', class: 'a', components: 'base:בּ + ָ + ה' },
+        { symbol: 'בֵּה', name: 'Tsere He', type: 'matres he', class: 'e', components: 'base:בּ + ֵ + ה' },
+        { symbol: 'בֶּה', name: 'Seghol He', type: 'matres he', class: 'e', components: 'base:בּ + ֶ + ה' },
+        { symbol: 'בֹּה', name: 'Holem He', type: 'matres he', class: 'o', components: 'base:בּ + ֹ + ה' },
+        
+        // Con Waw
+        { symbol: 'בּוֹ', name: 'Holem Waw', type: 'matres waw', class: 'o', components: 'base:בּ + ֹ + ו' },
+        { symbol: 'בּוּ', name: 'Shureq', type: 'matres waw', class: 'u', components: 'base:בּ + וּ' },
+        
+        // Con Yod
+        { symbol: 'בֵּי', name: 'Tsere Yod', type: 'matres yod', class: 'e', components: 'base:בּ + ֵ + י' },
+        { symbol: 'בֶּי', name: 'Seghol Yod', type: 'matres yod', class: 'e', components: 'base:בּ + ֶ + י' },
+        { symbol: 'בִּי', name: 'Hireq Yod', type: 'matres yod', class: 'i', components: 'base:בּ + ִ + י' },
+        
+        // Defectivos
+        { symbol: 'בֹּ', name: 'Holem defectivo', type: 'defectiva', class: 'o', components: 'base:בּ + ֹ' },
+        { symbol: 'בִּ', name: 'Hireq defectivo', type: 'defectiva', class: 'i', components: 'base:בּ + ִ' }
+      ];
+
+      // Componentes disponibles para construir (consonantes base y signos)
+      const components = [
+        { hebrew: 'בּ', name: 'Bet (base)' },
+        { hebrew: 'ָ', name: 'Qamets' },
+        { hebrew: 'ֵ', name: 'Tsere' },
+        { hebrew: 'ֹ', name: 'Holem' },
+        { hebrew: 'ַ', name: 'Pathach' },
+        { hebrew: 'ֶ', name: 'Seghol' },
+        { hebrew: 'ִ', name: 'Hireq' },
+        { hebrew: 'ֻ', name: 'Qibbuts' },
+        { hebrew: 'ֲ', name: 'Hateph Pathach' },
+        { hebrew: 'ֱ', name: 'Hateph Seghol' },
+        { hebrew: 'ֳ', name: 'Hateph Qamets' },
+        { hebrew: 'ה', name: 'He (final)' },
+        { hebrew: 'ו', name: 'Waw' },
+        { hebrew: 'וּ', name: 'Shureq (Waw+dot)' },
+        { hebrew: 'י', name: 'Yod' }
+      ];
+
+      // Estado del juego
+      let questions = [];            // vocales a construir
+      let currentIndex = 0;
+      let score = 0;
+      const TOTAL = 10;
+      
+      let selectedComponents = [];   // componentes elegidos para construir
+      let buildSuccess = false;      // si ya acertó en esta pregunta
+      
+      // Elementos DOM
+      const targetSymbol = document.getElementById('targetSymbol');
+      const questionText = document.getElementById('questionText');
+      const hintBox = document.getElementById('hintText');
+      const buildPreview = document.getElementById('buildPreview');
+      const buildPlaceholder = document.getElementById('buildPlaceholder');
+      const componentsDiv = document.getElementById('componentsContainer');
+      const logContainer = document.getElementById('logContainer');
+      const buildBtn = document.getElementById('buildBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const resetBtn = document.getElementById('resetGameBtn');
+      const expBar = document.getElementById('expBar');
+      const levelDisplay = document.getElementById('levelDisplay');
+      const completionModal = document.getElementById('completionModal');
+      const finalScoreSpan = document.getElementById('finalScoreSpan');
+      const restartLabBtn = document.getElementById('restartLabBtn');
+
+      // Inicializar
+      function initGame() {
+        // Seleccionar 10 vocales aleatorias
+        let shuffled = [...allVowels].sort(() => Math.random() - 0.5);
+        questions = shuffled.slice(0, TOTAL);
+        currentIndex = 0;
+        score = 0;
+        selectedComponents = [];
+        buildSuccess = false;
+        updateUI();
+        renderQuestion();
+        renderComponents();
+        addLog('🧪 Nuevo experimento iniciado');
+      }
+
+      function updateUI() {
+        expBar.style.width = `${(currentIndex / TOTAL) * 100}%`;
+        levelDisplay.textContent = `NIVEL ${Math.floor(score/2)+1}`;
+      }
+
+      function addLog(text, isSuccess = null) {
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        if (isSuccess === true) entry.classList.add('log-success');
+        if (isSuccess === false) entry.classList.add('log-fail');
+        entry.innerHTML = `⚗️ ${new Date().toLocaleTimeString()} · ${text}`;
+        logContainer.appendChild(entry);
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
+
+      function renderComponents() {
+        componentsDiv.innerHTML = '';
+        components.forEach(comp => {
+          const card = document.createElement('div');
+          card.className = 'component-card';
+          card.dataset.hebrew = comp.hebrew;
+          card.dataset.name = comp.name;
+          card.innerHTML = `
+            <div class="component-hebrew" style="direction:rtl;">${comp.hebrew}</div>
+            <div class="component-name">${comp.name}</div>
+          `;
+          card.addEventListener('click', () => addComponent(comp));
+          componentsDiv.appendChild(card);
+        });
+      }
+
+      function addComponent(comp) {
+        if (buildSuccess) {
+          addLog('❌ Ya sintetizaste esta vocal, pasa al siguiente', false);
+          return;
+        }
+        selectedComponents.push(comp);
+        updateBuildPreview();
+        addLog(`➕ Añadido: ${comp.name} (${comp.hebrew})`);
+      }
+
+      function updateBuildPreview() {
+        if (selectedComponents.length === 0) {
+          buildPreview.innerHTML = '🔬';
+          buildPlaceholder.style.display = 'block';
+        } else {
+          let combined = selectedComponents.map(c => c.hebrew).join('');
+          // Ordenar para que la base Bet suela ir primero (por estética)
+          if (combined.includes('בּ') && !combined.startsWith('בּ')) {
+            combined = 'בּ' + combined.replace('בּ', '');
+          }
+          buildPreview.innerHTML = combined;
+          buildPreview.style.direction = 'rtl';
+          buildPlaceholder.style.display = 'none';
+        }
+      }
+
+      function clearBuild() {
+        selectedComponents = [];
+        updateBuildPreview();
+        addLog('🧹 Mesa de trabajo limpiada');
+      }
+
+      function checkBuild() {
+        if (buildSuccess) {
+          addLog('⚠️ Ya acertaste, pasa al siguiente', false);
+          return;
+        }
+        if (selectedComponents.length === 0) {
+          addLog('⚠️ No hay componentes en la mesa', false);
+          return;
+        }
+
+        // Construir string hebreo actual
+        let built = selectedComponents.map(c => c.hebrew).join('');
+        if (built.includes('בּ') && !built.startsWith('בּ')) {
+          built = 'בּ' + built.replace('בּ', '');
+        }
+        
+        const target = questions[currentIndex].symbol;
+        
+        // Comparación simple (idealmente debería normalizar, pero para el juego es suficiente)
+        const normalize = (str) => str.replace(/\s/g, '');
+        
+        const isCorrect = normalize(built) === normalize(target);
+        
+        if (isCorrect) {
+          score++;
+          buildSuccess = true;
+          addLog(`✅ ¡SÍNTESIS EXITOSA! ${questions[currentIndex].name}`, true);
+          nextBtn.disabled = false;
+        } else {
+          addLog(`❌ Síntesis fallida. La vocal correcta es ${target}`, false);
+        }
+      }
+
+      function nextQuestion() {
+        if (!buildSuccess) {
+          addLog('⚠️ Debes sintetizar correctamente primero', false);
+          return;
+        }
+        if (currentIndex < TOTAL - 1) {
+          currentIndex++;
+          selectedComponents = [];
+          buildSuccess = false;
+          updateBuildPreview();
+          renderQuestion();
+          updateUI();
+          nextBtn.disabled = true;
+        } else {
+          // Terminó
+          finalScoreSpan.textContent = score;
+          completionModal.style.display = 'flex';
+        }
+      }
+
+      function renderQuestion() {
+        const q = questions[currentIndex];
+        targetSymbol.textContent = q.symbol;
+        questionText.textContent = `Construye: ${q.name} (${q.type} · clase ${q.class})`;
+        hintBox.textContent = `${q.components} · ${q.symbol} = ${q.name}`;
+      }
+
+      // Event listeners
+      buildBtn.addEventListener('click', checkBuild);
+      clearBtn.addEventListener('click', clearBuild);
+      nextBtn.addEventListener('click', nextQuestion);
+      resetBtn.addEventListener('click', () => {
+        initGame();
+        nextBtn.disabled = true;
+        buildSuccess = false;
+        selectedComponents = [];
+        updateBuildPreview();
+      });
+      restartLabBtn.addEventListener('click', () => {
+        completionModal.style.display = 'none';
+        initGame();
+        nextBtn.disabled = true;
+      });
+
+      // Iniciar
+      initGame();
+    })();
+  </script>
+</body>
+</html>
