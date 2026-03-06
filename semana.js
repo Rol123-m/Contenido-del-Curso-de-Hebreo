@@ -42,12 +42,16 @@ class SemanaManager {
                 fecha: "10 mar - 16 mar",
                 evaluacion: "Examen 2",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Las Vocales', url: 'semanas/semana2/pdf/vocales.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a las Vocales', url: 'semanas/semana2/html/introduccion.html', icono: 'אָ' },
-                    { tipo: 'html', titulo: 'Vocales Largas', url: 'semanas/semana2/html/largas.html', icono: 'אַ' },
-                    { tipo: 'html', titulo: 'Vocales Breves', url: 'semanas/semana2/html/breves.html', icono: 'אִ' },
-                    { tipo: 'html', titulo: 'Vocales Reducidas y Shevá', url: 'semanas/semana2/html/sheva.html', icono: 'אְ' },
-                    { tipo: 'html', titulo: 'Resumen Semana 2', url: 'semanas/semana2/html/resumen.html', icono: '📝' }
+                    { tipo: 'pdf', titulo: 'PDF: Las Vocales', url: '#', icono: '📄' },
+                    { tipo: 'html', titulo: 'Curiosidad Exegética', url: 'semanas/semana2/html/Curiosidad.html', icono: 'אָ' },
+                    { tipo: 'html', titulo: 'Vocales Hebreas', url: 'semanas/semana2/html/vocales.html', icono: 'אַ' },
+                    { tipo: 'html', titulo: 'Primer repaso', url: 'semanas/semana2/html/resumen1.html', icono: 'אִ' },
+                     { tipo: 'html', titulo: 'Letras Vocálicas', url: 'semanas/semana2/html/letrasvocalicas.html', icono: 'אִ' },
+                      { tipo: 'html', titulo: 'Segundo Repaso', url: 'semanas/semana2/html/resumen2.html', icono: 'אִ' },
+                    { tipo: 'html', titulo: 'Shevá y otros asuntos', url: 'semanas/semana2/html/sheva.html', icono: 'אְ' },
+                    { tipo: 'html', titulo: 'Resumen Semana 2', url: 'semanas/semana2/html/resumenfinal.html', icono: '📝' },
+                      { tipo: 'examen', titulo: 'Examen Semana 2- Vocales', url: 'https://forms.gle/iYhastKbzsvu6whx8', icono: '📝' }
+
                 ],
                 juegos: [
                     { titulo: 'Reconoce las Vocales', url: 'semanas/semana2/juegos/vocales.html', icono: '🎯' },
