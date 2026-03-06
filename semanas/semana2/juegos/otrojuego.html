@@ -3,29 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧪 Laboratorio de Vocales Hebreas</title>
-  <link rel="stylesheet" href="semana.css">
+  <title>🔬 Laboratorio de Vocales Hebreas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      --primary: #4A6FA5;
+      --primary-dark: #2A4A7A;
+      --secondary: #8B5FBF;
+      --accent: #FFB74D;
+      --success: #2ECC71;
+      --danger: #E74C3C;
+      --dark: #2C3E50;
+      --gray: #7F8C8D;
+      --gradient-primary: linear-gradient(135deg, #4A6FA5, #8B5FBF);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: linear-gradient(145deg, #1a2639, #0f1a2f);
       font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #1a2639, #0f1a2f);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-    
-    .game-wrapper {
-      flex: 1;
-      max-width: 1300px;
-      margin: 30px auto;
-      padding: 0 20px;
-      width: 100%;
+
+    /* ===== DISEÑO PARA LAPTOP ( > 1024px ) ===== */
+    @media (min-width: 1025px) {
+      .game-wrapper {
+        max-width: 1400px;
+        margin: 20px auto;
+        padding: 0 30px;
+      }
+
+      .lab-container {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 30px;
+      }
+
+      .construction-panel, .info-panel {
+        padding: 35px;
+      }
+
+      .components-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+
+      .component-card {
+        padding: 25px 15px;
+        font-size: 1rem;
+      }
+
+      .component-hebrew {
+        font-size: 2.5rem;
+      }
+
+      .target-symbol {
+        font-size: 9rem;
+      }
+
+      .build-preview {
+        font-size: 7rem;
+      }
+
+      .lab-stats {
+        padding: 15px 35px;
+      }
     }
-    
-    /* Header */
+
+    /* ===== DISEÑO PARA TABLET (768px - 1024px) ===== */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .game-wrapper {
+        max-width: 95%;
+        margin: 15px auto;
+        padding: 0 20px;
+      }
+
+      .lab-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .components-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .target-symbol {
+        font-size: 7rem;
+      }
+
+      .build-preview {
+        font-size: 5rem;
+      }
+
+      .component-hebrew {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* ===== DISEÑO PARA MÓVIL ( < 768px ) ===== */
+    @media (max-width: 767px) {
+      .game-wrapper {
+        max-width: 100%;
+        margin: 10px auto;
+        padding: 0 12px;
+      }
+
+      .lab-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .week-header {
+        padding: 15px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .header-logo img {
+        width: 120px;
+      }
+
+      .header-title h1 {
+        font-size: 1.5rem;
+      }
+
+      .lab-stats {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .exp-meter {
+        width: 100%;
+        max-width: none;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .exp-bar {
+        width: 100%;
+      }
+
+      .construction-panel, .info-panel {
+        padding: 20px;
+      }
+
+      .components-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .component-card {
+        padding: 12px 5px;
+      }
+
+      .component-hebrew {
+        font-size: 1.6rem;
+      }
+
+      .component-name {
+        font-size: 0.7rem;
+      }
+
+      .target-symbol {
+        font-size: 5rem;
+        padding: 0 15px;
+      }
+
+      .target-question {
+        font-size: 1.1rem;
+      }
+
+      .build-area {
+        min-height: 120px;
+        padding: 15px;
+      }
+
+      .build-preview {
+        font-size: 3.5rem;
+      }
+
+      .build-placeholder {
+        font-size: 1.2rem;
+      }
+
+      .panel-title {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+
+      .info-title {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+
+      .hint-box {
+        padding: 15px;
+        font-size: 0.9rem;
+      }
+
+      .action-buttons-lab {
+        gap: 10px;
+      }
+
+      .lab-btn {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+
+      .history-log {
+        max-height: 150px;
+        padding: 12px;
+      }
+
+      .log-entry {
+        font-size: 0.8rem;
+        padding: 6px;
+      }
+
+      .modal-content {
+        padding: 25px;
+        margin: 0 15px;
+      }
+
+      .modal-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .modal-content p {
+        font-size: 1.2rem;
+      }
+
+      .footer {
+        padding: 20px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ===== ESTILOS COMUNES (ambos diseños) ===== */
     .week-header {
       background: linear-gradient(135deg, #0b1a2e, #1e3a5f);
       color: white;
@@ -36,11 +265,25 @@
       flex-wrap: wrap;
       border-bottom: 3px solid #4d7eb3;
     }
-    .header-logo img { width: 160px; border-radius: 12px; }
-    .header-title h1 { font-size: 2.2rem; background: linear-gradient(135deg, #ffd700, #ffb347);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    /* Estadísticas estilo laboratorio */
+
+    .header-logo img {
+      width: 160px;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+
+    .header-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .header-title h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #ffd700, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Estadísticas */
     .lab-stats {
       background: #0f212e;
       border: 2px solid #3a6d8c;
@@ -53,6 +296,7 @@
       color: #b3e4ff;
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
     }
+
     .exp-meter {
       display: flex;
       align-items: center;
@@ -60,6 +304,7 @@
       flex: 1;
       max-width: 400px;
     }
+
     .exp-bar {
       flex: 1;
       height: 20px;
@@ -68,6 +313,7 @@
       overflow: hidden;
       border: 1px solid #4fa3c9;
     }
+
     .exp-fill {
       height: 100%;
       background: linear-gradient(90deg, #00ffff, #00b7ff);
@@ -75,6 +321,7 @@
       transition: width 0.3s;
       box-shadow: 0 0 15px #00ffff;
     }
+
     .level-badge {
       background: linear-gradient(135deg, #4d7eb3, #2a4d7a);
       padding: 8px 25px;
@@ -83,26 +330,25 @@
       border: 2px solid #ffd700;
       color: gold;
     }
-    
-    /* Área principal de juego */
-    .lab-container {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 25px;
-      margin-bottom: 30px;
-    }
-    
-    /* Panel de construcción */
+
+    /* Paneles */
     .construction-panel {
       background: #122b39;
       border: 3px solid #3d7ea6;
       border-radius: 40px;
       padding: 30px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,255,255,0.1);
-      position: relative;
-      overflow: hidden;
     }
-    .panel-title {
+
+    .info-panel {
+      background: #102633;
+      border: 3px solid #5a3d8c;
+      border-radius: 40px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .panel-title, .info-title {
       color: #9fd9ff;
       font-size: 1.3rem;
       margin-bottom: 25px;
@@ -112,16 +358,24 @@
       border-bottom: 2px dashed #3d7ea6;
       padding-bottom: 15px;
     }
-    
+
+    .info-title {
+      color: #c7a5ff;
+      border-bottom-color: #6f4fb3;
+    }
+
+    /* Display objetivo */
     .target-display {
       text-align: center;
       margin: 15px 0 25px;
     }
+
     .target-question {
       color: #ffdb9d;
       font-size: 1.5rem;
       margin-bottom: 10px;
     }
+
     .target-symbol {
       font-family: 'Times New Roman', serif;
       font-size: 8rem;
@@ -136,7 +390,7 @@
       border-radius: 60px;
       border: 2px solid #ffaa00;
     }
-    
+
     /* Área de construcción */
     .build-area {
       background: #0a1c26;
@@ -149,6 +403,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .build-preview {
       font-family: 'Times New Roman', serif;
       font-size: 7rem;
@@ -156,19 +411,20 @@
       direction: rtl;
       text-shadow: 0 0 20px cyan;
     }
+
     .build-placeholder {
       color: #4a7f9c;
       font-size: 2rem;
       font-style: italic;
     }
-    
-    /* Componentes (consonantes y signos) */
+
+    /* Componentes */
     .components-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 15px;
       margin-top: 20px;
     }
+
     .component-card {
       background: #1d3e4f;
       border: 2px solid #4fa3c9;
@@ -180,48 +436,38 @@
       color: white;
       box-shadow: 0 5px 0 #0f2a36;
     }
+
     .component-card:hover:not(.disabled) {
       transform: translateY(-5px);
       box-shadow: 0 10px 0 #0f2a36, 0 0 20px #00ffff;
       border-color: cyan;
     }
+
     .component-card.selected {
       background: #2d5e7a;
       border-color: gold;
       box-shadow: 0 0 20px gold;
     }
+
     .component-card.disabled {
       opacity: 0.4;
       cursor: not-allowed;
       filter: grayscale(0.5);
     }
+
     .component-hebrew {
       font-family: 'Times New Roman', serif;
       font-size: 2.2rem;
       direction: rtl;
       margin-bottom: 5px;
     }
+
     .component-name {
       font-size: 0.8rem;
       color: #aad0f5;
     }
-    
-    /* Panel derecho - Información y acciones */
-    .info-panel {
-      background: #102633;
-      border: 3px solid #5a3d8c;
-      border-radius: 40px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-    .info-title {
-      color: #c7a5ff;
-      font-size: 1.3rem;
-      border-bottom: 2px dashed #6f4fb3;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
-    }
-    
+
+    /* Pista (sin respuesta) */
     .hint-box {
       background: #1e2f47;
       border-left: 6px solid #b589ff;
@@ -230,7 +476,8 @@
       margin-bottom: 30px;
       color: #e0d0ff;
     }
-    
+
+    /* Historial */
     .history-log {
       background: #0d1a24;
       border-radius: 30px;
@@ -239,21 +486,25 @@
       max-height: 250px;
       overflow-y: auto;
     }
+
     .log-entry {
       padding: 10px;
       border-bottom: 1px solid #2c4b5e;
       color: #98c1d9;
       font-size: 0.9rem;
     }
+
     .log-success { color: #a3e4a3; }
     .log-fail { color: #ffa2a2; }
-    
+
+    /* Botones */
     .action-buttons-lab {
       display: flex;
       flex-direction: column;
       gap: 15px;
       margin-top: 25px;
     }
+
     .lab-btn {
       padding: 18px;
       border: none;
@@ -261,38 +512,64 @@
       font-weight: 600;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
     }
+
     .btn-build {
       background: linear-gradient(135deg, #00b09b, #96c93d);
       color: #1a2a1a;
     }
-    .btn-build:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 30px #96c93d; }
+
+    .btn-build:hover:not(:disabled) { 
+      transform: scale(1.02); 
+      box-shadow: 0 0 30px #96c93d; 
+    }
+
     .btn-clear {
       background: #2d4b65;
       color: white;
       border: 2px solid #7aa3c2;
     }
-    .btn-clear:hover { background: #3e627a; }
+
+    .btn-clear:hover { 
+      background: #3e627a; 
+    }
+
     .btn-next {
       background: linear-gradient(135deg, #8B5FBF, #C45A9F);
       color: white;
     }
-    .btn-next:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 30px #bf8fff; }
-    .lab-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-    
+
+    .btn-next:hover:not(:disabled) { 
+      transform: scale(1.02); 
+      box-shadow: 0 0 30px #bf8fff; 
+    }
+
+    .lab-btn:disabled { 
+      opacity: 0.3; 
+      cursor: not-allowed; 
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
     /* Modal */
     .modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      display: none; place-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      place-items: center;
       backdrop-filter: blur(5px);
       z-index: 2000;
     }
+
     .modal-content {
       background: #1a2f3f;
       padding: 50px;
@@ -300,11 +577,27 @@
       text-align: center;
       border: 3px solid gold;
       max-width: 500px;
+      width: 90%;
     }
-    .modal-content i { font-size: 5rem; color: gold; margin-bottom: 20px; }
-    .modal-content h2 { color: white; font-size: 2.5rem; }
-    .modal-content p { color: #b3d9ff; font-size: 1.5rem; margin: 20px 0; }
-    
+
+    .modal-content i { 
+      font-size: 5rem; 
+      color: gold; 
+      margin-bottom: 20px; 
+    }
+
+    .modal-content h2 { 
+      color: white; 
+      font-size: 2.5rem; 
+    }
+
+    .modal-content p { 
+      color: #b3d9ff; 
+      font-size: 1.5rem; 
+      margin: 20px 0; 
+    }
+
+    /* Footer */
     .footer {
       background: #05161f;
       color: #7f9fb5;
@@ -317,7 +610,7 @@
 <body>
   <header class="week-header">
     <div class="header-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo"></div>
-    <div class="header-title"><h1>🧪 LABORATORIO DE VOCALES HEBREAS</h1></div>
+    <div class="header-title"><h1>🔬 LABORATORIO DE VOCALES HEBREAS</h1></div>
   </header>
 
   <div class="game-wrapper">
@@ -337,7 +630,7 @@
         <div class="panel-title"><i class="fas fa-microscope"></i> MESA DE TRABAJO</div>
         
         <div class="target-display">
-          <div class="target-question" id="questionText">Construye la vocal:</div>
+          <div class="target-question" id="questionText">Construye esta vocal:</div>
           <div class="target-symbol" id="targetSymbol">בָּה</div>
         </div>
         
@@ -349,13 +642,11 @@
         <div style="color:#b3d0ff; margin: 10px 0; font-size:0.9rem;">
           <i class="fas fa-hand-pointer"></i> Componentes disponibles:
         </div>
-        <div class="components-grid" id="componentsContainer">
-          <!-- Se llenará con JS -->
-        </div>
+        <div class="components-grid" id="componentsContainer"></div>
         
         <div style="display: flex; gap:10px; margin-top:20px;">
           <button class="lab-btn btn-clear" id="clearBtn" style="flex:1"><i class="fas fa-eraser"></i> LIMPIAR</button>
-          <button class="lab-btn btn-build" id="buildBtn" style="flex:2"><i class="fas fa-flask"></i> INTENTAR SÍNTESIS</button>
+          <button class="lab-btn btn-build" id="buildBtn" style="flex:2"><i class="fas fa-flask"></i> SINTETIZAR</button>
         </div>
       </div>
       
@@ -364,17 +655,22 @@
         <div class="info-title"><i class="fas fa-scroll"></i> CUADERNO DE NOTAS</div>
         
         <div class="hint-box" id="hintBox">
-          <strong><i class="fas fa-lightbulb"></i> PISTA:</strong> <span id="hintText">Arrastra mentalmente los componentes para formar la vocal</span>
+          <strong><i class="fas fa-lightbulb"></i> DESAFÍO:</strong> 
+          <span id="hintText">Combina los componentes para formar la vocal exacta</span>
         </div>
         
-        <div><i class="fas fa-history"></i> HISTORIAL DEL LABORATORIO:</div>
+        <div><i class="fas fa-history"></i> BITÁCORA DEL LABORATORIO:</div>
         <div class="history-log" id="logContainer">
           <div class="log-entry">⚗️ Laboratorio iniciado</div>
         </div>
         
         <div class="action-buttons-lab">
-          <button class="lab-btn btn-next" id="nextBtn" disabled><i class="fas fa-arrow-right"></i> SIGUIENTE EXPERIMENTO</button>
-          <button class="lab-btn btn-clear" id="resetGameBtn"><i class="fas fa-redo-alt"></i> REINICIAR LABORATORIO</button>
+          <button class="lab-btn btn-next" id="nextBtn" disabled>
+            <i class="fas fa-arrow-right"></i> SIGUIENTE VOCAL
+          </button>
+          <button class="lab-btn btn-clear" id="resetGameBtn">
+            <i class="fas fa-redo-alt"></i> REINICIAR
+          </button>
         </div>
       </div>
     </div>
@@ -385,7 +681,7 @@
     <div class="modal-content">
       <i class="fas fa-trophy"></i>
       <h2>¡INVESTIGACIÓN COMPLETADA!</h2>
-      <p>Has sintetizado <span id="finalScoreSpan">0</span>/10 vocales</p>
+      <p>Has sintetizado <span id="finalScoreSpan">0</span>/10 vocales correctamente</p>
       <button class="lab-btn btn-build" id="restartLabBtn" style="margin:20px auto 0; padding:15px 40px;">
         <i class="fas fa-flask"></i> NUEVO EXPERIMENTO
       </button>
@@ -393,48 +689,41 @@
   </div>
 
   <footer class="footer">
-    <p>Ministerio "Vivos para Servir" · Laboratorio de Hebreo · Todas las vocales</p>
+    <p>Ministerio "Vivos para Servir" · Laboratorio de Hebreo · Construye cada vocal desde cero</p>
   </footer>
 
   <script>
     (function() {
-      // ---------- BASE DE DATOS COMPLETA (TODAS LAS VOCALES) ----------
+      // Base de datos completa de vocales (SIN PISTA DIRECTA)
       const allVowels = [
         // Básicas sin matres
-        { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a', components: 'base:בּ + ָ' },
-        { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e', components: 'base:בּ + ֵ' },
-        { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o', components: 'base:בּ + ֹ' },
-        { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a', components: 'base:בּ + ַ' },
-        { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e', components: 'base:בּ + ֶ' },
-        { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i', components: 'base:בּ + ִ' },
-        { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u', components: 'base:בּ + ֻ' },
-        { symbol: 'בֲּ', name: 'Hateph Pathach', type: 'reducida', class: 'a', components: 'base:בּ + ֲ' },
-        { symbol: 'בֱּ', name: 'Hateph Seghol', type: 'reducida', class: 'e', components: 'base:בּ + ֱ' },
-        { symbol: 'בֳּ', name: 'Hateph Qamets', type: 'reducida', class: 'o', components: 'base:בּ + ֳ' },
-        
-        // Matres lectionis con He (solo final)
-        { symbol: 'בָּה', name: 'Qamets He', type: 'matres he', class: 'a', components: 'base:בּ + ָ + ה' },
-        { symbol: 'בֵּה', name: 'Tsere He', type: 'matres he', class: 'e', components: 'base:בּ + ֵ + ה' },
-        { symbol: 'בֶּה', name: 'Seghol He', type: 'matres he', class: 'e', components: 'base:בּ + ֶ + ה' },
-        { symbol: 'בֹּה', name: 'Holem He', type: 'matres he', class: 'o', components: 'base:בּ + ֹ + ה' },
-        
+        { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a' },
+        { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e' },
+        { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o' },
+        { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a' },
+        { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e' },
+        { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i' },
+        { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u' },
+        { symbol: 'בֲּ', name: 'Hateph Pathach', type: 'reducida', class: 'a' },
+        { symbol: 'בֱּ', name: 'Hateph Seghol', type: 'reducida', class: 'e' },
+        { symbol: 'בֳּ', name: 'Hateph Qamets', type: 'reducida', class: 'o' },
+        // Matres lectionis con He
+        { symbol: 'בָּה', name: 'Qamets He', type: 'matres he', class: 'a' },
+        { symbol: 'בֵּה', name: 'Tsere He', type: 'matres he', class: 'e' },
+        { symbol: 'בֶּה', name: 'Seghol He', type: 'matres he', class: 'e' },
+        { symbol: 'בֹּה', name: 'Holem He', type: 'matres he', class: 'o' },
         // Con Waw
-        { symbol: 'בּוֹ', name: 'Holem Waw', type: 'matres waw', class: 'o', components: 'base:בּ + ֹ + ו' },
-        { symbol: 'בּוּ', name: 'Shureq', type: 'matres waw', class: 'u', components: 'base:בּ + וּ' },
-        
+        { symbol: 'בּוֹ', name: 'Holem Waw', type: 'matres waw', class: 'o' },
+        { symbol: 'בּוּ', name: 'Shureq', type: 'matres waw', class: 'u' },
         // Con Yod
-        { symbol: 'בֵּי', name: 'Tsere Yod', type: 'matres yod', class: 'e', components: 'base:בּ + ֵ + י' },
-        { symbol: 'בֶּי', name: 'Seghol Yod', type: 'matres yod', class: 'e', components: 'base:בּ + ֶ + י' },
-        { symbol: 'בִּי', name: 'Hireq Yod', type: 'matres yod', class: 'i', components: 'base:בּ + ִ + י' },
-        
-        // Defectivos
-        { symbol: 'בֹּ', name: 'Holem defectivo', type: 'defectiva', class: 'o', components: 'base:בּ + ֹ' },
-        { symbol: 'בִּ', name: 'Hireq defectivo', type: 'defectiva', class: 'i', components: 'base:בּ + ִ' }
+        { symbol: 'בֵּי', name: 'Tsere Yod', type: 'matres yod', class: 'e' },
+        { symbol: 'בֶּי', name: 'Seghol Yod', type: 'matres yod', class: 'e' },
+        { symbol: 'בִּי', name: 'Hireq Yod', type: 'matres yod', class: 'i' }
       ];
 
-      // Componentes disponibles para construir (consonantes base y signos)
+      // Componentes disponibles para construir
       const components = [
-        { hebrew: 'בּ', name: 'Bet (base)' },
+        { hebrew: 'בּ', name: 'Bet' },
         { hebrew: 'ָ', name: 'Qamets' },
         { hebrew: 'ֵ', name: 'Tsere' },
         { hebrew: 'ֹ', name: 'Holem' },
@@ -445,21 +734,20 @@
         { hebrew: 'ֲ', name: 'Hateph Pathach' },
         { hebrew: 'ֱ', name: 'Hateph Seghol' },
         { hebrew: 'ֳ', name: 'Hateph Qamets' },
-        { hebrew: 'ה', name: 'He (final)' },
+        { hebrew: 'ה', name: 'He' },
         { hebrew: 'ו', name: 'Waw' },
-        { hebrew: 'וּ', name: 'Shureq (Waw+dot)' },
+        { hebrew: 'וּ', name: 'Shureq' },
         { hebrew: 'י', name: 'Yod' }
       ];
 
       // Estado del juego
-      let questions = [];            // vocales a construir
+      let questions = [];
       let currentIndex = 0;
       let score = 0;
       const TOTAL = 10;
-      
-      let selectedComponents = [];   // componentes elegidos para construir
-      let buildSuccess = false;      // si ya acertó en esta pregunta
-      
+      let selectedComponents = [];
+      let buildSuccess = false;
+
       // Elementos DOM
       const targetSymbol = document.getElementById('targetSymbol');
       const questionText = document.getElementById('questionText');
@@ -478,9 +766,8 @@
       const finalScoreSpan = document.getElementById('finalScoreSpan');
       const restartLabBtn = document.getElementById('restartLabBtn');
 
-      // Inicializar
+      // Inicializar juego
       function initGame() {
-        // Seleccionar 10 vocales aleatorias
         let shuffled = [...allVowels].sort(() => Math.random() - 0.5);
         questions = shuffled.slice(0, TOTAL);
         currentIndex = 0;
@@ -490,7 +777,13 @@
         updateUI();
         renderQuestion();
         renderComponents();
-        addLog('🧪 Nuevo experimento iniciado');
+        clearLog();
+        addLog('🔬 Nuevo experimento iniciado');
+        addLog('🎯 Objetivo: Sintetiza la vocal mostrada');
+      }
+
+      function clearLog() {
+        logContainer.innerHTML = '';
       }
 
       function updateUI() {
@@ -503,7 +796,14 @@
         entry.className = 'log-entry';
         if (isSuccess === true) entry.classList.add('log-success');
         if (isSuccess === false) entry.classList.add('log-fail');
-        entry.innerHTML = `⚗️ ${new Date().toLocaleTimeString()} · ${text}`;
+        
+        const time = new Date().toLocaleTimeString('es-ES', { 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          second: '2-digit' 
+        });
+        
+        entry.innerHTML = `⏱️ ${time} · ${text}`;
         logContainer.appendChild(entry);
         logContainer.scrollTop = logContainer.scrollHeight;
       }
@@ -526,21 +826,31 @@
 
       function addComponent(comp) {
         if (buildSuccess) {
-          addLog('❌ Ya sintetizaste esta vocal, pasa al siguiente', false);
+          addLog('⚠️ Ya sintetizaste esta vocal. Usa "SIGUIENTE VOCAL"', false);
           return;
         }
         selectedComponents.push(comp);
         updateBuildPreview();
         addLog(`➕ Añadido: ${comp.name} (${comp.hebrew})`);
+        
+        // Resaltar componente seleccionado visualmente
+        const cards = document.querySelectorAll('.component-card');
+        cards.forEach(card => {
+          if (card.dataset.name === comp.name) {
+            card.classList.add('selected');
+            setTimeout(() => card.classList.remove('selected'), 300);
+          }
+        });
       }
 
       function updateBuildPreview() {
         if (selectedComponents.length === 0) {
           buildPreview.innerHTML = '🔬';
+          buildPreview.style.fontSize = '7rem';
           buildPlaceholder.style.display = 'block';
         } else {
           let combined = selectedComponents.map(c => c.hebrew).join('');
-          // Ordenar para que la base Bet suela ir primero (por estética)
+          // Asegurar que Bet vaya al principio si está presente
           if (combined.includes('בּ') && !combined.startsWith('בּ')) {
             combined = 'בּ' + combined.replace('בּ', '');
           }
@@ -551,6 +861,10 @@
       }
 
       function clearBuild() {
+        if (buildSuccess) {
+          addLog('⚠️ No puedes limpiar después de una síntesis exitosa', false);
+          return;
+        }
         selectedComponents = [];
         updateBuildPreview();
         addLog('🧹 Mesa de trabajo limpiada');
@@ -558,9 +872,10 @@
 
       function checkBuild() {
         if (buildSuccess) {
-          addLog('⚠️ Ya acertaste, pasa al siguiente', false);
+          addLog('⚠️ Ya sintetizaste esta vocal correctamente', false);
           return;
         }
+        
         if (selectedComponents.length === 0) {
           addLog('⚠️ No hay componentes en la mesa', false);
           return;
@@ -574,26 +889,37 @@
         
         const target = questions[currentIndex].symbol;
         
-        // Comparación simple (idealmente debería normalizar, pero para el juego es suficiente)
-        const normalize = (str) => str.replace(/\s/g, '');
-        
-        const isCorrect = normalize(built) === normalize(target);
+        // Comparación exacta (sin normalizar para mantener precisión)
+        const isCorrect = built === target;
         
         if (isCorrect) {
           score++;
           buildSuccess = true;
           addLog(`✅ ¡SÍNTESIS EXITOSA! ${questions[currentIndex].name}`, true);
           nextBtn.disabled = false;
+          
+          // Efecto visual de éxito
+          buildPreview.style.color = '#a3e4a3';
+          buildPreview.style.textShadow = '0 0 30px #00ff00';
         } else {
-          addLog(`❌ Síntesis fallida. La vocal correcta es ${target}`, false);
+          addLog(`❌ Síntesis fallida. La combinación no coincide`, false);
+          
+          // Efecto visual de error
+          buildPreview.style.color = '#ffa2a2';
+          buildPreview.style.textShadow = '0 0 30px #ff0000';
+          setTimeout(() => {
+            buildPreview.style.color = '#b3e4ff';
+            buildPreview.style.textShadow = '0 0 20px cyan';
+          }, 500);
         }
       }
 
       function nextQuestion() {
         if (!buildSuccess) {
-          addLog('⚠️ Debes sintetizar correctamente primero', false);
+          addLog('⚠️ Debes sintetizar correctamente la vocal primero', false);
           return;
         }
+        
         if (currentIndex < TOTAL - 1) {
           currentIndex++;
           selectedComponents = [];
@@ -602,31 +928,50 @@
           renderQuestion();
           updateUI();
           nextBtn.disabled = true;
+          
+          // Resetear estilos
+          buildPreview.style.color = '#b3e4ff';
+          buildPreview.style.textShadow = '0 0 20px cyan';
+          
+          addLog(`➡️ Avanzando a la siguiente vocal (${currentIndex + 1}/${TOTAL})`);
         } else {
           // Terminó
           finalScoreSpan.textContent = score;
           completionModal.style.display = 'flex';
+          addLog('🏆 ¡Laboratorio completado!');
         }
       }
 
       function renderQuestion() {
         const q = questions[currentIndex];
         targetSymbol.textContent = q.symbol;
-        questionText.textContent = `Construye: ${q.name} (${q.type} · clase ${q.class})`;
-        hintBox.textContent = `${q.components} · ${q.symbol} = ${q.name}`;
+        questionText.textContent = `Construye: ${q.name}`;
+        
+        // Pista DESAFIANTE (sin dar la respuesta)
+        const hintMessages = [
+          `🔍 Tipo: ${q.type} · Clase ${q.class.toUpperCase()}`,
+          `⚡ Debes combinar los signos correctos`,
+          `🎯 Usa los componentes de la izquierda`,
+          `🧪 Experimenta con diferentes combinaciones`
+        ];
+        hintBox.textContent = hintMessages[Math.floor(Math.random() * hintMessages.length)];
       }
 
       // Event listeners
       buildBtn.addEventListener('click', checkBuild);
       clearBtn.addEventListener('click', clearBuild);
       nextBtn.addEventListener('click', nextQuestion);
+      
       resetBtn.addEventListener('click', () => {
         initGame();
         nextBtn.disabled = true;
         buildSuccess = false;
         selectedComponents = [];
         updateBuildPreview();
+        buildPreview.style.color = '#b3e4ff';
+        buildPreview.style.textShadow = '0 0 20px cyan';
       });
+      
       restartLabBtn.addEventListener('click', () => {
         completionModal.style.display = 'none';
         initGame();

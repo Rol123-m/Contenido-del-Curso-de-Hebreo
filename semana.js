@@ -56,7 +56,9 @@ class SemanaManager {
                 juegos: [
                     { titulo: 'Reconoce las Vocales', url: 'semanas/semana2/juegos/vocalesnormales.html', icono: '🎯' },
                     { titulo: 'Matris lectionis', url: 'semanas/semana2/juegos/otrasvocales.html', icono: '📢' },
-                    { titulo: 'Más sobre vocales', url: 'semanas/semana2/juegos/otrojuego.html', icono: '📢' }
+                    { titulo: 'Más sobre vocales', url: 'semanas/semana2/juegos/otrojuego.html', icono: '📢' },
+                    { titulo: 'Arqueólogo de vocales', url: 'semanas/semana2/juegos/cuartojuego.html', icono: '📢' },
+                    { titulo: 'El soldado hebreo', url: 'semanas/semana2/juegos/quintojuego.html', icono: '📢' }
                 ]
             },
             

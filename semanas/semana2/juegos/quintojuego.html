@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚔️ GUERRERO DEL ALEFATO · Misión Vocálica</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #0a0f1e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header estilo militar */
+    .combat-header {
+      background: linear-gradient(135deg, #1a2a3a, #0f1f2f);
+      color: #b8e2ff;
+      padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 30px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      border-bottom: 3px solid #ff4444;
+      box-shadow: 0 0 30px #ff000080;
+      position: relative;
+      z-index: 10;
+    }
+
+    .soldier-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .soldier-avatar {
+      width: clamp(40px, 6vw, 60px);
+      height: clamp(40px, 6vw, 60px);
+      background: #2a4a6a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #ffaa00;
+      box-shadow: 0 0 20px #ffaa00;
+    }
+
+    .soldier-avatar i {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: #ffaa00;
+    }
+
+    .soldier-name {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+      color: #ffaa00;
+    }
+
+    .mission-stats {
+      display: flex;
+      gap: clamp(15px, 4vw, 40px);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: clamp(0.7rem, 1.8vw, 1rem);
+    }
+
+    .stat-item i {
+      color: #ffaa00;
+    }
+
+    .health-bar {
+      width: clamp(60px, 15vw, 120px);
+      height: 15px;
+      background: #330000;
+      border: 2px solid #ff6666;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .health-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff0000, #ff6666);
+      width: 100%;
+      transition: width 0.3s;
+    }
+
+    /* Contenedor del juego */
+    .game-zone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Campo de batalla */
+    .battlefield {
+      width: 100%;
+      max-width: 1200px;
+      height: clamp(400px, 60vh, 600px);
+      background: linear-gradient(180deg, #1a3355 0%, #0f2640 50%, #081a2f 100%);
+      border: 4px solid #4a7a9c;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 50px #2a6a9c80, inset 0 0 50px #00000080;
+    }
+
+    /* Capas de fondo */
+    .sky-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: radial-gradient(circle at 20% 30%, #2a5a8a, #0f2f4a);
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      animation: twinkle 3s infinite;
+    }
+
+    .stars::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(2px 2px at 10px 10px, white, transparent),
+                  radial-gradient(2px 2px at 30px 50px, white, transparent),
+                  radial-gradient(3px 3px at 80px 120px, white, transparent),
+                  radial-gradient(2px 2px at 150px 80px, white, transparent),
+                  radial-gradient(2px 2px at 200px 150px, white, transparent);
+      background-size: 200px 200px;
+      opacity: 0.5;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .ground-layer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(180deg, #2d5a3a, #1a3f2a);
+      border-top: 4px solid #6a9c5a;
+      overflow: hidden;
+    }
+
+    .trenches {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, #1a3f2a 0px, #1a3f2a 20px, #2d5a3a 20px, #2d5a3a 40px);
+      opacity: 0.3;
+    }
+
+    /* Soldado */
+    .soldier {
+      position: absolute;
+      bottom: 40%;
+      left: 50px;
+      width: clamp(40px, 6vw, 60px);
+      height: clamp(60px, 8vw, 80px);
+      transition: bottom 0.2s;
+      z-index: 20;
+      filter: drop-shadow(0 0 10px #ffaa00);
+    }
+
+    .soldier-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #4a6a4a, #2a4a2a);
+      border-radius: 30% 30% 10% 10%;
+      border: 3px solid #ffaa00;
+      overflow: visible;
+    }
+
+    .soldier-head {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 25px;
+      height: 25px;
+      background: #d4a76a;
+      border-radius: 50%;
+      border: 3px solid #ffaa00;
+      box-shadow: 0 0 10px #ffaa00;
+    }
+
+    .soldier-gun {
+      position: absolute;
+      top: 20px;
+      right: -15px;
+      width: 30px;
+      height: 8px;
+      background: #888888;
+      border-radius: 4px;
+      transform: rotate(-10deg);
+      box-shadow: 0 0 5px #ffaa00;
+    }
+
+    .soldier-gun::before {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: -2px;
+      width: 15px;
+      height: 6px;
+      background: #aaaaaa;
+      border-radius: 3px;
+    }
+
+    .soldier.shield {
+      filter: drop-shadow(0 0 20px #44aaff);
+    }
+
+    .soldier.shield .soldier-body {
+      border-color: #44aaff;
+      box-shadow: 0 0 30px #44aaff;
+    }
+
+    .soldier.shield .soldier-head {
+      border-color: #44aaff;
+    }
+
+    /* Elementos del juego */
+    .collectible {
+      position: absolute;
+      width: clamp(30px, 4vw, 40px);
+      height: clamp(30px, 4vw, 40px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Times New Roman', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: white;
+      text-shadow: 0 0 10px currentColor;
+      z-index: 15;
+      animation: float 2s infinite ease-in-out;
+      cursor: pointer;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .collectible.correct {
+      background: radial-gradient(circle at 30% 30%, #44ff44, #00aa00);
+      box-shadow: 0 0 30px #00ff00;
+      border: 2px solid #ffff00;
+    }
+
+    .collectible.incorrect {
+      background: radial-gradient(circle at 30% 30%, #ff4444, #aa0000);
+      box-shadow: 0 0 30px #ff0000;
+      border: 2px solid #ffff00;
+    }
+
+    .enemy {
+      position: absolute;
+      width: clamp(30px, 5vw, 45px);
+      height: clamp(30px, 5vw, 45px);
+      background: radial-gradient(circle at 30% 30%, #ff6666, #660000);
+      border-radius: 50%;
+      border: 3px solid #ffff00;
+      box-shadow: 0 0 30px #ff0000;
+      z-index: 15;
+      animation: enemyMove 3s infinite linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .enemy::before {
+      content: '⚔️';
+      font-size: 1.2rem;
+    }
+
+    @keyframes enemyMove {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(-10px) rotate(10deg); }
+    }
+
+    .power-up {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 30% 30%, #ffff00, #ffaa00);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 30px #ffff00;
+      z-index: 15;
+      animation: powerupSpin 2s infinite linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .powerup-icon {
+      font-size: 1.5rem;
+    }
+
+    @keyframes powerupSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Pantallas de interfaz */
+    .hud-panel {
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 20px;
+      background: #1a2a3a;
+      border: 3px solid #4a7a9c;
+      border-radius: 20px;
+      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      color: #b8e2ff;
+    }
+
+    .mission-objective {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .objective-badge {
+      background: #ff4444;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .objective-text {
+      font-size: clamp(0.8rem, 2vw, 1.2rem);
+      color: #ffaa00;
+    }
+
+    .controls-hint {
+      display: flex;
+      gap: 20px;
+      font-size: 0.8rem;
+    }
+
+    .key {
+      background: #2a3f4a;
+      padding: 5px 10px;
+      border-radius: 10px;
+      border: 2px solid #6a9cff;
+      color: #6a9cff;
+    }
+
+    /* Modal de misión */
+    .mission-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      place-items: center;
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #1a3f5a, #0f2f4a);
+      border: 4px solid #ffaa00;
+      border-radius: 40px;
+      padding: clamp(20px, 5vw, 50px);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      color: white;
+      box-shadow: 0 0 100px #ffaa00;
+    }
+
+    .modal-content i {
+      font-size: 5rem;
+      color: #ffaa00;
+      margin-bottom: 20px;
+    }
+
+    .modal-content h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      margin-bottom: 20px;
+    }
+
+    .modal-content p {
+      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #ffaa00, #ff6600);
+      border: none;
+      padding: 15px 40px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #1a1a2a;
+      margin-top: 20px;
+    }
+
+    .modal-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #ffaa00;
+    }
+
+    /* Footer */
+    .combat-footer {
+      background: #0a1a2a;
+      color: #4a7a9c;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      border-top: 2px solid #ff4444;
+    }
+  </style>
+</head>
+<body>
+  <header class="combat-header">
+    <div class="soldier-info">
+      <div class="soldier-avatar">
+        <i class="fas fa-skull"></i>
+      </div>
+      <div>
+        <div class="soldier-name">SARGENTO ALEF</div>
+        <div style="font-size: 0.7rem;">RANGO: ELITE</div>
+      </div>
+    </div>
+    <div class="mission-stats">
+      <div class="stat-item">
+        <i class="fas fa-star"></i>
+        <span>PUNTOS: <span id="scoreValue">0</span></span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-heart"></i>
+        <div class="health-bar">
+          <div class="health-fill" id="healthFill" style="width: 100%;"></div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>ESCUDO: <span id="shieldValue">0</span></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="game-zone">
+    <div class="battlefield" id="battlefield">
+      <div class="sky-layer">
+        <div class="stars"></div>
+      </div>
+      <div class="ground-layer">
+        <div class="trenches"></div>
+      </div>
+      
+      <!-- Soldado -->
+      <div class="soldier" id="soldier" style="bottom: 40%; left: 50px;">
+        <div class="soldier-head"></div>
+        <div class="soldier-body"></div>
+        <div class="soldier-gun"></div>
+      </div>
+
+      <!-- Los elementos se generarán dinámicamente -->
+    </div>
+
+    <div class="hud-panel">
+      <div class="mission-objective">
+        <span class="objective-badge">MISIÓN ACTIVA</span>
+        <div class="objective-text" id="objectiveText">Recolecta: Qamets (a larga)</div>
+      </div>
+      <div class="controls-hint">
+        <span><span class="key">←</span> <span class="key">→</span> MOVER</span>
+        <span><span class="key">⬆</span> SALTAR</span>
+        <span><span class="key">ESPACIO</span> DISPARAR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Game Over -->
+  <div class="mission-modal" id="gameOverModal">
+    <div class="modal-content">
+      <i class="fas fa-skull-crossbones"></i>
+      <h2>¡CAÍDO EN COMBATE!</h2>
+      <p>Has sido eliminado</p>
+      <p>Puntuación: <span id="finalScore">0</span></p>
+      <button class="modal-btn" onclick="window.location.reload()">
+        <i class="fas fa-redo-alt"></i> REINTENTAR MISIÓN
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Victoria -->
+  <div class="mission-modal" id="victoryModal">
+    <div class="modal-content">
+      <i class="fas fa-crown"></i>
+      <h2>¡MISIÓN CUMPLIDA!</h2>
+      <p>Has completado todas las vocales</p>
+      <p>Puntuación final: <span id="victoryScore">0</span></p>
+      <button class="modal-btn" onclick="window.location.reload()">
+        <i class="fas fa-redo-alt"></i> NUEVA MISIÓN
+      </button>
+    </div>
+  </div>
+
+  <footer class="combat-footer">
+    <p>OPERACIÓN ALEFATO · FUERZAS ESPECIALES HEBREAS · AÑO 2026</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Base de datos de vocales para la misión
+      const vowels = [
+        // Largas
+        { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a', value: 10 },
+        { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e', value: 10 },
+        { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o', value: 10 },
+        // Breves
+        { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a', value: 20 },
+        { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e', value: 20 },
+        { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i', value: 20 },
+        { symbol: 'בָּ', name: 'Qamets Hatuf', type: 'breve', class: 'o', value: 20 },
+        { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u', value: 20 },
+        // Reducidas
+        { symbol: 'בֲּ', name: 'Hateph Pathach', type: 'reducida', class: 'a', value: 30 },
+        { symbol: 'בֱּ', name: 'Hateph Seghol', type: 'reducida', class: 'e', value: 30 },
+        { symbol: 'בֳּ', name: 'Hateph Qamets', type: 'reducida', class: 'o', value: 30 },
+        // Matres
+        { symbol: 'בָּה', name: 'Qamets He', type: 'matres', class: 'a', value: 40 },
+        { symbol: 'בּוֹ', name: 'Holem Waw', type: 'matres', class: 'o', value: 40 },
+        { symbol: 'בּוּ', name: 'Shureq', type: 'matres', class: 'u', value: 40 },
+        { symbol: 'בִּי', name: 'Hireq Yod', type: 'matres', class: 'i', value: 40 }
+      ];
+
+      // Estado del juego
+      let currentTargetIndex = 0;
+      let score = 0;
+      let health = 100;
+      let shield = 0;
+      let gameActive = true;
+      let soldierPosition = 50; // % desde la izquierda
+      let soldierBottom = 40; // % desde abajo
+      let jumping = false;
+      let jumpHeight = 0;
+      
+      // Elementos del juego
+      const battlefield = document.getElementById('battlefield');
+      const soldier = document.getElementById('soldier');
+      const objectiveText = document.getElementById('objectiveText');
+      const scoreValue = document.getElementById('scoreValue');
+      const healthFill = document.getElementById('healthFill');
+      const shieldValue = document.getElementById('shieldValue');
+      const gameOverModal = document.getElementById('gameOverModal');
+      const victoryModal = document.getElementById('victoryModal');
+      const finalScore = document.getElementById('finalScore');
+      const victoryScore = document.getElementById('victoryScore');
+
+      // Objetivos de la misión (12 niveles)
+      const missions = [
+        { type: 'larga', class: 'a', name: 'Qamets', description: 'Recolecta Qamets (a larga)' },
+        { type: 'larga', class: 'e', name: 'Tsere', description: 'Recolecta Tsere (e larga)' },
+        { type: 'larga', class: 'o', name: 'Holem', description: 'Recolecta Holem (o larga)' },
+        { type: 'breve', class: 'a', name: 'Pathach', description: 'Recolecta Pathach (a breve)' },
+        { type: 'breve', class: 'e', name: 'Seghol', description: 'Recolecta Seghol (e breve)' },
+        { type: 'breve', class: 'i', name: 'Hireq', description: 'Recolecta Hireq (i breve)' },
+        { type: 'breve', class: 'o', name: 'Qamets Hatuf', description: 'Recolecta Qamets Hatuf (o breve)' },
+        { type: 'breve', class: 'u', name: 'Qibbuts', description: 'Recolecta Qibbuts (u breve)' },
+        { type: 'reducida', class: 'a', name: 'Hateph Pathach', description: 'Recolecta Hateph Pathach (a reducida)' },
+        { type: 'reducida', class: 'e', name: 'Hateph Seghol', description: 'Recolecta Hateph Seghol (e reducida)' },
+        { type: 'reducida', class: 'o', name: 'Hateph Qamets', description: 'Recolecta Hateph Qamets (o reducida)' },
+        { type: 'matres', class: 'a', name: 'Matres', description: 'Recolecta cualquier Matres Lectionis' }
+      ];
+
+      let currentMission = missions[0];
+
+      // Elementos activos
+      let gameElements = [];
+      let gameInterval;
+      let spawnInterval;
+
+      // Controles
+      let leftPressed = false;
+      let rightPressed = false;
+      let spacePressed = false;
+
+      // Inicializar juego
+      function initGame() {
+        updateObjective();
+        startGameLoop();
+        startSpawning();
+        
+        // Event listeners para controles
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', handleKeyUp);
+        
+        // Prevenir scroll con flechas
+        window.addEventListener('keydown', (e) => {
+          if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.key)) {
+            e.preventDefault();
+          }
+        });
+      }
+
+      function handleKeyDown(e) {
+        if (!gameActive) return;
+        
+        switch(e.key) {
+          case 'ArrowLeft':
+            leftPressed = true;
+            break;
+          case 'ArrowRight':
+            rightPressed = true;
+            break;
+          case 'ArrowUp':
+            if (!jumping) {
+              jumping = true;
+              jumpHeight = 0;
+            }
+            break;
+          case ' ':
+            spacePressed = true;
+            shoot();
+            break;
+        }
+      }
+
+      function handleKeyUp(e) {
+        switch(e.key) {
+          case 'ArrowLeft':
+            leftPressed = false;
+            break;
+          case 'ArrowRight':
+            rightPressed = false;
+            break;
+          case ' ':
+            spacePressed = false;
+            break;
+        }
+      }
+
+      function moveSoldier() {
+        if (!gameActive) return;
+        
+        // Movimiento horizontal
+        if (leftPressed && soldierPosition > 5) {
+          soldierPosition -= 2;
+        }
+        if (rightPressed && soldierPosition < 85) {
+          soldierPosition += 2;
+        }
+        
+        // Salto
+        if (jumping) {
+          jumpHeight += 2;
+          if (jumpHeight > 30) {
+            jumping = false;
+          }
+          soldierBottom = 40 + Math.sin(jumpHeight / 10) * 20;
+        } else {
+          soldierBottom = 40;
+        }
+        
+        soldier.style.left = soldierPosition + '%';
+        soldier.style.bottom = soldierBottom + '%';
+      }
+
+      function shoot() {
+        // Crear disparo
+        const bullet = document.createElement('div');
+        bullet.style.position = 'absolute';
+        bullet.style.left = (soldierPosition + 5) + '%';
+        bullet.style.bottom = (soldierBottom + 10) + '%';
+        bullet.style.width = '20px';
+        bullet.style.height = '5px';
+        bullet.style.background = 'linear-gradient(90deg, #ffff00, #ffaa00)';
+        bullet.style.borderRadius = '2px';
+        bullet.style.boxShadow = '0 0 10px #ffff00';
+        bullet.style.zIndex = '25';
+        bullet.classList.add('bullet');
+        battlefield.appendChild(bullet);
+        
+        // Animar disparo
+        let bulletX = soldierPosition + 5;
+        const bulletInterval = setInterval(() => {
+          bulletX += 2;
+          bullet.style.left = bulletX + '%';
+          
+          // Detectar colisiones con enemigos
+          document.querySelectorAll('.enemy').forEach(enemy => {
+            const enemyLeft = parseFloat(enemy.style.left);
+            if (Math.abs(enemyLeft - bulletX) < 3) {
+              enemy.remove();
+              clearInterval(bulletInterval);
+              bullet.remove();
+              addScore(5);
+            }
+          });
+          
+          if (bulletX > 100) {
+            clearInterval(bulletInterval);
+            bullet.remove();
+          }
+        }, 50);
+      }
+
+      function spawnElement() {
+        if (!gameActive) return;
+        
+        const type = Math.random();
+        let element;
+        
+        if (type < 0.4) {
+          // Vocal correcta (basada en misión actual)
+          const correctVowels = vowels.filter(v => 
+            v.type === currentMission.type && 
+            (currentMission.class === 'all' || v.class === currentMission.class)
+          );
+          
+          if (correctVowels.length > 0) {
+            const vowel = correctVowels[Math.floor(Math.random() * correctVowels.length)];
+            element = createCollectible(vowel, true);
+          }
+        } else if (type < 0.7) {
+          // Vocal incorrecta
+          const incorrectVowels = vowels.filter(v => 
+            !(v.type === currentMission.type && v.class === currentMission.class)
+          );
+          const vowel = incorrectVowels[Math.floor(Math.random() * incorrectVowels.length)];
+          element = createCollectible(vowel, false);
+        } else {
+          // Enemigo
+          element = createEnemy();
+        }
+        
+        if (element) {
+          battlefield.appendChild(element);
+          gameElements.push(element);
+        }
+      }
+
+      function createCollectible(vowel, isCorrect) {
+        const div = document.createElement('div');
+        div.className = `collectible ${isCorrect ? 'correct' : 'incorrect'}`;
+        div.style.left = '100%';
+        div.style.bottom = (20 + Math.random() * 50) + '%';
+        div.innerHTML = vowel.symbol;
+        div.dataset.value = vowel.value || 10;
+        div.dataset.isCorrect = isCorrect;
+        div.dataset.name = vowel.name;
+        
+        // Animar movimiento
+        let posX = 100;
+        const moveInterval = setInterval(() => {
+          if (!gameActive) {
+            clearInterval(moveInterval);
+            return;
+          }
+          
+          posX -= 0.5;
+          div.style.left = posX + '%';
+          
+          // Detectar colisión con soldado
+          const soldierLeft = soldierPosition;
+          if (Math.abs(posX - soldierLeft) < 3 && 
+              Math.abs(parseFloat(div.style.bottom) - soldierBottom) < 15) {
+            
+            if (div.dataset.isCorrect === 'true') {
+              // Acierto
+              addScore(parseInt(div.dataset.value));
+              showHitEffect('+', div.dataset.value, '#44ff44');
+              advanceMission();
+            } else {
+              // Error
+              takeDamage(10);
+              showHitEffect('-10', '', '#ff4444');
+            }
+            
+            div.remove();
+            clearInterval(moveInterval);
+          }
+          
+          if (posX < -10) {
+            div.remove();
+            clearInterval(moveInterval);
+          }
+        }, 30);
+        
+        return div;
+      }
+
+      function createEnemy() {
+        const div = document.createElement('div');
+        div.className = 'enemy';
+        div.style.left = '100%';
+        div.style.bottom = (20 + Math.random() * 40) + '%';
+        
+        let posX = 100;
+        const moveInterval = setInterval(() => {
+          if (!gameActive) {
+            clearInterval(moveInterval);
+            return;
+          }
+          
+          posX -= 0.8;
+          div.style.left = posX + '%';
+          
+          // Detectar colisión con soldado
+          const soldierLeft = soldierPosition;
+          if (Math.abs(posX - soldierLeft) < 4 && 
+              Math.abs(parseFloat(div.style.bottom) - soldierBottom) < 20) {
+            takeDamage(25);
+            showHitEffect('-25', '', '#ff0000');
+            div.remove();
+            clearInterval(moveInterval);
+          }
+          
+          if (posX < -10) {
+            div.remove();
+            clearInterval(moveInterval);
+          }
+        }, 30);
+        
+        return div;
+      }
+
+      function showHitEffect(text, value, color) {
+        const effect = document.createElement('div');
+        effect.style.position = 'absolute';
+        effect.style.left = soldierPosition + '%';
+        effect.style.bottom = soldierBottom + 20 + '%';
+        effect.style.color = color;
+        effect.style.fontWeight = 'bold';
+        effect.style.textShadow = '0 0 10px black';
+        effect.style.zIndex = '50';
+        effect.style.fontSize = '1.5rem';
+        effect.innerHTML = text + value;
+        effect.style.animation = 'float 1s forwards';
+        battlefield.appendChild(effect);
+        
+        setTimeout(() => effect.remove(), 1000);
+      }
+
+      function takeDamage(amount) {
+        if (shield > 0) {
+          shield -= amount / 2;
+          if (shield < 0) shield = 0;
+        } else {
+          health -= amount;
+        }
+        
+        updateHealth();
+        
+        if (health <= 0) {
+          gameOver();
+        }
+      }
+
+      function addScore(points) {
+        score += points;
+        scoreValue.textContent = score;
+      }
+
+      function updateHealth() {
+        healthFill.style.width = Math.max(0, health) + '%';
+        
+        if (health <= 30) {
+          healthFill.style.background = 'linear-gradient(90deg, #ff0000, #ff6666)';
+        }
+      }
+
+      function advanceMission() {
+        if (currentTargetIndex < missions.length - 1) {
+          currentTargetIndex++;
+          currentMission = missions[currentTargetIndex];
+          updateObjective();
+          
+          // Recompensa de escudo cada 3 misiones
+          if (currentTargetIndex % 3 === 0) {
+            shield += 50;
+            shieldValue.textContent = shield;
+            showHitEffect('ESCUDO +50', '', '#44aaff');
+          }
+        } else {
+          // Victoria
+          victory();
+        }
+      }
+
+      function updateObjective() {
+        objectiveText.textContent = currentMission.description;
+      }
+
+      function gameOver() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearInterval(spawnInterval);
+        finalScore.textContent = score;
+        gameOverModal.style.display = 'flex';
+      }
+
+      function victory() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearInterval(spawnInterval);
+        victoryScore.textContent = score;
+        victoryModal.style.display = 'flex';
+      }
+
+      function startGameLoop() {
+        gameInterval = setInterval(() => {
+          if (!gameActive) return;
+          moveSoldier();
+        }, 50);
+      }
+
+      function startSpawning() {
+        spawnInterval = setInterval(() => {
+          if (!gameActive) return;
+          spawnElement();
+        }, 800);
+      }
+
+      // Iniciar
+      initGame();
+    })();
+  </script>
+</body>
+</html>
