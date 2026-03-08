@@ -69,9 +69,9 @@ class SemanaManager {
                 evaluacion: "Examen 3 + Foro 1",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Silabeo', url: 'semanas/semana3/pdf/silabeo.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Reglas de Silabeo', url: 'semanas/semana3/html/silabeo.html', icono: '📏' },
-                    { tipo: 'html', titulo: 'Acentuación', url: 'semanas/semana3/html/acentuacion.html', icono: '⚡' },
-                    { tipo: 'html', titulo: 'Sílaba Abierta y Cerrada', url: 'semanas/semana3/html/tipos.html', icono: '🔓' },
+                    { tipo: 'html', titulo: 'Reglas de Silabeo', url: 'semanas/semana3/html/fundamentos.html', icono: '📏' },
+                    { tipo: 'html', titulo: 'Dagesh y otros asuntos', url: 'semanas/semana3/html/dagesh.html', icono: '⚡' },
+                    { tipo: 'html', titulo: 'resumen de la semana', url: 'semanas/semana3/html/resumen.html', icono: '🔓' },
                     { tipo: 'html', titulo: 'Práctica de Lectura', url: 'semanas/semana3/html/practica.html', icono: '📖' },
                     { tipo: 'html', titulo: 'Foro 1 - Preguntas', url: 'semanas/semana3/html/foro.html', icono: '💬' }
                 ],
