@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚔️ GUERRERO DEL ALEFATO · Misión Vocálica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>⚔️ GUERRERO DEL ALEFATO · MÓVIL</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
@@ -11,6 +11,8 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     body {
@@ -20,76 +22,83 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
     }
 
     /* Header estilo militar */
     .combat-header {
       background: linear-gradient(135deg, #1a2a3a, #0f1f2f);
       color: #b8e2ff;
-      padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 30px);
+      padding: 8px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
+      flex-wrap: nowrap;
+      gap: 8px;
       border-bottom: 3px solid #ff4444;
-      box-shadow: 0 0 30px #ff000080;
-      position: relative;
+      box-shadow: 0 0 20px #ff000080;
       z-index: 10;
+      font-size: 12px;
     }
 
     .soldier-info {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
     .soldier-avatar {
-      width: clamp(40px, 6vw, 60px);
-      height: clamp(40px, 6vw, 60px);
+      width: 35px;
+      height: 35px;
       background: #2a4a6a;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #ffaa00;
-      box-shadow: 0 0 20px #ffaa00;
+      border: 2px solid #ffaa00;
+      box-shadow: 0 0 15px #ffaa00;
     }
 
     .soldier-avatar i {
-      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-size: 1.2rem;
       color: #ffaa00;
     }
 
     .soldier-name {
       font-family: 'Press Start 2P', cursive;
-      font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+      font-size: 8px;
       color: #ffaa00;
     }
 
     .mission-stats {
       display: flex;
-      gap: clamp(15px, 4vw, 40px);
-      flex-wrap: wrap;
+      gap: 12px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
     }
 
     .stat-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: clamp(0.7rem, 1.8vw, 1rem);
+      gap: 4px;
+      font-size: 11px;
+      white-space: nowrap;
     }
 
     .stat-item i {
       color: #ffaa00;
+      font-size: 12px;
     }
 
     .health-bar {
-      width: clamp(60px, 15vw, 120px);
-      height: 15px;
+      width: 60px;
+      height: 10px;
       background: #330000;
-      border: 2px solid #ff6666;
-      border-radius: 10px;
+      border: 1px solid #ff6666;
+      border-radius: 5px;
       overflow: hidden;
     }
 
@@ -105,23 +114,21 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
+      padding: 8px;
+      height: calc(100% - 120px);
     }
 
     /* Campo de batalla */
     .battlefield {
       width: 100%;
-      max-width: 1200px;
-      height: clamp(400px, 60vh, 600px);
+      height: 100%;
       background: linear-gradient(180deg, #1a3355 0%, #0f2640 50%, #081a2f 100%);
-      border: 4px solid #4a7a9c;
-      border-radius: 20px;
+      border: 3px solid #4a7a9c;
+      border-radius: 15px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 50px #2a6a9c80, inset 0 0 50px #00000080;
+      box-shadow: 0 0 30px #2a6a9c80, inset 0 0 30px #00000080;
+      touch-action: none;
     }
 
     /* Capas de fondo */
@@ -149,11 +156,8 @@
       width: 100%;
       height: 100%;
       background: radial-gradient(2px 2px at 10px 10px, white, transparent),
-                  radial-gradient(2px 2px at 30px 50px, white, transparent),
-                  radial-gradient(3px 3px at 80px 120px, white, transparent),
-                  radial-gradient(2px 2px at 150px 80px, white, transparent),
-                  radial-gradient(2px 2px at 200px 150px, white, transparent);
-      background-size: 200px 200px;
+                  radial-gradient(2px 2px at 30px 50px, white, transparent);
+      background-size: 100px 100px;
       opacity: 0.5;
     }
 
@@ -169,7 +173,7 @@
       width: 100%;
       height: 40%;
       background: linear-gradient(180deg, #2d5a3a, #1a3f2a);
-      border-top: 4px solid #6a9c5a;
+      border-top: 3px solid #6a9c5a;
       overflow: hidden;
     }
 
@@ -179,7 +183,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(45deg, #1a3f2a 0px, #1a3f2a 20px, #2d5a3a 20px, #2d5a3a 40px);
+      background: repeating-linear-gradient(45deg, #1a3f2a 0px, #1a3f2a 10px, #2d5a3a 10px, #2d5a3a 20px);
       opacity: 0.3;
     }
 
@@ -188,11 +192,13 @@
       position: absolute;
       bottom: 40%;
       left: 50px;
-      width: clamp(40px, 6vw, 60px);
-      height: clamp(60px, 8vw, 80px);
-      transition: bottom 0.2s;
+      width: 45px;
+      height: 65px;
+      transition: bottom 0.1s, left 0.1s;
       z-index: 20;
-      filter: drop-shadow(0 0 10px #ffaa00);
+      filter: drop-shadow(0 0 8px #ffaa00);
+      touch-action: none;
+      pointer-events: none;
     }
 
     .soldier-body {
@@ -202,197 +208,178 @@
       background: linear-gradient(90deg, #4a6a4a, #2a4a2a);
       border-radius: 30% 30% 10% 10%;
       border: 3px solid #ffaa00;
-      overflow: visible;
     }
 
     .soldier-head {
       position: absolute;
-      top: -15px;
+      top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      width: 25px;
-      height: 25px;
+      width: 22px;
+      height: 22px;
       background: #d4a76a;
       border-radius: 50%;
       border: 3px solid #ffaa00;
-      box-shadow: 0 0 10px #ffaa00;
+      box-shadow: 0 0 8px #ffaa00;
     }
 
     .soldier-gun {
       position: absolute;
-      top: 20px;
-      right: -15px;
-      width: 30px;
-      height: 8px;
+      top: 15px;
+      right: -12px;
+      width: 25px;
+      height: 6px;
       background: #888888;
-      border-radius: 4px;
+      border-radius: 3px;
       transform: rotate(-10deg);
       box-shadow: 0 0 5px #ffaa00;
-    }
-
-    .soldier-gun::before {
-      content: '';
-      position: absolute;
-      right: -10px;
-      top: -2px;
-      width: 15px;
-      height: 6px;
-      background: #aaaaaa;
-      border-radius: 3px;
-    }
-
-    .soldier.shield {
-      filter: drop-shadow(0 0 20px #44aaff);
-    }
-
-    .soldier.shield .soldier-body {
-      border-color: #44aaff;
-      box-shadow: 0 0 30px #44aaff;
-    }
-
-    .soldier.shield .soldier-head {
-      border-color: #44aaff;
     }
 
     /* Elementos del juego */
     .collectible {
       position: absolute;
-      width: clamp(30px, 4vw, 40px);
-      height: clamp(30px, 4vw, 40px);
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Times New Roman', serif;
-      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-size: 1.2rem;
       color: white;
-      text-shadow: 0 0 10px currentColor;
+      text-shadow: 0 0 8px currentColor;
       z-index: 15;
       animation: float 2s infinite ease-in-out;
-      cursor: pointer;
+      pointer-events: none;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-5px); }
     }
 
     .collectible.correct {
       background: radial-gradient(circle at 30% 30%, #44ff44, #00aa00);
-      box-shadow: 0 0 30px #00ff00;
+      box-shadow: 0 0 20px #00ff00;
       border: 2px solid #ffff00;
     }
 
     .collectible.incorrect {
       background: radial-gradient(circle at 30% 30%, #ff4444, #aa0000);
-      box-shadow: 0 0 30px #ff0000;
+      box-shadow: 0 0 20px #ff0000;
       border: 2px solid #ffff00;
     }
 
     .enemy {
       position: absolute;
-      width: clamp(30px, 5vw, 45px);
-      height: clamp(30px, 5vw, 45px);
+      width: 40px;
+      height: 40px;
       background: radial-gradient(circle at 30% 30%, #ff6666, #660000);
       border-radius: 50%;
       border: 3px solid #ffff00;
-      box-shadow: 0 0 30px #ff0000;
+      box-shadow: 0 0 20px #ff0000;
       z-index: 15;
-      animation: enemyMove 3s infinite linear;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      pointer-events: none;
     }
 
     .enemy::before {
       content: '⚔️';
-      font-size: 1.2rem;
     }
 
-    @keyframes enemyMove {
-      0% { transform: translateX(0) rotate(0deg); }
-      100% { transform: translateX(-10px) rotate(10deg); }
+    /* Panel de control táctil */
+    .touch-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding: 10px;
+      background: #1a2a3a;
+      border: 2px solid #4a7a9c;
+      border-radius: 50px;
+      gap: 15px;
     }
 
-    .power-up {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle at 30% 30%, #ffff00, #ffaa00);
+    .movement-panel {
+      display: flex;
+      gap: 20px;
+      background: #0f1f2f;
+      padding: 10px 20px;
+      border-radius: 40px;
+    }
+
+    .move-btn {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(145deg, #2a4a6a, #1a3a4a);
+      border: 3px solid #ffaa00;
       border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 30px #ffff00;
-      z-index: 15;
-      animation: powerupSpin 2s infinite linear;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .powerup-icon {
-      font-size: 1.5rem;
-    }
-
-    @keyframes powerupSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Pantallas de interfaz */
-    .hud-panel {
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 20px;
-      background: #1a2a3a;
-      border: 3px solid #4a7a9c;
-      border-radius: 20px;
-      padding: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      color: #b8e2ff;
-    }
-
-    .mission-objective {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .objective-badge {
-      background: #ff4444;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 5px;
-    }
-
-    .objective-text {
-      font-size: clamp(0.8rem, 2vw, 1.2rem);
       color: #ffaa00;
+      font-size: 2rem;
+      box-shadow: 0 0 20px #ffaa00;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: 0.1s;
     }
 
-    .controls-hint {
+    .move-btn:active {
+      transform: scale(0.9);
+      background: #ffaa00;
+      color: #1a2a3a;
+    }
+
+    .action-panel {
       display: flex;
-      gap: 20px;
-      font-size: 0.8rem;
+      gap: 15px;
     }
 
-    .key {
-      background: #2a3f4a;
-      padding: 5px 10px;
-      border-radius: 10px;
-      border: 2px solid #6a9cff;
-      color: #6a9cff;
+    .action-btn {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(145deg, #ff4444, #aa0000);
+      border: 3px solid #ffff00;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 0 30px #ff0000;
+      cursor: pointer;
+      touch-action: manipulation;
     }
 
-    /* Modal de misión */
+    .action-btn span {
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .action-btn:active {
+      transform: scale(0.9);
+    }
+
+    .mission-text {
+      background: #1a2a3a;
+      padding: 8px 15px;
+      border-radius: 40px;
+      color: #ffaa00;
+      font-size: 12px;
+      text-align: center;
+      border: 2px solid #ffaa00;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Modal */
     .mission-modal {
       position: fixed;
       top: 0;
@@ -402,65 +389,57 @@
       background: rgba(0,0,0,0.95);
       display: none;
       place-items: center;
-      backdrop-filter: blur(5px);
       z-index: 1000;
+      padding: 20px;
     }
 
     .modal-content {
       background: linear-gradient(145deg, #1a3f5a, #0f2f4a);
       border: 4px solid #ffaa00;
-      border-radius: 40px;
-      padding: clamp(20px, 5vw, 50px);
+      border-radius: 30px;
+      padding: 30px 20px;
       text-align: center;
-      max-width: 500px;
-      width: 90%;
+      max-width: 350px;
+      width: 100%;
       color: white;
-      box-shadow: 0 0 100px #ffaa00;
+      box-shadow: 0 0 60px #ffaa00;
     }
 
     .modal-content i {
-      font-size: 5rem;
+      font-size: 4rem;
       color: #ffaa00;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .modal-content h2 {
       font-family: 'Press Start 2P', cursive;
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
-      margin-bottom: 20px;
-    }
-
-    .modal-content p {
       font-size: 1.2rem;
-      margin: 20px 0;
+      margin-bottom: 15px;
     }
 
     .modal-btn {
       background: linear-gradient(135deg, #ffaa00, #ff6600);
       border: none;
-      padding: 15px 40px;
+      padding: 15px 30px;
       border-radius: 40px;
       font-weight: 600;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: 0.2s;
       color: #1a1a2a;
       margin-top: 20px;
+      width: 100%;
     }
 
-    .modal-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #ffaa00;
-    }
-
-    /* Footer */
-    .combat-footer {
-      background: #0a1a2a;
-      color: #4a7a9c;
-      text-align: center;
-      padding: 15px;
-      margin-top: 20px;
-      border-top: 2px solid #ff4444;
+    /* Disparo */
+    .bullet {
+      position: absolute;
+      width: 15px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffff00, #ffaa00);
+      border-radius: 2px;
+      box-shadow: 0 0 8px #ffff00;
+      z-index: 25;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -472,13 +451,12 @@
       </div>
       <div>
         <div class="soldier-name">SARGENTO ALEF</div>
-        <div style="font-size: 0.7rem;">RANGO: ELITE</div>
       </div>
     </div>
     <div class="mission-stats">
       <div class="stat-item">
         <i class="fas fa-star"></i>
-        <span>PUNTOS: <span id="scoreValue">0</span></span>
+        <span id="scoreValue">0</span>
       </div>
       <div class="stat-item">
         <i class="fas fa-heart"></i>
@@ -488,13 +466,17 @@
       </div>
       <div class="stat-item">
         <i class="fas fa-shield-alt"></i>
-        <span>ESCUDO: <span id="shieldValue">0</span></span>
+        <span id="shieldValue">0</span>
       </div>
     </div>
   </header>
 
   <div class="game-zone">
-    <div class="battlefield" id="battlefield">
+    <div class="mission-text" id="objectiveText">
+      Recolecta: Qamets (a larga)
+    </div>
+    
+    <div class="battlefield" id="battlefield" ontouchstart="event.preventDefault()">
       <div class="sky-layer">
         <div class="stars"></div>
       </div>
@@ -503,77 +485,74 @@
       </div>
       
       <!-- Soldado -->
-      <div class="soldier" id="soldier" style="bottom: 40%; left: 50px;">
+      <div class="soldier" id="soldier" style="bottom: 40%; left: 45%;">
         <div class="soldier-head"></div>
         <div class="soldier-body"></div>
         <div class="soldier-gun"></div>
       </div>
-
-      <!-- Los elementos se generarán dinámicamente -->
     </div>
 
-    <div class="hud-panel">
-      <div class="mission-objective">
-        <span class="objective-badge">MISIÓN ACTIVA</span>
-        <div class="objective-text" id="objectiveText">Recolecta: Qamets (a larga)</div>
+    <!-- Controles táctiles -->
+    <div class="touch-controls">
+      <div class="movement-panel">
+        <div class="move-btn" id="moveLeft" ontouchstart="handleTouchStart('left')" ontouchend="handleTouchEnd('left')" ontouchcancel="handleTouchEnd('left')">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="move-btn" id="moveRight" ontouchstart="handleTouchStart('right')" ontouchend="handleTouchEnd('right')" ontouchcancel="handleTouchEnd('right')">
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="controls-hint">
-        <span><span class="key">←</span> <span class="key">→</span> MOVER</span>
-        <span><span class="key">⬆</span> SALTAR</span>
-        <span><span class="key">ESPACIO</span> DISPARAR</span>
+      <div class="action-panel">
+        <div class="action-btn" id="jumpBtn" ontouchstart="handleJump()">
+          <i class="fas fa-arrow-up"></i>
+          <span>SALTAR</span>
+        </div>
+        <div class="action-btn" id="shootBtn" ontouchstart="handleShoot()">
+          <i class="fas fa-crosshairs"></i>
+          <span>DISPARAR</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Game Over -->
+  <!-- Modales -->
   <div class="mission-modal" id="gameOverModal">
     <div class="modal-content">
       <i class="fas fa-skull-crossbones"></i>
       <h2>¡CAÍDO EN COMBATE!</h2>
-      <p>Has sido eliminado</p>
       <p>Puntuación: <span id="finalScore">0</span></p>
       <button class="modal-btn" onclick="window.location.reload()">
-        <i class="fas fa-redo-alt"></i> REINTENTAR MISIÓN
+        <i class="fas fa-redo-alt"></i> REINTENTAR
       </button>
     </div>
   </div>
 
-  <!-- Modal de Victoria -->
   <div class="mission-modal" id="victoryModal">
     <div class="modal-content">
       <i class="fas fa-crown"></i>
       <h2>¡MISIÓN CUMPLIDA!</h2>
-      <p>Has completado todas las vocales</p>
-      <p>Puntuación final: <span id="victoryScore">0</span></p>
+      <p>Puntuación: <span id="victoryScore">0</span></p>
       <button class="modal-btn" onclick="window.location.reload()">
-        <i class="fas fa-redo-alt"></i> NUEVA MISIÓN
+        <i class="fas fa-redo-alt"></i> JUGAR DE NUEVO
       </button>
     </div>
   </div>
 
-  <footer class="combat-footer">
-    <p>OPERACIÓN ALEFATO · FUERZAS ESPECIALES HEBREAS · AÑO 2026</p>
-  </footer>
-
   <script>
     (function() {
-      // Base de datos de vocales para la misión
+      // Base de datos de vocales
       const vowels = [
-        // Largas
         { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a', value: 10 },
         { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e', value: 10 },
         { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o', value: 10 },
-        // Breves
         { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a', value: 20 },
         { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e', value: 20 },
         { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i', value: 20 },
         { symbol: 'בָּ', name: 'Qamets Hatuf', type: 'breve', class: 'o', value: 20 },
         { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u', value: 20 },
-        // Reducidas
         { symbol: 'בֲּ', name: 'Hateph Pathach', type: 'reducida', class: 'a', value: 30 },
         { symbol: 'בֱּ', name: 'Hateph Seghol', type: 'reducida', class: 'e', value: 30 },
         { symbol: 'בֳּ', name: 'Hateph Qamets', type: 'reducida', class: 'o', value: 30 },
-        // Matres
         { symbol: 'בָּה', name: 'Qamets He', type: 'matres', class: 'a', value: 40 },
         { symbol: 'בּוֹ', name: 'Holem Waw', type: 'matres', class: 'o', value: 40 },
         { symbol: 'בּוּ', name: 'Shureq', type: 'matres', class: 'u', value: 40 },
@@ -586,12 +565,13 @@
       let health = 100;
       let shield = 0;
       let gameActive = true;
-      let soldierPosition = 50; // % desde la izquierda
+      let soldierPosition = 45; // % desde la izquierda
       let soldierBottom = 40; // % desde abajo
       let jumping = false;
       let jumpHeight = 0;
+      let moveLeftActive = false;
+      let moveRightActive = false;
       
-      // Elementos del juego
       const battlefield = document.getElementById('battlefield');
       const soldier = document.getElementById('soldier');
       const objectiveText = document.getElementById('objectiveText');
@@ -603,144 +583,87 @@
       const finalScore = document.getElementById('finalScore');
       const victoryScore = document.getElementById('victoryScore');
 
-      // Objetivos de la misión (12 niveles)
+      // Misiones
       const missions = [
-        { type: 'larga', class: 'a', name: 'Qamets', description: 'Recolecta Qamets (a larga)' },
-        { type: 'larga', class: 'e', name: 'Tsere', description: 'Recolecta Tsere (e larga)' },
-        { type: 'larga', class: 'o', name: 'Holem', description: 'Recolecta Holem (o larga)' },
-        { type: 'breve', class: 'a', name: 'Pathach', description: 'Recolecta Pathach (a breve)' },
-        { type: 'breve', class: 'e', name: 'Seghol', description: 'Recolecta Seghol (e breve)' },
-        { type: 'breve', class: 'i', name: 'Hireq', description: 'Recolecta Hireq (i breve)' },
-        { type: 'breve', class: 'o', name: 'Qamets Hatuf', description: 'Recolecta Qamets Hatuf (o breve)' },
-        { type: 'breve', class: 'u', name: 'Qibbuts', description: 'Recolecta Qibbuts (u breve)' },
-        { type: 'reducida', class: 'a', name: 'Hateph Pathach', description: 'Recolecta Hateph Pathach (a reducida)' },
-        { type: 'reducida', class: 'e', name: 'Hateph Seghol', description: 'Recolecta Hateph Seghol (e reducida)' },
-        { type: 'reducida', class: 'o', name: 'Hateph Qamets', description: 'Recolecta Hateph Qamets (o reducida)' },
-        { type: 'matres', class: 'a', name: 'Matres', description: 'Recolecta cualquier Matres Lectionis' }
+        { type: 'larga', class: 'a', description: 'Recolecta: Qamets (a larga)' },
+        { type: 'larga', class: 'e', description: 'Recolecta: Tsere (e larga)' },
+        { type: 'larga', class: 'o', description: 'Recolecta: Holem (o larga)' },
+        { type: 'breve', class: 'a', description: 'Recolecta: Pathach (a breve)' },
+        { type: 'breve', class: 'e', description: 'Recolecta: Seghol (e breve)' },
+        { type: 'breve', class: 'i', description: 'Recolecta: Hireq (i breve)' },
+        { type: 'breve', class: 'o', description: 'Recolecta: Qamets Hatuf (o breve)' },
+        { type: 'breve', class: 'u', description: 'Recolecta: Qibbuts (u breve)' },
+        { type: 'reducida', class: 'a', description: 'Recolecta: Hateph Pathach (a reducida)' },
+        { type: 'reducida', class: 'e', description: 'Recolecta: Hateph Seghol (e reducida)' },
+        { type: 'reducida', class: 'o', description: 'Recolecta: Hateph Qamets (o reducida)' },
+        { type: 'matres', class: 'all', description: 'Recolecta: Matres Lectionis' }
       ];
 
       let currentMission = missions[0];
 
-      // Elementos activos
-      let gameElements = [];
+      // Variables para intervalos
       let gameInterval;
       let spawnInterval;
+      let moveInterval;
 
-      // Controles
-      let leftPressed = false;
-      let rightPressed = false;
-      let spacePressed = false;
+      // Funciones de control táctil (globales)
+      window.handleTouchStart = function(direction) {
+        if (!gameActive) return;
+        if (direction === 'left') moveLeftActive = true;
+        if (direction === 'right') moveRightActive = true;
+      };
 
-      // Inicializar juego
-      function initGame() {
-        updateObjective();
-        startGameLoop();
-        startSpawning();
+      window.handleTouchEnd = function(direction) {
+        if (direction === 'left') moveLeftActive = false;
+        if (direction === 'right') moveRightActive = false;
+      };
+
+      window.handleJump = function() {
+        if (!gameActive || jumping) return;
+        jumping = true;
+        jumpHeight = 0;
         
-        // Event listeners para controles
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('keyup', handleKeyUp);
-        
-        // Prevenir scroll con flechas
-        window.addEventListener('keydown', (e) => {
-          if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.key)) {
-            e.preventDefault();
+        // Animación de salto
+        const jumpInterval = setInterval(() => {
+          if (!gameActive || !jumping) {
+            clearInterval(jumpInterval);
+            return;
           }
-        });
-      }
-
-      function handleKeyDown(e) {
-        if (!gameActive) return;
-        
-        switch(e.key) {
-          case 'ArrowLeft':
-            leftPressed = true;
-            break;
-          case 'ArrowRight':
-            rightPressed = true;
-            break;
-          case 'ArrowUp':
-            if (!jumping) {
-              jumping = true;
-              jumpHeight = 0;
-            }
-            break;
-          case ' ':
-            spacePressed = true;
-            shoot();
-            break;
-        }
-      }
-
-      function handleKeyUp(e) {
-        switch(e.key) {
-          case 'ArrowLeft':
-            leftPressed = false;
-            break;
-          case 'ArrowRight':
-            rightPressed = false;
-            break;
-          case ' ':
-            spacePressed = false;
-            break;
-        }
-      }
-
-      function moveSoldier() {
-        if (!gameActive) return;
-        
-        // Movimiento horizontal
-        if (leftPressed && soldierPosition > 5) {
-          soldierPosition -= 2;
-        }
-        if (rightPressed && soldierPosition < 85) {
-          soldierPosition += 2;
-        }
-        
-        // Salto
-        if (jumping) {
-          jumpHeight += 2;
+          
+          jumpHeight += 3;
           if (jumpHeight > 30) {
             jumping = false;
+            soldierBottom = 40;
+          } else {
+            soldierBottom = 40 + Math.sin(jumpHeight / 8) * 15;
           }
-          soldierBottom = 40 + Math.sin(jumpHeight / 10) * 20;
-        } else {
-          soldierBottom = 40;
-        }
-        
-        soldier.style.left = soldierPosition + '%';
-        soldier.style.bottom = soldierBottom + '%';
-      }
+          soldier.style.bottom = soldierBottom + '%';
+        }, 30);
+      };
 
-      function shoot() {
-        // Crear disparo
+      window.handleShoot = function() {
+        if (!gameActive) return;
+        
         const bullet = document.createElement('div');
-        bullet.style.position = 'absolute';
-        bullet.style.left = (soldierPosition + 5) + '%';
+        bullet.className = 'bullet';
+        bullet.style.left = (soldierPosition + 4) + '%';
         bullet.style.bottom = (soldierBottom + 10) + '%';
-        bullet.style.width = '20px';
-        bullet.style.height = '5px';
-        bullet.style.background = 'linear-gradient(90deg, #ffff00, #ffaa00)';
-        bullet.style.borderRadius = '2px';
-        bullet.style.boxShadow = '0 0 10px #ffff00';
-        bullet.style.zIndex = '25';
-        bullet.classList.add('bullet');
         battlefield.appendChild(bullet);
         
-        // Animar disparo
-        let bulletX = soldierPosition + 5;
+        let bulletX = soldierPosition + 4;
         const bulletInterval = setInterval(() => {
-          bulletX += 2;
+          bulletX += 1.5;
           bullet.style.left = bulletX + '%';
           
-          // Detectar colisiones con enemigos
+          // Detectar colisiones
           document.querySelectorAll('.enemy').forEach(enemy => {
             const enemyLeft = parseFloat(enemy.style.left);
             if (Math.abs(enemyLeft - bulletX) < 3) {
               enemy.remove();
               clearInterval(bulletInterval);
               bullet.remove();
-              addScore(5);
+              score += 5;
+              scoreValue.textContent = score;
             }
           });
           
@@ -748,7 +671,20 @@
             clearInterval(bulletInterval);
             bullet.remove();
           }
-        }, 50);
+        }, 30);
+      };
+
+      function moveSoldier() {
+        if (!gameActive) return;
+        
+        if (moveLeftActive && soldierPosition > 5) {
+          soldierPosition -= 1.5;
+        }
+        if (moveRightActive && soldierPosition < 85) {
+          soldierPosition += 1.5;
+        }
+        
+        soldier.style.left = soldierPosition + '%';
       }
 
       function spawnElement() {
@@ -757,21 +693,26 @@
         const type = Math.random();
         let element;
         
-        if (type < 0.4) {
-          // Vocal correcta (basada en misión actual)
-          const correctVowels = vowels.filter(v => 
+        if (type < 0.5) {
+          // Vocal correcta
+          let correctVowels = vowels.filter(v => 
             v.type === currentMission.type && 
             (currentMission.class === 'all' || v.class === currentMission.class)
           );
+          
+          if (correctVowels.length === 0) {
+            correctVowels = vowels.filter(v => v.type === currentMission.type);
+          }
           
           if (correctVowels.length > 0) {
             const vowel = correctVowels[Math.floor(Math.random() * correctVowels.length)];
             element = createCollectible(vowel, true);
           }
-        } else if (type < 0.7) {
+        } else if (type < 0.8) {
           // Vocal incorrecta
           const incorrectVowels = vowels.filter(v => 
-            !(v.type === currentMission.type && v.class === currentMission.class)
+            !(v.type === currentMission.type && 
+              (currentMission.class === 'all' || v.class === currentMission.class))
           );
           const vowel = incorrectVowels[Math.floor(Math.random() * incorrectVowels.length)];
           element = createCollectible(vowel, false);
@@ -782,7 +723,6 @@
         
         if (element) {
           battlefield.appendChild(element);
-          gameElements.push(element);
         }
       }
 
@@ -790,37 +730,34 @@
         const div = document.createElement('div');
         div.className = `collectible ${isCorrect ? 'correct' : 'incorrect'}`;
         div.style.left = '100%';
-        div.style.bottom = (20 + Math.random() * 50) + '%';
+        div.style.bottom = (25 + Math.random() * 45) + '%';
         div.innerHTML = vowel.symbol;
         div.dataset.value = vowel.value || 10;
         div.dataset.isCorrect = isCorrect;
-        div.dataset.name = vowel.name;
         
-        // Animar movimiento
         let posX = 100;
         const moveInterval = setInterval(() => {
           if (!gameActive) {
             clearInterval(moveInterval);
+            div.remove();
             return;
           }
           
-          posX -= 0.5;
+          posX -= 0.6;
           div.style.left = posX + '%';
           
-          // Detectar colisión con soldado
-          const soldierLeft = soldierPosition;
-          if (Math.abs(posX - soldierLeft) < 3 && 
+          // Colisión con soldado
+          if (Math.abs(posX - soldierPosition) < 4 && 
               Math.abs(parseFloat(div.style.bottom) - soldierBottom) < 15) {
             
-            if (div.dataset.isCorrect === 'true') {
-              // Acierto
-              addScore(parseInt(div.dataset.value));
-              showHitEffect('+', div.dataset.value, '#44ff44');
+            if (isCorrect) {
+              score += parseInt(div.dataset.value);
+              scoreValue.textContent = score;
               advanceMission();
             } else {
-              // Error
-              takeDamage(10);
-              showHitEffect('-10', '', '#ff4444');
+              health -= 10;
+              updateHealth();
+              if (health <= 0) gameOver();
             }
             
             div.remove();
@@ -831,7 +768,7 @@
             div.remove();
             clearInterval(moveInterval);
           }
-        }, 30);
+        }, 40);
         
         return div;
       }
@@ -840,102 +777,55 @@
         const div = document.createElement('div');
         div.className = 'enemy';
         div.style.left = '100%';
-        div.style.bottom = (20 + Math.random() * 40) + '%';
+        div.style.bottom = (25 + Math.random() * 40) + '%';
         
         let posX = 100;
         const moveInterval = setInterval(() => {
           if (!gameActive) {
             clearInterval(moveInterval);
+            div.remove();
             return;
           }
           
           posX -= 0.8;
           div.style.left = posX + '%';
           
-          // Detectar colisión con soldado
-          const soldierLeft = soldierPosition;
-          if (Math.abs(posX - soldierLeft) < 4 && 
+          if (Math.abs(posX - soldierPosition) < 5 && 
               Math.abs(parseFloat(div.style.bottom) - soldierBottom) < 20) {
-            takeDamage(25);
-            showHitEffect('-25', '', '#ff0000');
+            health -= 20;
+            updateHealth();
             div.remove();
             clearInterval(moveInterval);
+            if (health <= 0) gameOver();
           }
           
           if (posX < -10) {
             div.remove();
             clearInterval(moveInterval);
           }
-        }, 30);
+        }, 40);
         
         return div;
       }
 
-      function showHitEffect(text, value, color) {
-        const effect = document.createElement('div');
-        effect.style.position = 'absolute';
-        effect.style.left = soldierPosition + '%';
-        effect.style.bottom = soldierBottom + 20 + '%';
-        effect.style.color = color;
-        effect.style.fontWeight = 'bold';
-        effect.style.textShadow = '0 0 10px black';
-        effect.style.zIndex = '50';
-        effect.style.fontSize = '1.5rem';
-        effect.innerHTML = text + value;
-        effect.style.animation = 'float 1s forwards';
-        battlefield.appendChild(effect);
-        
-        setTimeout(() => effect.remove(), 1000);
-      }
-
-      function takeDamage(amount) {
-        if (shield > 0) {
-          shield -= amount / 2;
-          if (shield < 0) shield = 0;
-        } else {
-          health -= amount;
-        }
-        
-        updateHealth();
-        
-        if (health <= 0) {
-          gameOver();
-        }
-      }
-
-      function addScore(points) {
-        score += points;
-        scoreValue.textContent = score;
-      }
-
       function updateHealth() {
         healthFill.style.width = Math.max(0, health) + '%';
-        
-        if (health <= 30) {
-          healthFill.style.background = 'linear-gradient(90deg, #ff0000, #ff6666)';
-        }
+        if (health <= 0) gameOver();
       }
 
       function advanceMission() {
         if (currentTargetIndex < missions.length - 1) {
           currentTargetIndex++;
           currentMission = missions[currentTargetIndex];
-          updateObjective();
+          objectiveText.textContent = currentMission.description;
           
-          // Recompensa de escudo cada 3 misiones
           if (currentTargetIndex % 3 === 0) {
             shield += 50;
             shieldValue.textContent = shield;
-            showHitEffect('ESCUDO +50', '', '#44aaff');
           }
         } else {
-          // Victoria
           victory();
         }
-      }
-
-      function updateObjective() {
-        objectiveText.textContent = currentMission.description;
       }
 
       function gameOver() {
@@ -954,22 +844,19 @@
         victoryModal.style.display = 'flex';
       }
 
-      function startGameLoop() {
+      function startGame() {
         gameInterval = setInterval(() => {
-          if (!gameActive) return;
           moveSoldier();
-        }, 50);
-      }
-
-      function startSpawning() {
+        }, 30);
+        
         spawnInterval = setInterval(() => {
-          if (!gameActive) return;
           spawnElement();
-        }, 800);
+        }, 1000);
       }
 
-      // Iniciar
-      initGame();
+      // Iniciar juego
+      startGame();
+      objectiveText.textContent = currentMission.description;
     })();
   </script>
 </body>
