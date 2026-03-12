@@ -30,7 +30,8 @@ const ESTUDIANTES = [
     { id: 8, nombre: "Carlos Alberto Dixon Magaña", email: "cdixonmagana@gmail.com", telefono: "52491097", nacionalidad: "Cuba" },
     { id: 9, nombre: "Juan Miguel Gongora Téllez", email: "juansigongora797@gmail.com", telefono: "58248023", nacionalidad: "Cuba" },
     { id: 10, nombre: "Alexei Lores Lamorú", email: "alexei850113@gmail.com", telefono: "54095537", nacionalidad: "Cuba" },
-    { id: 11, nombre: "Yordanka Álvarez Pérez.", email: "alvarezyordanka1@gmail.com", telefono: "58169444", nacionalidad: "Cuba" }
+    { id: 11, nombre: "Yordanka Álvarez Pérez.", email: "alvarezyordanka1@gmail.com", telefono: "58169444", nacionalidad: "Cuba" },
+    { id: 12, nombre: "Reidel Verdecia.", email: "reidel@gmail.com", telefono: "54087652", nacionalidad: "Cuba" }
 ];
 
 const PROFESOR = {

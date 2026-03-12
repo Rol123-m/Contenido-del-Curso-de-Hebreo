@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>⚔️ GUERRERO DEL ALEFATO</title>
+  <title>⚔️ GUERRERO DEL ALEFATO · VOCALES</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -20,7 +20,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       padding: 10px;
     }
 
@@ -97,26 +97,50 @@
       height: 100%;
       background: #ff0000;
       width: 100%;
+      transition: width 0.2s;
+    }
+
+    /* Nivel actual */
+    .level-info {
+      display: flex;
+      justify-content: space-between;
+      background: #0f1f2f;
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      color: #ffaa00;
+      border: 1px solid #ffaa00;
+      font-weight: bold;
+    }
+
+    .level-badge {
+      background: #ff4444;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
     }
 
     /* Misión */
     .mission {
       background: #0f1f2f;
-      padding: 10px;
+      padding: 15px;
       border-radius: 10px;
       margin-bottom: 15px;
       text-align: center;
       color: #ffaa00;
       font-weight: bold;
       border: 2px solid #ffaa00;
-      font-size: 14px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     /* Campo de batalla */
     .battlefield {
       background: linear-gradient(180deg, #1a3355, #0a1a2a);
       border-radius: 15px;
-      height: 400px;
+      height: 450px;
       position: relative;
       overflow: hidden;
       border: 3px solid #4a7a9c;
@@ -138,10 +162,11 @@
       bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 40px;
-      height: 60px;
+      width: 45px;
+      height: 70px;
       z-index: 10;
-      transition: left 0.1s;
+      transition: left 0.05s;
+      filter: drop-shadow(0 0 10px #ffaa00);
     }
 
     .soldier-body {
@@ -154,75 +179,84 @@
     }
 
     .soldier-head {
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       background: #d4a76a;
       border-radius: 50%;
       position: absolute;
-      top: -10px;
+      top: -12px;
       left: 50%;
       transform: translateX(-50%);
       border: 2px solid #ffaa00;
+      box-shadow: 0 0 10px #ffaa00;
     }
 
     .soldier-gun {
-      width: 25px;
-      height: 6px;
+      width: 30px;
+      height: 8px;
       background: #888;
       position: absolute;
-      top: 20px;
-      right: -10px;
-      transform: rotate(-10deg);
-      border-radius: 3px;
+      top: 25px;
+      right: -12px;
+      transform: rotate(-5deg);
+      border-radius: 4px;
+      box-shadow: 0 0 5px #ffaa00;
     }
 
-    /* Elementos */
-    .collectible, .enemy, .bullet {
-      position: absolute;
-      pointer-events: none;
-      z-index: 5;
-    }
-
+    /* Elementos - MÁS GRANDES */
     .collectible {
-      width: 40px;
-      height: 40px;
+      position: absolute;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 2rem;
+      font-weight: bold;
       color: white;
-      animation: float 1s infinite;
+      text-shadow: 2px 2px 0 black;
+      animation: float 1.5s infinite ease-in-out;
+      z-index: 5;
+      pointer-events: none;
+      border: 4px solid yellow;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-10px); }
     }
 
     .collectible.correct {
-      background: radial-gradient(circle, #44ff44, #00aa00);
-      border: 2px solid yellow;
-      box-shadow: 0 0 20px #00ff00;
+      background: radial-gradient(circle at 30% 30%, #44ff44, #008800);
+      box-shadow: 0 0 30px #00ff00;
     }
 
     .collectible.incorrect {
-      background: radial-gradient(circle, #ff4444, #aa0000);
-      border: 2px solid yellow;
-      box-shadow: 0 0 20px #ff0000;
+      background: radial-gradient(circle at 30% 30%, #ff8888, #880000);
+      box-shadow: 0 0 30px #ff0000;
     }
 
     .enemy {
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, #ff6666, #660000);
+      position: absolute;
+      width: 55px;
+      height: 55px;
+      background: radial-gradient(circle at 30% 30%, #ff0000, #660000);
       border-radius: 50%;
-      border: 3px solid yellow;
+      border: 4px solid yellow;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 0 20px #ff0000;
+      font-size: 2rem;
+      box-shadow: 0 0 30px #ff0000;
+      z-index: 5;
+      pointer-events: none;
+      animation: enemyPulse 1s infinite;
+    }
+
+    @keyframes enemyPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
     .enemy::before {
@@ -230,84 +264,92 @@
     }
 
     .bullet {
-      width: 15px;
-      height: 4px;
-      background: linear-gradient(90deg, yellow, orange);
-      border-radius: 2px;
-      box-shadow: 0 0 10px yellow;
+      position: absolute;
+      width: 20px;
+      height: 6px;
+      background: linear-gradient(90deg, #ffff00, #ffaa00);
+      border-radius: 3px;
+      box-shadow: 0 0 15px #ffff00;
+      z-index: 20;
+      pointer-events: none;
     }
 
-    /* Controles */
+    /* Controles MEJORADOS */
     .controls {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 10px;
       margin-top: 15px;
     }
 
-    .movement {
+    .control-row {
       display: flex;
       gap: 10px;
-      flex: 1;
+      justify-content: center;
     }
 
     .ctrl-btn {
-      flex: 1;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       background: linear-gradient(145deg, #2a4a6a, #1a3a4a);
-      border: 3px solid #ffaa00;
-      border-radius: 15px;
+      border: 4px solid #ffaa00;
+      border-radius: 20px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #ffaa00;
-      font-size: 1.5rem;
+      font-size: 2rem;
       cursor: pointer;
-      box-shadow: 0 0 15px #ffaa00;
+      box-shadow: 0 0 20px #ffaa00;
       transition: 0.1s;
+      touch-action: manipulation;
     }
 
     .ctrl-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.9);
       background: #ffaa00;
       color: #1a2a3a;
     }
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex: 1;
-    }
-
     .action-btn {
-      flex: 1;
-      height: 60px;
+      width: 100px;
+      height: 80px;
       background: linear-gradient(145deg, #ff4444, #aa0000);
-      border: 3px solid yellow;
-      border-radius: 15px;
+      border: 4px solid yellow;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.8rem;
       cursor: pointer;
-      box-shadow: 0 0 20px #ff0000;
+      box-shadow: 0 0 30px #ff0000;
     }
 
     .action-btn span {
-      font-size: 10px;
+      font-size: 12px;
+      margin-top: 5px;
     }
 
     .action-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
 
     .key-hint {
       color: #6a9cff;
-      font-size: 10px;
-      margin-top: 5px;
+      font-size: 12px;
       text-align: center;
+      padding: 10px;
+      background: #0f1f2f;
+      border-radius: 10px;
+      margin-top: 5px;
+    }
+
+    .key-hint i {
+      margin: 0 5px;
+      color: #ffaa00;
     }
 
     /* Modal */
@@ -317,7 +359,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       display: none;
       justify-content: center;
       align-items: center;
@@ -327,29 +369,41 @@
     .modal-content {
       background: linear-gradient(145deg, #1a3f5a, #0f2f4a);
       border: 4px solid #ffaa00;
-      border-radius: 20px;
-      padding: 30px;
+      border-radius: 30px;
+      padding: 40px;
       text-align: center;
       color: white;
-      max-width: 300px;
+      max-width: 350px;
+      width: 90%;
     }
 
     .modal-content i {
-      font-size: 4rem;
+      font-size: 5rem;
       color: #ffaa00;
+      margin-bottom: 20px;
+    }
+
+    .modal-content h2 {
+      font-size: 2rem;
       margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      font-size: 1.3rem;
+      margin: 10px 0;
     }
 
     .modal-btn {
       background: linear-gradient(135deg, #ffaa00, #ff6600);
       border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-size: 1.2rem;
+      padding: 15px 40px;
+      border-radius: 40px;
+      font-size: 1.3rem;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 25px;
       cursor: pointer;
       width: 100%;
+      border: 2px solid white;
     }
   </style>
 </head>
@@ -379,9 +433,15 @@
       </div>
     </div>
 
+    <!-- Nivel actual -->
+    <div class="level-info">
+      <span>NIVEL <span id="currentLevel">1</span>/<span id="totalLevels">7</span></span>
+      <span class="level-badge" id="vowelType">LARGA</span>
+    </div>
+
     <!-- Misión actual -->
     <div class="mission" id="mission">
-      Recolecta: Qamets (a larga)
+      🎯 RECOLECTA: QAMETS (A LARGA)
     </div>
 
     <!-- Campo de batalla -->
@@ -394,29 +454,31 @@
       </div>
     </div>
 
-    <!-- Controles táctiles y hint de teclado -->
+    <!-- Controles MEJORADOS -->
     <div class="controls">
-      <div class="movement">
-        <div class="ctrl-btn" id="moveLeft" ontouchstart="moveLeftActive = true" ontouchend="moveLeftActive = false" ontouchcancel="moveLeftActive = false" onmousedown="moveLeftActive = true" onmouseup="moveLeftActive = false" onmouseleave="moveLeftActive = false">
+      <div class="control-row">
+        <div class="ctrl-btn" id="moveLeft" ontouchstart="setMoveLeft(true)" ontouchend="setMoveLeft(false)" ontouchcancel="setMoveLeft(false)" onmousedown="setMoveLeft(true)" onmouseup="setMoveLeft(false)" onmouseleave="setMoveLeft(false)">
           <i class="fas fa-arrow-left"></i>
+          <span style="font-size: 10px;">IZQUIERDA</span>
         </div>
-        <div class="ctrl-btn" id="moveRight" ontouchstart="moveRightActive = true" ontouchend="moveRightActive = false" ontouchcancel="moveRightActive = false" onmousedown="moveRightActive = true" onmouseup="moveRightActive = false" onmouseleave="moveRightActive = false">
+        <div class="ctrl-btn" id="moveRight" ontouchstart="setMoveRight(true)" ontouchend="setMoveRight(false)" ontouchcancel="setMoveRight(false)" onmousedown="setMoveRight(true)" onmouseup="setMoveRight(false)" onmouseleave="setMoveRight(false)">
           <i class="fas fa-arrow-right"></i>
+          <span style="font-size: 10px;">DERECHA</span>
         </div>
       </div>
-      <div class="actions">
-        <div class="action-btn" id="jumpBtn" ontouchstart="jump()" onmousedown="jump()">
+      <div class="control-row">
+        <div class="action-btn" id="jumpBtn" ontouchstart="doJump()" onmousedown="doJump()">
           <i class="fas fa-arrow-up"></i>
-          <span>SALTAR</span>
+          <span>SALTAR (↑)</span>
         </div>
-        <div class="action-btn" id="shootBtn" ontouchstart="shoot()" onmousedown="shoot()">
+        <div class="action-btn" id="shootBtn" ontouchstart="doShoot()" onmousedown="doShoot()">
           <i class="fas fa-crosshairs"></i>
-          <span>DISPARAR</span>
+          <span>DISPARAR (ESPACIO)</span>
         </div>
       </div>
     </div>
     <div class="key-hint">
-      <span>← → MOVER | ↑ SALTAR | ESPACIO DISPARAR</span>
+      <i class="fas fa-keyboard"></i> FLECHAS: MOVER | ↑: SALTAR | ESPACIO: DISPARAR
     </div>
   </div>
 
@@ -425,7 +487,8 @@
     <div class="modal-content">
       <i class="fas fa-skull-crossbones"></i>
       <h2>¡CAÍDO!</h2>
-      <p>Puntos: <span id="finalScore">0</span></p>
+      <p>Puntuación: <span id="finalScore">0</span></p>
+      <p>Nivel: <span id="finalLevel">1</span></p>
       <button class="modal-btn" onclick="location.reload()">REINTENTAR</button>
     </div>
   </div>
@@ -434,91 +497,153 @@
     <div class="modal-content">
       <i class="fas fa-crown"></i>
       <h2>¡VICTORIA!</h2>
-      <p>Puntos: <span id="victoryScore">0</span></p>
+      <p>¡Misiones completadas!</p>
+      <p>Puntuación: <span id="victoryScore">0</span></p>
       <button class="modal-btn" onclick="location.reload()">JUGAR DE NUEVO</button>
     </div>
   </div>
 
   <script>
-    // Vocales
+    // ========== VOCALES COMPLETAS ==========
     const vowels = [
-      { symbol: 'בָּ', name: 'Qamets', type: 'larga', class: 'a', value: 10 },
-      { symbol: 'בֵּ', name: 'Tsere', type: 'larga', class: 'e', value: 10 },
-      { symbol: 'בֹּ', name: 'Holem', type: 'larga', class: 'o', value: 10 },
-      { symbol: 'בַּ', name: 'Pathach', type: 'breve', class: 'a', value: 20 },
-      { symbol: 'בֶּ', name: 'Seghol', type: 'breve', class: 'e', value: 20 },
-      { symbol: 'בִּ', name: 'Hireq', type: 'breve', class: 'i', value: 20 },
-      { symbol: 'בֻּ', name: 'Qibbuts', type: 'breve', class: 'u', value: 20 }
+      // Largas (10 pts)
+      { symbol: 'בָּ', name: 'QAMETS', type: 'larga', class: 'a', value: 10, display: 'A LARGA' },
+      { symbol: 'בֵּ', name: 'TSERE', type: 'larga', class: 'e', value: 10, display: 'E LARGA' },
+      { symbol: 'בֹּ', name: 'HOLEM', type: 'larga', class: 'o', value: 10, display: 'O LARGA' },
+      // Breves (20 pts)
+      { symbol: 'בַּ', name: 'PATHACH', type: 'breve', class: 'a', value: 20, display: 'A BREVE' },
+      { symbol: 'בֶּ', name: 'SEGHOL', type: 'breve', class: 'e', value: 20, display: 'E BREVE' },
+      { symbol: 'בִּ', name: 'HIREQ', type: 'breve', class: 'i', value: 20, display: 'I BREVE' },
+      { symbol: 'בֻּ', name: 'QIBBUTS', type: 'breve', class: 'u', value: 20, display: 'U BREVE' }
     ];
 
+    // ========== MISIONES (UNA POR NIVEL) ==========
     const missions = [
-      { type: 'larga', class: 'a', text: 'Recolecta: Qamets (a larga)' },
-      { type: 'larga', class: 'e', text: 'Recolecta: Tsere (e larga)' },
-      { type: 'larga', class: 'o', text: 'Recolecta: Holem (o larga)' },
-      { type: 'breve', class: 'a', text: 'Recolecta: Pathach (a breve)' },
-      { type: 'breve', class: 'e', text: 'Recolecta: Seghol (e breve)' },
-      { type: 'breve', class: 'i', text: 'Recolecta: Hireq (i breve)' },
-      { type: 'breve', class: 'u', text: 'Recolecta: Qibbuts (u breve)' }
+      { type: 'larga', class: 'a', display: 'QAMETS (A LARGA)', vowelType: 'LARGA' },
+      { type: 'larga', class: 'e', display: 'TSERE (E LARGA)', vowelType: 'LARGA' },
+      { type: 'larga', class: 'o', display: 'HOLEM (O LARGA)', vowelType: 'LARGA' },
+      { type: 'breve', class: 'a', display: 'PATHACH (A BREVE)', vowelType: 'BREVE' },
+      { type: 'breve', class: 'e', display: 'SEGHOL (E BREVE)', vowelType: 'BREVE' },
+      { type: 'breve', class: 'i', display: 'HIREQ (I BREVE)', vowelType: 'BREVE' },
+      { type: 'breve', class: 'u', display: 'QIBBUTS (U BREVE)', vowelType: 'BREVE' }
     ];
 
-    // Estado del juego
-    let currentMissionIndex = 0;
+    // ========== ESTADO DEL JUEGO ==========
+    let currentLevel = 0; // 0-based
     let currentMission = missions[0];
     let score = 0;
     let health = 100;
     let gameActive = true;
-    let soldierPos = 50; // porcentaje
-    let soldierBottom = 100; // px desde abajo
+    
+    // Posición del soldado
+    let soldierPos = 50; // %
+    let soldierBottom = 100; // px
     let jumping = false;
     let jumpVelocity = 0;
+    const GRAVITY = 0.8;
+    const JUMP_FORCE = 15;
+    const GROUND_Y = 100;
     
-    // Variables de control
-    let moveLeftActive = false;
-    let moveRightActive = false;
-
-    // Elementos DOM
+    // Control de movimiento
+    let moveLeft = false;
+    let moveRight = false;
+    
+    // Elementos del DOM
     const battlefield = document.getElementById('battlefield');
     const soldier = document.getElementById('soldier');
     const missionEl = document.getElementById('mission');
+    const currentLevelEl = document.getElementById('currentLevel');
+    const totalLevelsEl = document.getElementById('totalLevels');
+    const vowelTypeEl = document.getElementById('vowelType');
     const scoreEl = document.getElementById('score');
     const healthEl = document.getElementById('health');
     const gameOverModal = document.getElementById('gameOverModal');
     const victoryModal = document.getElementById('victoryModal');
     const finalScore = document.getElementById('finalScore');
+    const finalLevel = document.getElementById('finalLevel');
     const victoryScore = document.getElementById('victoryScore');
-
-    // Variables para elementos del juego
+    
+    // Intervalos
     let gameLoop;
     let spawnLoop;
 
-    // Funciones globales para controles
-    window.moveLeftActive = false;
-    window.moveRightActive = false;
-
-    window.jump = function() {
+    // ========== FUNCIONES DE CONTROL GLOBALES ==========
+    window.setMoveLeft = function(value) {
+      if (!gameActive) return;
+      moveLeft = value;
+    };
+    
+    window.setMoveRight = function(value) {
+      if (!gameActive) return;
+      moveRight = value;
+    };
+    
+    window.doJump = function() {
       if (!gameActive || jumping) return;
       jumping = true;
-      jumpVelocity = 12;
+      jumpVelocity = JUMP_FORCE;
+    };
+    
+    window.doShoot = function() {
+      if (!gameActive) return;
+      shoot();
     };
 
-    window.shoot = function() {
+    // ========== CONTROLES DE TECLADO ==========
+    document.addEventListener('keydown', (e) => {
+      if (!gameActive) return;
+      
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        moveLeft = true;
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        moveRight = true;
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!jumping) {
+          jumping = true;
+          jumpVelocity = JUMP_FORCE;
+        }
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        shoot();
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft') {
+        moveLeft = false;
+      } else if (e.key === 'ArrowRight') {
+        moveRight = false;
+      }
+    });
+
+    // ========== DISPARO ==========
+    function shoot() {
       if (!gameActive) return;
       
       const bullet = document.createElement('div');
       bullet.className = 'bullet';
       bullet.style.left = (soldierPos + 2) + '%';
-      bullet.style.bottom = '120px';
+      bullet.style.bottom = (soldierBottom + 30) + 'px';
       battlefield.appendChild(bullet);
       
       let bulletX = soldierPos + 2;
       const bulletInterval = setInterval(() => {
+        if (!gameActive) {
+          clearInterval(bulletInterval);
+          bullet.remove();
+          return;
+        }
+        
         bulletX += 2;
         bullet.style.left = bulletX + '%';
         
         // Detectar colisiones con enemigos
         document.querySelectorAll('.enemy').forEach(enemy => {
           const enemyLeft = parseFloat(enemy.style.left);
-          if (Math.abs(enemyLeft - bulletX) < 3) {
+          if (Math.abs(enemyLeft - bulletX) < 4) {
             enemy.remove();
             score += 5;
             scoreEl.textContent = score;
@@ -529,58 +654,29 @@
           clearInterval(bulletInterval);
           bullet.remove();
         }
-      }, 30);
-    };
+      }, 20);
+    }
 
-    // Controles de teclado
-    document.addEventListener('keydown', (e) => {
-      if (!gameActive) return;
-      
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        moveLeftActive = true;
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        moveRightActive = true;
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (!jumping) {
-          jumping = true;
-          jumpVelocity = 12;
-        }
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        shoot();
-      }
-    });
-
-    document.addEventListener('keyup', (e) => {
-      if (e.key === 'ArrowLeft') {
-        moveLeftActive = false;
-      } else if (e.key === 'ArrowRight') {
-        moveRightActive = false;
-      }
-    });
-
-    // Actualizar posición del soldado
+    // ========== ACTUALIZAR SOLDADO ==========
     function updateSoldier() {
       if (!gameActive) return;
       
       // Movimiento horizontal
-      if (moveLeftActive && soldierPos > 5) {
-        soldierPos -= 1.5;
+      if (moveLeft && soldierPos > 5) {
+        soldierPos -= 2;
       }
-      if (moveRightActive && soldierPos < 85) {
-        soldierPos += 1.5;
+      if (moveRight && soldierPos < 85) {
+        soldierPos += 2;
       }
       
-      // Física del salto
+      // Física del salto (MEJORADA)
       if (jumping) {
         soldierBottom += jumpVelocity;
-        jumpVelocity -= 1;
+        jumpVelocity -= GRAVITY;
         
-        if (soldierBottom <= 100) {
-          soldierBottom = 100;
+        // Detectar caída
+        if (soldierBottom <= GROUND_Y) {
+          soldierBottom = GROUND_Y;
           jumping = false;
           jumpVelocity = 0;
         }
@@ -590,32 +686,35 @@
       soldier.style.bottom = soldierBottom + 'px';
     }
 
-    // Generar elementos
+    // ========== GENERAR ELEMENTOS ==========
     function spawnItem() {
       if (!gameActive) return;
       
       const rand = Math.random();
       
-      if (rand < 0.4) {
-        // Vocal correcta
-        const correctVowels = vowels.filter(v => 
-          v.type === currentMission.type && v.class === currentMission.class
-        );
+      // Obtener vocales correctas para el nivel actual
+      const correctVowels = vowels.filter(v => 
+        v.type === currentMission.type && v.class === currentMission.class
+      );
+      
+      const otherVowels = vowels.filter(v => 
+        !(v.type === currentMission.type && v.class === currentMission.class)
+      );
+      
+      if (rand < 0.45) {
+        // Vocal correcta (45% probabilidad)
         if (correctVowels.length > 0) {
           const vowel = correctVowels[Math.floor(Math.random() * correctVowels.length)];
           createCollectible(vowel, true);
         }
-      } else if (rand < 0.7) {
-        // Vocal incorrecta
-        const incorrectVowels = vowels.filter(v => 
-          !(v.type === currentMission.type && v.class === currentMission.class)
-        );
-        if (incorrectVowels.length > 0) {
-          const vowel = incorrectVowels[Math.floor(Math.random() * incorrectVowels.length)];
+      } else if (rand < 0.75) {
+        // Vocal incorrecta (30% probabilidad)
+        if (otherVowels.length > 0) {
+          const vowel = otherVowels[Math.floor(Math.random() * otherVowels.length)];
           createCollectible(vowel, false);
         }
       } else {
-        // Enemigo
+        // Enemigo (25% probabilidad)
         createEnemy();
       }
     }
@@ -624,10 +723,12 @@
       const el = document.createElement('div');
       el.className = `collectible ${isCorrect ? 'correct' : 'incorrect'}`;
       el.style.left = '100%';
-      el.style.bottom = (120 + Math.random() * 200) + 'px';
+      el.style.bottom = (GROUND_Y + 20 + Math.random() * 250) + 'px';
       el.innerHTML = vowel.symbol;
       el.dataset.value = vowel.value;
       el.dataset.isCorrect = isCorrect;
+      el.dataset.type = vowel.type;
+      el.dataset.class = vowel.class;
       battlefield.appendChild(el);
       
       let posX = 100;
@@ -638,19 +739,21 @@
           return;
         }
         
-        posX -= 0.8;
+        posX -= 0.7;
         el.style.left = posX + '%';
         
         // Colisión con soldado
-        if (Math.abs(posX - soldierPos) < 4 && 
-            Math.abs(parseFloat(el.style.bottom) - soldierBottom) < 30) {
+        if (Math.abs(posX - soldierPos) < 5 && 
+            Math.abs(parseFloat(el.style.bottom) - soldierBottom) < 40) {
           
           if (isCorrect) {
+            // ✅ ACIERTO: avanzar nivel
             score += parseInt(el.dataset.value);
             scoreEl.textContent = score;
-            advanceMission();
+            advanceToNextLevel();
           } else {
-            health -= 10;
+            // ❌ ERROR: pierde vida
+            health -= 15;
             updateHealth();
           }
           
@@ -669,7 +772,7 @@
       const el = document.createElement('div');
       el.className = 'enemy';
       el.style.left = '100%';
-      el.style.bottom = (120 + Math.random() * 150) + 'px';
+      el.style.bottom = (GROUND_Y + 20 + Math.random() * 200) + 'px';
       battlefield.appendChild(el);
       
       let posX = 100;
@@ -683,9 +786,9 @@
         posX -= 1;
         el.style.left = posX + '%';
         
-        if (Math.abs(posX - soldierPos) < 5 && 
-            Math.abs(parseFloat(el.style.bottom) - soldierBottom) < 35) {
-          health -= 20;
+        if (Math.abs(posX - soldierPos) < 6 && 
+            Math.abs(parseFloat(el.style.bottom) - soldierBottom) < 45) {
+          health -= 25;
           updateHealth();
           el.remove();
           clearInterval(interval);
@@ -698,24 +801,22 @@
       }, 30);
     }
 
-    function updateHealth() {
-      healthEl.style.width = Math.max(0, health) + '%';
-      if (health <= 0) {
-        gameActive = false;
-        finalScore.textContent = score;
-        gameOverModal.style.display = 'flex';
-        clearInterval(gameLoop);
-        clearInterval(spawnLoop);
-      }
-    }
-
-    function advanceMission() {
-      if (currentMissionIndex < missions.length - 1) {
-        currentMissionIndex++;
-        currentMission = missions[currentMissionIndex];
-        missionEl.textContent = currentMission.text;
+    // ========== AVANZAR AL SIGUIENTE NIVEL ==========
+    function advanceToNextLevel() {
+      if (currentLevel < missions.length - 1) {
+        // Siguiente nivel
+        currentLevel++;
+        currentMission = missions[currentLevel];
+        
+        // Actualizar UI
+        missionEl.textContent = `🎯 RECOLECTA: ${currentMission.display}`;
+        currentLevelEl.textContent = currentLevel + 1;
+        vowelTypeEl.textContent = currentMission.vowelType;
+        
+        // Feedback visual
+        showMessage(`¡NIVEL ${currentLevel + 1}!`, '#44ff44');
       } else {
-        // Victoria
+        // VICTORIA - Todos los niveles completados
         gameActive = false;
         victoryScore.textContent = score;
         victoryModal.style.display = 'flex';
@@ -724,11 +825,49 @@
       }
     }
 
-    // Iniciar el juego
+    // ========== ACTUALIZAR VIDA ==========
+    function updateHealth() {
+      health = Math.max(0, health);
+      healthEl.style.width = health + '%';
+      
+      if (health <= 0) {
+        gameActive = false;
+        finalScore.textContent = score;
+        finalLevel.textContent = currentLevel + 1;
+        gameOverModal.style.display = 'flex';
+        clearInterval(gameLoop);
+        clearInterval(spawnLoop);
+      }
+    }
+
+    // ========== MENSAJE FLOTANTE ==========
+    function showMessage(text, color) {
+      const msg = document.createElement('div');
+      msg.style.position = 'absolute';
+      msg.style.left = '50%';
+      msg.style.top = '30%';
+      msg.style.transform = 'translate(-50%, -50%)';
+      msg.style.color = color;
+      msg.style.fontSize = '2rem';
+      msg.style.fontWeight = 'bold';
+      msg.style.textShadow = '2px 2px 0 black';
+      msg.style.zIndex = '100';
+      msg.style.animation = 'float 1s forwards';
+      msg.innerHTML = text;
+      battlefield.appendChild(msg);
+      
+      setTimeout(() => msg.remove(), 1000);
+    }
+
+    // ========== INICIAR JUEGO ==========
     function init() {
-      missionEl.textContent = currentMission.text;
-      gameLoop = setInterval(updateSoldier, 30);
-      spawnLoop = setInterval(spawnItem, 1200);
+      totalLevelsEl.textContent = missions.length;
+      missionEl.textContent = `🎯 RECOLECTA: ${currentMission.display}`;
+      currentLevelEl.textContent = '1';
+      vowelTypeEl.textContent = currentMission.vowelType;
+      
+      gameLoop = setInterval(updateSoldier, 20);
+      spawnLoop = setInterval(spawnItem, 1000);
     }
 
     init();

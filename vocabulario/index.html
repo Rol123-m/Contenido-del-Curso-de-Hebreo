@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Vivos para Servir - Hebreo Bíblico</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header con logo -->
+        <header class="main-header">
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Vivos para Servir" class="logo">
+                <span class="logo-text">Hebreo Bíblico</span>
+            </div>
+            <div class="header-stats">
+                <div class="streak-counter">
+                    <i class="fas fa-fire"></i>
+                    <span id="streakCount">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegación principal -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-view="study">
+                <i class="fas fa-book-open"></i>
+                <span>Estudiar</span>
+            </button>
+            <button class="nav-btn" data-view="practice">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Practicar</span>
+            </button>
+            <button class="nav-btn" data-view="stats">
+                <i class="fas fa-chart-bar"></i>
+                <span>Estadísticas</span>
+            </button>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main id="mainContent">
+            <!-- Vista de Estudio -->
+            <div id="studyView" class="view active">
+                <div class="week-selector">
+                    <label for="weekSelect">Selecciona Semana:</label>
+                    <select id="weekSelect" class="week-dropdown">
+                        <option value="1">Semana 1</option>
+                    </select>
+                </div>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="hebrew-word" id="hebrewWord"></span>
+                                <span class="transliteration" id="transliteration"></span>
+                            </div>
+                            <div class="card-back">
+                                <span class="meaning" id="meaning"></span>
+                                <span class="occurrences" id="occurrences"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-progress">
+                        <span id="currentCard">1</span>/<span id="totalCards">20</span>
+                    </div>
+                    
+                    <div class="card-controls">
+                        <button class="control-btn" id="prevCard">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="control-btn" id="flipCard">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="control-btn" id="nextCard">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mastery-buttons">
+                        <button class="mastery-btn easy" id="markEasy">
+                            <i class="fas fa-check"></i> Fácil
+                        </button>
+                        <button class="mastery-btn medium" id="markMedium">
+                            <i class="fas fa-minus"></i> Medio
+                        </button>
+                        <button class="mastery-btn hard" id="markHard">
+                            <i class="fas fa-redo-alt"></i> Difícil
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista de Práctica -->
+            <div id="practiceView" class="view">
+                <div class="practice-controls">
+                    <select id="practiceWeekSelect" class="week-dropdown">
+                        <option value="1">Semana 1</option>
+                    </select>
+                    
+                    <div class="practice-mode-selector">
+                        <button class="mode-btn active" data-mode="multiple">
+                            <i class="fas fa-list"></i> Múltiple
+                        </button>
+                        <button class="mode-btn" data-mode="match">
+                            <i class="fas fa-link"></i> Emparejar
+                        </button>
+                        <button class="mode-btn" data-mode="write">
+                            <i class="fas fa-keyboard"></i> Escribir
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="practiceArea" class="practice-area">
+                    <!-- El contenido se genera dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Vista de Estadísticas -->
+            <div id="statsView" class="view">
+                <div class="stats-container">
+                    <div class="stats-header">
+                        <h3>Tu Progreso</h3>
+                        <button id="resetStats" class="reset-btn">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="stat-value" id="totalStudySessions">0</span>
+                            <span class="stat-label">Sesiones</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-value" id="totalStudyTime">0</span>
+                            <span class="stat-label">Minutos</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="stat-value" id="wordsMastered">0</span>
+                            <span class="stat-label">Dominadas</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="stat-value" id="currentStreak">0</span>
+                            <span class="stat-label">Racha</span>
+                        </div>
+                    </div>
+                    
+                    <div class="week-progress">
+                        <h4>Progreso por Semana</h4>
+                        <div id="weekProgressBars" class="progress-bars">
+                            <!-- Se genera dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <div class="mastery-chart">
+                        <h4>Nivel de Dominio</h4>
+                        <canvas id="masteryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
