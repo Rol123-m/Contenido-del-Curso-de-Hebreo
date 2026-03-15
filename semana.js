@@ -73,12 +73,13 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Dagesh y otros asuntos', url: 'semanas/semana3/html/dagesh.html', icono: '⚡' },
                     { tipo: 'html', titulo: 'resumen de la semana', url: 'semanas/semana3/html/resumen.html', icono: '🔓' },
                     { tipo: 'html', titulo: 'Práctica de Lectura', url: 'semanas/semana3/html/practica.html', icono: '📖' },
-                    { tipo: 'html', titulo: 'Foro 1 - Preguntas', url: 'semanas/semana3/html/foro.html', icono: '💬' }
+                     { tipo: 'examen', titulo: 'Examen Semana 3- Sílabas', url: 'https://forms.gle/F5sduG11CNuRmtU68', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Divide en Sílabas', url: 'semanas/semana3/juegos/silabas.html', icono: '✂️' }
+                    { titulo: 'Practica el contenido', url: 'semanas/semana3/juegos/juegos.html', icono: '✂️' }
                 ]
             },
+            
             
             // SECCIÓN 2: Nombres y Nominados
             4: {

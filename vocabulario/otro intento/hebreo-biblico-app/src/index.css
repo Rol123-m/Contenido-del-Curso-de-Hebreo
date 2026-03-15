@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+  }
+
+  .hebrew-text {
+    font-family: 'Heebo', sans-serif;
+    direction: rtl;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/90 backdrop-blur-lg border border-white/20;
+  }
+
+  .card-shadow {
+    @apply shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] transition-shadow;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl 
+           font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 
+           transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-white/80 text-gray-700 px-6 py-3 rounded-xl font-semibold 
+           hover:bg-white hover:shadow-md transition-all duration-300 
+           border border-gray-200 active:scale-95;
+  }
+
+  .flashcard {
+    @apply relative w-full h-64 cursor-pointer preserve-3d transition-transform duration-500;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    @apply absolute w-full h-full backface-hidden rounded-2xl p-6 
+           flex flex-col items-center justify-center glass-effect card-shadow;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  .hebrew-word {
+    @apply text-5xl md:text-6xl font-heebo font-bold text-gray-800 mb-4;
+  }
+
+  .transliteration {
+    @apply text-xl text-gray-600 italic;
+  }
+
+  .meaning {
+    @apply text-3xl font-semibold text-gray-800 mb-4 text-center;
+  }
+
+  .occurrences {
+    @apply text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full;
+  }
+
+  .nav-btn {
+    @apply flex flex-col items-center justify-center p-4 rounded-xl transition-all duration-300
+           text-gray-600 hover:text-blue-600 hover:bg-blue-50 active:scale-95;
+  }
+
+  .nav-btn.active {
+    @apply text-blue-600 bg-blue-50 shadow-md;
+  }
+
+  .mastery-btn {
+    @apply flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-300
+           transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg;
+  }
+
+  .mastery-btn.easy {
+    @apply bg-gradient-to-r from-green-500 to-green-600 text-white;
+  }
+
+  .mastery-btn.medium {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500 text-white;
+  }
+
+  .mastery-btn.hard {
+    @apply bg-gradient-to-r from-red-500 to-pink-500 text-white;
+  }
+
+  .stat-card {
+    @apply glass-effect p-6 rounded-xl card-shadow text-center
+           transform hover:scale-105 transition-all duration-300;
+  }
+
+  .option-btn {
+    @apply p-4 text-left rounded-xl border-2 border-gray-200 
+           hover:border-blue-500 hover:bg-blue-50 transition-all duration-300
+           active:scale-95 font-medium;
+  }
+
+  .option-btn.correct {
+    @apply border-green-500 bg-green-50 text-green-700;
+  }
+
+  .option-btn.incorrect {
+    @apply border-red-500 bg-red-50 text-red-700;
+  }
+
+  .matching-item {
+    @apply p-4 bg-white rounded-xl shadow-md cursor-pointer
+           hover:shadow-lg hover:scale-105 transition-all duration-300
+           border-2 border-transparent text-center font-medium;
+  }
+
+  .matching-item.selected {
+    @apply border-blue-500 bg-blue-50 transform scale-105;
+  }
+
+  .matching-item.matched {
+    @apply border-green-500 bg-green-50 cursor-default opacity-75;
+  }
+
+  .progress-bar-container {
+    @apply w-full h-3 bg-gray-200 rounded-full overflow-hidden;
+  }
+
+  .progress-bar-fill {
+    @apply h-full bg-gradient-to-r from-blue-500 to-purple-600 
+           transition-all duration-500 rounded-full;
+  }
+}
+
+@layer utilities {
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

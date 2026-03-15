@@ -1,0 +1,302 @@
+ROL, [3/12/2026 2:49 PM]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Hebreo Bíblico - Vocabulario</title>
+
+<style>
+
+body{
+font-family: Arial;
+background: linear-gradient(120deg,#1e3c72,#2a5298);
+color:white;
+text-align:center;
+margin:0;
+padding:0;
+}
+
+header{
+padding:20px;
+font-size:28px;
+font-weight:bold;
+}
+
+nav button{
+margin:5px;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+section{
+display:none;
+padding:30px;
+}
+
+.active{
+display:block;
+}
+
+.card{
+width:300px;
+height:180px;
+margin:auto;
+background:white;
+color:black;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+border-radius:12px;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.hebrew{
+font-size:48px;
+}
+
+button.action{
+margin-top:20px;
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.progress{
+width:80%;
+margin:auto;
+background:#ccc;
+height:20px;
+border-radius:10px;
+}
+
+.bar{
+height:20px;
+background:#00e676;
+width:0%;
+border-radius:10px;
+}
+
+.quiz-option{
+display:block;
+margin:10px auto;
+padding:10px;
+width:200px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+input{
+padding:10px;
+font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>Aprende Hebreo Bíblico</header>
+
+<nav>
+<button onclick="mostrar('flash')">Flashcards</button>
+<button onclick="mostrar('quiz')">Quiz</button>
+<button onclick="mostrar('write')">Escribir</button>
+</nav>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<section id="flash" class="active">
+
+<h2>Flashcards</h2>
+
+<div class="card" onclick="voltear()" id="card"></div>
+
+<button class="action" onclick="siguiente()">Siguiente</button>
+
+</section>
+
+<section id="quiz">
+
+<h2>¿Qué significa?</h2>
+
+<h1 class="hebrew" id="quizWord"></h1>
+
+<div id="options"></div>
+
+</section>
+
+<section id="write">
+
+<h2>Escribe la traducción</h2>
+
+<h1 class="hebrew" id="writeWord"></h1>
+
+<input id="answer">
+
+<br><br>
+
+<button onclick="verificar()">Verificar</button>
+
+<p id="result"></p>
+
+</section>
+
+<script>
+
+const palabras=[
+{he:"שָׁלוֹם",es:"paz"},
+{he:"מֶלֶךְ",es:"rey"},
+{he:"בַּיִת",es:"casa"},
+{he:"אֶרֶץ",es:"tierra"},
+{he:"אוֹר",es:"luz"}
+]
+
+let indice=0
+let mostrarHebreo=true
+let progreso=0
+
+function actualizarBarra(){
+progreso++
+let porcentaje=(progreso/palabras.length)*100
+document.getElementById("bar").style.width=porcentaje+"%"
+}
+
+function mostrar(id){
+
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"))
+
+document.getElementById(id).classList.add("active")
+
+if(id==="quiz")cargarQuiz()
+
+if(id==="write")cargarWrite()
+
+}
+
+function cargarFlash(){
+
+document.getElementById("card").innerText=palabras[indice].he
+
+}
+
+function voltear(){
+
+if(mostrarHebreo){
+document.getElementById("card").innerText=palabras[indice].es
+mostrarHebreo=false
+}else{
+document.getElementById("card").innerText=palabras[indice].he
+mostrarHebreo=true
+}
+
+}
+
+function siguiente(){
+
+indice=(indice+1)%palabras.length
+
+mostrarHebreo=true
+
+cargarFlash()
+
+actualizarBarra()
+
+}
+
+function cargarQuiz(){
+
+let palabra=palabras[Math.floor(Math.random()*palabras.length)]
+
+document.getElementById("quizWord").innerText=palabra.he
+
+let opciones=[palabra.es]
+
+while(opciones.length<3){
+
+let random=palabras[Math.floor(Math.random()*palabras.length)].es
+
+if(!opciones.includes(random))opciones.push(random)
+
+}
+
+opciones.sort(()=>Math.random()-0.5)
+
+let html=""
+
+opciones.forEach(o=>{
+
+html+=<button class="quiz-option" onclick="respuesta('${o}','${palabra.es}')">${o}</button>
+
+})
+
+document.getElementById("options").innerHTML=html
+
+}
+
+function respuesta(op,correcta){
+
+if(op===correcta){
+
+alert("Correcto")
+
+actualizarBarra()
+
+}else{
+
+alert("Incorrecto")
+
+}
+
+cargarQuiz()
+
+}
+
+function cargarWrite(){
+
+let palabra=palabras[Math.floor(Math.random()*palabras.length)]
+
+document.getElementById("writeWord").innerText=palabra.he
+
+document.getElementById("writeWord").dataset.correct=palabra.es
+
+document.getElementById("answer").value=""
+
+}
+
+function verificar(){
+
+let correcta=document.getElementById("writeWord").dataset.correct
+
+ROL, [3/12/2026 2:49 PM]
+let resp=document.getElementById("answer").value.toLowerCase()
+
+if(resp===correcta){
+
+document.getElementById("result").innerText="Correcto"
+
+actualizarBarra()
+
+}else{
+
+document.getElementById("result").innerText="Incorrecto: "+correcta
+
+}
+
+}
+
+cargarFlash()
+
+</script>
+
+</body>
+</html>

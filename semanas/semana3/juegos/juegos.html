@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos de Repaso - Hebreo Bíblico Semana 3</title>
+    <!-- Font Awesome y estilos (basados en tu semana.css) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #4A6FA5; --primary-dark: #2A4A7A; --secondary: #8B5FBF; --accent: #FFB74D;
+            --success: #2ECC71; --danger: #E74C3C; --warning: #F1C40F; --dark: #2C3E50; --light: #F8F9FA;
+            --gray-light: #ECF0F1; --gradient-primary: linear-gradient(135deg, #4A6FA5 0%, #8B5FBF 100%);
+            --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%); --shadow-md: 0 8px 15px rgba(0,0,0,0.1);
+            --radius: 12px; --transition: all 0.3s ease;
+        }
+        body {
+            font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--dark); line-height: 1.6; min-height: 100vh; padding: 20px;
+        }
+        .header-title {
+            text-align: center; margin-bottom: 40px;
+        }
+        .header-title h1 {
+            font-family: 'Roboto Slab', serif; font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--primary-dark); margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2rem; color: var(--secondary);
+        }
+        .games-container {
+            max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;
+        }
+        .game-card {
+            background: white; border-radius: var(--radius); padding: 25px; box-shadow: var(--shadow-md);
+            border-top: 5px solid var(--primary); transition: var(--transition); display: flex; flex-direction: column;
+        }
+        .game-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .game-card h2 { display: flex; align-items: center; gap: 10px; color: var(--primary-dark); margin-bottom: 20px; font-size: 1.5rem; }
+        .game-card h2 i { color: var(--primary); }
+        .hebrew { font-family: 'Times New Roman', 'Arial Hebrew', serif; direction: rtl; font-size: 1.8rem; }
+        .hebrew-small { font-size: 1.4rem; }
+        .question-area { flex-grow: 1; margin: 15px 0; }
+        .options-area { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+        .option-btn, .primary-btn {
+            background: var(--light); border: 2px solid var(--gray-light); border-radius: 50px; padding: 12px 15px;
+            text-align: left; font-size: 1rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 10px;
+        }
+        .option-btn:hover { border-color: var(--primary); background: #e1e8f0; }
+        .option-btn.selected { background: var(--primary); color: white; border-color: var(--primary-dark); }
+        .option-btn.correct-answer { background: var(--success); color: white; border-color: #27AE60; pointer-events: none; }
+        .option-btn.wrong-answer { background: var(--danger); color: white; border-color: #C0392B; pointer-events: none; }
+        .primary-btn {
+            background: var(--gradient-primary); color: white; border: none; justify-content: center; font-weight: 600;
+            margin-top: 10px; border-radius: var(--radius); text-align: center;
+        }
+        .primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .primary-btn:hover:not(:disabled) { transform: scale(1.02); box-shadow: var(--shadow-md); }
+        .feedback { margin-top: 15px; padding: 10px; border-radius: var(--radius-sm); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .feedback.success { background: rgba(46, 204, 113, 0.1); color: #27AE60; border-left: 4px solid var(--success); }
+        .feedback.error { background: rgba(231, 76, 60, 0.1); color: #C0392B; border-left: 4px solid var(--danger); }
+        .feedback.info { background: rgba(74, 111, 165, 0.1); color: var(--primary-dark); border-left: 4px solid var(--primary); }
+        .score { font-size: 1.1rem; font-weight: 600; color: var(--secondary); margin-bottom: 15px; text-align: right; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        td, th { padding: 8px; border: 1px solid var(--gray-light); text-align: left; }
+        th { background: linear-gradient(135deg, rgba(74, 111, 165, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%); }
+        .footer { text-align: center; margin-top: 50px; color: var(--gray); }
+    </style>
+</head>
+<body>
+    <div class="header-title">
+        <h1><i class="fas fa-dice-d6"></i> Juegos de Repaso: Semana 3</h1>
+        <p class="subtitle">Silabeo, Daguesh, Shewa y Vocabulario</p>
+    </div>
+
+    <div class="games-container">
+        <!-- JUEGO 1: REGLAS DE SILABEO (Emparejamiento) -->
+        <div class="game-card">
+            <h2><i class="fas fa-puzzle-piece"></i> 1. Silabeo: Empareja</h2>
+            <p>Une cada palabra con su silabeo correcto.</p>
+            <div id="game1-question" class="question-area">
+                <!-- JS llenará esto -->
+            </div>
+            <div id="game1-options" class="options-area"></div>
+            <div id="game1-feedback" class="feedback"></div>
+            <div class="score" id="game1-score">Aciertos: 0 / 5</div>
+            <button id="game1-next" class="primary-btn" disabled><i class="fas fa-arrow-right"></i> Siguiente</button>
+            <button id="game1-reset" class="primary-btn" style="background: var(--gradient-success); margin-top: 5px;"><i class="fas fa-redo-alt"></i> Reiniciar Juego</button>
+        </div>
+
+        <!-- JUEGO 2: IDENTIFICAR DAGUESH Y SHEWA (Verdadero/Falso) -->
+        <div class="game-card">
+            <h2><i class="fas fa-question-circle"></i> 2. ¿Daguesh o Shewa?</h2>
+            <p>Determina si la afirmación es Verdadera o Falsa.</p>
+            <div id="game2-question" class="question-area" style="font-size:1.1rem;"></div>
+            <div id="game2-options" class="options-area"></div>
+            <div id="game2-feedback" class="feedback"></div>
+            <div class="score" id="game2-score">Aciertos: 0 / 5</div>
+            <button id="game2-next" class="primary-btn" disabled><i class="fas fa-arrow-right"></i> Siguiente</button>
+            <button id="game2-reset" class="primary-btn" style="background: var(--gradient-success); margin-top: 5px;"><i class="fas fa-redo-alt"></i> Reiniciar Juego</button>
+        </div>
+
+        <!-- JUEGO 3: VOCABULARIO (Selección Múltiple) -->
+        <div class="game-card">
+            <h2><i class="fas fa-book-open"></i> 3. Vocabulario</h2>
+            <p>Elige el significado correcto de la palabra.</p>
+            <div id="game3-question" class="question-area">
+                <!-- JS llenará esto -->
+            </div>
+            <div id="game3-options" class="options-area"></div>
+            <div id="game3-feedback" class="feedback"></div>
+            <div class="score" id="game3-score">Aciertos: 0 / 5</div>
+            <button id="game3-next" class="primary-btn" disabled><i class="fas fa-arrow-right"></i> Siguiente</button>
+            <button id="game3-reset" class="primary-btn" style="background: var(--gradient-success); margin-top: 5px;"><i class="fas fa-redo-alt"></i> Reiniciar Juego</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>¡Selecciona una opción en cada juego y avanza!</p>
+    </div>
+
+    <script>
+        // --- BASE DE DATOS DE PREGUNTAS ---
+        const silabeoData = [
+            { word: "אַתָּה", correct: "ʾat-tāh", options: ["ʾa-tāh", "ʾat-tāh", "ʾāt-tāh"] },
+            { word: "תְּפִלָּה", correct: "tə-fil-lāh", options: ["tə-fi-lāh", "tə-fil-lāh", "te-fil-āh"] },
+            { word: "יַבָּשָׁה", correct: "yab-bā-šāh", options: ["ya-bā-šāh", "yab-bā-šāh", "yab-bā-šah"] },
+            { word: "מַלְכָּה", correct: "mal-kāh", options: ["ma-lə-kāh", "mal-kāh", "ma-lkāh"] },
+            { word: "דְּבָרִים", correct: "də-ḇā-rîm", options: ["də-ḇā-rîm", "də-ḇā-rīm", "de-ḇā-rim"] }
+        ];
+
+        const dageshShewaData = [
+            { statement: "En אַתָּה, el Daguesh en תּ es Forte porque está precedido por una vocal.", correct: true },
+            { statement: "El Shewa en מִשְׁפְּטֵי (primero de dos) es Vocal.", correct: false },
+            { statement: "El Shewa en בְּרָכָה (inicial) es Simple.", correct: false },
+            { statement: "Las guturales pueden tomar Shewa Vocal.", correct: false },
+            { statement: "En מַלְכָּה, el Daguesh en כּ es Lene porque está precedido por una consonante.", correct: true }
+        ];
+
+        const vocabData = [
+            { word: "אֱלֹהִים", correct: "Dios, dioses", options: ["Dios, dioses", "hombre, humanidad", "cielos", "ángel"] },
+            { word: "בַּ֫יִת", correct: "casa, hogar", options: ["hijo", "casa, hogar", "palabra", "rey"] },
+            { word: "יְהוָה", correct: "Yahweh, SEÑOR", options: ["Yahweh, SEÑOR", "Israel", "Jerusalén", "Moisés"] },
+            { word: "מֶ֫לֶךְ", correct: "rey, gobernante", options: ["rey, gobernante", "siervo", "día", "tierra"] },
+            { word: "שָׁנָה", correct: "año", options: ["nombre", "año", "caballo", "siervo"] }
+        ];
+
+        // --- CLASE GENERICA PARA MANEJAR JUEGOS ---
+        class Game {
+            constructor(gameId, data, type) {
+                this.container = document.getElementById(gameId);
+                this.data = data;
+                this.type = type; // 'silabeo', 'tf', 'vocab'
+                this.currentIndex = 0;
+                this.score = 0;
+                this.answered = false;
+                this.selectedOption = null;
+                this.totalQuestions = data.length;
+
+                // Elementos DOM específicos
+                this.questionEl = document.getElementById(`${gameId}-question`);
+                this.optionsEl = document.getElementById(`${gameId}-options`);
+                this.feedbackEl = document.getElementById(`${gameId}-feedback`);
+                this.scoreEl = document.getElementById(`${gameId}-score`);
+                this.nextBtn = document.getElementById(`${gameId}-next`);
+                this.resetBtn = document.getElementById(`${gameId}-reset`);
+
+                // Bind methods
+                this.loadQuestion = this.loadQuestion.bind(this);
+                this.handleOptionClick = this.handleOptionClick.bind(this);
+                this.nextQuestion = this.nextQuestion.bind(this);
+                this.resetGame = this.resetGame.bind(this);
+
+                // Listeners
+                this.nextBtn.addEventListener('click', this.nextQuestion);
+                this.resetBtn.addEventListener('click', this.resetGame);
+
+                // Cargar primera pregunta
+                this.resetGame();
+            }
+
+            loadQuestion() {
+                this.answered = false;
+                this.selectedOption = null;
+                this.feedbackEl.innerHTML = '';
+                this.feedbackEl.className = 'feedback';
+                this.nextBtn.disabled = true;
+
+                const q = this.data[this.currentIndex];
+                if (this.type === 'silabeo') {
+                    this.questionEl.innerHTML = `<p><strong>Palabra:</strong> <span class="hebrew">${q.word}</span></p><p>¿Cuál es su silabeo correcto?</p>`;
+                } else if (this.type === 'tf') {
+                    this.questionEl.innerHTML = `<p><strong>Afirmación:</strong> ${q.statement}</p>`;
+                } else if (this.type === 'vocab') {
+                    this.questionEl.innerHTML = `<p><strong>Palabra:</strong> <span class="hebrew">${q.word}</span></p><p>¿Qué significa?</p>`;
+                }
+
+                // Crear opciones
+                let options = [];
+                if (this.type === 'silabeo') options = q.options;
+                if (this.type === 'tf') options = ['Verdadero', 'Falso'];
+                if (this.type === 'vocab') options = q.options;
+
+                this.optionsEl.innerHTML = '';
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = `<span>${opt}</span>`;
+                    btn.addEventListener('click', () => this.handleOptionClick(btn, opt));
+                    this.optionsEl.appendChild(btn);
+                });
+            }
+
+            handleOptionClick(btn, selectedValue) {
+                if (this.answered) return;
+
+                // Remover selected de otros
+                document.querySelectorAll(`#${this.optionsEl.id} .option-btn`).forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                this.selectedOption = selectedValue;
+                this.nextBtn.disabled = false;
+            }
+
+            checkAnswer() {
+                if (!this.selectedOption) return false;
+                const q = this.data[this.currentIndex];
+                let isCorrect = false;
+                let correctAnswer = '';
+
+                if (this.type === 'silabeo') {
+                    isCorrect = (this.selectedOption === q.correct);
+                    correctAnswer = q.correct;
+                } else if (this.type === 'tf') {
+                    const selectedBool = (this.selectedOption === 'Verdadero');
+                    isCorrect = (selectedBool === q.correct);
+                    correctAnswer = q.correct ? 'Verdadero' : 'Falso';
+                } else if (this.type === 'vocab') {
+                    isCorrect = (this.selectedOption === q.correct);
+                    correctAnswer = q.correct;
+                }
+
+                // Marcar visualmente todas las opciones
+                document.querySelectorAll(`#${this.optionsEl.id} .option-btn`).forEach(btn => {
+                    const btnText = btn.querySelector('span').innerText;
+                    if (this.type === 'tf') {
+                        if ((btnText === 'Verdadero' && q.correct) || (btnText === 'Falso' && !q.correct)) {
+                            btn.classList.add('correct-answer');
+                        } else if (btnText === this.selectedOption && btn.classList.contains('selected') && !isCorrect) {
+                            btn.classList.add('wrong-answer');
+                        } else if (btnText === this.selectedOption && isCorrect) {
+                            btn.classList.add('correct-answer');
+                        }
+                    } else {
+                        if (btnText === correctAnswer) {
+                            btn.classList.add('correct-answer');
+                        } else if (btnText === this.selectedOption && !isCorrect) {
+                            btn.classList.add('wrong-answer');
+                        }
+                    }
+                    btn.style.pointerEvents = 'none';
+                });
+
+                // Feedback y puntuación
+                if (isCorrect) {
+                    this.score++;
+                    this.feedbackEl.className = 'feedback success';
+                    this.feedbackEl.innerHTML = '<i class="fas fa-check-circle"></i> ¡Correcto!';
+                } else {
+                    this.feedbackEl.className = 'feedback error';
+                    this.feedbackEl.innerHTML = `<i class="fas fa-times-circle"></i> Incorrecto. La respuesta correcta es: ${correctAnswer}`;
+                }
+
+                this.answered = true;
+                this.scoreEl.innerText = `Aciertos: ${this.score} / ${this.totalQuestions}`;
+
+                // Si era la última, deshabilitar next
+                if (this.currentIndex === this.totalQuestions - 1) {
+                    this.nextBtn.disabled = true;
+                    this.feedbackEl.innerHTML += ' ¡Juego completado!';
+                }
+                return isCorrect;
+            }
+
+            nextQuestion() {
+                if (!this.answered && this.selectedOption) {
+                    this.checkAnswer();
+                } else if (this.currentIndex < this.totalQuestions - 1) {
+                    this.currentIndex++;
+                    this.loadQuestion();
+                } else {
+                    // Juego terminado
+                    this.nextBtn.disabled = true;
+                }
+            }
+
+            resetGame() {
+                this.currentIndex = 0;
+                this.score = 0;
+                this.answered = false;
+                this.selectedOption = null;
+                this.scoreEl.innerText = `Aciertos: 0 / ${this.totalQuestions}`;
+                this.loadQuestion();
+            }
+        }
+
+        // --- INICIALIZAR JUEGOS ---
+        const game1 = new Game('game1', silabeoData, 'silabeo');
+        const game2 = new Game('game2', dageshShewaData, 'tf');
+        const game3 = new Game('game3', vocabData, 'vocab');
+
+        // Override del checkAnswer para el juego 2 (V/F) porque el genérico ya funciona bien
+        // Pero necesitamos asegurar que al hacer click en next, si no se ha respondido, se responda.
+        // Pequeña mejora: el botón next ahora llama a checkAnswer si no se ha respondido.
+        // Ya está implementado en nextQuestion.
+
+        // Ajuste fino: en el juego 2, la opción seleccionada se guarda como string 'Verdadero'/'Falso' y se compara con booleano.
+        // Ya funciona correctamente.
+    </script>
+</body>
+</html>
