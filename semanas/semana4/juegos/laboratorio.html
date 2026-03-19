@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧪 Laboratorio de Sustantivos Hebreos | Semana 4</title>
+  <!-- Fuentes diferentes para un estilo único -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ESTILO DIFERENTE - TEMÁTICA LABORATORIO CIENTÍFICO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(145deg, #0b0f1c 0%, #1a1f35 50%, #14182b 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Efecto de partículas de fondo */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(100, 150, 255, 0.1) 0px, transparent 50px),
+        radial-gradient(circle at 80% 70%, rgba(200, 130, 255, 0.1) 0px, transparent 100px),
+        radial-gradient(circle at 40% 80%, rgba(80, 200, 255, 0.1) 0px, transparent 80px);
+      pointer-events: none;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 1300px;
+      background: rgba(15, 20, 35, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(80, 160, 255, 0.2);
+      border-radius: 48px;
+      padding: 30px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(80, 180, 255, 0.2) inset;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Cabecera del laboratorio */
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .lab-title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .lab-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #2a5c8a, #1e3a5f);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #7ad0ff;
+      border: 2px solid #4a9eff;
+      box-shadow: 0 0 20px #3a7eff;
+    }
+
+    .lab-title h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #b8e1ff, #7ab2ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .lab-title p {
+      color: #8a9bb5;
+      font-size: 1rem;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-panel {
+      background: rgba(0, 15, 30, 0.7);
+      border: 1px solid #2f4970;
+      border-radius: 60px;
+      padding: 12px 25px;
+      display: flex;
+      gap: 40px;
+      backdrop-filter: blur(5px);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat i {
+      font-size: 1.8rem;
+      color: #5d9eff;
+    }
+
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #99badd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .badge {
+      background: #2d4b73;
+      color: #c3e2ff;
+      padding: 5px 15px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid #527bb5;
+    }
+
+    /* Panel de juego principal */
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    /* Estación de análisis */
+    .analysis-station {
+      background: linear-gradient(145deg, #1a253f, #0f172b);
+      border-radius: 32px;
+      padding: 25px;
+      border: 1px solid #314a75;
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #b0d0ff;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      border-bottom: 1px dashed #2f4a7a;
+      padding-bottom: 10px;
+    }
+
+    .hebrew-word-display {
+      background: #0d1424;
+      border-radius: 60px;
+      padding: 30px 20px;
+      text-align: center;
+      border: 2px solid #2b5280;
+      margin-bottom: 25px;
+      box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.7), 0 10px 20px rgba(0, 150, 255, 0.2);
+    }
+
+    .hebrew-word {
+      font-size: 6rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      color: #ffecbb;
+      text-shadow: 0 0 20px #ffd966, 0 0 40px #b8860b;
+      line-height: 1;
+      direction: rtl;
+    }
+
+    .word-translit {
+      font-family: 'JetBrains Mono', monospace;
+      color: #7cb9ff;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      background: #1e2a44;
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 40px;
+      margin-top: 10px;
+    }
+
+    .properties-panel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .property-card {
+      background: #0f1a2f;
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #2d4c7c;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .property-card:hover {
+      background: #1c2f50;
+      border-color: #6a9eff;
+      transform: translateY(-2px);
+    }
+
+    .property-card.selected {
+      background: #1e3f6b;
+      border-color: #ffb347;
+      box-shadow: 0 0 20px #ffa726;
+    }
+
+    .property-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .property-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #c6dcff;
+    }
+
+    .property-desc {
+      font-size: 0.8rem;
+      color: #7e9ac8;
+    }
+
+    .action-button {
+      background: linear-gradient(145deg, #266bb9, #12458c);
+      border: none;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 18px 30px;
+      border-radius: 60px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      transition: 0.2s;
+      border: 1px solid #70b0ff;
+      box-shadow: 0 10px 0 #0a2351;
+    }
+
+    .action-button:active {
+      transform: translateY(5px);
+      box-shadow: 0 5px 0 #0a2351;
+    }
+
+    .action-button:disabled {
+      opacity: 0.5;
+      transform: none;
+      box-shadow: 0 5px 0 #0a2351;
+      cursor: not-allowed;
+    }
+
+    /* Panel de ejercicios */
+    .exercise-panel {
+      background: linear-gradient(145deg, #162237, #0d1425);
+      border-radius: 32px;
+      padding: 25px;
+      border: 1px solid #3d4f75;
+    }
+
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .exercise-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #bdd6ff;
+    }
+
+    .progress-ring {
+      width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      background: conic-gradient(#4d9eff 0deg 216deg, #253b5c 216deg 360deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .question-box {
+      background: #101b30;
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid #2d4a77;
+    }
+
+    .question-text {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .hebrew-example {
+      font-size: 2.2rem;
+      font-family: 'Times New Roman', serif;
+      direction: rtl;
+      color: #f3d779;
+      text-align: center;
+      padding: 15px;
+      background: #0d1a2b;
+      border-radius: 40px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: #1b2842;
+      border: 1px solid #354f7a;
+      border-radius: 40px;
+      padding: 15px 10px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .option-btn:hover {
+      background: #253d62;
+      border-color: #6f9eff;
+    }
+
+    .option-btn.correct {
+      background: #1d6b41;
+      border-color: #5cd48c;
+    }
+
+    .option-btn.incorrect {
+      background: #812525;
+      border-color: #ff6b6b;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 30px;
+      background: #0d1f34;
+      color: #b0d3ff;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Tabla periódica de sustantivos */
+    .periodic-table {
+      background: linear-gradient(145deg, #131e33, #0b1425);
+      border-radius: 32px;
+      padding: 25px;
+      border: 1px solid #2d4070;
+      margin-top: 20px;
+    }
+
+    .periodic-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .element-card {
+      background: #16263f;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #2e4c7a;
+      transition: 0.15s;
+      cursor: pointer;
+    }
+
+    .element-card:hover {
+      transform: scale(1.05);
+      background: #1e3760;
+      border-color: #ffb84d;
+      box-shadow: 0 0 15px #ffa726;
+    }
+
+    .element-hebrew {
+      font-size: 1.6rem;
+      font-family: 'Times New Roman', serif;
+      direction: rtl;
+      color: #ffe68f;
+    }
+
+    .element-gender {
+      font-size: 0.7rem;
+      color: #a6c5ff;
+    }
+
+    /* Mensaje final */
+    .completion-message {
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(145deg, #1e3b5e, #122b47);
+      border-radius: 60px;
+      margin-top: 20px;
+    }
+
+    .completion-message h2 {
+      font-size: 3rem;
+      color: #ffdb8e;
+      margin-bottom: 20px;
+    }
+
+    .reset-button {
+      background: #ffb74d;
+      border: none;
+      color: #1a1f35;
+      font-size: 1.5rem;
+      padding: 15px 40px;
+      border-radius: 60px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+    /* ESTILOS RESPONSIVE PARA MÓVIL - LABORATORIO DE SUSTANTIVOS HEBREOS */
+
+/* Tablets y móviles grandes (hasta 1024px) */
+@media (max-width: 1024px) {
+  .game-container {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .lab-title h1 {
+    font-size: 1.8rem;
+  }
+
+  .status-panel {
+    gap: 20px;
+    padding: 10px 20px;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 20px;
+  }
+
+  .properties-panel {
+    grid-template-columns: repeat(3, 1fr); /* Mantener 3 columnas si es posible */
+  }
+}
+
+/* Móviles medianos (hasta 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    align-items: flex-start; /* Alinear arriba para mejor scroll */
+  }
+
+  .game-container {
+    padding: 15px;
+    border-radius: 32px;
+  }
+
+  .lab-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .lab-title {
+    width: 100%;
+  }
+
+  .lab-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+    border-radius: 20px;
+  }
+
+  .lab-title h1 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .lab-title p {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .status-panel {
+    width: 100%;
+    justify-content: space-around;
+    padding: 10px 15px;
+    border-radius: 40px;
+  }
+
+  .stat {
+    gap: 8px;
+  }
+
+  .stat i {
+    font-size: 1.4rem;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .game-grid {
+    gap: 15px;
+  }
+
+  /* Estación de análisis */
+  .analysis-station, .exercise-panel, .periodic-table {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .section-label {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .hebrew-word-display {
+    padding: 20px 15px;
+    border-radius: 40px;
+  }
+
+  .hebrew-word {
+    font-size: 4rem; /* Más pequeño en móvil */
+  }
+
+  .word-translit {
+    font-size: 1rem;
+    padding: 6px 15px;
+  }
+
+  /* Panel de propiedades - ajuste crítico */
+  .properties-panel {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+    gap: 10px;
+  }
+
+  .property-card {
+    padding: 12px 8px;
+  }
+
+  .property-icon {
+    font-size: 1.5rem;
+  }
+
+  .property-name {
+    font-size: 0.85rem;
+  }
+
+  .property-desc {
+    font-size: 0.7rem;
+  }
+
+  .action-button {
+    font-size: 1.1rem;
+    padding: 15px 20px;
+    border-radius: 40px;
+  }
+
+  /* Panel de ejercicios */
+  .exercise-header {
+    margin-bottom: 15px;
+  }
+
+  .exercise-title {
+    font-size: 1.2rem;
+  }
+
+  .progress-ring {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  .question-box {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .hebrew-example {
+    font-size: 1.8rem;
+    padding: 10px;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr; /* Una columna para opciones en móvil */
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+
+  .feedback {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  /* Tabla periódica */
+  .periodic-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en móvil */
+    gap: 8px;
+  }
+
+  .element-card {
+    padding: 8px 5px;
+  }
+
+  .element-hebrew {
+    font-size: 1.2rem;
+  }
+
+  .element-gender {
+    font-size: 0.6rem;
+  }
+
+  /* Mensaje de finalización */
+  .completion-message {
+    padding: 30px 20px;
+    border-radius: 40px;
+  }
+
+  .completion-message h2 {
+    font-size: 2rem;
+  }
+
+  .completion-message p {
+    font-size: 1.2rem !important;
+  }
+
+  .reset-button {
+    font-size: 1.2rem;
+    padding: 12px 30px;
+  }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  .game-container {
+    padding: 12px;
+    border-radius: 24px;
+  }
+
+  .lab-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .lab-title h1 {
+    font-size: 1.3rem;
+  }
+
+  .status-panel {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .stat {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hebrew-word {
+    font-size: 3rem;
+  }
+
+  .properties-panel {
+    grid-template-columns: 1fr; /* Una columna en móviles muy pequeños */
+  }
+
+  .property-card {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .property-icon {
+    margin-bottom: 0;
+    width: 30px;
+  }
+
+  .property-name {
+    flex: 1;
+  }
+
+  .property-desc {
+    width: 100%;
+    text-align: right;
+  }
+
+  .action-button {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+
+  .action-button i {
+    font-size: 1.2rem;
+  }
+
+  .periodic-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
+
+  .element-card {
+    padding: 10px 5px;
+  }
+
+  .element-hebrew {
+    font-size: 1.4rem;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .question-box {
+    padding: 15px;
+  }
+
+  .completion-message h2 {
+    font-size: 1.6rem;
+  }
+
+  .completion-message p {
+    font-size: 1rem !important;
+  }
+}
+
+/* Móviles muy pequeños (hasta 360px) */
+@media (max-width: 360px) {
+  .lab-title h1 {
+    font-size: 1.1rem;
+  }
+
+  .lab-title p {
+    font-size: 0.75rem;
+  }
+
+  .hebrew-word {
+    font-size: 2.5rem;
+  }
+
+  .word-translit {
+    font-size: 0.85rem;
+    padding: 4px 12px;
+  }
+
+  .property-card {
+    padding: 10px;
+  }
+
+  .property-name {
+    font-size: 0.8rem;
+  }
+
+  .property-desc {
+    font-size: 0.65rem;
+  }
+
+  .periodic-grid {
+    grid-template-columns: 1fr; /* Una columna */
+  }
+
+  .element-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+
+  .element-hebrew {
+    font-size: 1.3rem;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+  }
+
+  .stat i {
+    font-size: 1.2rem;
+  }
+}
+
+/* Ajustes para orientación horizontal en móviles */
+@media (max-height: 600px) and (orientation: landscape) {
+  body {
+    padding: 5px;
+  }
+
+  .game-container {
+    padding: 10px;
+  }
+
+  .lab-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .status-panel {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr 1fr; /* Dos columnas en landscape */
+  }
+
+  .properties-panel {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .periodic-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hebrew-word {
+    font-size: 2.5rem;
+  }
+}
+
+/* Ajustes táctiles para mejor experiencia en móvil */
+@media (hover: none) and (pointer: coarse) {
+  .property-card:hover,
+  .element-card:hover,
+  .option-btn:hover {
+    transform: none; /* Quitar efectos hover en táctil */
+  }
+
+  .property-card:active,
+  .element-card:active,
+  .option-btn:active,
+  .action-button:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  .action-button {
+    box-shadow: 0 5px 0 #0a2351; /* Sombra más pequeña para táctil */
+  }
+
+  .action-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #0a2351;
+  }
+}
+
+/* Mejoras de accesibilidad táctil */
+@media (max-width: 768px) {
+  .property-card,
+  .element-card,
+  .option-btn,
+  .action-button {
+    min-height: 50px; /* Área táctil más grande */
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .property-card {
+    min-height: 70px;
+  }
+
+  /* Evitar zoom al hacer doble tap en inputs (no hay inputs, pero por si acaso) */
+  input, button, [contenteditable] {
+    touch-action: manipulation;
+  }
+}
+
+/* Ajustes de scroll */
+@media (max-width: 768px) {
+  .game-container {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mejorar legibilidad */
+  p, li, .option-btn, .property-desc {
+    line-height: 1.5;
+  }
+}
+
+/* Ajustes para notch y áreas seguras en iOS */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Modo oscuro del sistema (ya lo tenemos, pero aseguramos consistencia) */
+@media (prefers-color-scheme: dark) {
+  /* Ya es oscuro por defecto, pero mantenemos */
+  body {
+    background: linear-gradient(145deg, #0b0f1c 0%, #1a1f35 100%);
+  }
+}
+
+/* Reducir animaciones si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ajuste final para que todo el contenido sea visible */
+.week-container, .game-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Corrección de desbordamiento en tablas y grids */
+.periodic-grid, .properties-panel, .options-grid {
+  overflow: visible;
+}
+
+/* Asegurar que el texto hebreo se vea bien */
+.hebrew-word, .hebrew-example, [class*="hebrew"] {
+  font-family: 'Times New Roman', 'Arial Hebrew', 'David', 'SBL Hebrew', serif;
+  font-size: clamp(1rem, 8vw, 6rem);
+  line-height: 1.2;
+  word-break: break-word;
+}
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <!-- Cabecera del laboratorio -->
+    <div class="lab-header">
+      <div class="lab-title">
+        <div class="lab-icon">
+          <i class="fas fa-flask"></i>
+        </div>
+        <div>
+          <h1>LABORATORIO DE SUSTANTIVOS HEBREOS</h1>
+          <p><i class="fas fa-dna"></i> Analizando género, número y patrones - Semana 4</p>
+        </div>
+      </div>
+      <div class="status-panel">
+        <div class="stat">
+          <i class="fas fa-brain"></i>
+          <div class="stat-info">
+            <span class="stat-label">ACIERTOS</span>
+            <span class="stat-value" id="scoreDisplay">0</span>
+          </div>
+        </div>
+        <div class="stat">
+          <i class="fas fa-microscope"></i>
+          <div class="stat-info">
+            <span class="stat-label">ANÁLISIS</span>
+            <span class="stat-value" id="attemptDisplay">0/10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de juego principal -->
+    <div class="game-grid">
+      <!-- Estación de análisis: identificar propiedades -->
+      <div class="analysis-station">
+        <div class="section-label">
+          <i class="fas fa-search"></i> ESTACIÓN DE ANÁLISIS MORFOLÓGICO
+        </div>
+        <div class="hebrew-word-display" id="wordDisplay">
+          <div class="hebrew-word" id="hebrewWord">סוּס</div>
+          <div class="word-translit" id="translit">sus (caballo)</div>
+        </div>
+        <p style="color: #9ab8e6; margin-bottom: 15px;"><i class="fas fa-hand-pointer"></i> Selecciona el género y número correctos:</p>
+        <div class="properties-panel">
+          <div class="property-card" data-gender="m" data-number="s" id="propMS">
+            <div class="property-icon">♂️</div>
+            <div class="property-name">Masculino Singular</div>
+            <div class="property-desc">sin terminación</div>
+          </div>
+          <div class="property-card" data-gender="m" data-number="p" id="propMP">
+            <div class="property-icon">♂️👥</div>
+            <div class="property-name">Masculino Plural</div>
+            <div class="property-desc">terminación ִים</div>
+          </div>
+          <div class="property-card" data-gender="f" data-number="s" id="propFS">
+            <div class="property-icon">♀️</div>
+            <div class="property-name">Femenino Singular</div>
+            <div class="property-desc">terminación ה/ת</div>
+          </div>
+          <div class="property-card" data-gender="f" data-number="p" id="propFP">
+            <div class="property-icon">♀️👥</div>
+            <div class="property-name">Femenino Plural</div>
+            <div class="property-desc">terminación וֹת</div>
+          </div>
+          <div class="property-card" data-gender="m" data-number="d" id="propMD">
+            <div class="property-icon">♂️⚡</div>
+            <div class="property-name">Masculino Dual</div>
+            <div class="property-desc">terminación ַ֫יִם</div>
+          </div>
+          <div class="property-card" data-gender="f" data-number="d" id="propFD">
+            <div class="property-icon">♀️⚡</div>
+            <div class="property-name">Femenino Dual</div>
+            <div class="property-desc">terminación ַ֫יִם</div>
+          </div>
+        </div>
+        <button class="action-button" id="checkAnalysisBtn">
+          <i class="fas fa-vial"></i> ANALIZAR MUESTRA
+        </button>
+        <div style="margin-top: 15px; min-height: 50px;" id="analysisFeedback"></div>
+      </div>
+
+      <!-- Panel de ejercicios -->
+      <div class="exercise-panel">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <i class="fas fa-clipboard-check"></i> EJERCICIO PRÁCTICO
+          </div>
+          <div class="progress-ring" id="progressRing">0/10</div>
+        </div>
+        <div id="exerciseArea">
+          <!-- Se llena con JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla periódica de sustantivos (vocabulario) -->
+    <div class="periodic-table">
+      <div class="section-label">
+        <i class="fas fa-table"></i> TABLA PERIÓDICA DE SUSTANTIVOS - VOCABULARIO SEMANA 4
+      </div>
+      <div class="periodic-grid" id="vocabGrid">
+        <!-- Se llena con JS -->
+      </div>
+    </div>
+
+    <!-- Mensaje de finalización -->
+    <div id="completionMessage" class="completion-message hidden">
+      <h2>🧪 ¡EXPERIMENTO COMPLETADO!</h2>
+      <p style="font-size: 1.5rem; color: #b8d6ff;">Has analizado 10 sustantivos correctamente.</p>
+      <p style="color: #9fc5ff; margin: 20px 0;">Tu conocimiento de género y número está listo para la Biblia.</p>
+      <button class="reset-button" id="resetGameBtn">
+        <i class="fas fa-redo-alt"></i> NUEVO EXPERIMENTO
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Base de datos de palabras de la Semana 4 (con género, número y tipo)
+    const wordDatabase = [
+      // Palabras del vocabulario + extras
+      { hebrew: "אָב", translit: "ʾāv", meaning: "padre", gender: "m", number: "s", type: "irregular", exception: "plural אָבוֹת" },
+      { hebrew: "אָדוֹן", translit: "ʾādōn", meaning: "señor", gender: "m", number: "s", type: "regular" },
+      { hebrew: "אָח", translit: "ʾāḥ", meaning: "hermano", gender: "m", number: "s", type: "irregular", exception: "plural אַחִים" },
+      { hebrew: "אִישׁ", translit: "ʾîš", meaning: "hombre", gender: "m", number: "s", type: "irregular", exception: "plural אֲנָשִׁים" },
+      { hebrew: "אִשָּׁה", translit: "ʾiššāh", meaning: "mujer", gender: "f", number: "s", type: "irregular", exception: "plural נָשִׁים" },
+      { hebrew: "בַּת", translit: "baṯ", meaning: "hija", gender: "f", number: "s", type: "irregular", exception: "plural בָּנוֹת" },
+      { hebrew: "גּוֹי", translit: "gôy", meaning: "nación", gender: "m", number: "s", type: "regular" },
+      { hebrew: "דֶּ֫רֶךְ", translit: "dérek", meaning: "camino", gender: "m/f", number: "s", type: "segolado", note: "masculino y femenino" },
+      { hebrew: "הַר", translit: "har", meaning: "monte", gender: "m", number: "s", type: "regular", plural: "הָרִים" },
+      { hebrew: "כֹּהֵן", translit: "kōhēn", meaning: "sacerdote", gender: "m", number: "s", type: "regular" },
+      { hebrew: "לֵב", translit: "lēv", meaning: "corazón", gender: "m", number: "s", type: "regular" },
+      { hebrew: "מַ֫יִם", translit: "máyim", meaning: "agua", gender: "m", number: "d", type: "dual especial", note: "siempre dual" },
+      { hebrew: "נֶ֫פֶשׁ", translit: "néfeš", meaning: "alma", gender: "f", number: "s", type: "segolado" },
+      { hebrew: "נָבִיא", translit: "nāvîʾ", meaning: "profeta", gender: "m", number: "s", type: "regular" },
+      { hebrew: "סֵ֫פֶר", translit: "séfer", meaning: "libro", gender: "m", number: "s", type: "segolado" },
+      { hebrew: "עַ֫יִן", translit: "ʿáyin", meaning: "ojo", gender: "f", number: "s", type: "segolado", dual: "עֵינַ֫יִם" },
+      { hebrew: "עִיר", translit: "ʿîr", meaning: "ciudad", gender: "f", number: "s", type: "femenino sin terminación", exception: "plural עָרִים" },
+      { hebrew: "צָבָא", translit: "ṣāvāʾ", meaning: "ejército", gender: "m", number: "s", type: "regular" },
+      { hebrew: "קוֹל", translit: "qôl", meaning: "voz", gender: "m", number: "s", type: "regular" },
+      { hebrew: "רֹאשׁ", translit: "rōʾš", meaning: "cabeza", gender: "m", number: "s", type: "regular" },
+      { hebrew: "תּוֹרָה", translit: "tôrāh", meaning: "ley", gender: "f", number: "s", type: "femenino con ה" },
+      // Plurales y duales para practicar
+      { hebrew: "סוּסִים", translit: "sûsîm", meaning: "caballos", gender: "m", number: "p", type: "plural regular" },
+      { hebrew: "תּוֹרוֹת", translit: "tôrôṯ", meaning: "leyes", gender: "f", number: "p", type: "plural regular" },
+      { hebrew: "עֵינַ֫יִם", translit: "ʿênáyim", meaning: "ojos", gender: "f", number: "d", type: "dual" },
+      { hebrew: "יָדַ֫יִם", translit: "yāḏáyim", meaning: "manos", gender: "f", number: "d", type: "dual" },
+      { hebrew: "מְלָכִים", translit: "məlāḵîm", meaning: "reyes", gender: "m", number: "p", type: "plural con reducción" },
+      { hebrew: "דְּבָרִים", translit: "dəvārîm", meaning: "palabras", gender: "m", number: "p", type: "plural con reducción" },
+      { hebrew: "שָׁמַ֫יִם", translit: "šāmayim", meaning: "cielos", gender: "m", number: "d", type: "dual especial", note: "siempre dual" }
+    ];
+
+    // Preguntas para el ejercicio
+    const questions = [
+      { q: "¿Cuál es la terminación del masculino plural?", options: ["◌ִים", "◌וֹת", "◌ָה", "◌ַ֫יִם"], correct: 0 },
+      { q: "¿Qué tipo de sustantivo es מֶ֫לֶךְ (rey)?", options: ["Segolado", "Geminado", "Femenino", "Dual"], correct: 0 },
+      { q: "¿Cuál de estas palabras es femenina a pesar de no tener terminación?", options: ["סוּס", "עִיר", "מֶ֫לֶךְ", "יוֹם"], correct: 1 },
+      { q: "¿Qué indica la terminación ◌ַ֫יִם?", options: ["Plural", "Dual", "Femenino", "Singular"], correct: 1 },
+      { q: "¿Cómo se pluraliza דָּבָר (palabra)?", options: ["דָּבָרִים", "דְּבָרִים", "דָּבָרוֹת", "דִּבְרִים"], correct: 1 },
+      { q: "¿Qué tipo de Daguesh aparece en עַמִּים (pueblos)?", options: ["Lene", "Forte (geminación)", "Mappiq", "No lleva"], correct: 1 },
+      { q: "¿Cuál es el plural de אִשָּׁה (mujer)?", options: ["אִשָּׁוֹת", "נָשִׁים", "אִשִּׁים", "אֲנָשִׁים"], correct: 1 },
+      { q: "¿Qué palabra es siempre dual en hebreo?", options: ["סוּס", "מַ֫יִם", "תּוֹרָה", "אִישׁ"], correct: 1 },
+      { q: "¿Cuál es el género de תּוֹרָה (ley)?", options: ["Masculino", "Femenino", "Dual", "Común"], correct: 1 },
+      { q: "¿Cómo se llama el cambio vocálico en דָּבָר → דְּבָרִים?", options: ["Reducción propretonica", "Asimilación", "Metátesis", "Alargamiento"], correct: 0 }
+    ];
+
+    // Estado del juego
+    let currentWordIndex = 0;
+    let score = 0;
+    let attempts = 0;
+    let selectedProperty = null;
+    let usedIndices = [];
+
+    // Elementos DOM
+    const hebrewWordEl = document.getElementById('hebrewWord');
+    const translitEl = document.getElementById('translit');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const attemptDisplay = document.getElementById('attemptDisplay');
+    const progressRing = document.getElementById('progressRing');
+    const checkBtn = document.getElementById('checkAnalysisBtn');
+    const analysisFeedback = document.getElementById('analysisFeedback');
+    const exerciseArea = document.getElementById('exerciseArea');
+    const vocabGrid = document.getElementById('vocabGrid');
+    const completionMsg = document.getElementById('completionMessage');
+    const resetBtn = document.getElementById('resetGameBtn');
+
+    // Propiedades cards
+    const propCards = document.querySelectorAll('.property-card');
+    propCards.forEach(card => {
+      card.addEventListener('click', () => {
+        propCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedProperty = {
+          gender: card.dataset.gender,
+          number: card.dataset.number
+        };
+      });
+    });
+
+    // Cargar vocabulario en la tabla periódica
+    function loadVocabGrid() {
+      let html = '';
+      // Mostrar 12 palabras seleccionadas
+      const vocabWords = wordDatabase.filter(w => w.number === 's').slice(0, 12);
+      vocabWords.forEach(word => {
+        html += `
+          <div class="element-card" onclick="selectWord('${word.hebrew}', '${word.translit}', '${word.meaning}', '${word.gender}', '${word.number}')">
+            <div class="element-hebrew">${word.hebrew}</div>
+            <div class="element-gender">${word.gender === 'm' ? '♂️ Masc' : '♀️ Fem'} | ${word.meaning}</div>
+          </div>
+        `;
+      });
+      vocabGrid.innerHTML = html;
+    }
+
+    // Seleccionar palabra desde la tabla
+    window.selectWord = (hebrew, translit, meaning, gender, number) => {
+      hebrewWordEl.innerText = hebrew;
+      translitEl.innerText = `${translit} (${meaning})`;
+      // Guardar palabra actual para análisis
+      currentWord = { hebrew, gender, number };
+      propCards.forEach(c => c.classList.remove('selected'));
+      selectedProperty = null;
+    };
+
+    // Obtener palabra aleatoria no usada
+    function getRandomWord() {
+      const available = wordDatabase.filter((_, i) => !usedIndices.includes(i));
+      if (available.length === 0) return null;
+      const randomIndex = Math.floor(Math.random() * available.length);
+      const word = available[randomIndex];
+      const originalIndex = wordDatabase.findIndex(w => w.hebrew === word.hebrew && w.gender === word.gender);
+      usedIndices.push(originalIndex);
+      return word;
+    }
+
+    // Actualizar palabra en display
+    let currentWord = null;
+    function loadNewWord() {
+      if (attempts >= 10) {
+        // Juego completado
+        document.querySelector('.game-grid').classList.add('hidden');
+        document.querySelector('.periodic-table').classList.add('hidden');
+        completionMsg.classList.remove('hidden');
+        return;
+      }
+      const word = getRandomWord();
+      if (!word) {
+        // Reiniciar si se acaban
+        usedIndices = [];
+        loadNewWord();
+        return;
+      }
+      currentWord = word;
+      hebrewWordEl.innerText = word.hebrew;
+      translitEl.innerText = `${word.translit} (${word.meaning})`;
+      propCards.forEach(c => c.classList.remove('selected'));
+      selectedProperty = null;
+      analysisFeedback.innerHTML = '';
+    }
+
+    // Verificar análisis
+    checkBtn.addEventListener('click', () => {
+      if (!currentWord) {
+        analysisFeedback.innerHTML = '<div class="feedback"><i class="fas fa-exclamation-triangle" style="color: #ffaa33;"></i> Selecciona una palabra de la tabla primero.</div>';
+        return;
+      }
+      if (!selectedProperty) {
+        analysisFeedback.innerHTML = '<div class="feedback"><i class="fas fa-exclamation-triangle" style="color: #ffaa33;"></i> Selecciona una propiedad (género/número).</div>';
+        return;
+      }
+      if (attempts >= 10) return;
+
+      const isCorrect = (selectedProperty.gender === currentWord.gender || 
+                         (currentWord.gender === 'm/f' && (selectedProperty.gender === 'm' || selectedProperty.gender === 'f'))) &&
+                        selectedProperty.number === currentWord.number;
+      
+      attempts++;
+      if (isCorrect) {
+        score++;
+        analysisFeedback.innerHTML = '<div class="feedback"><i class="fas fa-check-circle" style="color: #4ade80;"></i> ✅ ¡Correcto! Análisis acertado.</div>';
+      } else {
+        let correctGender = currentWord.gender === 'm/f' ? 'masculino o femenino' : (currentWord.gender === 'm' ? 'masculino' : 'femenino');
+        let correctNumber = currentWord.number === 's' ? 'singular' : (currentWord.number === 'p' ? 'plural' : 'dual');
+        analysisFeedback.innerHTML = `<div class="feedback"><i class="fas fa-times-circle" style="color: #f87171;"></i> ❌ Incorrecto. Era ${correctGender} ${correctNumber}.</div>`;
+      }
+
+      // Actualizar displays
+      scoreDisplay.innerText = score;
+      attemptDisplay.innerText = `${attempts}/10`;
+      progressRing.innerText = `${attempts}/10`;
+      progressRing.style.background = `conic-gradient(#4d9eff ${score * 36}deg, #253b5c ${score * 36}deg 360deg)`;
+
+      if (attempts >= 10) {
+        setTimeout(() => {
+          document.querySelector('.game-grid').classList.add('hidden');
+          document.querySelector('.periodic-table').classList.add('hidden');
+          completionMsg.classList.remove('hidden');
+        }, 500);
+      } else {
+        setTimeout(loadNewWord, 800);
+      }
+    });
+
+    // Cargar preguntas del ejercicio
+    function loadExercise() {
+      let html = '';
+      questions.forEach((q, idx) => {
+        html += `
+          <div class="question-box" id="q${idx}">
+            <div class="question-text">${idx+1}. ${q.q}</div>
+            <div class="options-grid">
+        `;
+        q.options.forEach((opt, optIdx) => {
+          html += `
+            <div class="option-btn" onclick="checkQuestion(${idx}, ${optIdx})">${opt}</div>
+          `;
+        });
+        html += `
+            </div>
+            <div id="feedback${idx}" class="feedback" style="display: none;"></div>
+          </div>
+        `;
+      });
+      exerciseArea.innerHTML = html;
+    }
+
+    // Verificar preguntas
+    window.checkQuestion = (qIdx, optIdx) => {
+      const question = questions[qIdx];
+      const feedbackDiv = document.getElementById(`feedback${qIdx}`);
+      const options = document.querySelectorAll(`#q${qIdx} .option-btn`);
+      
+      options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+      
+      if (optIdx === question.correct) {
+        options[optIdx].classList.add('correct');
+        feedbackDiv.innerHTML = '<i class="fas fa-check-circle"></i> ¡Correcto!';
+        feedbackDiv.style.display = 'flex';
+      } else {
+        options[optIdx].classList.add('incorrect');
+        options[question.correct].classList.add('correct');
+        feedbackDiv.innerHTML = `<i class="fas fa-times-circle"></i> Incorrecto. La respuesta correcta era: ${question.options[question.correct]}`;
+        feedbackDiv.style.display = 'flex';
+      }
+      
+      // Deshabilitar opciones
+      options.forEach(opt => opt.style.pointerEvents = 'none');
+    };
+
+    // Reiniciar juego
+    resetBtn.addEventListener('click', () => {
+      score = 0;
+      attempts = 0;
+      usedIndices = [];
+      selectedProperty = null;
+      scoreDisplay.innerText = '0';
+      attemptDisplay.innerText = '0/10';
+      progressRing.innerText = '0/10';
+      progressRing.style.background = 'conic-gradient(#4d9eff 0deg, #253b5c 360deg)';
+      
+      document.querySelector('.game-grid').classList.remove('hidden');
+      document.querySelector('.periodic-table').classList.remove('hidden');
+      completionMsg.classList.add('hidden');
+      
+      loadNewWord();
+      
+      // Reiniciar preguntas
+      document.querySelectorAll('.option-btn').forEach(opt => {
+        opt.style.pointerEvents = 'auto';
+        opt.classList.remove('correct', 'incorrect');
+      });
+      document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+    });
+
+    // Inicializar
+    loadVocabGrid();
+    loadExercise();
+    loadNewWord();
+  </script>
+</body>
+</html>

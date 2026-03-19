@@ -92,14 +92,19 @@ class SemanaManager {
                 evaluacion: "Examen 4",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Sustantivos', url: 'semanas/semana4/pdf/sustantivos.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Género: Masculino y Femenino', url: 'semanas/semana4/html/genero.html', icono: '♂️♀️' },
-                    { tipo: 'html', titulo: 'Número: Singular y Plural', url: 'semanas/semana4/html/numero.html', icono: '1️⃣🔢' },
-                    { tipo: 'html', titulo: 'Formas Duales', url: 'semanas/semana4/html/dual.html', icono: '2️⃣' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 4', url: 'semanas/semana4/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Curiosidad exegética.', url: 'semanas/semana4/html/semana4_parte1.html', icono: '♂️♀️' },
+                    { tipo: 'html', titulo: 'Características de los sustantivos', url: 'semanas/semana4/html/semana4_parte2.html', icono: '1️⃣🔢' },
+                    { tipo: 'html', titulo: 'Más sobre sustantivos', url: 'semanas/semana4/html/semana4_parte3.html', icono: '2️⃣' },
+                     { tipo: 'html', titulo: 'Resumen Semana 4', url: 'semanas/semana4/html/semana4_parte4.html', icono: '2️⃣' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 4', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Identifica el Género', url: 'semanas/semana4/juegos/genero.html', icono: '⚥' },
-                    { titulo: 'Forma el Plural', url: 'semanas/semana4/juegos/plural.html', icono: '➕' }
+                     { titulo: 'Laboratorio de terminaciones', url: 'semanas/semana4/juegos/laboratorio.html', icono: '⚥' },
+                    { titulo: 'Detective de Género', url: 'semanas/semana4/juegos/genero.html', icono: '⚥' },
+                    { titulo: 'Fábrica de plurales. ', url: 'semanas/semana4/juegos/plural.html', icono: '➕' }
                 ]
             },
             

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Detective de Género - Hebreo Bíblico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2e9d0;
+      background-image: radial-gradient(circle at 30% 40%, rgba(180, 140, 100, 0.1) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(100, 80, 60, 0.1) 0%, transparent 40%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      position: relative;
+    }
+
+    /* Efecto pergamino */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23b89b7b" stroke-width="0.5" stroke-dasharray="3 5" opacity="0.2"/></svg>');
+      pointer-events: none;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 1200px;
+      background: #fff9ef;
+      border-radius: 60px 60px 40px 40px;
+      box-shadow: 0 30px 50px rgba(90, 60, 30, 0.3), 0 0 0 2px #d8c8a8 inset, 0 0 0 5px #b89b7b inset;
+      padding: 30px;
+      position: relative;
+      z-index: 2;
+      border: 1px solid #e5d5b5;
+    }
+
+    /* Cabecera de detective */
+    .detective-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      background: #4a3729;
+      padding: 20px 30px;
+      border-radius: 100px;
+      color: #ffecce;
+      box-shadow: 0 10px 0 #2d1f15;
+    }
+
+    .detective-badge {
+      background: #c9a87c;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: #2d1f15;
+      border: 4px solid #efd7b5;
+      box-shadow: 0 0 0 3px #7a5a3a;
+    }
+
+    .detective-title h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 3px 3px 0 #2d1f15;
+      color: #fae1b6;
+    }
+
+    .detective-title p {
+      color: #cfb595;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .case-file {
+      background: #f0e2ce;
+      border-radius: 40px;
+      padding: 15px 25px;
+      margin-left: auto;
+      color: #3e2e1f;
+      font-weight: 600;
+      border: 2px dashed #aa8b6b;
+    }
+
+    /* Estadísticas */
+    .stats-panel {
+      display: flex;
+      gap: 25px;
+      background: #e6d7bd;
+      border-radius: 50px;
+      padding: 15px 30px;
+      margin-bottom: 30px;
+      border: 2px solid #b3926c;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #fff1db;
+      padding: 8px 25px;
+      border-radius: 40px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+    }
+
+    .stat-info {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #5a3f28;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #7e6246;
+      text-transform: uppercase;
+    }
+
+    /* Área principal de juego */
+    .game-area {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .evidence-board {
+      flex: 2;
+      min-width: 300px;
+      background: #e7d6b8;
+      border-radius: 50px;
+      padding: 30px;
+      border: 4px solid #c4a27a;
+      box-shadow: inset 0 0 0 2px #f5e8d2, 0 15px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .evidence-board::after {
+      content: '🔍';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      font-size: 4rem;
+      opacity: 0.3;
+      transform: rotate(15deg);
+    }
+
+    .word-card {
+      background: #fcf3e1;
+      border-radius: 70px;
+      padding: 40px 20px;
+      text-align: center;
+      border: 5px solid #b38b5b;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 0 #7b5a3a, inset 0 -5px 10px rgba(0,0,0,0.1);
+    }
+
+    .hebrew-word {
+      font-size: 7rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      color: #3f2c17;
+      text-shadow: 5px 5px 0 #dbbd9a;
+      direction: rtl;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .translit {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.6rem;
+      color: #7b5e40;
+      background: #eedbc4;
+      display: inline-block;
+      padding: 8px 30px;
+      border-radius: 60px;
+      letter-spacing: 2px;
+      border: 1px solid #b3926c;
+    }
+
+    .clue-section {
+      background: #dac29c;
+      border-radius: 50px;
+      padding: 20px;
+    }
+
+    .clue-title {
+      font-size: 1.2rem;
+      color: #412f1d;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .gender-options {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .gender-btn {
+      flex: 1;
+      min-width: 180px;
+      background: #efdfc6;
+      border: 4px solid #9f835d;
+      border-radius: 60px;
+      padding: 20px 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #3e2e1b;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      box-shadow: 0 7px 0 #6f5439;
+    }
+
+    .gender-btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 2px 0 #6f5439;
+    }
+
+    .gender-btn.masculino {
+      background: #a7c0e3;
+      border-color: #3e619b;
+    }
+
+    .gender-btn.femenino {
+      background: #f5c6d6;
+      border-color: #b4587a;
+    }
+
+    /* Cuaderno de notas */
+    .notebook {
+      flex: 1;
+      min-width: 280px;
+      background: #fef3da;
+      border-radius: 40px;
+      padding: 25px;
+      border: 3px solid #b3926c;
+      box-shadow: 10px 10px 0 #7f613f;
+      background-image: linear-gradient(#e9d9bb 1px, transparent 1px);
+      background-size: 100% 30px;
+    }
+
+    .notebook h3 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.8rem;
+      border-bottom: 3px solid #b3926c;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #5f462b;
+    }
+
+    .rule-list {
+      list-style: none;
+    }
+
+    .rule-list li {
+      padding: 12px 0;
+      border-bottom: 2px dashed #dac29c;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      color: #4e3b25;
+    }
+
+    .rule-list i.fa-check-circle {
+      color: #2b7340;
+    }
+
+    .rule-list i.fa-star {
+      color: #c99d4a;
+    }
+
+    .exceptions-box {
+      background: #eddbbd;
+      border-radius: 30px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 8px solid #b85151;
+    }
+
+    /* Mensaje final */
+    .case-solved {
+      text-align: center;
+      padding: 50px;
+      background: #f5e5cd;
+      border-radius: 60px;
+      border: 5px solid #b3926c;
+      margin-top: 20px;
+    }
+
+    .case-solved h2 {
+      font-size: 3.5rem;
+      color: #3b6b3b;
+      margin-bottom: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .reset-btn {
+      background: #8b6b46;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 15px 40px;
+      border-radius: 60px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-bottom: 5px solid #5a3f28;
+    }
+
+    /* Feedback */
+    .feedback-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 40px;
+      background: #eedbbc;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .game-container { padding: 15px; }
+      .detective-header { flex-direction: column; text-align: center; }
+      .detective-title h1 { font-size: 1.8rem; }
+      .hebrew-word { font-size: 4.5rem; }
+      .gender-btn { min-width: 130px; font-size: 1.4rem; padding: 15px 0; }
+      .stats-panel { flex-direction: column; gap: 10px; }
+      .case-file { margin-left: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-word { font-size: 3.5rem; }
+      .gender-options { flex-direction: column; }
+      .gender-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <!-- Cabecera -->
+    <div class="detective-header">
+      <div class="detective-badge">
+        <i class="fas fa-magnifying-glass"></i>
+      </div>
+      <div class="detective-title">
+        <h1>DETECTIVE DE GÉNERO</h1>
+        <p><i class="fas fa-feather"></i> Investigando el género de los sustantivos hebreos</p>
+      </div>
+      <div class="case-file">
+        <i class="fas fa-folder-open"></i> Caso #004: Género gramatical
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-panel">
+      <div class="stat-item">
+        <div class="stat-icon">🔍</div>
+        <div class="stat-info">
+          <div class="stat-value" id="solvedCount">0</div>
+          <div class="stat-label">Casos resueltos</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⚖️</div>
+        <div class="stat-info">
+          <div class="stat-value" id="totalCount">0/15</div>
+          <div class="stat-label">Total casos</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-info">
+          <div class="stat-value" id="accuracyDisplay">0%</div>
+          <div class="stat-label">Precisión</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área de juego -->
+    <div id="gameArea">
+      <div class="game-area">
+        <div class="evidence-board">
+          <div class="word-card">
+            <div class="hebrew-word" id="hebrewWord">אָב</div>
+            <div class="translit" id="translit">ʾāv (padre)</div>
+          </div>
+          <div class="clue-section">
+            <div class="clue-title"><i class="fas fa-question"></i> ¿Cuál es su género? <i class="fas fa-question"></i></div>
+            <div class="gender-options">
+              <button class="gender-btn masculino" data-gender="m">
+                <i class="fas fa-mars"></i> MASCULINO
+              </button>
+              <button class="gender-btn femenino" data-gender="f">
+                <i class="fas fa-venus"></i> FEMENINO
+              </button>
+            </div>
+            <div id="gameFeedback" class="feedback-message">
+              👆 Selecciona un género para resolver el caso
+            </div>
+          </div>
+        </div>
+
+        <div class="notebook">
+          <h3><i class="fas fa-book"></i> Manual del detective</h3>
+          <ul class="rule-list">
+            <li><i class="fas fa-check-circle"></i> Masculino plural: ◌ִים</li>
+            <li><i class="fas fa-check-circle"></i> Femenino plural: ◌וֹת</li>
+            <li><i class="fas fa-check-circle"></i> Femenino singular: ה ָ, ת ַ, ת ֶ, ית ִ, וּת</li>
+            <li><i class="fas fa-star"></i> ¡Atención! Femeninos sin terminación:</li>
+          </ul>
+          <div class="exceptions-box">
+            <p><span class="hebrew-word" style="font-size:1.5rem;">אֶ֫רֶץ</span> tierra (fem)</p>
+            <p><span class="hebrew-word" style="font-size:1.5rem;">עִיר</span> ciudad (fem)</p>
+            <p><span class="hebrew-word" style="font-size:1.5rem;">אֶ֫בֶן</span> piedra (fem)</p>
+            <p><span class="hebrew-word" style="font-size:1.5rem;">נֶ֫פֶשׁ</span> alma (fem)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje de finalización -->
+    <div id="completionMessage" class="case-solved hidden">
+      <i class="fas fa-crown" style="font-size:5rem; color: #d4af37;"></i>
+      <h2>¡CASO RESUELTO!</h2>
+      <p style="font-size:1.5rem;">Has identificado el género de 15 sustantivos correctamente.</p>
+      <p style="margin:20px 0;">Eres un verdadero detective del hebreo.</p>
+      <button class="reset-btn" id="resetGame"><i class="fas fa-redo-alt"></i> Nuevo caso</button>
+    </div>
+  </div>
+
+  <script>
+    // Base de datos de sustantivos con género (énfasis en femeninos sin terminación)
+    const genderWords = [
+      // Masculinos
+      { hebrew: "אָב", translit: "ʾāv", meaning: "padre", gender: "m" },
+      { hebrew: "אָדוֹן", translit: "ʾādōn", meaning: "señor", gender: "m" },
+      { hebrew: "אָח", translit: "ʾāḥ", meaning: "hermano", gender: "m" },
+      { hebrew: "אִישׁ", translit: "ʾîš", meaning: "hombre", gender: "m" },
+      { hebrew: "גּוֹי", translit: "gôy", meaning: "nación", gender: "m" },
+      { hebrew: "הַר", translit: "har", meaning: "monte", gender: "m" },
+      { hebrew: "כֹּהֵן", translit: "kōhēn", meaning: "sacerdote", gender: "m" },
+      { hebrew: "לֵב", translit: "lēv", meaning: "corazón", gender: "m" },
+      { hebrew: "מַ֫יִם", translit: "máyim", meaning: "agua", gender: "m", note: "dual" },
+      { hebrew: "נָבִיא", translit: "nāvîʾ", meaning: "profeta", gender: "m" },
+      { hebrew: "סֵ֫פֶר", translit: "séfer", meaning: "libro", gender: "m" },
+      { hebrew: "קוֹל", translit: "qôl", meaning: "voz", gender: "m" },
+      { hebrew: "רֹאשׁ", translit: "rōʾš", meaning: "cabeza", gender: "m" },
+      
+      // Femeninos (incluyendo los que no tienen terminación)
+      { hebrew: "אִשָּׁה", translit: "ʾiššāh", meaning: "mujer", gender: "f" },
+      { hebrew: "בַּת", translit: "baṯ", meaning: "hija", gender: "f" },
+      { hebrew: "תּוֹרָה", translit: "tôrāh", meaning: "ley", gender: "f" },
+      { hebrew: "נֶ֫פֶשׁ", translit: "néfeš", meaning: "alma", gender: "f" },
+      { hebrew: "עִיר", translit: "ʿîr", meaning: "ciudad", gender: "f" },
+      { hebrew: "אֶ֫רֶץ", translit: "ʾérets", meaning: "tierra", gender: "f" },
+      { hebrew: "אֶ֫בֶן", translit: "ʾéven", meaning: "piedra", gender: "f" },
+      { hebrew: "עַ֫יִן", translit: "ʿáyin", meaning: "ojo", gender: "f" },
+      { hebrew: "חַ֫רְבָּה", translit: "ḥarbāh", meaning: "espada", gender: "f" },
+      { hebrew: "מִצְוָה", translit: "miṣvāh", meaning: "mandamiento", gender: "f" },
+      { hebrew: "שָׁנָה", translit: "šānāh", meaning: "año", gender: "f" },
+      { hebrew: "דֶּ֫רֶךְ", translit: "dérek", meaning: "camino", gender: "m/f" } // Especial: ambos
+    ];
+
+    let currentWordIndex = 0;
+    let solved = 0;
+    let total = 0;
+    let correctAnswers = 0;
+    let usedIndices = [];
+    let currentWord = null;
+
+    // Elementos DOM
+    const hebrewWordEl = document.getElementById('hebrewWord');
+    const translitEl = document.getElementById('translit');
+    const solvedCount = document.getElementById('solvedCount');
+    const totalCount = document.getElementById('totalCount');
+    const accuracyDisplay = document.getElementById('accuracyDisplay');
+    const gameFeedback = document.getElementById('gameFeedback');
+    const gameArea = document.getElementById('gameArea');
+    const completionMsg = document.getElementById('completionMessage');
+    const resetBtn = document.getElementById('resetGame');
+
+    // Obtener palabra aleatoria
+    function getRandomGenderWord() {
+      const available = genderWords.filter((_, i) => !usedIndices.includes(i));
+      if (available.length === 0) return null;
+      const randomIndex = Math.floor(Math.random() * available.length);
+      const word = available[randomIndex];
+      const originalIndex = genderWords.findIndex(w => w.hebrew === word.hebrew && w.gender === word.gender);
+      usedIndices.push(originalIndex);
+      return word;
+    }
+
+    function loadNewWord() {
+      if (solved >= 15) {
+        // Completado
+        gameArea.classList.add('hidden');
+        completionMsg.classList.remove('hidden');
+        return;
+      }
+
+      const word = getRandomGenderWord();
+      if (!word) {
+        // Reiniciar ciclo
+        usedIndices = [];
+        loadNewWord();
+        return;
+      }
+
+      currentWord = word;
+      hebrewWordEl.innerText = word.hebrew;
+      let genderText = '';
+      if (word.gender === 'm/f') genderText = ' (masculino o femenino)';
+      translitEl.innerText = `${word.translit} (${word.meaning})${genderText}`;
+      
+      total = usedIndices.length;
+      totalCount.innerText = `${total}/15`;
+    }
+
+    // Manejar clic en género
+    document.querySelectorAll('.gender-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (!currentWord || solved >= 15) return;
+
+        const selectedGender = e.currentTarget.dataset.gender;
+        const isCorrect = (currentWord.gender === selectedGender) || 
+                          (currentWord.gender === 'm/f'); // Aceptamos ambos como correcto
+
+        total = usedIndices.length;
+        
+        if (isCorrect) {
+          solved++;
+          correctAnswers++;
+          gameFeedback.innerHTML = '✅ ¡Correcto! Has identificado el género.';
+          gameFeedback.style.background = '#c8e6c9';
+        } else {
+          gameFeedback.innerHTML = `❌ Incorrecto. El género de ${currentWord.hebrew} es ${currentWord.gender === 'm' ? 'masculino' : 'femenino'}.`;
+          gameFeedback.style.background = '#ffcdd2';
+        }
+
+        // Actualizar estadísticas
+        solvedCount.innerText = solved;
+        totalCount.innerText = `${total}/15`;
+        const accuracy = Math.round((correctAnswers / total) * 100) || 0;
+        accuracyDisplay.innerText = accuracy + '%';
+
+        setTimeout(loadNewWord, 1000);
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      solved = 0;
+      total = 0;
+      correctAnswers = 0;
+      usedIndices = [];
+      solvedCount.innerText = '0';
+      totalCount.innerText = '0/15';
+      accuracyDisplay.innerText = '0%';
+      gameArea.classList.remove('hidden');
+      completionMsg.classList.add('hidden');
+      loadNewWord();
+    });
+
+    // Inicializar
+    loadNewWord();
+  </script>
+</body>
+</html>
