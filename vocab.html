@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebreo Bíblico · Flashcards Interactivas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #2c3e50 0%, #1a2634 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .app-container {
+            max-width: 950px;
+            width: 100%;
+            background: #f8f4e9;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border: 1px solid #d4b68a;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color: #3e2c1a;
+            font-weight: 600;
+            text-shadow: 2px 2px 0 #d4b68a;
+        }
+        header h1 span {
+            font-weight: 300;
+            font-size: 1.8rem;
+            color: #6b4f2b;
+        }
+        .sub {
+            color: #5a4a34;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            background: #e8dccc;
+            padding: 1rem 1.8rem;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            border: 1px solid #b99e7c;
+        }
+        .week-selector {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .week-btn {
+            background: #fffbf5;
+            border: 1px solid #8b7356;
+            color: #3e2e1d;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #8b7356;
+        }
+        .week-btn.active {
+            background: #5f4b34;
+            border-color: #3f2f1e;
+            color: white;
+            box-shadow: 0 4px 0 #2f2317;
+            transform: translateY(2px);
+        }
+        .week-btn:hover {
+            background: #dacdbc;
+        }
+        .progress-indicator {
+            background: #3b2b1a;
+            color: #f0e3d0;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        
+        /* Estilos para el efecto FLIP CARD */
+        .card-container {
+            perspective: 1500px;
+            margin: 2rem auto;
+            width: 100%;
+            max-width: 700px;
+            height: 380px;
+            cursor: pointer;
+        }
+        
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 40px;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 40px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fefcf8;
+            border: 3px solid #c9ad84;
+            box-shadow: inset 0 -5px 15px rgba(180, 140, 80, 0.2);
+        }
+        
+        .card-front {
+            background: linear-gradient(145deg, #ffffff, #f7f0e4);
+        }
+        
+        .card-back {
+            background: linear-gradient(145deg, #f7f0e4, #efe3d2);
+            transform: rotateY(180deg);
+        }
+        
+        .hebrew-word {
+            font-size: 5rem;
+            font-weight: 500;
+            direction: rtl;
+            font-family: 'Times New Roman', 'SBL Hebrew', 'Ezra SIL', 'Cardo', serif;
+            color: #1e3a4d;
+            text-shadow: 3px 3px 0 rgba(180, 140, 100, 0.2);
+            margin-bottom: 0.5rem;
+        }
+        
+        .transliteration {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #6f523b;
+            background: #f3ede3;
+            padding: 0.3rem 2rem;
+            border-radius: 60px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        .meaning {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #2d3f2d;
+            margin-bottom: 1rem;
+        }
+        
+        .frequency {
+            font-size: 1.4rem;
+            background: #d9cfbc;
+            padding: 0.5rem 1.8rem;
+            border-radius: 30px;
+            color: #2f2a1f;
+            font-weight: 500;
+            border: 1px dashed #8f765a;
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .audio-btn {
+            background: #ffffff;
+            border: 3px solid #8d765b;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            font-size: 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #6b5b4a;
+            color: #2c3e2c;
+        }
+        .audio-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #6b5b4a;
+        }
+        .audio-btn:hover {
+            background: #ede0d1;
+        }
+        
+        .flip-hint {
+            font-size: 1rem;
+            color: #5e5a4f;
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+        }
+        .nav-btn {
+            background: #fff1e0;
+            border: none;
+            font-size: 2.2rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 8px 0 #8f7961;
+            cursor: pointer;
+            transition: 0.1s;
+            font-weight: bold;
+            color: #3a2c1c;
+            border: 1px solid #bbaa95;
+        }
+        .nav-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #6b5a48;
+        }
+        .nav-btn:disabled {
+            opacity: 0.4;
+            transform: none;
+            box-shadow: 0 5px 0 #aaa08f;
+            pointer-events: none;
+        }
+        .card-counter {
+            font-size: 1.4rem;
+            background: #f1e7da;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #5f4d35;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <h1>מִקְרָא <span>· Flashcards Interactivas</span></h1>
+        <div class="sub">Haz clic en la tarjeta para voltearla · Hebreo → Español</div>
+    </header>
+
+    <div class="controls">
+        <div class="week-selector">
+            <button class="week-btn" data-week="week3">Semana 3</button>
+            <button class="week-btn active" data-week="week4">Semana 4</button>
+            <button class="week-btn" data-week="week5">Semana 5</button>
+            <button class="week-btn" data-week="week6">Semana 6</button>
+            <button class="week-btn" data-week="week7">Semana 7</button>
+            <button class="week-btn" data-week="week8">Semana 8</button>
+        </div>
+        <div class="progress-indicator" id="progressText">0/0</div>
+    </div>
+
+    <!-- Contenedor con efecto flip -->
+    <div class="card-container" id="cardContainer">
+        <div class="flashcard" id="flashcard">
+            <!-- Cara frontal: Hebreo -->
+            <div class="card-front">
+                <div class="hebrew-word" id="hebrewWord" dir="rtl">סוּס</div>
+                <div class="transliteration" id="translit">(sūs)</div>
+                <div class="flip-hint">⬇️ toca para ver significado</div>
+            </div>
+            <!-- Cara trasera: Español + frecuencia + audio -->
+            <div class="card-back">
+                <div class="meaning" id="meaning">caballo</div>
+                <div class="info-row">
+                    <span class="frequency" id="frequency">Frec. 138</span>
+                    <button class="audio-btn" id="audioBtn" title="Escuchar pronunciación">🔊</button>
+                </div>
+                <div class="flip-hint">⬇️ toca para ver hebreo</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" title="anterior">←</button>
+        <span class="card-counter" id="cardCounter">1 / 21</span>
+        <button class="nav-btn" id="nextBtn" title="siguiente">→</button>
+    </div>
+    
+    <div class="footer-note">
+        ✦ Semana 4: parentesco · Semana 5: objetos · Semana 6: preposiciones ✦
+    </div>
+</div>
+
+<script>
+    // ==================== VOCABULARIO COMPLETO ====================
+    const vocabData = {
+        
+        week3: [
+    { hebrew: "אָדָם", translit: "ʾādām", meaning: "hombre, humanidad, Adán", freq: 562 },
+    { hebrew: "אֶרֶץ", translit: "ʾereṣ", meaning: "tierra, suelo, país", freq: 2505 },
+    { hebrew: "אֱלֹהִים", translit: "ʾĕlōhîm", meaning: "Dios, dioses", freq: 2602 },
+    { hebrew: "אָב", translit: "ʾāḇ", meaning: "padre, antepasado", freq: 1211 },
+    { hebrew: "אֵל", translit: "ʾēl", meaning: "Dios, dios", freq: 317 },
+    { hebrew: "בֵּן", translit: "bēn", meaning: "hijo", freq: 4941 },
+    { hebrew: "בַּיִת", translit: "bayiṯ", meaning: "casa, hogar", freq: 2047 },
+    { hebrew: "דָּבָר", translit: "dāḇār", meaning: "palabra, asunto, cosa", freq: 1454 },
+    { hebrew: "יוֹם", translit: "yôm", meaning: "día", freq: 2301 },
+    { hebrew: "יִשְׂרָאֵל", translit: "yiśrāʾēl", meaning: "Israel", freq: 2507 },
+    { hebrew: "יְרוּשָׁלַיִם", translit: "yərûšālayim", meaning: "Jerusalén", freq: 643 },
+    { hebrew: "יְהוָה", translit: "YHWH", meaning: "Yahweh, SEÑOR", freq: 6828 },
+    { hebrew: "מִצְרַיִם", translit: "miṣrayim", meaning: "Egipto", freq: 682 },
+    { hebrew: "מֹשֶׁה", translit: "mōšeh", meaning: "Moisés", freq: 766 },
+    { hebrew: "מֶלֶךְ", translit: "melek", meaning: "rey, gobernante", freq: 2530 },
+    { hebrew: "סוּס", translit: "sûs", meaning: "caballo", freq: 138 },
+    { hebrew: "עֶבֶד", translit: "ʿeḇeḏ", meaning: "siervo, esclavo", freq: 803 },
+    { hebrew: "פַּרְעֹה", translit: "parʿōh", meaning: "Faraón", freq: 274 },
+    { hebrew: "שָׁנָה", translit: "šānāh", meaning: "año", freq: 878 },
+    { hebrew: "שֵׁם", translit: "šēm", meaning: "nombre, reputación", freq: 864 }
+],
+        week4: [
+            { hebrew: "אָב", translit: "ʾāv", meaning: "padre, antepasado", freq: 1211 },
+            { hebrew: "אָדוֹן", translit: "ʾādōn", meaning: "señor, amo", freq: 774 },
+            { hebrew: "אָח", translit: "ʾāḥ", meaning: "hermano", freq: 629 },
+            { hebrew: "אִישׁ", translit: "ʾîš", meaning: "hombre, esposo", freq: 2198 },
+            { hebrew: "אִשָּׁה", translit: "ʾiššāh", meaning: "mujer, esposa", freq: 779 },
+            { hebrew: "בַּת", translit: "baṯ", meaning: "hija", freq: 603 },
+            { hebrew: "גּוֹי", translit: "gôy", meaning: "nación, pueblo", freq: 567 },
+            { hebrew: "דֶּרֶךְ", translit: "dérek", meaning: "camino, viaje", freq: 712 },
+            { hebrew: "הַר", translit: "har", meaning: "monte, montaña", freq: 558 },
+            { hebrew: "כֹּהֵן", translit: "kōhēn", meaning: "sacerdote", freq: 750 },
+            { hebrew: "לֵב", translit: "lēv", meaning: "corazón, mente", freq: 586 },
+            { hebrew: "מַיִם", translit: "máyim", meaning: "agua", freq: 586 },
+            { hebrew: "נֶפֶשׁ", translit: "néfeš", meaning: "alma, vida", freq: 757 },
+            { hebrew: "נָבִיא", translit: "nāvîʾ", meaning: "profeta", freq: 317 },
+            { hebrew: "סֵפֶר", translit: "séfer", meaning: "libro, rollo", freq: 191 },
+            { hebrew: "עַיִן", translit: "ʿáyin", meaning: "ojo, manantial", freq: 900 },
+            { hebrew: "עִיר", translit: "ʿîr", meaning: "ciudad, pueblo", freq: 1095 },
+            { hebrew: "צָבָא", translit: "ṣāvāʾ", meaning: "ejército, hueste", freq: 487 },
+            { hebrew: "קוֹל", translit: "qôl", meaning: "voz, sonido", freq: 505 },
+            { hebrew: "רֹאשׁ", translit: "rōʾš", meaning: "cabeza, jefe", freq: 600 },
+            { hebrew: "תּוֹרָה", translit: "tôrāh", meaning: "ley, instrucción", freq: 223 }
+        ],
+        week5: [
+            { hebrew: "אֵשׁ", translit: "ʾēš", meaning: "fuego", freq: 376 },
+            { hebrew: "הֵיכָל", translit: "hêkhāl", meaning: "templo, palacio", freq: 80 },
+            { hebrew: "וְ", translit: "v-", meaning: "y, pero, entonces", freq: 50524 },
+            { hebrew: "זָהָב", translit: "zāhāv", meaning: "oro", freq: 392 },
+            { hebrew: "חֶרֶב", translit: "ḥéreḇ", meaning: "espada", freq: 413 },
+            { hebrew: "חַי", translit: "ḥay", meaning: "vivo, viviente", freq: 254 },
+            { hebrew: "חַיִּים", translit: "ḥayyîm", meaning: "vida", freq: 140 },
+            { hebrew: "יֶלֶד", translit: "yéleḏ", meaning: "niño, muchacho", freq: 89 },
+            { hebrew: "יָם", translit: "yām", meaning: "mar", freq: 396 },
+            { hebrew: "כֶּסֶף", translit: "késef", meaning: "plata, dinero", freq: 403 },
+            { hebrew: "כֹּה", translit: "kōh", meaning: "así, aquí", freq: 577 },
+            { hebrew: "מָקוֹם", translit: "māqôm", meaning: "lugar, sitio", freq: 401 },
+            { hebrew: "מִשְׁפָּט", translit: "mišpāṭ", meaning: "juicio, ley", freq: 425 },
+            { hebrew: "מִזְבֵּחַ", translit: "mizbēªḥ", meaning: "altar", freq: 403 },
+            { hebrew: "נְאֻם", translit: "nəʾum", meaning: "declaración, oráculo", freq: 376 },
+            { hebrew: "עוֹלָם", translit: "ʿôlām", meaning: "eternidad, antiguo", freq: 439 },
+            { hebrew: "עָנָן", translit: "ʿānān", meaning: "nube", freq: 87 },
+            { hebrew: "רוּחַ", translit: "rûªḥ", meaning: "espíritu, viento", freq: 378 },
+            { hebrew: "שַׂר", translit: "śar", meaning: "príncipe, oficial", freq: 421 },
+            { hebrew: "שַׁעַר", translit: "šáʿar", meaning: "puerta, portal", freq: 373 },
+            { hebrew: "שָׁמַיִם", translit: "šāmayim", meaning: "cielo, cielos", freq: 421 }
+        ],
+        week6: [
+            { hebrew: "אַחַר", translit: "'aḥar", meaning: "después de, detrás", freq: 718 },
+            { hebrew: "אֵת", translit: "'ēt", meaning: "con, junto a", freq: 890 },
+            { hebrew: "אֵת (2)", translit: "'ēt", meaning: "marcador objeto directo", freq: 10978 },
+            { hebrew: "אֶל", translit: "'el", meaning: "a, hacia", freq: 5518 },
+            { hebrew: "בֵּין", translit: "bên", meaning: "entre", freq: 409 },
+            { hebrew: "בְּ", translit: "bᵉ", meaning: "en, con, por", freq: 15559 },
+            { hebrew: "בְּתוֹךְ", translit: "bᵉtôk", meaning: "en medio de", freq: 420 },
+            { hebrew: "חָכְמָה", translit: "ḥåkmâ", meaning: "sabiduría", freq: 153 },
+            { hebrew: "כְּ", translit: "kᵉ", meaning: "como, según", freq: 3053 },
+            { hebrew: "כֹּל", translit: "kōl", meaning: "todo, cada", freq: 5415 },
+            { hebrew: "לִפְנֵי", translit: "lip̄nê", meaning: "delante de, ante", freq: 1102 },
+            { hebrew: "לְ", translit: "lᵉ", meaning: "a, para", freq: 20321 },
+            { hebrew: "לְמַעַן", translit: "lᵉmá'an", meaning: "a causa de", freq: 272 },
+            { hebrew: "מִן", translit: "min", meaning: "de, desde", freq: 7592 },
+            { hebrew: "מִצְוָה", translit: "miṣvâ", meaning: "mandamiento", freq: 184 },
+            { hebrew: "מַעַל", translit: "má'al", meaning: "arriba, encima", freq: 140 },
+            { hebrew: "עַד", translit: "'ad", meaning: "hasta, mientras", freq: 1263 },
+            { hebrew: "עַל", translit: "'al", meaning: "sobre, acerca de", freq: 5777 },
+            { hebrew: "עִם", translit: "'im", meaning: "con", freq: 1048 },
+            { hebrew: "פֶּה", translit: "peh", meaning: "boca, abertura", freq: 498 },
+            { hebrew: "שָׂדֶה", translit: "śādeh", meaning: "campo", freq: 329 },
+            { hebrew: "תַּחַת", translit: "táḥat", meaning: "debajo de", freq: 510 }
+        ],
+        week8: [
+    { hebrew: "אֹהֶל", translit: "'ōhel", meaning: "tienda, tabernáculo", freq: 348 },
+    { hebrew: "אַחֵר", translit: "'aḥēr", meaning: "otro, diferente, extranjero", freq: 166 },
+    { hebrew: "אֵיךְ", translit: "'êḵ", meaning: "¿cómo?", freq: 61 },
+    { hebrew: "אֶלֶף", translit: "'élef", meaning: "mil", freq: 496 },
+    { hebrew: "אֲשֶׁר", translit: "'ăšer", meaning: "que, quien, cual; cuando, como", freq: 5503 },
+    { hebrew: "בְּהֵמָה", translit: "bəhēmâ", meaning: "animal, bestia, ganado", freq: 190 },
+    { hebrew: "גַּם", translit: "gam", meaning: "también, incluso", freq: 769 },
+    { hebrew: "דָּם", translit: "dām", meaning: "sangre", freq: 361 },
+    { hebrew: "הֲ", translit: "ha-", meaning: "partícula interrogativa", freq: 664 },
+    { hebrew: "טָהוֹר", translit: "ṭāhôr", meaning: "limpio, puro", freq: 96 },
+    { hebrew: "כִּי", translit: "kî", meaning: "que, porque; sino; ciertamente", freq: 4487 },
+    { hebrew: "כְּסִיל", translit: "kəsîl", meaning: "necio, insensato", freq: 70 },
+    { hebrew: "לָמָּה", translit: "lāmmâ", meaning: "¿por qué?", freq: 178 },
+    { hebrew: "מָה", translit: "mâ", meaning: "¿qué?", freq: 571 },
+    { hebrew: "מַדּוּעַ", translit: "maddûa'", meaning: "¿por qué?", freq: 72 },
+    { hebrew: "מִי", translit: "mî", meaning: "¿quién?", freq: 424 },
+    { hebrew: "עָנִי", translit: "'ānî", meaning: "pobre, humilde, afligido", freq: 80 },
+    { hebrew: "שֶׁמֶן", translit: "šémen", meaning: "aceite, grasa", freq: 193 },
+    { hebrew: "שֹׁפֵט", translit: "šōfēṭ", meaning: "juez, el que juzga", freq: 68 }
+]
+    };
+
+    // ==================== ESTADO DE LA APP ====================
+    let currentWeek = 'week4';
+    let currentIndex = 0;
+    let words = vocabData[currentWeek];
+    let isFlipped = false;  // control del flip
+
+    // Elementos DOM
+    const weekBtns = document.querySelectorAll('.week-btn');
+    const flashcard = document.getElementById('flashcard');
+    const cardContainer = document.getElementById('cardContainer');
+    const hebrewEl = document.getElementById('hebrewWord');
+    const translitEl = document.getElementById('translit');
+    const meaningEl = document.getElementById('meaning');
+    const freqEl = document.getElementById('frequency');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cardCounter = document.getElementById('cardCounter');
+    const progressText = document.getElementById('progressText');
+    const audioBtn = document.getElementById('audioBtn');
+
+    // ==================== FUNCIONES ====================
+    function updateCard() {
+        // Actualizar contenido
+        const word = words[currentIndex];
+        hebrewEl.textContent = word.hebrew;
+        translitEl.textContent = `(${word.translit})`;
+        meaningEl.textContent = word.meaning;
+        freqEl.textContent = `Frec. ${word.freq}`;
+        
+        // Actualizar contadores
+        cardCounter.textContent = `${currentIndex + 1} / ${words.length}`;
+        progressText.textContent = `${currentIndex + 1}/${words.length}`;
+        
+        // Resetear el flip a la cara frontal (hebreo) al cambiar de palabra
+        if (isFlipped) {
+            flashcard.classList.remove('flipped');
+            isFlipped = false;
+        }
+    }
+
+    // Función de síntesis de voz
+    function speakHebrew(text) {
+        if (!window.speechSynthesis) {
+            alert("Tu navegador no soporta síntesis de voz.");
+            return;
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'he-IL';
+        utterance.rate = 0.8;
+        utterance.pitch = 0.9;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // ==================== EVENTOS ====================
+    
+    // Voltear tarjeta al hacer clic en el contenedor
+    cardContainer.addEventListener('click', (e) => {
+        // Evitar que el clic en el botón de audio también voltee
+        if (e.target === audioBtn || audioBtn.contains(e.target)) {
+            return;
+        }
+        flashcard.classList.toggle('flipped');
+        isFlipped = !isFlipped;
+    });
+
+    // Botón de audio (no voltea la tarjeta)
+    audioBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        speakHebrew(words[currentIndex].hebrew);
+    });
+
+    // Navegación
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCard();
+        }
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentIndex < words.length - 1) {
+            currentIndex++;
+            updateCard();
+        }
+    });
+
+    // Cambio de semana
+    weekBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const week = e.target.dataset.week;
+            if (!week) return;
+            
+            // Actualizar botones
+            weekBtns.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            // Cambiar datos
+            currentWeek = week;
+            words = vocabData[currentWeek];
+            currentIndex = 0;
+            updateCard();
+        });
+    });
+
+    // Teclado: flechas izquierda/derecha
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevBtn.click();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextBtn.click();
+        }
+    });
+
+    // Inicializar
+    updateCard();
+</script>
+</body>
+</html>

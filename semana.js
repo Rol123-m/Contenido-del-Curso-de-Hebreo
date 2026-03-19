@@ -73,6 +73,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Dagesh y otros asuntos', url: 'semanas/semana3/html/dagesh.html', icono: '⚡' },
                     { tipo: 'html', titulo: 'resumen de la semana', url: 'semanas/semana3/html/resumen.html', icono: '🔓' },
                     { tipo: 'html', titulo: 'Práctica de Lectura', url: 'semanas/semana3/html/practica.html', icono: '📖' },
+                    { tipo: 'html', titulo: 'Vocabulario', url: 'vocab.html', icono: '📖' },
                      { tipo: 'examen', titulo: 'Examen Semana 3- Sílabas', url: 'https://forms.gle/F5sduG11CNuRmtU68', icono: '📝' }
                 ],
                 juegos: [
