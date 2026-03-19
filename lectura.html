@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Hebreo Bíblico · Lectura de Génesis 1:1</title>
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --primary-dark: #2c3e2c;
+            --primary-medium: #3f5e3f;
+            --primary-light: #5b8c5b;
+            --secondary-dark: #8b6f4c;
+            --secondary-medium: #b5946e;
+            --secondary-light: #d4b68a;
+            --accent-warm: #c9775e;
+            --accent-gold: #e6b422;
+            --bg-light: #fdfbf7;
+            --bg-soft: #f5efe7;
+            --bg-card: #ffffff;
+            --text-dark: #2c3e2c;
+            --text-soft: #4a4a4a;
+            --text-light: #6b6b6b;
+            --success: #2e7d5e;
+            --success-light: #e3f2e9;
+            --error: #b13e3e;
+            --error-light: #fee9e9;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --shadow-inset: inset 0 -2px 5px rgba(180, 140, 80, 0.1);
+            --border-radius-sm: 12px;
+            --border-radius-md: 24px;
+            --border-radius-lg: 32px;
+            --border-radius-xl: 40px;
+            --border-radius-full: 9999px;
+            --font-serif: 'Times New Roman', 'SBL Hebrew', 'Ezra SIL', 'Cardo', 'Georgia', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(145deg, #2c3e2c 0%, #3f5e3f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .reading-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .reading-container {
+            background: var(--bg-light);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(201, 168, 124, 0.3);
+            overflow: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .reading-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--secondary-medium);
+        }
+
+        .reading-header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .reading-header h1 span {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: var(--secondary-light);
+            font-weight: 300;
+        }
+
+        .reading-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 0.4rem 1.5rem;
+            border-radius: var(--border-radius-full);
+        }
+
+        /* ===== REFERENCIA BÍBLICA ===== */
+        .reference-bar {
+            background: var(--bg-soft);
+            padding: 1rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--secondary-light);
+        }
+
+        .reference {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .reference span {
+            color: var(--secondary-dark);
+            font-weight: 400;
+            margin: 0 0.5rem;
+        }
+
+        /* ===== TARJETA DEL VERSÍCULO ===== */
+        .verse-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            margin: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
+            border: 2px solid var(--secondary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verse-card::before {
+            content: "בְּרֵאשִׁית";
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 5rem;
+            font-family: var(--font-serif);
+            color: rgba(180, 140, 100, 0.1);
+            direction: rtl;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hebrew-verse {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            font-family: var(--font-serif);
+            direction: rtl;
+            text-align: center;
+            color: var(--primary-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 0 rgba(180, 140, 100, 0.1);
+            word-break: break-word;
+        }
+
+        .transliteration-verse {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            text-align: center;
+            color: var(--secondary-dark);
+            background: var(--bg-soft);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--secondary-light);
+            letter-spacing: 0.5px;
+            font-style: italic;
+        }
+
+        .translation-verse {
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            text-align: center;
+            color: var(--text-soft);
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            border: 1px dashed var(--secondary-medium);
+        }
+
+        /* ===== CONTROLES DE AUDIO ===== */
+        .audio-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-soft);
+            border-radius: var(--border-radius-lg);
+            border: 2px solid var(--secondary-light);
+        }
+
+        .audio-btn-primary {
+            background: linear-gradient(145deg, var(--primary-medium), var(--primary-dark));
+            border: 3px solid var(--secondary-medium);
+            border-radius: var(--border-radius-full);
+            padding: 1rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--primary-dark);
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .audio-btn-primary::before {
+            content: "🔊";
+            font-size: 1.5rem;
+        }
+
+        .audio-btn-primary:active {
+            transform: translateY(6px);
+            box-shadow: 0 1px 0 var(--primary-dark);
+        }
+
+        .audio-btn-secondary {
+            background: white;
+            border: 2px solid var(--secondary-medium);
+            border-radius: var(--border-radius-full);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--secondary-dark);
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .audio-btn-secondary:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--secondary-dark);
+        }
+
+        /* ===== SECCIÓN DE GRABACIÓN ===== */
+        .recording-section {
+            margin: 2rem 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(145deg, #ffffff, var(--bg-soft));
+            border-radius: var(--border-radius-lg);
+            border: 3px dashed var(--secondary-medium);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .section-title::before {
+            content: "🎤";
+            margin-right: 0.8rem;
+        }
+
+        .mic-permission-note {
+            background: #fff3d6;
+            border: 2px solid var(--accent-gold);
+            border-radius: var(--border-radius-full);
+            padding: 0.8rem 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .recording-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .record-btn {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #7a2c2c;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .record-btn.recording {
+            background: #666;
+            box-shadow: 0 4px 0 #444;
+            animation: pulse 1.5s infinite;
+        }
+
+        .record-btn::before {
+            content: "⏺️";
+            font-size: 1.3rem;
+        }
+
+        .record-btn.recording::before {
+            content: "⏹️";
+        }
+
+        .stop-btn {
+            background: var(--primary-medium);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--primary-dark);
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .stop-btn::before {
+            content: "⏹️";
+            font-size: 1.3rem;
+        }
+
+        .stop-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--primary-dark);
+        }
+
+        .playback-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--secondary-light);
+        }
+
+        .playback-btn {
+            background: white;
+            border: 2px solid var(--success);
+            color: var(--success);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .playback-btn:hover {
+            background: var(--success-light);
+            transform: scale(1.02);
+        }
+
+        .playback-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .playback-btn::before {
+            content: "▶️";
+            font-size: 1.3rem;
+        }
+
+        .clear-btn {
+            background: white;
+            border: 2px solid var(--error);
+            color: var(--error);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .clear-btn:hover {
+            background: var(--error-light);
+        }
+
+        .clear-btn::before {
+            content: "🗑️";
+            font-size: 1.3rem;
+        }
+
+        .status-message {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: var(--border-radius-full);
+            font-weight: 500;
+        }
+
+        .status-message.info {
+            background: #e1f0fa;
+            color: #1e5f8e;
+            border: 2px solid #4a9fd8;
+        }
+
+        .status-message.success {
+            background: var(--success-light);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .status-message.error {
+            background: var(--error-light);
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+
+        /* ===== NOTA INFORMATIVA ===== */
+        .info-note {
+            margin: 2rem 1.5rem;
+            padding: 1.5rem;
+            background: #fff3d6;
+            border-radius: var(--border-radius-lg);
+            border-left: 8px solid var(--accent-gold);
+        }
+
+        .info-note p {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .info-note ul {
+            margin-left: 2rem;
+            color: var(--text-soft);
+        }
+
+        .info-note li {
+            margin: 0.5rem 0;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            text-align: center;
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .reading-container {
+                border-radius: var(--border-radius-lg);
+            }
+            
+            .reading-header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .verse-card {
+                padding: 1.5rem 1rem;
+                margin: 1rem;
+            }
+            
+            .hebrew-verse {
+                font-size: 1.8rem;
+                line-height: 2.2rem;
+            }
+            
+            .audio-controls, .recording-section {
+                margin: 1rem;
+            }
+            
+            .audio-btn-primary, .audio-btn-secondary {
+                width: 100%;
+            }
+            
+            .recording-controls, .playback-controls {
+                flex-direction: column;
+            }
+            
+            .record-btn, .stop-btn, .playback-btn, .clear-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-wrapper">
+        <div class="reading-container">
+            <!-- Header -->
+            <div class="reading-header">
+                <h1>קְרִיאָה <span>· Lectura Bíblica</span></h1>
+                <div class="reading-subtitle">Génesis 1:1 · El principio de la creación</div>
+            </div>
+
+            <!-- Referencia -->
+            <div class="reference-bar">
+                <div class="reference">
+                    בְּרֵאשִׁית <span>·</span> Génesis 1:1
+                </div>
+            </div>
+
+            <!-- Versículo -->
+            <div class="verse-card">
+                <div class="hebrew-verse" dir="rtl">
+                    בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ
+                </div>
+                <div class="transliteration-verse">
+                    bərēʾšîṯ bārāʾ ʾĕlōhîm ʾēṯ haššāmayim wəʾēṯ hāʾāreṣ
+                </div>
+                <div class="translation-verse">
+                    "En el principio creó Dios los cielos y la tierra"
+                </div>
+            </div>
+
+            <!-- Controles de audio -->
+            <div class="audio-controls">
+                <button class="audio-btn-primary" id="playOriginalBtn">Escuchar original</button>
+                <button class="audio-btn-secondary" id="playSyllableBtn">Escuchar por sílabas</button>
+            </div>
+
+            <!-- Sección de grabación -->
+            <div class="recording-section">
+                <div class="section-title">Practica tu pronunciación</div>
+                
+                <div class="mic-permission-note" id="micPermissionNote">
+                    🎤 Para grabar, necesitas permitir el acceso al micrófono
+                </div>
+
+                <!-- Controles de grabación -->
+                <div class="recording-controls">
+                    <button class="record-btn" id="recordBtn">Comenzar grabación</button>
+                    <button class="stop-btn" id="stopBtn" disabled>Detener grabación</button>
+                </div>
+
+                <!-- Estado de la grabación -->
+                <div class="status-message" id="recordingStatus"></div>
+
+                <!-- Controles de reproducción -->
+                <div class="playback-controls">
+                    <button class="playback-btn" id="playRecordingBtn" disabled>Escuchar mi grabación</button>
+                    <button class="clear-btn" id="clearBtn" disabled>Borrar grabación</button>
+                </div>
+            </div>
+
+            <!-- Nota informativa -->
+            <div class="info-note">
+                <p><strong>📝 Cómo practicar:</strong></p>
+                <ul>
+                    <li>🎧 Escucha primero el verso completo o por sílabas</li>
+                    <li>🎤 Graba tu lectura (necesitas dar permiso al micrófono)</li>
+                    <li>👂 Escucha tu grabación y compárala con el original</li>
+                    <li>🔄 Repite hasta que estés satisfecho con tu pronunciación</li>
+                </ul>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    ⚠️ La evaluación es personal: tú mismo comparas tu grabación con el original.
+                    ¡Es la mejor forma de aprender!
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ✦ Escucha · Graba · Compara · Mejora ✦
+        </div>
+    </div>
+
+    <script>
+        // ==================== CONFIGURACIÓN DEL AUDIO ====================
+        
+        // Texto del verso (para síntesis de voz)
+        const hebrewVerse = "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ";
+        
+        // División silábica aproximada para mejor aprendizaje
+        const syllables = [
+            "בְּרֵא", "שִׁית", 
+            "בָּרָא", 
+            "אֱלֹהִים", 
+            "אֵת", 
+            "הַשָּׁמַיִם", 
+            "וְאֵת", 
+            "הָאָרֶץ"
+        ];
+
+        // Variables para grabación
+        let mediaRecorder;
+        let audioChunks = [];
+        let audioBlob = null;
+        let audioUrl = null;
+        let audioPlayer = new Audio();
+        let isRecording = false;
+
+        // Elementos DOM
+        const playOriginalBtn = document.getElementById('playOriginalBtn');
+        const playSyllableBtn = document.getElementById('playSyllableBtn');
+        const recordBtn = document.getElementById('recordBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const playRecordingBtn = document.getElementById('playRecordingBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const recordingStatus = document.getElementById('recordingStatus');
+        const micPermissionNote = document.getElementById('micPermissionNote');
+
+        // ==================== FUNCIONES DE AUDIO ====================
+        
+        function speakText(text, rate = 0.7) {
+            if (!window.speechSynthesis) {
+                alert("Tu navegador no soporta síntesis de voz.");
+                return;
+            }
+            
+            // Detener cualquier audio anterior
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'he-IL';
+            utterance.rate = rate;
+            utterance.pitch = 0.9;
+            
+            // Buscar voz en hebreo
+            const voices = window.speechSynthesis.getVoices();
+            const hebrewVoice = voices.find(voice => 
+                voice.lang.includes('he') || 
+                voice.lang.includes('iw') || 
+                voice.name.includes('Hebrew')
+            );
+            
+            if (hebrewVoice) {
+                utterance.voice = hebrewVoice;
+            }
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function playOriginal() {
+            speakText(hebrewVerse, 0.6); // Más lento para mejor comprensión
+            updateStatus('Reproduciendo verso completo...', 'info');
+        }
+
+        function playSyllableBySyllable() {
+            let index = 0;
+            
+            function speakNext() {
+                if (index < syllables.length) {
+                    speakText(syllables[index], 0.4); // Muy lento para sílabas
+                    updateStatus(`Sílaba ${index + 1} de ${syllables.length}: ${syllables[index]}`, 'info');
+                    index++;
+                    
+                    // Programar la siguiente sílaba
+                    setTimeout(speakNext, 2000);
+                } else {
+                    updateStatus('Sílabas completadas', 'success');
+                }
+            }
+            
+            speakNext();
+        }
+
+        // ==================== FUNCIONES DE GRABACIÓN ====================
+        
+        async function initializeRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    audioUrl = URL.createObjectURL(audioBlob);
+                    audioPlayer.src = audioUrl;
+                    
+                    // Habilitar botones de reproducción
+                    playRecordingBtn.disabled = false;
+                    clearBtn.disabled = false;
+                    
+                    updateStatus('✅ Grabación guardada. ¡Puedes escucharla!', 'success');
+                };
+                
+                micPermissionNote.innerHTML = '✅ Micrófono accesible. ¡Puedes grabar!';
+                micPermissionNote.style.background = '#e3f2e9';
+                micPermissionNote.style.borderColor = '#2e7d5e';
+                
+                return true;
+            } catch (error) {
+                console.error('Error al acceder al micrófono:', error);
+                micPermissionNote.innerHTML = '❌ No se pudo acceder al micrófono. Verifica los permisos.';
+                micPermissionNote.style.background = '#fee9e9';
+                micPermissionNote.style.borderColor = '#b13e3e';
+                return false;
+            }
+        }
+
+        function startRecording() {
+            if (!mediaRecorder) {
+                initializeRecording().then(success => {
+                    if (success) {
+                        startRecording();
+                    }
+                });
+                return;
+            }
+            
+            audioChunks = [];
+            mediaRecorder.start();
+            isRecording = true;
+            
+            recordBtn.disabled = true;
+            stopBtn.disabled = false;
+            recordBtn.classList.add('recording');
+            recordBtn.innerHTML = '⏺️ Grabando...';
+            
+            updateStatus('🔴 Grabando... Habla claramente', 'info');
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                
+                recordBtn.disabled = false;
+                stopBtn.disabled = true;
+                recordBtn.classList.remove('recording');
+                recordBtn.innerHTML = 'Comenzar grabación';
+            }
+        }
+
+        function playRecording() {
+            if (audioUrl) {
+                audioPlayer.play();
+                updateStatus('🎧 Reproduciendo tu grabación...', 'info');
+            }
+        }
+
+        function clearRecording() {
+            audioChunks = [];
+            audioBlob = null;
+            audioUrl = null;
+            audioPlayer.src = '';
+            
+            playRecordingBtn.disabled = true;
+            clearBtn.disabled = true;
+            
+            updateStatus('🗑️ Grabación borrada', 'info');
+        }
+
+        function updateStatus(message, type) {
+            recordingStatus.textContent = message;
+            recordingStatus.className = `status-message ${type}`;
+        }
+
+        // ==================== EVENTOS ====================
+        
+        playOriginalBtn.addEventListener('click', playOriginal);
+        
+        playSyllableBtn.addEventListener('click', playSyllableBySyllable);
+        
+        recordBtn.addEventListener('click', startRecording);
+        
+        stopBtn.addEventListener('click', stopRecording);
+        
+        playRecordingBtn.addEventListener('click', playRecording);
+        
+        clearBtn.addEventListener('click', clearRecording);
+
+        // Inicializar permisos de micrófono al cargar la página
+        window.addEventListener('load', () => {
+            // Verificar si el navegador soporta getUserMedia
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // No pedimos permiso hasta que el usuario haga clic en grabar
+                micPermissionNote.innerHTML = '🎤 Haz clic en "Comenzar grabación" para usar el micrófono';
+            } else {
+                micPermissionNote.innerHTML = '❌ Tu navegador no soporta grabación de audio';
+                micPermissionNote.style.background = '#fee9e9';
+                micPermissionNote.style.borderColor = '#b13e3e';
+                recordBtn.disabled = true;
+            }
+        });
+
+        // Cargar voces disponibles
+        window.speechSynthesis.onvoiceschanged = () => {
+            const voices = window.speechSynthesis.getVoices();
+            const hebrewVoice = voices.find(voice => 
+                voice.lang.includes('he') || 
+                voice.lang.includes('iw') || 
+                voice.name.includes('Hebrew')
+            );
+            
+            if (hebrewVoice) {
+                console.log('Voz en hebreo disponible:', hebrewVoice.name);
+            } else {
+                console.log('No se encontró voz específica para hebreo. Se usará la aproximación por defecto.');
+            }
+        };
+    </script>
+</body>
+</html>

@@ -74,6 +74,8 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'resumen de la semana', url: 'semanas/semana3/html/resumen.html', icono: '🔓' },
                     { tipo: 'html', titulo: 'Práctica de Lectura', url: 'semanas/semana3/html/practica.html', icono: '📖' },
                     { tipo: 'html', titulo: 'Vocabulario', url: 'vocab.html', icono: '📖' },
+                     { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
                      { tipo: 'examen', titulo: 'Examen Semana 3- Sílabas', url: 'https://forms.gle/F5sduG11CNuRmtU68', icono: '📝' }
                 ],
                 juegos: [

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Hebreo Bíblico · Juego de Vocabulario</title>
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --primary-dark: #2c3e2c;
+            --primary-medium: #3f5e3f;
+            --primary-light: #5b8c5b;
+            --secondary-dark: #8b6f4c;
+            --secondary-medium: #b5946e;
+            --secondary-light: #d4b68a;
+            --accent-warm: #c9775e;
+            --accent-gold: #e6b422;
+            --bg-light: #fdfbf7;
+            --bg-soft: #f5efe7;
+            --bg-card: #ffffff;
+            --text-dark: #2c3e2c;
+            --text-soft: #4a4a4a;
+            --text-light: #6b6b6b;
+            --success: #2e7d5e;
+            --success-light: #e3f2e9;
+            --error: #b13e3e;
+            --error-light: #fee9e9;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --shadow-inset: inset 0 -2px 5px rgba(180, 140, 80, 0.1);
+            --border-radius-sm: 12px;
+            --border-radius-md: 24px;
+            --border-radius-lg: 32px;
+            --border-radius-xl: 40px;
+            --border-radius-full: 9999px;
+            --font-serif: 'Times New Roman', 'SBL Hebrew', 'Ezra SIL', 'Cardo', 'Georgia', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(145deg, #1e3c2c 0%, #2a4a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .game-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-container {
+            background: var(--bg-light);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(201, 168, 124, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== HEADER ===== */
+        .game-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--secondary-medium);
+        }
+
+        .game-header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-header h1 span {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: var(--secondary-light);
+            font-weight: 300;
+        }
+
+        .game-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 0.4rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            backdrop-filter: blur(4px);
+        }
+
+        /* ===== SELECTOR DE SEMANA ===== */
+        .week-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            background: var(--bg-soft);
+            border-bottom: 2px solid var(--secondary-light);
+        }
+
+        .week-btn {
+            background: white;
+            border: 2px solid var(--secondary-medium);
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            flex: 0 1 auto;
+            min-width: 90px;
+        }
+
+        .week-btn:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .week-btn.active {
+            background: var(--primary-medium);
+            border-color: var(--primary-dark);
+            color: white;
+            box-shadow: 0 4px 0 var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .week-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--primary-dark);
+        }
+
+        /* ===== PANEL DE ESTADÍSTICAS ===== */
+        .stats-panel {
+            background: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-bottom: 2px solid var(--secondary-light);
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .score-badge {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score-badge::before {
+            content: "🏆";
+            font-size: 1.2rem;
+        }
+
+        .progress-badge {
+            background: var(--bg-soft);
+            color: var(--text-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 500;
+            border: 1px solid var(--secondary-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-badge::before {
+            content: "📚";
+            font-size: 1.1rem;
+        }
+
+        .reset-btn {
+            background: var(--accent-warm);
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #9b5a42;
+            transition: all 0.1s ease;
+            border: 1px solid #ffd8b0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reset-btn::before {
+            content: "↺";
+            font-size: 1.2rem;
+        }
+
+        .reset-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #9b5a42;
+        }
+
+        /* ===== TARJETA DE PREGUNTA ===== */
+        .question-card {
+            background: var(--bg-card);
+            padding: 2rem 1.5rem;
+            margin: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
+            border: 2px solid var(--secondary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-light), var(--secondary-medium), var(--accent-warm));
+        }
+
+        .hebrew-display {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hebrew-word {
+            font-size: clamp(4rem, 12vw, 6rem);
+            font-weight: 500;
+            direction: rtl;
+            font-family: var(--font-serif);
+            color: var(--primary-dark);
+            text-shadow: 3px 3px 0 rgba(180, 140, 100, 0.15);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .transliteration {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: var(--secondary-dark);
+            background: var(--bg-soft);
+            padding: 0.3rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            display: inline-block;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border: 1px solid var(--secondary-light);
+        }
+
+        .question-type {
+            text-align: center;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 1rem 0;
+        }
+
+        /* ===== OPCIONES DE RESPUESTA ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid var(--secondary-medium);
+            border-radius: var(--border-radius-md);
+            padding: 1.2rem 1rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 var(--secondary-dark);
+            text-align: center;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 var(--secondary-dark);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--secondary-dark);
+        }
+
+        .option-btn.correct {
+            background: var(--success);
+            border-color: #1b4b3b;
+            color: white;
+            box-shadow: 0 4px 0 #1b4b3b;
+        }
+
+        .option-btn.incorrect {
+            background: var(--error);
+            border-color: #7a2c2c;
+            color: white;
+            box-shadow: 0 4px 0 #7a2c2c;
+        }
+
+        .option-btn:disabled {
+            opacity: 0.9;
+            cursor: not-allowed;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--secondary-dark);
+        }
+
+        /* ===== FEEDBACK ===== */
+        .feedback-area {
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+        }
+
+        .feedback-message {
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-full);
+            font-weight: 500;
+            display: inline-block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-message.correct {
+            background: var(--success-light);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .feedback-message.incorrect {
+            background: var(--error-light);
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+
+        /* ===== CONTROLES INFERIORES ===== */
+        .game-footer {
+            padding: 0 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+            color: white;
+            border: none;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            padding: 0.8rem 3rem;
+            border-radius: var(--border-radius-full);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--primary-dark);
+            transition: all 0.1s ease;
+            border: 1px solid var(--secondary-light);
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .next-btn::after {
+            content: "→";
+            font-size: 1.6rem;
+        }
+
+        .next-btn:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 1px 0 var(--primary-dark);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 0 var(--primary-dark);
+        }
+
+        .audio-control {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--bg-soft);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius-full);
+            border: 1px solid var(--secondary-medium);
+        }
+
+        .audio-btn {
+            background: white;
+            border: 2px solid var(--secondary-medium);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .audio-btn:hover {
+            background: var(--secondary-light);
+            transform: scale(1.05);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+
+        .audio-hint {
+            color: var(--text-soft);
+            font-size: 1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            text-align: center;
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* ===== RESPONSIVE EXTRA ===== */
+        @media (max-width: 600px) {
+            .game-container {
+                border-radius: var(--border-radius-lg);
+            }
+            
+            .game-header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .stats-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .stats-left {
+                justify-content: center;
+            }
+            
+            .reset-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-card {
+                padding: 1.5rem 1rem;
+                margin: 1rem;
+            }
+            
+            .next-btn {
+                min-width: 200px;
+                font-size: 1.3rem;
+            }
+            
+            .week-btn {
+                min-width: 70px;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .score-badge, .progress-badge {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .week-btn {
+                min-width: 60px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ===== ANIMACIONES ===== */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .shake {
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* ===== UTILIDADES ===== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="game-container">
+            <!-- Header -->
+            <div class="game-header">
+                <h1>מִשְׂחָק <span>· Flashcards Game</span></h1>
+                <div class="game-subtitle">Selecciona la respuesta correcta · 6 semanas de vocabulario</div>
+            </div>
+
+            <!-- Selector de semana -->
+            <div class="week-selector" id="weekSelector">
+                <button class="week-btn" data-week="week3">Semana 3</button>
+                <button class="week-btn" data-week="week4">Semana 4</button>
+                <button class="week-btn" data-week="week5">Semana 5</button>
+                <button class="week-btn" data-week="week6">Semana 6</button>
+                <button class="week-btn" data-week="week7">Semana 7</button>
+                <button class="week-btn active" data-week="week8">Semana 8</button>
+            </div>
+
+            <!-- Panel de estadísticas -->
+            <div class="stats-panel">
+                <div class="stats-left">
+                    <div class="score-badge" id="scoreDisplay">0/0</div>
+                    <div class="progress-badge" id="progressDisplay">Pregunta 0/0</div>
+                </div>
+                <button class="reset-btn" id="resetBtn">Reiniciar semana</button>
+            </div>
+
+            <!-- Tarjeta de pregunta -->
+            <div class="question-card">
+                <div class="hebrew-display">
+                    <div class="hebrew-word" id="hebrewWord" dir="rtl">שֹׁפֵט</div>
+                    <div class="transliteration" id="translitWord">(šōfēṭ)</div>
+                </div>
+                
+                <div class="question-type" id="questionType">HEBREO → ESPAÑOL</div>
+
+                <!-- Opciones de respuesta -->
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Se generan dinámicamente -->
+                </div>
+
+                <!-- Feedback -->
+                <div class="feedback-area">
+                    <div class="feedback-message" id="feedbackMessage"></div>
+                </div>
+            </div>
+
+            <!-- Controles inferiores -->
+            <div class="game-footer">
+                <div class="action-buttons">
+                    <button class="next-btn" id="nextBtn" disabled>Siguiente</button>
+                </div>
+                
+                <div class="audio-control">
+                    <span class="audio-hint">🔊 Pronunciación:</span>
+                    <button class="audio-btn" id="audioBtn">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ✦ 4 opciones · 1 correcta · Aprende jugando ✦
+        </div>
+    </div>
+
+    <script>
+        // ==================== VOCABULARIO COMPLETO (Semanas 3-8) ====================
+        const vocabData = {
+            week3: [
+                { hebrew: "אָדָם", translit: "ʾādām", meaning: "hombre, humanidad, Adán", freq: 562 },
+                { hebrew: "אֶרֶץ", translit: "ʾereṣ", meaning: "tierra, suelo, país", freq: 2505 },
+                { hebrew: "אֱלֹהִים", translit: "ʾĕlōhîm", meaning: "Dios, dioses", freq: 2602 },
+                { hebrew: "אָב", translit: "ʾāḇ", meaning: "padre, antepasado", freq: 1211 },
+                { hebrew: "אֵל", translit: "ʾēl", meaning: "Dios, dios", freq: 317 },
+                { hebrew: "בֵּן", translit: "bēn", meaning: "hijo", freq: 4941 },
+                { hebrew: "בַּיִת", translit: "bayiṯ", meaning: "casa, hogar", freq: 2047 },
+                { hebrew: "דָּבָר", translit: "dāḇār", meaning: "palabra, asunto, cosa", freq: 1454 },
+                { hebrew: "יוֹם", translit: "yôm", meaning: "día", freq: 2301 },
+                { hebrew: "יִשְׂרָאֵל", translit: "yiśrāʾēl", meaning: "Israel", freq: 2507 },
+                { hebrew: "יְרוּשָׁלַיִם", translit: "yərûšālayim", meaning: "Jerusalén", freq: 643 },
+                { hebrew: "יְהוָה", translit: "YHWH", meaning: "Yahweh, SEÑOR", freq: 6828 },
+                { hebrew: "מִצְרַיִם", translit: "miṣrayim", meaning: "Egipto", freq: 682 },
+                { hebrew: "מֹשֶׁה", translit: "mōšeh", meaning: "Moisés", freq: 766 },
+                { hebrew: "מֶלֶךְ", translit: "melek", meaning: "rey, gobernante", freq: 2530 },
+                { hebrew: "סוּס", translit: "sûs", meaning: "caballo", freq: 138 },
+                { hebrew: "עֶבֶד", translit: "ʿeḇeḏ", meaning: "siervo, esclavo", freq: 803 },
+                { hebrew: "פַּרְעֹה", translit: "parʿōh", meaning: "Faraón", freq: 274 },
+                { hebrew: "שָׁנָה", translit: "šānāh", meaning: "año", freq: 878 },
+                { hebrew: "שֵׁם", translit: "šēm", meaning: "nombre, reputación", freq: 864 }
+            ],
+            week4: [
+                { hebrew: "אָב", translit: "ʾāv", meaning: "padre, antepasado", freq: 1211 },
+                { hebrew: "אָדוֹן", translit: "ʾādōn", meaning: "señor, amo", freq: 774 },
+                { hebrew: "אָח", translit: "ʾāḥ", meaning: "hermano", freq: 629 },
+                { hebrew: "אִישׁ", translit: "ʾîš", meaning: "hombre, esposo", freq: 2198 },
+                { hebrew: "אִשָּׁה", translit: "ʾiššāh", meaning: "mujer, esposa", freq: 779 },
+                { hebrew: "בַּת", translit: "baṯ", meaning: "hija", freq: 603 },
+                { hebrew: "גּוֹי", translit: "gôy", meaning: "nación, pueblo", freq: 567 },
+                { hebrew: "דֶּרֶךְ", translit: "dérek", meaning: "camino, viaje", freq: 712 },
+                { hebrew: "הַר", translit: "har", meaning: "monte, montaña", freq: 558 },
+                { hebrew: "כֹּהֵן", translit: "kōhēn", meaning: "sacerdote", freq: 750 },
+                { hebrew: "לֵב", translit: "lēv", meaning: "corazón, mente", freq: 586 },
+                { hebrew: "מַיִם", translit: "máyim", meaning: "agua", freq: 586 },
+                { hebrew: "נֶפֶשׁ", translit: "néfeš", meaning: "alma, vida", freq: 757 },
+                { hebrew: "נָבִיא", translit: "nāvîʾ", meaning: "profeta", freq: 317 },
+                { hebrew: "סֵפֶר", translit: "séfer", meaning: "libro, rollo", freq: 191 },
+                { hebrew: "עַיִן", translit: "ʿáyin", meaning: "ojo, manantial", freq: 900 },
+                { hebrew: "עִיר", translit: "ʿîr", meaning: "ciudad, pueblo", freq: 1095 },
+                { hebrew: "צָבָא", translit: "ṣāvāʾ", meaning: "ejército, hueste", freq: 487 },
+                { hebrew: "קוֹל", translit: "qôl", meaning: "voz, sonido", freq: 505 },
+                { hebrew: "רֹאשׁ", translit: "rōʾš", meaning: "cabeza, jefe", freq: 600 },
+                { hebrew: "תּוֹרָה", translit: "tôrāh", meaning: "ley, instrucción", freq: 223 }
+            ],
+            week5: [
+                { hebrew: "אֵשׁ", translit: "ʾēš", meaning: "fuego", freq: 376 },
+                { hebrew: "הֵיכָל", translit: "hêkhāl", meaning: "templo, palacio", freq: 80 },
+                { hebrew: "וְ", translit: "v-", meaning: "y, pero, entonces", freq: 50524 },
+                { hebrew: "זָהָב", translit: "zāhāv", meaning: "oro", freq: 392 },
+                { hebrew: "חֶרֶב", translit: "ḥéreḇ", meaning: "espada", freq: 413 },
+                { hebrew: "חַי", translit: "ḥay", meaning: "vivo, viviente", freq: 254 },
+                { hebrew: "חַיִּים", translit: "ḥayyîm", meaning: "vida", freq: 140 },
+                { hebrew: "יֶלֶד", translit: "yéleḏ", meaning: "niño, muchacho", freq: 89 },
+                { hebrew: "יָם", translit: "yām", meaning: "mar", freq: 396 },
+                { hebrew: "כֶּסֶף", translit: "késef", meaning: "plata, dinero", freq: 403 },
+                { hebrew: "כֹּה", translit: "kōh", meaning: "así, aquí", freq: 577 },
+                { hebrew: "מָקוֹם", translit: "māqôm", meaning: "lugar, sitio", freq: 401 },
+                { hebrew: "מִשְׁפָּט", translit: "mišpāṭ", meaning: "juicio, ley", freq: 425 },
+                { hebrew: "מִזְבֵּחַ", translit: "mizbēªḥ", meaning: "altar", freq: 403 },
+                { hebrew: "נְאֻם", translit: "nəʾum", meaning: "declaración, oráculo", freq: 376 },
+                { hebrew: "עוֹלָם", translit: "ʿôlām", meaning: "eternidad, antiguo", freq: 439 },
+                { hebrew: "עָנָן", translit: "ʿānān", meaning: "nube", freq: 87 },
+                { hebrew: "רוּחַ", translit: "rûªḥ", meaning: "espíritu, viento", freq: 378 },
+                { hebrew: "שַׂר", translit: "śar", meaning: "príncipe, oficial", freq: 421 },
+                { hebrew: "שַׁעַר", translit: "šáʿar", meaning: "puerta, portal", freq: 373 },
+                { hebrew: "שָׁמַיִם", translit: "šāmayim", meaning: "cielo, cielos", freq: 421 }
+            ],
+            week6: [
+                { hebrew: "אַחַר", translit: "'aḥar", meaning: "después de, detrás", freq: 718 },
+                { hebrew: "אֵת", translit: "'ēt", meaning: "con, junto a", freq: 890 },
+                { hebrew: "אֵת (2)", translit: "'ēt", meaning: "marcador objeto directo", freq: 10978 },
+                { hebrew: "אֶל", translit: "'el", meaning: "a, hacia", freq: 5518 },
+                { hebrew: "בֵּין", translit: "bên", meaning: "entre", freq: 409 },
+                { hebrew: "בְּ", translit: "bᵉ", meaning: "en, con, por", freq: 15559 },
+                { hebrew: "בְּתוֹךְ", translit: "bᵉtôk", meaning: "en medio de", freq: 420 },
+                { hebrew: "חָכְמָה", translit: "ḥåkmâ", meaning: "sabiduría", freq: 153 },
+                { hebrew: "כְּ", translit: "kᵉ", meaning: "como, según", freq: 3053 },
+                { hebrew: "כֹּל", translit: "kōl", meaning: "todo, cada", freq: 5415 },
+                { hebrew: "לִפְנֵי", translit: "lip̄nê", meaning: "delante de, ante", freq: 1102 },
+                { hebrew: "לְ", translit: "lᵉ", meaning: "a, para", freq: 20321 },
+                { hebrew: "לְמַעַן", translit: "lᵉmá'an", meaning: "a causa de", freq: 272 },
+                { hebrew: "מִן", translit: "min", meaning: "de, desde", freq: 7592 },
+                { hebrew: "מִצְוָה", translit: "miṣvâ", meaning: "mandamiento", freq: 184 },
+                { hebrew: "מַעַל", translit: "má'al", meaning: "arriba, encima", freq: 140 },
+                { hebrew: "עַד", translit: "'ad", meaning: "hasta, mientras", freq: 1263 },
+                { hebrew: "עַל", translit: "'al", meaning: "sobre, acerca de", freq: 5777 },
+                { hebrew: "עִם", translit: "'im", meaning: "con", freq: 1048 },
+                { hebrew: "פֶּה", translit: "peh", meaning: "boca, abertura", freq: 498 },
+                { hebrew: "שָׂדֶה", translit: "śādeh", meaning: "campo", freq: 329 },
+                { hebrew: "תַּחַת", translit: "táḥat", meaning: "debajo de", freq: 510 }
+            ],
+            week7: [
+                { hebrew: "אֶחָד", translit: "'eḥāḏ", meaning: "uno", freq: 976 },
+                { hebrew: "גָּדוֹל", translit: "gāḏôl", meaning: "grande, importante", freq: 527 },
+                { hebrew: "דַּל", translit: "dal", meaning: "pobre, débil, necesitado", freq: 48 },
+                { hebrew: "זָקֵן", translit: "zāqēn", meaning: "viejo, anciano; (sust.) anciano", freq: 180 },
+                { hebrew: "חָכָם", translit: "ḥāḵām", meaning: "sabio, hábil, experimentado", freq: 138 },
+                { hebrew: "טוֹב", translit: "ṭôḇ", meaning: "bueno, agradable", freq: 535 },
+                { hebrew: "יָפֶה", translit: "yāp̄eh", meaning: "hermoso, bello", freq: 43 },
+                { hebrew: "יָשָׁר", translit: "yāšār", meaning: "recto, justo, derecho", freq: 119 },
+                { hebrew: "כֵּן", translit: "kēn", meaning: "así, de este modo; לָכֵן por tanto", freq: 741 },
+                { hebrew: "מְאֹד", translit: "mə'ōḏ", meaning: "mucho, en gran manera, muy", freq: 300 },
+                { hebrew: "מְעַט", translit: "mə'aṭ", meaning: "poco, unos pocos", freq: 101 },
+                { hebrew: "עַתָּה", translit: "'attāh", meaning: "ahora", freq: 435 },
+                { hebrew: "צַדִּיק", translit: "ṣadîq", meaning: "justo, recto, inocente", freq: 206 },
+                { hebrew: "קֹדֶשׁ", translit: "qōḏeš", meaning: "santidad, cosa sagrada", freq: 470 },
+                { hebrew: "קָדוֹשׁ", translit: "qāḏôš", meaning: "santo, apartado", freq: 117 },
+                { hebrew: "קָטֹן", translit: "qāṭōn", meaning: "pequeño, joven, insignificante", freq: 74 },
+                { hebrew: "קָרוֹב", translit: "qārôḇ", meaning: "cercano, próximo", freq: 75 },
+                { hebrew: "קָשֶׁה", translit: "qāšeh", meaning: "difícil, duro, severo", freq: 36 },
+                { hebrew: "רָחוֹק", translit: "rāḥôq", meaning: "distante, lejano", freq: 84 },
+                { hebrew: "רַב", translit: "raḇ", meaning: "mucho, grande, numeroso", freq: 419 },
+                { hebrew: "רַע", translit: "ra'", meaning: "malo, malvado, perverso", freq: 312 },
+                { hebrew: "רָשָׁע", translit: "rāšā'", meaning: "malvado, culpable, impío", freq: 264 },
+                { hebrew: "שִׁיר", translit: "šîr", meaning: "canción, canto", freq: 78 }
+            ],
+            week8: [
+                { hebrew: "אֹהֶל", translit: "'ōhel", meaning: "tienda, tabernáculo", freq: 348 },
+                { hebrew: "אַחֵר", translit: "'aḥēr", meaning: "otro, diferente, extranjero", freq: 166 },
+                { hebrew: "אֵיךְ", translit: "'êḵ", meaning: "¿cómo?", freq: 61 },
+                { hebrew: "אֶלֶף", translit: "'élef", meaning: "mil", freq: 496 },
+                { hebrew: "אֲשֶׁר", translit: "'ăšer", meaning: "que, quien, cual; cuando, como", freq: 5503 },
+                { hebrew: "בְּהֵמָה", translit: "bəhēmâ", meaning: "animal, bestia, ganado", freq: 190 },
+                { hebrew: "גַּם", translit: "gam", meaning: "también, incluso", freq: 769 },
+                { hebrew: "דָּם", translit: "dām", meaning: "sangre", freq: 361 },
+                { hebrew: "הֲ", translit: "ha-", meaning: "partícula interrogativa", freq: 664 },
+                { hebrew: "טָהוֹר", translit: "ṭāhôr", meaning: "limpio, puro", freq: 96 },
+                { hebrew: "כִּי", translit: "kî", meaning: "que, porque; sino; ciertamente", freq: 4487 },
+                { hebrew: "כְּסִיל", translit: "kəsîl", meaning: "necio, insensato", freq: 70 },
+                { hebrew: "לָמָּה", translit: "lāmmâ", meaning: "¿por qué?", freq: 178 },
+                { hebrew: "מָה", translit: "mâ", meaning: "¿qué?", freq: 571 },
+                { hebrew: "מַדּוּעַ", translit: "maddûa'", meaning: "¿por qué?", freq: 72 },
+                { hebrew: "מִי", translit: "mî", meaning: "¿quién?", freq: 424 },
+                { hebrew: "עָנִי", translit: "'ānî", meaning: "pobre, humilde, afligido", freq: 80 },
+                { hebrew: "שֶׁמֶן", translit: "šémen", meaning: "aceite, grasa", freq: 193 },
+                { hebrew: "שֹׁפֵט", translit: "šōfēṭ", meaning: "juez, el que juzga", freq: 68 }
+            ]
+        };
+
+        // ==================== ESTADO DEL JUEGO ====================
+        let currentWeek = 'week8';
+        let words = vocabData[currentWeek];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+        let currentQuestion = null;
+        let shuffledOptions = [];
+
+        // Elementos DOM
+        const weekBtns = document.querySelectorAll('.week-btn');
+        const hebrewWordEl = document.getElementById('hebrewWord');
+        const translitWordEl = document.getElementById('translitWord');
+        const questionTypeEl = document.getElementById('questionType');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const nextBtn = document.getElementById('nextBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const progressDisplay = document.getElementById('progressDisplay');
+        const resetBtn = document.getElementById('resetBtn');
+        const audioBtn = document.getElementById('audioBtn');
+
+        // ==================== FUNCIONES ====================
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRandomWrongOptions(correctMeaning, count = 3) {
+            const otherMeanings = words
+                .filter((w, idx) => idx !== currentIndex)
+                .map(w => w.meaning);
+            
+            const shuffled = shuffleArray([...otherMeanings]);
+            return shuffled.slice(0, count);
+        }
+
+        function loadQuestion() {
+            if (words.length === 0) return;
+            
+            currentQuestion = words[currentIndex];
+            
+            hebrewWordEl.textContent = currentQuestion.hebrew;
+            translitWordEl.textContent = `(${currentQuestion.translit})`;
+            
+            const correct = currentQuestion.meaning;
+            const wrongOptions = getRandomWrongOptions(correct, 3);
+            
+            let options = [correct, ...wrongOptions];
+            
+            // Asegurar que tengamos 4 opciones
+            if (options.length < 4) {
+                const allOtherMeanings = [];
+                for (const week in vocabData) {
+                    if (week !== currentWeek) {
+                        vocabData[week].forEach(w => allOtherMeanings.push(w.meaning));
+                    }
+                }
+                const extraShuffled = shuffleArray(allOtherMeanings);
+                while (options.length < 4) {
+                    options.push(extraShuffled.pop() || "opción adicional");
+                }
+            }
+            
+            shuffledOptions = shuffleArray([...options]);
+            
+            renderOptions();
+            
+            questionTypeEl.textContent = "HEBREO → ESPAÑOL";
+            
+            answered = false;
+            feedbackMessage.innerHTML = '';
+            feedbackMessage.className = 'feedback-message';
+            nextBtn.disabled = true;
+            
+            progressDisplay.textContent = `Pregunta ${currentIndex + 1}/${words.length}`;
+            scoreDisplay.textContent = `${score}/${words.length}`;
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('correct', 'incorrect');
+            });
+        }
+
+        function renderOptions() {
+            optionsContainer.innerHTML = '';
+            shuffledOptions.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.dataset.option = option;
+                btn.dataset.index = index;
+                btn.addEventListener('click', () => handleOptionClick(option));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleOptionClick(selectedMeaning) {
+            if (answered) return;
+            
+            const correct = currentQuestion.meaning;
+            const isCorrect = (selectedMeaning === correct);
+            
+            answered = true;
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.option === correct) {
+                    btn.classList.add('correct');
+                } else if (btn.dataset.option === selectedMeaning && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                score++;
+                feedbackMessage.innerHTML = '✅ ¡Correcto!';
+                feedbackMessage.className = 'feedback-message correct';
+            } else {
+                feedbackMessage.innerHTML = `❌ Incorrecto. La respuesta correcta es: "${correct}"`;
+                feedbackMessage.className = 'feedback-message incorrect';
+            }
+            
+            scoreDisplay.textContent = `${score}/${words.length}`;
+            nextBtn.disabled = false;
+        }
+
+        function goToNext() {
+            if (currentIndex < words.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                hebrewWordEl.textContent = "🏆 ¡Felicidades!";
+                translitWordEl.textContent = "";
+                optionsContainer.innerHTML = '';
+                feedbackMessage.innerHTML = `Has completado la semana. Puntuación final: ${score}/${words.length}`;
+                feedbackMessage.className = 'feedback-message correct';
+                nextBtn.disabled = true;
+            }
+        }
+
+        function changeWeek(week) {
+            currentWeek = week;
+            words = vocabData[currentWeek];
+            currentIndex = 0;
+            score = 0;
+            answered = false;
+            
+            weekBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.week === week) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            loadQuestion();
+        }
+
+        function resetGame() {
+            currentIndex = 0;
+            score = 0;
+            answered = false;
+            loadQuestion();
+        }
+
+        function speakHebrew(text) {
+            if (!window.speechSynthesis) {
+                alert("Tu navegador no soporta síntesis de voz.");
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'he-IL';
+            utterance.rate = 0.8;
+            utterance.pitch = 0.9;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // ==================== EVENTOS ====================
+        
+        weekBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                changeWeek(btn.dataset.week);
+            });
+        });
+
+        nextBtn.addEventListener('click', goToNext);
+        resetBtn.addEventListener('click', resetGame);
+
+        audioBtn.addEventListener('click', () => {
+            if (currentQuestion) {
+                speakHebrew(currentQuestion.hebrew);
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                nextBtn.click();
+            }
+        });
+
+        // Inicializar
+        changeWeek('week8');
+    </script>
+</body>
+</html>
