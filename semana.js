@@ -99,7 +99,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 4', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: '', icono: '📝' }
+                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: 'https://forms.gle/cGLhko6uQ43E6sGg9', icono: '📝' }
                 ],
                 juegos: [
                      { titulo: 'Laboratorio de terminaciones', url: 'semanas/semana4/juegos/laboratorio.html', icono: '⚥' },
