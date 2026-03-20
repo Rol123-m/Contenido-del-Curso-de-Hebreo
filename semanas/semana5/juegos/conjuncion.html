@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Juego: El Taller del Conector | Conjunción Waw</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Serif+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #fef9e6 0%, #fff4e0 50%, #fef0d8 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 20px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="%23b45309" d="M20,30 L30,20 L40,30 L30,40 Z M70,70 L80,60 L90,70 L80,80 Z M45,85 L55,75 L65,85 L55,95 Z"/><circle cx="50" cy="50" r="8"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+    }
+
+    .game-wrapper { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .waw-header {
+      text-align: center;
+      padding: 30px 20px 20px;
+    }
+
+    .waw-header h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      color: #9b3412;
+      text-shadow: 4px 4px 0 #fed7aa;
+      margin-bottom: 12px;
+    }
+
+    .waw-header h1 i { color: #d97706; margin-right: 10px; }
+
+    .waw-header p {
+      color: #78350f;
+      font-size: 1.1rem;
+      background: rgba(255,237,213,0.7);
+      display: inline-block;
+      padding: 8px 24px;
+      border-radius: 60px;
+    }
+
+    .workshop-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: #fde68a;
+      border-radius: 50px;
+      padding: 12px 25px;
+      margin-bottom: 40px;
+      border: 2px solid #f59e0b;
+      box-shadow: 0 8px 0 #b45309;
+    }
+
+    .badge {
+      background: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .badge i { font-size: 1.3rem; color: #f59e0b; }
+
+    .reset-workshop {
+      background: #dc2626;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 700;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #991b1b;
+    }
+
+    .reset-workshop:active { transform: translateY(2px); box-shadow: 0 1px 0 #991b1b; }
+
+    .connector-card {
+      background: #fff7ed;
+      border-radius: 60px;
+      padding: 35px 25px;
+      text-align: center;
+      margin-bottom: 35px;
+      border: 2px solid #fed7aa;
+      box-shadow: 0 20px 35px -12px rgba(180,83,9,0.2);
+    }
+
+    .phrase-preview {
+      font-size: 1.2rem;
+      color: #9a3412;
+      margin-bottom: 20px;
+      font-weight: 500;
+      background: #ffedd5;
+      display: inline-block;
+      padding: 5px 20px;
+      border-radius: 30px;
+    }
+
+    .base-word {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: clamp(2.8rem, 9vw, 4.5rem);
+      direction: rtl;
+      color: #2c1e0f;
+      background: #fef3c7;
+      padding: 20px 30px;
+      border-radius: 48px;
+      display: inline-block;
+      margin: 15px auto;
+      border: 1px solid #fcd34d;
+    }
+
+    .question-text { font-size: 1.3rem; font-weight: 600; margin: 20px 0; color: #7c2d12; }
+
+    .options-workshop {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin: 25px 0;
+    }
+
+    .waw-option {
+      background: #fffbeb;
+      border: 3px solid #fed7aa;
+      border-radius: 50px;
+      padding: 18px 12px;
+      font-size: 1.3rem;
+      font-family: 'Noto Serif Hebrew', monospace;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #b45309;
+    }
+
+    .waw-option i { font-size: 1.3rem; color: #f59e0b; }
+
+    .waw-option:hover { background: #fde68a; border-color: #f59e0b; transform: scale(1.02); }
+
+    .waw-option.correct-choice { background: #10b981; border-color: #059669; color: white; }
+    .waw-option.correct-choice i { color: white; }
+    .waw-option.wrong-choice { background: #ef4444; border-color: #b91c1c; color: white; }
+
+    .feedback-area {
+      background: #ffedd5;
+      border-radius: 28px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+      border-left: 8px solid #f59e0b;
+      font-weight: 500;
+    }
+
+    .next-waw {
+      background: #d97706;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-top: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 0 #92400e;
+    }
+
+    .next-waw:active { transform: translateY(2px); box-shadow: 0 2px 0 #92400e; }
+    .next-waw:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .final-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+    .final-modal.show { visibility: visible; opacity: 1; }
+    .modal-card {
+      background: #fff7ed;
+      border-radius: 50px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      border: 3px solid #f59e0b;
+    }
+    .modal-card h2 { color: #b45309; font-size: 2rem; margin-bottom: 15px; }
+    .modal-card button {
+      background: #f59e0b;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 550px) {
+      .workshop-panel { border-radius: 28px; flex-direction: column; }
+      .waw-option { padding: 14px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-wrapper">
+  <div class="waw-header">
+    <h1><i class="fas fa-link"></i> El Taller del Conector</h1>
+    <p>Une la conjunción <span style="font-family: 'Noto Serif Hebrew';">וְ</span> (y) a la palabra. ¡Elige la forma correcta!</p>
+  </div>
+
+  <div class="workshop-panel">
+    <div class="badge"><i class="fas fa-gem"></i> <span id="wawScore">0</span> / <span id="wawTotal">10</span> aciertos</div>
+    <div class="badge"><i class="fas fa-tasks"></i> Pregunta <span id="wawCurrent">1</span> de <span id="wawTotalQ">10</span></div>
+    <button id="resetWawBtn" class="reset-workshop"><i class="fas fa-tools"></i> Reiniciar Taller</button>
+  </div>
+
+  <div class="connector-card">
+    <div class="phrase-preview"><i class="fas fa-plus-circle"></i> Conjunción + Palabra</div>
+    <div class="base-word" id="baseWordDisplay">מֶ֫לֶךְ</div>
+    <div class="question-text">¿Cómo se escribe <strong>"y [palabra]"</strong> en hebreo?</div>
+    <div id="wawOptions" class="options-workshop"></div>
+    <div id="wawFeedback" class="feedback-area" style="display: none;"></div>
+    <div><button id="nextWawBtn" class="next-waw" disabled><i class="fas fa-arrow-right"></i> Siguiente conexión</button></div>
+  </div>
+</div>
+
+<div id="finalWawModal" class="final-modal">
+  <div class="modal-card">
+    <h2><i class="fas fa-crown"></i> ¡Taller completado!</h2>
+    <p>Conectaste correctamente <strong id="finalWawScore">0</strong> de <span id="finalWawTotalSpan">10</span> palabras.</p>
+    <button id="restartWawModalBtn"><i class="fas fa-play"></i> Volver a conectar</button>
+  </div>
+</div>
+
+<script>
+  // Preguntas base
+  const baseWawQuestions = [
+    { base: "מֶ֫לֶךְ", correct: "וּמֶ֫לֶךְ", regla: "Ante labial מ → forma וּ (Shureq)", explicacion: "La conjunción se convierte en וּ antes de consonantes labiales (ב, מ, פ)." },
+    { base: "אִישׁ", correct: "וְאִישׁ", regla: "Ante consonante normal → וְ (Shewa)", explicacion: "La forma básica וְ se usa ante la mayoría de las consonantes." },
+    { base: "חֲלוֹם", correct: "וַחֲלוֹם", regla: "Ante חֲ (Hatef Pathaj) → וַ", explicacion: "Ante vocal reducida Hatef Pathaj, la conjunción toma Pathaj." },
+    { base: "נְעָרִים", correct: "וּנְעָרִים", regla: "Ante Shewa vocal → וּ", explicacion: "Palabras que comienzan con Shewa vocal hacen que la conjunción sea וּ." },
+    { base: "יְהוּדָה", correct: "וִיהוּדָה", regla: "יְ + conjunción → וִ", explicacion: "Excepción: יְ + וְ se contrae a וִ (Hireq)." },
+    { base: "אֱמֶת", correct: "וֶאֱמֶת", regla: "Ante אֱ (Hatef Seghol) → וֶ", explicacion: "Ante Hatef Seghol, la conjunción toma Seghol." },
+    { base: "צֹאן", correct: "וָצֹאן", regla: "Palabra monosilábica → וָ", explicacion: "Ante palabras monosilábicas, la conjunción es וָ (Qamets)." },
+    { base: "בַּ֫יִת", correct: "וּבַיִת", regla: "Ante labial ב → וּ", explicacion: "Begadkefat labial: la conjunción se convierte en וּ." },
+    { base: "אֱלֹהִים", correct: "וֵאלֹהִים", regla: "Excepción especial → וֵ", explicacion: "Con אֱלֹהִים la forma es וֵאלֹהִים (Tsere)." },
+    { base: "לֶ֫חֶם", correct: "וָלֶ֫חֶם", regla: "Palabra con acento inicial → וָ", explicacion: "Ciertas palabras con acento inicial toman וָ." }
+  ];
+
+  // Generar opciones engañosas basadas en la palabra correcta
+  function generateTrickyWawOptions(correctForm, baseWord) {
+    const incorrectOptions = new Set();
+    
+    // 1. Usar la forma base וְ (Shewa) cuando no corresponde
+    if (!correctForm.startsWith('וְ')) {
+      incorrectOptions.add('וְ' + baseWord);
+    }
+    
+    // 2. Usar וּ cuando no corresponde
+    if (!correctForm.startsWith('וּ')) {
+      incorrectOptions.add('וּ' + baseWord);
+    }
+    
+    // 3. Usar וַ cuando no corresponde
+    if (!correctForm.startsWith('וַ')) {
+      incorrectOptions.add('וַ' + baseWord);
+    }
+    
+    // 4. Usar וָ cuando no corresponde
+    if (!correctForm.startsWith('וָ')) {
+      incorrectOptions.add('וָ' + baseWord);
+    }
+    
+    // 5. Usar וֶ cuando no corresponde
+    if (!correctForm.startsWith('וֶ')) {
+      incorrectOptions.add('וֶ' + baseWord);
+    }
+    
+    // 6. Usar וִ cuando no corresponde
+    if (!correctForm.startsWith('וִ')) {
+      incorrectOptions.add('וִ' + baseWord);
+    }
+    
+    // 7. Para palabras que empiezan con letra específica, crear variaciones con Daguesh incorrecto
+    if (baseWord.startsWith('מ') || baseWord.startsWith('ב') || baseWord.startsWith('פ')) {
+      incorrectOptions.add('וְ' + baseWord);
+    }
+    
+    // 8. Para palabras con gutural, poner Daguesh donde no va
+    if (baseWord.match(/[אהחער]/)) {
+      incorrectOptions.add('וְ' + baseWord);
+    }
+    
+    // 9. Para palabras con Hatef, usar la forma incorrecta
+    if (baseWord.startsWith('חֲ')) {
+      incorrectOptions.add('וְחֲלוֹם');
+      incorrectOptions.add('וּחֲלוֹם');
+    }
+    
+    if (baseWord.startsWith('אֱ')) {
+      incorrectOptions.add('וַאֱמֶת');
+      incorrectOptions.add('וְאֱמֶת');
+    }
+    
+    // 10. Error común: conjunción separada
+    incorrectOptions.add('וְ ' + baseWord);
+    
+    // Limpiar y tomar 3 únicas
+    let opts = Array.from(incorrectOptions).filter(opt => opt !== correctForm && opt.length > 0 && !opt.includes('undefined'));
+    opts = [...new Set(opts)];
+    opts = opts.slice(0, 3);
+    
+    // Si no hay suficientes, agregar variaciones genéricas
+    while (opts.length < 3) {
+      opts.push('וְ' + baseWord);
+    }
+    
+    return opts;
+  }
+
+  let wawQuestions = [];
+  let wawIndex = 0;
+  let wawScoreCount = 0;
+  let wawAnswered = false;
+  let totalWaw = 10;
+
+  function shuffleWawQuestions() {
+    wawQuestions = [...baseWawQuestions];
+    for (let i = wawQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [wawQuestions[i], wawQuestions[j]] = [wawQuestions[j], wawQuestions[i]];
+    }
+    totalWaw = wawQuestions.length;
+    document.getElementById('wawTotal').textContent = totalWaw;
+    document.getElementById('wawTotalQ').textContent = totalWaw;
+    document.getElementById('finalWawTotalSpan').textContent = totalWaw;
+  }
+
+  function generateFullWawOptions(correctForm, baseWord) {
+    const tricky = generateTrickyWawOptions(correctForm, baseWord);
+    let options = [correctForm, ...tricky];
+    // Mezclar
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
+  }
+
+  function renderWawQuestion() {
+    const q = wawQuestions[wawIndex];
+    document.getElementById('baseWordDisplay').textContent = q.base;
+    const correctForm = q.correct;
+    const options = generateFullWawOptions(correctForm, q.base);
+    
+    const container = document.getElementById('wawOptions');
+    container.innerHTML = '';
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'waw-option';
+      btn.innerHTML = `<i class="fas fa-link"></i> ${opt}`;
+      btn.addEventListener('click', () => handleWawAnswer(opt, correctForm, q.explicacion, q.regla));
+      container.appendChild(btn);
+    });
+    
+    document.getElementById('wawFeedback').style.display = 'none';
+    document.getElementById('nextWawBtn').disabled = true;
+    wawAnswered = false;
+    
+    document.querySelectorAll('.waw-option').forEach(btn => {
+      btn.classList.remove('correct-choice', 'wrong-choice');
+      btn.disabled = false;
+    });
+  }
+
+  function handleWawAnswer(selected, correct, explicacion, regla) {
+    if (wawAnswered) return;
+    wawAnswered = true;
+    const isCorrect = (selected === correct);
+    
+    if (isCorrect) {
+      wawScoreCount++;
+      document.getElementById('wawScore').textContent = wawScoreCount;
+    }
+    
+    const btns = document.querySelectorAll('.waw-option');
+    btns.forEach(btn => {
+      btn.disabled = true;
+      if (btn.innerText.includes(correct)) {
+        btn.classList.add('correct-choice');
+      } else if (btn.innerText.includes(selected) && !isCorrect) {
+        btn.classList.add('wrong-choice');
+      }
+    });
+    
+    const feedbackDiv = document.getElementById('wawFeedback');
+    feedbackDiv.style.display = 'block';
+    if (isCorrect) {
+      feedbackDiv.innerHTML = `<i class="fas fa-check-circle" style="color:#10b981;"></i> <strong>¡Conexión perfecta!</strong> ${correct} es la forma correcta.<br>📖 <em>${regla}</em> — ${explicacion}`;
+    } else {
+      feedbackDiv.innerHTML = `<i class="fas fa-exclamation-triangle" style="color:#dc2626;"></i> <strong>Conexión incorrecta.</strong> La forma correcta es <strong>${correct}</strong>.<br>🧠 Regla: ${regla}. ${explicacion}<br>📌 Tu respuesta: ${selected}`;
+    }
+    
+    document.getElementById('nextWawBtn').disabled = false;
+    updateWawProgress();
+  }
+
+  function updateWawProgress() {
+    document.getElementById('wawCurrent').textContent = wawIndex + 1;
+  }
+
+  function nextWawQuestion() {
+    if (!wawAnswered) return;
+    if (wawIndex + 1 < totalWaw) {
+      wawIndex++;
+      renderWawQuestion();
+    } else {
+      showWawResult();
+    }
+  }
+
+  function showWawResult() {
+    document.getElementById('finalWawScore').textContent = wawScoreCount;
+    document.getElementById('finalWawModal').classList.add('show');
+  }
+
+  function resetWawGame() {
+    shuffleWawQuestions();
+    wawIndex = 0;
+    wawScoreCount = 0;
+    wawAnswered = false;
+    document.getElementById('wawScore').textContent = "0";
+    renderWawQuestion();
+    updateWawProgress();
+    document.getElementById('finalWawModal').classList.remove('show');
+  }
+
+  document.getElementById('nextWawBtn').addEventListener('click', nextWawQuestion);
+  document.getElementById('resetWawBtn').addEventListener('click', resetWawGame);
+  document.getElementById('restartWawModalBtn').addEventListener('click', resetWawGame);
+
+  // Inicializar
+  shuffleWawQuestions();
+  renderWawQuestion();
+  updateWawProgress();
+</script>
+</body>
+</html>

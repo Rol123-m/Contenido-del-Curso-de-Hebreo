@@ -115,13 +115,20 @@ class SemanaManager {
                 evaluacion: "Examen 5",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Artículo y Waw', url: 'semanas/semana5/pdf/articulo.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'El Artículo הַ', url: 'semanas/semana5/html/articulo.html', icono: 'הַ' },
-                    { tipo: 'html', titulo: 'Asimilación del Artículo', url: 'semanas/semana5/html/asimilacion.html', icono: 'הַשָּׁמַיִם' },
-                    { tipo: 'html', titulo: 'La Conjunción Waw', url: 'semanas/semana5/html/waw.html', icono: 'וְ' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'semanas/semana5/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Curiosidad Exegética. ', url: 'semanas/semana5/html/semana5_parte1_curiosidad.html', icono: 'הַ' },
+                    { tipo: 'html', titulo: 'Artículo Definido Hebreo', url: 'semanas/semana5/html/semana5_parte2_articulo.html', icono: 'הַשָּׁמַיִם' },
+                    { tipo: 'html', titulo: 'La Conjunción Waw', url: 'semanas/semana5/html/semana5_parte3_conjuncion.html', icono: 'וְ' },
+                     { tipo: 'html', titulo: 'Resumen de la Semana', url: 'semanas/semana5/html/semana5_parte4_resumen_vocabulario.html', icono: 'R' },
+                      { tipo: 'html', titulo: 'Información Adicional.', url: 'semanas/semana5/html/semana5_parte5_informacion_adicional.html', icono: '+' },
+                   { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Artículo Correcto', url: 'semanas/semana5/juegos/articulo.html', icono: 'הַ' }
+                    { titulo: 'Practica el Artículo Definido Hebreo', url: 'semanas/semana5/juegos/articulo.html', icono: 'הַ' },
+                      { titulo: 'Practica la Conjunción Waw. ', url: 'semanas/semana5/juegos/conjuncion.html', icono: 'הַ' },
+
                 ]
             },
             
