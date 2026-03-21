@@ -123,7 +123,7 @@ class SemanaManager {
                    { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: '', icono: '📝' }
+                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: 'https://forms.gle/73p41UZk1dM5WFTZ9', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica el Artículo Definido Hebreo', url: 'semanas/semana5/juegos/articulo.html', icono: 'הַ' },
