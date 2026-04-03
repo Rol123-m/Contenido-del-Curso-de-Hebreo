@@ -123,7 +123,7 @@ class SemanaManager {
                    { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                     { tipo: 'examen', titulo: 'Examen Semana 4- Sustantivos', url: 'https://forms.gle/73p41UZk1dM5WFTZ9', icono: '📝' }
+                     { tipo: 'examen', titulo: 'Examen Semana 5- Artículo Definido', url: 'https://forms.gle/73p41UZk1dM5WFTZ9', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica el Artículo Definido Hebreo', url: 'semanas/semana5/juegos/articulo.html', icono: 'הַ' },
@@ -139,13 +139,18 @@ class SemanaManager {
                 evaluacion: "Examen 6 + Foro 2",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Preposiciones', url: 'semanas/semana6/pdf/preposiciones.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Preposiciones ב, כ, ל', url: 'semanas/semana6/html/inseparables.html', icono: 'בְּ' },
-                    { tipo: 'html', titulo: 'Preposición מִן', url: 'semanas/semana6/html/min.html', icono: 'מִן' },
-                    { tipo: 'html', titulo: 'Preposiciones Compuestas', url: 'semanas/semana6/html/compuestas.html', icono: 'עַל' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 6', url: 'semanas/semana6/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Preposiciones independientes', url: 'semanas/semana6/html/leccion6_parte1_preposiciones_independientes.html', icono: 'בְּ' },
+                    { tipo: 'html', titulo: 'Preposiciones maqquef, ', url: 'semanas/semana6/html/leccion6_parte2_preposiciones_maqqef.html', icono: 'מִן' },
+                    { tipo: 'html', titulo: 'Preposiciones Inseparables', url: 'semanas/semana6/html/leccion6_parte3_preposiciones_inseparables.html', icono: 'עַל' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana6/html/leccion6_parte5_vocabulario_resumen.html', icono: '📖' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                     { tipo: 'examen', titulo: 'Examen Semana 6- Sustantivos', url: 'https://forms.gle/MtmWfZfneE89Mv9L8', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Preposiciones Básicas', url: 'semanas/semana6/juegos/preposiciones.html', icono: '🔤' }
+                    { titulo: 'Preposiciones Básicas', url: 'semanas/semana6/juegos/preposiciones.html', icono: '🔤' },
+                    { titulo: 'El Tesoro de las Preposiciones', url: 'semanas/semana6/juegos/juego.html', icono: '🔤' }
                 ]
             },
             

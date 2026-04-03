@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Tesoro de las Preposiciones | Juego de Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos exclusivos para el juego del tesoro */
+    .treasure-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .map-card {
+      background: linear-gradient(135deg, #f5f0e6 0%, #e8dfd1 100%);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(139, 69, 19, 0.2);
+    }
+    
+    .map-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle at 10% 20%, rgba(139, 69, 19, 0.05) 2%, transparent 2.5%);
+      background-size: 25px 25px;
+      pointer-events: none;
+    }
+    
+    .treasure-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .treasure-header h2 {
+      font-family: 'Roboto Slab', serif;
+      color: #8B5A2B;
+      font-size: 1.8rem;
+    }
+    
+    .progress-path {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .path-node {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+    
+    .node-marker {
+      width: 50px;
+      height: 50px;
+      background: #d4c4a8;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5a3e1b;
+      transition: all 0.3s ease;
+      border: 3px solid #b89a6e;
+      position: relative;
+      z-index: 2;
+      background: #e8dcc8;
+    }
+    
+    .path-node.completed .node-marker {
+      background: linear-gradient(135deg, #4A6FA5, #8B5FBF);
+      border-color: #FFB74D;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(74, 111, 165, 0.5);
+    }
+    
+    .path-node.active .node-marker {
+      background: linear-gradient(135deg, #FFB74D, #F57C00);
+      border-color: #fff;
+      color: white;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 20px rgba(255, 183, 77, 0.6);
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .node-label {
+      font-size: 0.7rem;
+      color: #5a3e1b;
+      font-weight: 600;
+    }
+    
+    .path-line {
+      flex: 0.5;
+      height: 4px;
+      background: #d4c4a8;
+      margin-bottom: 30px;
+    }
+    
+    .path-line.completed {
+      background: linear-gradient(90deg, #4A6FA5, #8B5FBF);
+    }
+    
+    .question-area {
+      background: white;
+      border-radius: var(--radius);
+      padding: 25px;
+      margin: 20px 0;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .scroll-ancient {
+      background: #fffef7;
+      border-radius: var(--radius);
+      padding: 25px;
+      border-left: 8px solid var(--primary);
+      position: relative;
+    }
+    
+    .scroll-ancient::before {
+      content: '"';
+      font-size: 5rem;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      color: rgba(74, 111, 165, 0.1);
+      font-family: serif;
+    }
+    
+    .hebrew-puzzle {
+      font-size: 2rem;
+      text-align: center;
+      margin: 20px 0;
+      direction: rtl;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      background: linear-gradient(135deg, rgba(74,111,165,0.05), rgba(139,95,191,0.05));
+      padding: 20px;
+      border-radius: var(--radius);
+    }
+    
+    .clue-box {
+      background: #f9f3e6;
+      border-radius: var(--radius);
+      padding: 15px;
+      margin: 15px 0;
+      border-left: 4px solid var(--accent);
+      font-style: italic;
+    }
+    
+    .options-treasure {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .treasure-option {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border: 2px solid #dee2e6;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .treasure-option:hover:not(.disabled-opt) {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      background: white;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .treasure-option.correct-highlight {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: var(--success);
+    }
+    
+    .treasure-option.wrong-highlight {
+      background: rgba(231, 76, 60, 0.2);
+      border-color: var(--danger);
+    }
+    
+    .disabled-opt {
+      cursor: default;
+      opacity: 0.7;
+    }
+    
+    .feedback-treasure {
+      padding: 15px;
+      border-radius: var(--radius);
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .feedback-treasure.correct-feedback {
+      background: rgba(46, 204, 113, 0.15);
+      border-left: 4px solid var(--success);
+    }
+    
+    .feedback-treasure.wrong-feedback {
+      background: rgba(231, 76, 60, 0.15);
+      border-left: 4px solid var(--danger);
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .treasure-chest {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, #f9e6cf, #f5d5a8);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .treasure-chest:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .chest-icon {
+      font-size: 5rem;
+      color: #d4a017;
+      animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .lives-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    
+    .life {
+      font-size: 1.5rem;
+      color: #e74c3c;
+    }
+    
+    .score-treasure {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    
+    .hint-btn {
+      background: none;
+      border: 1px dashed var(--primary);
+      color: var(--primary);
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .hint-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .final-score {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 20px 0;
+      background: linear-gradient(135deg, #4A6FA5, #8B5FBF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @media (max-width: 600px) {
+      .node-marker {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      .node-label {
+        font-size: 0.55rem;
+      }
+      .hebrew-puzzle {
+        font-size: 1.3rem;
+      }
+      .options-treasure {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>🏺 El Tesoro de las Preposiciones</h1>
+      <p class="subtitle">Ayuda al profeta Miqueas a encontrar el tesoro escondido</p>
+    </div>
+  </header>
+
+  <div class="week-container treasure-container" id="game-container">
+    <div style="text-align: center; padding: 40px;">
+      <i class="fas fa-spinner fa-pulse fa-3x" style="color: var(--primary);"></i>
+      <p>Cargando el juego...</p>
+    </div>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir">
+      </div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 El Tesoro de las Preposiciones - Lección 6</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Preguntas del juego - cada una tiene un tesoro asociado
+    const treasureQuestions = [
+      {
+        text: "El profeta Miqueas encuentra un pergamino antiguo. En él está escrito: <span class='hebrew-text'>מִי־אֵל כָּמוֹךָ</span>. ¿Qué preposición aparece en esta frase?",
+        hebrew: "מִי־אֵל כָּמוֹךָ",
+        options: ["<span class='hebrew-text'>בְּ</span> (en)", "<span class='hebrew-text'>כְּ</span> (como)", "<span class='hebrew-text'>לְ</span> (para)", "<span class='hebrew-text'>עַל</span> (sobre)"],
+        correct: 1,
+        explanation: "La preposición <span class='hebrew-text'>כְּ</span> aparece en <span class='hebrew-text'>כָּמוֹךָ</span> (como tú). ¡Es la misma preposición del nombre Miqueas!",
+        clue: "Miqueas significa '¿Quién como Yah?' - busca la preposición que significa 'como'."
+      },
+      {
+        text: "En una cueva, Miqueas encuentra una inscripción: <span class='hebrew-text'>בַּשָּׁמַיִם</span>. ¿Qué preposición inseparable se usó y cómo se formó?",
+        hebrew: "בַּשָּׁמַיִם",
+        options: ["<span class='hebrew-text'>בְּ</span> + artículo, reemplazando la ה", "<span class='hebrew-text'>לְ</span> + artículo", "<span class='hebrew-text'>כְּ</span> + sustantivo", "<span class='hebrew-text'>מִן</span> + sufijo"],
+        correct: 0,
+        explanation: "<span class='hebrew-text'>בַּשָּׁמַיִם</span> viene de <span class='hebrew-text'>בְּ</span> + <span class='hebrew-text'>הַשָּׁמַיִם</span>. La preposición reemplaza la <span class='hebrew-text'>ה</span> del artículo.",
+        clue: "La palabra significa 'en los cielos'. La preposición se fusionó con el artículo definido."
+      },
+      {
+        text: "Miqueas encuentra una piedra con la frase: <span class='hebrew-text'>מִן־הָאָרֶץ</span>. ¿Qué tipo de preposición es <span class='hebrew-text'>מִן</span> aquí?",
+        hebrew: "מִן־הָאָרֶץ",
+        options: ["Independiente", "Con Maqqef", "Inseparable", "Marcador de objeto"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>מִן־</span> usa el Maqqef (guion) para unirse a la palabra siguiente.",
+        clue: "Observa el guion horizontal elevado que une la preposición con la palabra."
+      },
+      {
+        text: "El tesoro está escondido <span class='hebrew-text'>תַּחַת הָעֵץ</span>. ¿Qué significa esto?",
+        hebrew: "תַּחַת הָעֵץ",
+        options: ["sobre el árbol", "debajo del árbol", "detrás del árbol", "dentro del árbol"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>תַּחַת</span> es una preposición independiente que significa 'debajo de'.",
+        clue: "El árbol tiene sombra... ¿dónde podría estar escondido algo?"
+      },
+      {
+        text: "En el camino, Miqueas lee: <span class='hebrew-text'>אֶל־הַר סִינַי</span>. ¿Qué preposición se está usando?",
+        hebrew: "אֶל־הַר סִינַי",
+        options: ["<span class='hebrew-text'>עַל</span> (sobre)", "<span class='hebrew-text'>אֶל</span> (hacia)", "<span class='hebrew-text'>מִן</span> (desde)", "<span class='hebrew-text'>בְּ</span> (en)"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>אֶל</span> significa 'hacia', indicando dirección.",
+        clue: "Moisés subió al monte... ¿qué preposición indica dirección?"
+      },
+      {
+        text: "Aparece un acertijo: <span class='hebrew-text'>לִפְנֵי הַמֶּלֶךְ</span>. ¿Qué significa esta preposición?",
+        hebrew: "לִפְנֵי הַמֶּלֶךְ",
+        options: ["delante de", "detrás de", "alrededor de", "lejos de"],
+        correct: 0,
+        explanation: "<span class='hebrew-text'>לִפְנֵי</span> es una preposición compuesta que significa 'delante de'.",
+        clue: "Es lo opuesto a 'detrás de'."
+      },
+      {
+        text: "Un rollo dice: <span class='hebrew-text'>כְּמֹשֶׁה</span>. ¿Qué significa la preposición <span class='hebrew-text'>כְּ</span> aquí?",
+        hebrew: "כְּמֹשֶׁה",
+        options: ["a, para", "en, por", "como, según", "de, desde"],
+        correct: 2,
+        explanation: "<span class='hebrew-text'>כְּ</span> significa 'como' o 'según'. <span class='hebrew-text'>כְּמֹשֶׁה</span> = 'como Moisés'.",
+        clue: "Comparación: '_____ Moisés'."
+      },
+      {
+        text: "Para abrir el cofre, Miqueas debe identificar: ¿qué hace <span class='hebrew-text'>אֵת</span> en <span class='hebrew-text'>אָהַב דָּוִד אֶת־יְהוֹנָתָן</span>?",
+        hebrew: "אָהַב דָּוִד אֶת־יְהוֹנָתָן",
+        options: ["significa 'con'", "marca el objeto directo definido", "significa 'hacia'", "es un artículo"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>אֵת</span> marca el objeto directo definido (Jonatán) y NO se traduce.",
+        clue: "David amó a Jonatán. ¿Qué palabra marca quién recibe la acción?"
+      },
+      {
+        text: "Miqueas encuentra un mapa con <span class='hebrew-text'>עַל־הַגִּבְעָה</span>. ¿Qué significa?",
+        hebrew: "עַל־הַגִּבְעָה",
+        options: ["debajo de la colina", "sobre la colina", "alrededor de la colina", "dentro de la colina"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>עַל</span> significa 'sobre'.",
+        clue: "La colina tiene la cima... ¿dónde está el mapa?"
+      },
+      {
+        text: "La última pista: <span class='hebrew-text'>בְּתוֹךְ הָאוֹצָר</span>. ¿Qué significa <span class='hebrew-text'>בְּתוֹךְ</span>?",
+        hebrew: "בְּתוֹךְ הָאוֹצָר",
+        options: ["fuera del tesoro", "en medio del tesoro", "encima del tesoro", "lejos del tesoro"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>בְּתוֹךְ</span> combina la preposición <span class='hebrew-text'>בְּ</span> con <span class='hebrew-text'>תּוֹךְ</span> (medio, centro).",
+        clue: "El tesoro está 'dentro de' o 'en medio de' algo."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let lives = 3;
+    let userAnswers = [];
+
+    const gameContainer = document.getElementById('game-container');
+
+    function renderGame() {
+      if (currentQuestion < treasureQuestions.length) {
+        renderQuestion();
+      } else {
+        renderVictory();
+      }
+    }
+
+    function renderQuestion() {
+      const q = treasureQuestions[currentQuestion];
+      const isAnswered = userAnswers[currentQuestion] !== undefined;
+      const userAnswer = userAnswers[currentQuestion];
+      
+      // Construir la ruta de progreso
+      let pathHtml = '<div class="progress-path">';
+      for (let i = 0; i < treasureQuestions.length; i++) {
+        const isCompleted = userAnswers[i] !== undefined;
+        const isActive = i === currentQuestion;
+        
+        pathHtml += `
+          <div class="path-node ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
+            <div class="node-marker">
+              ${isCompleted ? '<i class="fas fa-check"></i>' : (i + 1)}
+            </div>
+            <div class="node-label">Estación ${i + 1}</div>
+          </div>
+        `;
+        if (i < treasureQuestions.length - 1) {
+          pathHtml += `<div class="path-line ${isCompleted ? 'completed' : ''}"></div>`;
+        }
+      }
+      pathHtml += '</div>';
+      
+      // Construir opciones
+      let optionsHtml = '';
+      q.options.forEach((opt, idx) => {
+        let additionalClass = '';
+        if (isAnswered) {
+          if (idx === q.correct) additionalClass = 'correct-highlight';
+          else if (idx === userAnswer && idx !== q.correct) additionalClass = 'wrong-highlight';
+          additionalClass += ' disabled-opt';
+        }
+        optionsHtml += `
+          <div class="treasure-option ${additionalClass}" data-opt-index="${idx}" ${isAnswered ? 'disabled' : ''}>
+            ${opt}
+          </div>
+        `;
+      });
+      
+      // Feedback si ya respondió
+      const feedbackHtml = isAnswered ? `
+        <div class="feedback-treasure ${userAnswer === q.correct ? 'correct-feedback' : 'wrong-feedback'}">
+          <i class="fas ${userAnswer === q.correct ? 'fa-gem' : 'fa-skull'}"></i>
+          <div>
+            <strong>${userAnswer === q.correct ? '¡Tesoro encontrado!' : '¡Oh no! Un obstáculo...'}</strong><br>
+            ${q.explanation}
+          </div>
+        </div>
+      ` : '';
+      
+      const livesHtml = `
+        <div class="lives-indicator">
+          ${Array(lives).fill('<i class="fas fa-heart life"></i>').join('')}
+          ${Array(3 - lives).fill('<i class="far fa-heart life"></i>').join('')}
+        </div>
+      `;
+      
+      const hintHtml = !isAnswered ? `
+        <button class="hint-btn" id="hint-btn">
+          <i class="fas fa-lightbulb"></i> Usar Pista
+        </button>
+      ` : '';
+      
+      const usedHintHtml = (userAnswers[currentQuestion] !== undefined && userAnswers[currentQuestion] !== q.correct && !isAnswered === false) ? '' : '';
+      
+      const nextButtonHtml = isAnswered && currentQuestion < treasureQuestions.length - 1 ? `
+        <button class="week-button" id="next-btn" style="width: 100%; margin-top: 15px;">
+          <i class="fas fa-arrow-right"></i> Continuar la Búsqueda
+        </button>
+      ` : (isAnswered && currentQuestion === treasureQuestions.length - 1 ? `
+        <button class="week-button success" id="finish-btn" style="width: 100%; margin-top: 15px;">
+          <i class="fas fa-crown"></i> Abrir el Tesoro Final
+        </button>
+      ` : '');
+      
+      const html = `
+        <div class="map-card">
+          <div class="treasure-header">
+            <h2><i class="fas fa-map"></i> Mapa del Tesoro</h2>
+            <div class="score-treasure">
+              <i class="fas fa-coins"></i> Tesoros: ${score}/${treasureQuestions.length}
+            </div>
+          </div>
+          
+          ${pathHtml}
+          ${livesHtml}
+          
+          <div class="question-area">
+            <div class="scroll-ancient">
+              <div class="hebrew-puzzle">
+                ${q.hebrew}
+              </div>
+              <p style="font-size: 1.1rem; margin: 15px 0;"><strong>📜 Acertijo ${currentQuestion + 1}:</strong></p>
+              <p>${q.text}</p>
+              
+              <div class="options-treasure" id="options-container">
+                ${optionsHtml}
+              </div>
+              
+              ${!isAnswered ? `<div id="hint-container">${hintHtml}</div>` : ''}
+              ${feedbackHtml}
+            </div>
+          </div>
+          
+          ${nextButtonHtml}
+        </div>
+      `;
+      
+      gameContainer.innerHTML = html;
+      
+      if (!isAnswered) {
+        document.querySelectorAll('.treasure-option').forEach(opt => {
+          opt.addEventListener('click', () => handleAnswer(parseInt(opt.dataset.optIndex)));
+        });
+        const hintBtn = document.getElementById('hint-btn');
+        if (hintBtn) {
+          hintBtn.addEventListener('click', () => showHint());
+        }
+      }
+      
+      const nextBtn = document.getElementById('next-btn');
+      if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+      
+      const finishBtn = document.getElementById('finish-btn');
+      if (finishBtn) finishBtn.addEventListener('click', renderVictory);
+    }
+    
+    function showHint() {
+      const q = treasureQuestions[currentQuestion];
+      // Crear o actualizar el elemento de pista
+      let hintContainer = document.getElementById('hint-container');
+      if (hintContainer) {
+        hintContainer.innerHTML = `
+          <div class="clue-box">
+            <i class="fas fa-map"></i> Pista: ${q.clue}
+          </div>
+        `;
+      }
+      // Deshabilitar el botón de pista
+      const hintBtn = document.getElementById('hint-btn');
+      if (hintBtn) {
+        hintBtn.disabled = true;
+        hintBtn.style.opacity = '0.5';
+        hintBtn.style.cursor = 'default';
+      }
+    }
+    
+    function handleAnswer(selectedIdx) {
+      if (userAnswers[currentQuestion] !== undefined) return;
+      
+      const q = treasureQuestions[currentQuestion];
+      const isCorrect = (selectedIdx === q.correct);
+      
+      if (isCorrect) {
+        score++;
+        userAnswers[currentQuestion] = selectedIdx;
+      } else {
+        lives--;
+        userAnswers[currentQuestion] = selectedIdx;
+        
+        if (lives <= 0) {
+          renderGameOver();
+          return;
+        }
+      }
+      
+      renderQuestion();
+    }
+    
+    function nextQuestion() {
+      if (currentQuestion < treasureQuestions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    }
+    
+    function renderVictory() {
+      const totalTreasures = treasureQuestions.length;
+      const percentage = Math.round((score / totalTreasures) * 100);
+      
+      let message = '';
+      if (percentage === 100) {
+        message = '¡Increíble! Has encontrado TODOS los tesoros. El profeta Miqueas está orgulloso de ti. ¡Eres un verdadero explorador del hebreo! 👑';
+      } else if (percentage >= 70) {
+        message = '¡Muy bien! Has encontrado la mayoría de los tesoros. Sigue practicando para convertirte en un maestro. 📚✨';
+      } else {
+        message = 'Has encontrado algunos tesoros. ¡No te desanimes! Repasa las preposiciones y vuelve a intentarlo. 💪';
+      }
+      
+      const html = `
+        <div class="map-card">
+          <div class="treasure-chest" style="cursor: default;">
+            <div class="chest-icon">
+              <i class="fas fa-treasure-chest"></i>
+            </div>
+            <h2 style="color: #8B5A2B;">¡Tesoro Encontrado!</h2>
+            <div class="final-score">
+              ${score}/${totalTreasures} Tesoros
+            </div>
+            <div style="font-size: 1.2rem; margin: 20px 0;">
+              ${percentage}% de precisión
+            </div>
+            <p style="margin: 20px 0;">${message}</p>
+            
+            <div style="margin: 30px 0; text-align: left; background: rgba(0,0,0,0.03); padding: 15px; border-radius: var(--radius); max-height: 300px; overflow-y: auto;">
+              <h3><i class="fas fa-scroll"></i> Tu viaje:</h3>
+              ${userAnswers.map((ans, idx) => {
+                const isCorrect = ans === treasureQuestions[idx].correct;
+                return `
+                  <div style="padding: 8px 0; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px;">
+                    <span style="font-weight: bold;">Estación ${idx + 1}:</span>
+                    ${isCorrect ? '<i class="fas fa-gem" style="color: #4A6FA5;"></i>' : '<i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i>'}
+                    <span>${isCorrect ? 'Tesoro encontrado' : 'Tesoro perdido'}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+            
+            <button class="week-button" id="restart-btn" style="background: var(--gradient-secondary); width: 100%;">
+              <i class="fas fa-redo-alt"></i> Iniciar Nueva Expedición
+            </button>
+          </div>
+        </div>
+      `;
+      
+      gameContainer.innerHTML = html;
+      document.getElementById('restart-btn')?.addEventListener('click', restartGame);
+    }
+    
+    function renderGameOver() {
+      const html = `
+        <div class="map-card">
+          <div class="treasure-chest" style="cursor: default; background: linear-gradient(135deg, #f5d5a8, #e6c394);">
+            <div class="chest-icon">
+              <i class="fas fa-dungeon"></i>
+            </div>
+            <h2 style="color: #8B4513;">¡La aventura terminó!</h2>
+            <i class="fas fa-frown" style="font-size: 3rem; color: #8B4513; margin: 20px 0;"></i>
+            <p>Te has quedado sin vidas. Pero no te preocupes, ¡los verdaderos exploradores aprenden de sus errores!</p>
+            <p><strong>Has encontrado ${score} de ${treasureQuestions.length} tesoros.</strong></p>
+            <button class="week-button" id="restart-btn" style="margin-top: 20px;">
+              <i class="fas fa-play"></i> Comenzar Nueva Aventura
+            </button>
+          </div>
+        </div>
+      `;
+      
+      gameContainer.innerHTML = html;
+      document.getElementById('restart-btn')?.addEventListener('click', restartGame);
+    }
+    
+    function restartGame() {
+      currentQuestion = 0;
+      score = 0;
+      lives = 3;
+      userAnswers = [];
+      renderGame();
+    }
+    
+    // Iniciar el juego cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGame();
+    });
+  </script>
+</body>
+</html>

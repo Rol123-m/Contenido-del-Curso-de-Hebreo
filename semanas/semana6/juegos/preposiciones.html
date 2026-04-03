@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Juego: Practica las Preposiciones en Hebreo | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos adicionales específicos para el juego */
+    .game-stats {
+      background: linear-gradient(135deg, rgba(74, 111, 165, 0.1) 0%, rgba(139, 95, 191, 0.1) 100%);
+      border-radius: var(--radius);
+      padding: 15px 20px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .score-box, .question-counter {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .score-box i, .question-counter i {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+    
+    .score-value, .counter-value {
+      color: var(--primary-dark);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+    
+    .progress-bar-container {
+      background: var(--gray-light);
+      border-radius: 20px;
+      height: 8px;
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    .progress-bar {
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .question-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .question-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    
+    .hebrew-question {
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      font-size: 2.2rem;
+      direction: rtl;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(74, 111, 165, 0.05) 0%, rgba(139, 95, 191, 0.05) 100%);
+      padding: 20px;
+      border-radius: var(--radius);
+      margin-bottom: 25px;
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .option-btn {
+      background: var(--light);
+      border: 2px solid var(--gray-light);
+      border-radius: var(--radius);
+      padding: 15px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .option-btn:hover:not(:disabled) {
+      transform: translateX(5px);
+      border-color: var(--primary);
+      background: rgba(74, 111, 165, 0.05);
+    }
+    
+    .option-btn.correct-answer {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: var(--success);
+    }
+    
+    .option-btn.wrong-answer {
+      background: rgba(231, 76, 60, 0.2);
+      border-color: var(--danger);
+    }
+    
+    .option-btn.disabled-btn {
+      cursor: default;
+      opacity: 0.8;
+    }
+    
+    .option-prefix {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 30px;
+    }
+    
+    .feedback {
+      padding: 15px 20px;
+      border-radius: var(--radius);
+      margin-top: 15px;
+      margin-bottom: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .feedback.correct {
+      background: rgba(46, 204, 113, 0.15);
+      border-left: 4px solid var(--success);
+      color: #27AE60;
+    }
+    
+    .feedback.incorrect {
+      background: rgba(231, 76, 60, 0.15);
+      border-left: 4px solid var(--danger);
+      color: #C0392B;
+    }
+    
+    .feedback i {
+      font-size: 1.5rem;
+    }
+    
+    .next-btn, .restart-btn {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .next-btn:hover, .restart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .restart-btn {
+      background: var(--gradient-secondary);
+    }
+    
+    .game-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .results-card {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .final-score {
+      font-size: 3rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 20px 0;
+    }
+    
+    @media (max-width: 600px) {
+      .question-text {
+        font-size: 1.1rem;
+      }
+      .hebrew-question {
+        font-size: 1.6rem;
+      }
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      .option-btn {
+        padding: 12px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>🎮 Juego Interactivo</h1>
+      <p class="subtitle">Practica las Preposiciones en Hebreo Bíblico</p>
+    </div>
+  </header>
+
+  <div class="week-container" id="game-container">
+    <!-- El contenido se generará dinámicamente con JavaScript -->
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir">
+      </div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Juego Educativo - Lección 6: Preposiciones</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Base de datos de preguntas sobre preposiciones en hebreo
+    const questions = [
+      {
+        text: "¿Qué significa la preposición <span class='hebrew-text'>בְּ</span> cuando es inseparable?",
+        hebrew: "בְּ",
+        options: ["a, para", "como, según", "en, por, con", "sobre"],
+        correct: 2,
+        explanation: "La preposición inseparable <span class='hebrew-text'>בְּ</span> significa 'en', 'por' o 'con'."
+      },
+      {
+        text: "¿Cuál es la traducción correcta de <span class='hebrew-text'>עַל־הָאֶבֶן</span>?",
+        hebrew: "עַל־הָאֶבֶן",
+        options: ["debajo de la piedra", "sobre la piedra", "junto a la piedra", "detrás de la piedra"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>עַל</span> significa 'sobre', y <span class='hebrew-text'>הָאֶבֶן</span> es 'la piedra'."
+      },
+      {
+        text: "¿Qué función cumple <span class='hebrew-text'>אֵת</span> en la frase <span class='hebrew-text'>בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם</span>?",
+        hebrew: "בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם",
+        options: ["significa 'con'", "marca el objeto directo definido", "significa 'hacia'", "es una preposición de lugar"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>אֵת</span> es el marcador de objeto directo definido y NO se traduce."
+      },
+      {
+        text: "¿Cómo se dice 'hacia el templo' en hebreo?",
+        hebrew: "",
+        options: ["<span class='hebrew-text'>עַל־הַהֵיכָל</span>", "<span class='hebrew-text'>מִן־הַהֵיכָל</span>", "<span class='hebrew-text'>אֶל־הַהֵיכָל</span>", "<span class='hebrew-text'>בְּהֵיכָל</span>"],
+        correct: 2,
+        explanation: "<span class='hebrew-text'>אֶל</span> significa 'hacia', entonces 'hacia el templo' es <span class='hebrew-text'>אֶל־הַהֵיכָל</span>."
+      },
+      {
+        text: "¿Qué significa la preposición <span class='hebrew-text'>מִן</span>?",
+        hebrew: "מִן",
+        options: ["sobre", "hacia", "con", "de, desde"],
+        correct: 3,
+        explanation: "<span class='hebrew-text'>מִן</span> es una preposición que significa 'de' o 'desde'."
+      },
+      {
+        text: "En <span class='hebrew-text'>בַּשָּׂדֶה</span> (en el campo), ¿qué ocurrió con el artículo definido?",
+        hebrew: "בַּשָּׂדֶה",
+        options: ["se mantuvo completo", "fue reemplazado por la preposición", "se añadió al final", "desapareció sin dejar rastro"],
+        correct: 1,
+        explanation: "La preposición inseparable <span class='hebrew-text'>בְּ</span> reemplaza la <span class='hebrew-text'>ה</span> del artículo, pero conserva la vocal y el Daguesh."
+      },
+      {
+        text: "¿Cuál es el significado de <span class='hebrew-text'>לִפְנֵי הַמֶּלֶךְ</span>?",
+        hebrew: "לִפְנֵי הַמֶּלֶךְ",
+        options: ["detrás del rey", "delante del rey", "junto al rey", "sin el rey"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>לִפְנֵי</span> es una preposición independiente que significa 'delante de'."
+      },
+      {
+        text: "¿Cuándo se usa el marcador <span class='hebrew-text'>אֵת</span>?",
+        hebrew: "אֵת",
+        options: ["con objetos directos indefinidos", "con objetos directos definidos", "con todos los verbos", "con sujetos de la oración"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>אֵת</span> se usa exclusivamente con objetos directos definidos (con artículo, nombres propios o sufijos)."
+      },
+      {
+        text: "¿Qué significa <span class='hebrew-text'>תַּחַת הָעֵץ</span>?",
+        hebrew: "תַּחַת הָעֵץ",
+        options: ["sobre el árbol", "debajo del árbol", "alrededor del árbol", "dentro del árbol"],
+        correct: 1,
+        explanation: "<span class='hebrew-text'>תַּחַת</span> es una preposición independiente que significa 'debajo de'."
+      },
+      {
+        text: "¿Cómo se traduce <span class='hebrew-text'>כַּאֲנָשִׁים</span>?",
+        hebrew: "כַּאֲנָשִׁים",
+        options: ["para los hombres", "en los hombres", "como hombres", "desde los hombres"],
+        correct: 2,
+        explanation: "La preposición inseparable <span class='hebrew-text'>כְּ</span> + hatef produce <span class='hebrew-text'>כַּ</span>, y <span class='hebrew-text'>אֲנָשִׁים</span> significa 'hombres'."
+      },
+      {
+        text: "¿Qué tipo de preposición es <span class='hebrew-text'>בֵּין</span> (entre)?",
+        hebrew: "בֵּין",
+        options: ["inseparable", "con Maqqef", "independiente", "marcador de objeto"],
+        correct: 2,
+        explanation: "<span class='hebrew-text'>בֵּין</span> es una preposición independiente que se escribe como palabra separada."
+      },
+      {
+        text: "En <span class='hebrew-text'>לִנְבִיאִים</span> (para profetas), ¿por qué la preposición tiene Hireq?",
+        hebrew: "לִנְבִיאִים",
+        options: ["porque la palabra siguiente comienza con gutural", "porque la palabra siguiente tiene Shewa vocal", "porque es un nombre propio", "por error gramatical"],
+        correct: 1,
+        explanation: "Ante consonantes con Shewa vocal, la preposición inseparable se escribe con Hireq (<span class='hebrew-text'>לִ</span>)."
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+    let selectedAnswer = null;
+    let userAnswers = new Array(questions.length).fill(null);
+
+    const gameContainer = document.getElementById('game-container');
+
+    function renderGame() {
+      if (currentQuestionIndex < questions.length) {
+        renderQuestion();
+      } else {
+        renderResults();
+      }
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestionIndex];
+      const isAnswered = userAnswers[currentQuestionIndex] !== null;
+      const userAnswer = userAnswers[currentQuestionIndex];
+      
+      let optionsHtml = '';
+      q.options.forEach((opt, idx) => {
+        let additionalClass = '';
+        if (isAnswered) {
+          if (idx === q.correct) {
+            additionalClass = 'correct-answer';
+          } else if (idx === userAnswer && idx !== q.correct) {
+            additionalClass = 'wrong-answer';
+          }
+        }
+        
+        optionsHtml += `
+          <button class="option-btn ${additionalClass} ${isAnswered ? 'disabled-btn' : ''}" 
+                  data-opt-index="${idx}" ${isAnswered ? 'disabled' : ''}>
+            <span class="option-prefix">${String.fromCharCode(65 + idx)}.</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      });
+      
+      const feedbackHtml = isAnswered ? `
+        <div class="feedback ${userAnswer === q.correct ? 'correct' : 'incorrect'}">
+          <i class="fas ${userAnswer === q.correct ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+          <div>
+            <strong>${userAnswer === q.correct ? '¡Correcto!' : 'Incorrecto'}</strong><br>
+            ${q.explanation}
+          </div>
+        </div>
+      ` : '';
+      
+      const html = `
+        <div class="game-stats">
+          <div class="score-box">
+            <i class="fas fa-trophy"></i> Puntuación:
+            <span class="score-value">${score}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: ${((currentQuestionIndex + (isAnswered ? 1 : 0)) / questions.length) * 100}%"></div>
+          </div>
+          <div class="question-counter">
+            <i class="fas fa-question-circle"></i> Pregunta:
+            <span class="counter-value">${currentQuestionIndex + 1}/${questions.length}</span>
+          </div>
+        </div>
+        
+        <div class="question-card">
+          <div class="question-text">
+            ${q.text}
+          </div>
+          ${q.hebrew ? `<div class="hebrew-question">${q.hebrew}</div>` : ''}
+          
+          <div class="options-grid" id="options-grid">
+            ${optionsHtml}
+          </div>
+          
+          ${feedbackHtml}
+          
+          <div class="game-buttons">
+            <button class="restart-btn" id="restart-btn">
+              <i class="fas fa-redo-alt"></i> Reiniciar Juego
+            </button>
+            ${isAnswered ? `
+              <button class="next-btn" id="next-btn">
+                ${currentQuestionIndex === questions.length - 1 ? '<i class="fas fa-check"></i> Ver Resultados' : '<i class="fas fa-arrow-right"></i> Siguiente Pregunta'}
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      
+      gameContainer.innerHTML = html;
+      
+      if (!isAnswered) {
+        document.querySelectorAll('.option-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => handleAnswer(parseInt(btn.dataset.optIndex)));
+        });
+      }
+      
+      document.getElementById('restart-btn')?.addEventListener('click', restartGame);
+      if (isAnswered) {
+        document.getElementById('next-btn')?.addEventListener('click', nextQuestion);
+      }
+    }
+    
+    function handleAnswer(selectedIdx) {
+      if (answered || userAnswers[currentQuestionIndex] !== null) return;
+      
+      const q = questions[currentQuestionIndex];
+      const isCorrect = (selectedIdx === q.correct);
+      
+      if (isCorrect) {
+        score++;
+      }
+      
+      userAnswers[currentQuestionIndex] = selectedIdx;
+      answered = true;
+      
+      renderGame();
+    }
+    
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        answered = false;
+        renderGame();
+      } else {
+        renderResults();
+      }
+    }
+    
+    function renderResults() {
+      const totalQuestions = questions.length;
+      const percentage = Math.round((score / totalQuestions) * 100);
+      let message = '';
+      
+      if (percentage >= 90) message = '¡Excelente! Dominas las preposiciones en hebreo. 🎉';
+      else if (percentage >= 70) message = '¡Muy bien! Sigue practicando para perfeccionarte. 📚';
+      else if (percentage >= 50) message = 'Buen intento. Repasa las lecciones y vuelve a intentarlo. 💪';
+      else message = 'Sigue estudiando. Las preposiciones requieren práctica. ¡No te rindas! ✨';
+      
+      let resultsHtml = `
+        <div class="game-stats">
+          <div class="score-box">
+            <i class="fas fa-trophy"></i> Puntuación Final:
+            <span class="score-value">${score}/${totalQuestions}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+        </div>
+        
+        <div class="question-card results-card">
+          <i class="fas fa-star-of-david" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+          <h2 style="margin-bottom: 15px;">¡Juego Completado!</h2>
+          <div class="final-score">${percentage}%</div>
+          <p style="font-size: 1.1rem; margin-bottom: 25px;">${message}</p>
+          
+          <div style="margin-top: 20px; text-align: left;">
+            <h3><i class="fas fa-list"></i> Resumen de respuestas:</h3>
+            <div style="max-height: 300px; overflow-y: auto; margin-top: 15px;">
+      `;
+      
+      questions.forEach((q, idx) => {
+        const userAnswer = userAnswers[idx];
+        const isCorrect = (userAnswer === q.correct);
+        resultsHtml += `
+          <div style="padding: 12px; border-bottom: 1px solid var(--gray-light); ${isCorrect ? 'background: rgba(46,204,113,0.05);' : 'background: rgba(231,76,60,0.05);'}">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span style="font-weight: 700;">${idx + 1}.</span>
+              <span>${q.text.substring(0, 80)}${q.text.length > 80 ? '...' : ''}</span>
+              ${isCorrect ? '<i class="fas fa-check-circle" style="color: var(--success);"></i>' : '<i class="fas fa-times-circle" style="color: var(--danger);"></i>'}
+            </div>
+            ${!isCorrect ? `<div style="font-size: 0.85rem; margin-top: 5px; color: var(--gray);">Correcta: ${q.options[q.correct]}</div>` : ''}
+          </div>
+        `;
+      });
+      
+      resultsHtml += `
+            </div>
+          </div>
+          
+          <div class="game-buttons" style="justify-content: center; margin-top: 30px;">
+            <button class="restart-btn" id="restart-btn-final">
+              <i class="fas fa-play"></i> Jugar de Nuevo
+            </button>
+          </div>
+        </div>
+      `;
+      
+      gameContainer.innerHTML = resultsHtml;
+      document.getElementById('restart-btn-final')?.addEventListener('click', restartGame);
+    }
+    
+    function restartGame() {
+      currentQuestionIndex = 0;
+      score = 0;
+      answered = false;
+      selectedAnswer = null;
+      userAnswers = new Array(questions.length).fill(null);
+      renderGame();
+    }
+    
+    // Inicializar el juego
+    renderGame();
+  </script>
+</body>
+</html>
