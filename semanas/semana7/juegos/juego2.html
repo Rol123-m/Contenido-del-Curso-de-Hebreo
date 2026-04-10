@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Torre de Adjetivos | Construye tu conocimiento en Hebreo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(circle at 10% 30%, #0b2b26, #05100e);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Contenedor principal estilo tablero */
+    .tower-game {
+      max-width: 550px;
+      width: 100%;
+      background: rgba(30, 20, 15, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 60px 60px 48px 48px;
+      padding: 24px 20px 32px;
+      box-shadow: 0 30px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,200,0.1);
+      border: 1px solid #e3c49455;
+      transition: all 0.2s;
+    }
+
+    /* indicador de torre / nivel */
+    .tower-status {
+      background: #1f2c24;
+      border-radius: 100px;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #e6bc7e;
+    }
+
+    .stone-counter {
+      background: #00000066;
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      color: #ffdd99;
+    }
+
+    .stone-counter span {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f5bc70;
+      margin-right: 6px;
+    }
+
+    .combo-indicator {
+      background: #2c261c;
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #ffbc6e;
+    }
+
+    /* Zona de la pregunta - diseño tipo pergamino */
+    .question-area {
+      background: #fef2df;
+      background-image: repeating-linear-gradient(45deg, #f7e9d3 0px, #f7e9d3 2px, #fff0df 2px, #fff0df 8px);
+      border-radius: 48px;
+      padding: 20px 16px;
+      margin: 20px 0;
+      text-align: center;
+      box-shadow: inset 0 0 0 3px white, 0 12px 20px rgba(0,0,0,0.3);
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      background: #ad7a42;
+      color: #ffefcf;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 30px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .hebrew-brick {
+      font-size: 3.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', 'Segoe UI', serif;
+      direction: rtl;
+      background: #2c2418;
+      display: inline-block;
+      padding: 16px 28px;
+      border-radius: 28px;
+      color: #ffefb9;
+      letter-spacing: 3px;
+      margin: 12px 0;
+      box-shadow: 0 8px 0 #5e3a1f;
+    }
+
+    .extra-hint {
+      font-size: 0.85rem;
+      background: #e5d5bb;
+      border-radius: 50px;
+      display: inline-block;
+      padding: 4px 16px;
+      color: #5a3e24;
+    }
+
+    /* Opciones - estilo bloques de construcción */
+    .blocks-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .block-option {
+      background: linear-gradient(145deg, #6f5230, #4f381f);
+      border-radius: 60px;
+      padding: 14px 20px;
+      color: #ffefcf;
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 0 #2d1e0f;
+      border: 1px solid #b69054;
+      letter-spacing: 0.3px;
+    }
+
+    .block-option:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #2d1e0f;
+    }
+
+    .block-option.disabled-block {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .block-correct {
+      background: linear-gradient(145deg, #2a7a3a, #1b5329);
+      box-shadow: 0 0 10px #9bff9b;
+      border-color: #b3ffb3;
+    }
+
+    .block-wrong {
+      background: linear-gradient(145deg, #a14535, #71281c);
+      text-decoration: line-through;
+    }
+
+    /* Animación de caída de ladrillos */
+    .shake-block {
+      animation: blockShake 0.3s ease-in-out 0s 2;
+    }
+
+    @keyframes blockShake {
+      0% { transform: translateX(0px);}
+      25% { transform: translateX(-6px);}
+      75% { transform: translateX(6px);}
+      100% { transform: translateX(0);}
+    }
+
+    /* mensaje de construcción */
+    .construction-feedback {
+      background: #000000aa;
+      border-radius: 48px;
+      padding: 14px 16px;
+      margin: 12px 0 18px;
+      text-align: center;
+      color: #ffefbf;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+      font-size: 0.9rem;
+    }
+
+    .next-floor-btn {
+      background: #e2b45e;
+      width: 100%;
+      border: none;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #1f2c1b;
+      cursor: pointer;
+      transition: 0.1s linear;
+      box-shadow: 0 6px 0 #7b521f;
+      font-family: inherit;
+    }
+
+    .next-floor-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #7b521f;
+    }
+
+    .next-floor-btn:disabled {
+      opacity: 0.5;
+      transform: none;
+      cursor: default;
+    }
+
+    /* efecto partícula */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: rise 0.7s forwards;
+      z-index: 999;
+    }
+
+    @keyframes rise {
+      0% { opacity: 0.9; transform: translateY(0) scale(0.8);}
+      100% { opacity: 0; transform: translateY(-60px) scale(1.4);}
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-brick { font-size: 2rem; padding: 10px 16px;}
+      .block-option { padding: 10px 12px; font-size: 0.85rem;}
+      .tower-game { padding: 16px;}
+    }
+  </style>
+</head>
+<body>
+<div class="tower-game" id="towerGame">
+  <div class="tower-status">
+    <div class="stone-counter"><span>🧱</span> <span id="brickCount">0</span> piedras</div>
+    <div class="combo-indicator" id="comboDisplay">✨ racha 0</div>
+  </div>
+
+  <div class="question-area">
+    <div class="challenge-badge" id="categoryLabel">CONCORDANCIA</div>
+    <div class="hebrew-brick" id="towerHebrewWord">טוֹבָה</div>
+    <div class="extra-hint" id="gameHint">toca el bloque correcto</div>
+  </div>
+
+  <div class="blocks-container" id="blocksList"></div>
+  <div class="construction-feedback" id="buildFeedback">🏗️ Construye tu torre eligiendo la respuesta adecuada.</div>
+  <button class="next-floor-btn" id="nextLevelBtn">⬆️ SIGUIENTE PLANTA ⬆️</button>
+</div>
+
+<script>
+  // ======================== BANCO DE PREGUNTAS (variado, nivel intermedio) ==================
+  const QUESTIONS_LIBRARY = [
+    { hebrew: "טוֹבָה", correct: "buena (femenino singular)", options: ["bueno", "buena", "buenos", "buenas"], hint: "terminación femenina", category: "Género" },
+    { hebrew: "הָאִישׁ הַטּוֹב", correct: "el hombre bueno", options: ["el hombre es bueno", "un hombre bueno", "el hombre bueno", "los hombres buenos"], hint: "artículo en ambos", category: "Atributivo" },
+    { hebrew: "הָאִישׁ טוֹב", correct: "el hombre es bueno", options: ["el hombre bueno", "el hombre es bueno", "un hombre bueno", "hombre bueno"], hint: "predicado nominal", category: "Predicativo" },
+    { hebrew: "חָכָם", correct: "un sabio", options: ["sabio (adj)", "un sabio", "el sabio", "sabios"], hint: "uso sustantivo", category: "Sustantivado" },
+    { hebrew: "הֶחָכָם", correct: "el sabio", options: ["el sabio", "un sabio", "sabio", "sabios"], hint: "artículo + adjetivo", category: "Sustantivado" },
+    { hebrew: "עִיר גְּדוֹלָה", correct: "ciudad grande", options: ["ciudad grande", "la ciudad grande", "la ciudad es grande", "grande ciudad"], hint: "atributo indefinido", category: "Frase nominal" },
+    { hebrew: "הַנָּשִׁים טוֹבוֹת", correct: "las mujeres son buenas", options: ["las mujeres buenas", "las mujeres son buenas", "mujeres buenas", "la mujer buena"], hint: "predicado plural", category: "Predicativo" },
+    { hebrew: "מִצְרַ֫יְמָה", correct: "hacia Egipto", options: ["desde Egipto", "en Egipto", "hacia Egipto", "Egipto mismo"], hint: "direccional", category: "Direccional" },
+    { hebrew: "יָ֫מָּה", correct: "hacia el mar", options: ["el mar", "hacia el mar", "desde el mar", "en el mar"], hint: "terminación ה ָ", category: "Direccional" },
+    { hebrew: "סוּסִים רָעִים", correct: "caballos malos", options: ["caballos malos", "los caballos malos", "caballo malo", "caballos malvados"], hint: "plural masculino de רַע", category: "Concordancia" },
+    { hebrew: "רַבִּים", correct: "muchos (masculino)", options: ["muchos (masculino)", "grandes", "muchas", "grande"], hint: "geminado רַב", category: "Flexión" },
+    { hebrew: "חֲכָמִים", correct: "sabios (plural)", options: ["sabio", "sabios (plural)", "sabias", "sabios"], hint: "patrón gutural", category: "Plural" },
+    { hebrew: "קְדוֹשָׁה", correct: "santa", options: ["santo", "santa", "santos", "santas"], hint: "femenino singular קָדוֹשׁ", category: "Género" },
+    { hebrew: "קָשִׁים", correct: "difíciles (masc.)", options: ["difícil", "difíciles (masc.)", "duras", "duro"], hint: "de קָשֶׁה", category: "Adjetivo irregular" },
+    { hebrew: "רוּת יָפָה", correct: "Rut es hermosa", options: ["Rut hermosa", "Rut es hermosa", "la hermosa Rut", "hermosa Rut"], hint: "predicado con nombre", category: "Predicativo" },
+    { hebrew: "הַמְּלָכוֹת הַטּוֹבוֹת", correct: "las reinas buenas", options: ["las reinas son buenas", "las reinas buenas", "reinas buenas", "la reina buena"], hint: "artículo doble", category: "Atributivo" },
+    { hebrew: "אִישׁ צַדִּיק", correct: "un hombre justo / un hombre es justo", options: ["un hombre justo", "el hombre justo", "un hombre justo / un hombre es justo", "el hombre es justo"], hint: "ambigüedad clásica", category: "Ambigüedad" },
+    { hebrew: "קָרוֹב", correct: "cercano", options: ["lejano", "cercano", "grande", "santo"], hint: "opuesto a רחוק", category: "Vocabulario" },
+    { hebrew: "רְשָׁעוֹת", correct: "malvadas (femenino plural)", options: ["malvados", "malvadas", "malvada", "malvado"], hint: "plural femenino רשע", category: "Género" },
+    { hebrew: "הַצַּדִּיק", correct: "el justo", options: ["justo", "el justo", "un justo", "los justos"], hint: "sustantivado con artículo", category: "Sustantivo" }
+  ];
+
+  // Variables del juego
+  let currentSet = [];
+  let currentQIndex = 0;
+  let towerScore = 0;       // piedras acumuladas
+  let combo = 0;
+  let canSelect = true;
+  let nextLock = false;
+  let currentQuestionObj = null;
+
+  // Elementos DOM
+  const brickCountSpan = document.getElementById('brickCount');
+  const comboDisplaySpan = document.getElementById('comboDisplay');
+  const categoryLabel = document.getElementById('categoryLabel');
+  const towerHebrewWord = document.getElementById('towerHebrewWord');
+  const gameHintSpan = document.getElementById('gameHint');
+  const blocksContainer = document.getElementById('blocksList');
+  const buildFeedbackDiv = document.getElementById('buildFeedback');
+  const nextBtn = document.getElementById('nextLevelBtn');
+
+  // Funciones auxiliares
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateUI() {
+    brickCountSpan.innerText = towerScore;
+    comboDisplaySpan.innerHTML = combo > 0 ? `🔥 racha ${combo}` : `✨ racha 0`;
+  }
+
+  function spawnParticle(emoji, element) {
+    const rect = element.getBoundingClientRect();
+    const particle = document.createElement('div');
+    particle.innerText = emoji;
+    particle.className = 'particle';
+    particle.style.left = rect.left + rect.width/2 - 15 + 'px';
+    particle.style.top = rect.top - 10 + 'px';
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 700);
+  }
+
+  // Cargar pregunta actual
+  function loadCurrentQuestion() {
+    if (currentQIndex >= currentSet.length) {
+      // ciclo completado, reinicio con nueva selección aleatoria de preguntas + bonificación de piedras
+      buildFeedbackDiv.innerHTML = "🏆 ¡TORRE COMPLETADA! +25 piedras extra. Nueva ronda más desafiante 🏆";
+      towerScore += 25;
+      updateUI();
+      initGameRound();
+      return;
+    }
+    canSelect = true;
+    nextLock = false;
+    nextBtn.disabled = false;
+    currentQuestionObj = currentSet[currentQIndex];
+    towerHebrewWord.innerText = currentQuestionObj.hebrew;
+    categoryLabel.innerText = currentQuestionObj.category || "RETO";
+    gameHintSpan.innerText = currentQuestionObj.hint;
+    
+    // Mezclar opciones para impredecibilidad
+    let opts = [...currentQuestionObj.options];
+    if (!opts.includes(currentQuestionObj.correct)) opts.push(currentQuestionObj.correct);
+    opts = shuffleArray(opts);
+    
+    blocksContainer.innerHTML = '';
+    opts.forEach(opt => {
+      const block = document.createElement('div');
+      block.classList.add('block-option');
+      block.innerText = opt;
+      block.addEventListener('click', (e) => handleBlockSelection(opt, block));
+      blocksContainer.appendChild(block);
+    });
+    buildFeedbackDiv.innerHTML = "🪨 Elige el bloque correcto para subir un piso.";
+  }
+
+  // Manejar selección
+  function handleBlockSelection(selected, blockElement) {
+    if (!canSelect || nextLock) return;
+    const isCorrect = (selected === currentQuestionObj.correct);
+    const allBlocks = document.querySelectorAll('.block-option');
+    
+    if (isCorrect) {
+      // Acierto: sumar piedras y combo
+      let gain = 10;
+      if (combo >= 2) gain += 5;
+      if (combo >= 4) gain += 5;
+      towerScore += gain;
+      combo++;
+      if (combo === 5) {
+        towerScore += 15;
+        buildFeedbackDiv.innerHTML = "✨ ¡COMBO DE ORO! +15 piedras extra ✨";
+        spawnParticle("🏅", blockElement);
+      } else {
+        buildFeedbackDiv.innerHTML = `✅ ¡Correcto! +${gain} piedras. Racha: ${combo}`;
+        spawnParticle("🧱", blockElement);
+      }
+      blockElement.classList.add('block-correct');
+      updateUI();
+    } else {
+      // Error: reinicia combo y muestra corrección
+      combo = 0;
+      buildFeedbackDiv.innerHTML = `❌ Bloque incorrecto. La respuesta era: "${currentQuestionObj.correct}". ¡No te rindas!`;
+      blockElement.classList.add('block-wrong');
+      blockElement.classList.add('shake-block');
+      setTimeout(() => blockElement.classList.remove('shake-block'), 400);
+      spawnParticle("💥", blockElement);
+      updateUI();
+      // Resaltar el bloque correcto para aprendizaje
+      allBlocks.forEach(bl => {
+        if (bl.innerText === currentQuestionObj.correct) {
+          bl.style.border = "3px solid gold";
+          bl.style.backgroundColor = "#2a7842";
+        }
+      });
+    }
+    canSelect = false;
+    nextLock = true;
+    // Deshabilitar todos los bloques
+    allBlocks.forEach(bl => {
+      bl.classList.add('disabled-block');
+      bl.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  // Siguiente pregunta
+  function nextQuestion() {
+    if (!nextLock && canSelect) {
+      buildFeedbackDiv.innerHTML = "⚠️ ¡Selecciona una respuesta antes de continuar! ⚠️";
+      return;
+    }
+    currentQIndex++;
+    loadCurrentQuestion();
+  }
+
+  // Inicializar ronda con 12 preguntas aleatorias del banco
+  function initGameRound() {
+    const shuffledPool = shuffleArray([...QUESTIONS_LIBRARY]);
+    const totalQuestions = Math.min(12, shuffledPool.length);
+    currentSet = shuffledPool.slice(0, totalQuestions);
+    currentQIndex = 0;
+    combo = 0;
+    canSelect = true;
+    nextLock = false;
+    updateUI();
+    loadCurrentQuestion();
+  }
+
+  // Evento del botón siguiente
+  nextBtn.addEventListener('click', nextQuestion);
+  
+  // Comenzar juego
+  towerScore = 0;
+  combo = 0;
+  initGameRound();
+</script>
+</body>
+</html>

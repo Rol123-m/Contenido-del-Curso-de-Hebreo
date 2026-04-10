@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Desafío del Adjetivo Hebreo | Juego Interactivo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game-container {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(2px);
+      border-radius: 64px 48px 64px 48px;
+      padding: 20px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .game-header {
+      background: rgba(0,0,0,0.55);
+      border-radius: 60px;
+      padding: 12px 24px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .score-box, .streak-box, .level-box {
+      background: linear-gradient(135deg, #2c3e2f, #1e2a22);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #f9e0a0;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 0.9rem;
+    }
+
+    .score-box span, .streak-box span, .level-box span {
+      color: #ffd966;
+      font-size: 1.2rem;
+      margin-right: 6px;
+    }
+
+    .question-card {
+      background: #fef7e0;
+      background-image: radial-gradient(circle at 10% 20%, rgba(210,180,140,0.1) 2%, transparent 2.5%);
+      background-size: 28px 28px;
+      border-radius: 48px;
+      padding: 30px 20px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 20px 30px -10px black;
+      border: 1px solid #ffecb3;
+    }
+
+    .question-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b2a1f, #5c3e1f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hebrew-display {
+      font-size: 3rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', 'Segoe UI', serif;
+      direction: rtl;
+      background: #2c2418;
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 70px;
+      color: #ffefb9;
+      letter-spacing: 4px;
+      box-shadow: inset 0 0 0 2px #c9aa5f, 0 10px 15px -5px black;
+      margin: 15px 0;
+    }
+
+    .question-hint {
+      font-size: 0.85rem;
+      color: #7a5a3a;
+      background: #e9dbbe;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 30px;
+      margin-top: 8px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .opt-btn {
+      background: #2a2418;
+      border: none;
+      padding: 16px 8px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f2e0b0;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 5px 0 #0f0e0a;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .opt-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #0f0e0a;
+    }
+
+    .opt-btn.correct-glow {
+      background: #2c6e2c;
+      color: white;
+      box-shadow: 0 0 12px #8bc34a;
+    }
+
+    .opt-btn.wrong-glow {
+      background: #8b3a3a;
+      color: #ffc2c2;
+      text-decoration: line-through;
+    }
+
+    .opt-btn.disabled-btn {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .feedback-area {
+      background: #1f2a1bcc;
+      border-radius: 40px;
+      padding: 12px 18px;
+      margin: 10px 0 20px;
+      text-align: center;
+      font-weight: 500;
+      backdrop-filter: blur(12px);
+      color: #ffecb3;
+      min-height: 70px;
+    }
+
+    .next-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #c9a03d, #b47c2e);
+      border: none;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #1e2a1c;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 6px 0 #6b3f00;
+      font-family: inherit;
+    }
+
+    .next-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #6b3f00;
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      transform: none;
+      cursor: default;
+    }
+
+    .special-effect {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: floatUp 0.8s ease-out forwards;
+      z-index: 1000;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(0.8);}
+      100% { opacity: 0; transform: translateY(-80px) scale(1.3);}
+    }
+
+    .streak-fire {
+      background: #d45a2b;
+      box-shadow: 0 0 12px #ff8c42;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0);}
+      25% { transform: translateX(-5px);}
+      75% { transform: translateX(5px);}
+      100% { transform: translateX(0);}
+    }
+    .shake-effect {
+      animation: shake 0.25s ease-in-out 0s 2;
+    }
+
+    @media (max-width: 500px) {
+      .game-container { padding: 12px; }
+      .hebrew-display { font-size: 2rem; padding: 10px 18px; }
+      .question-text { font-size: 1.2rem; }
+      .opt-btn { font-size: 0.8rem; padding: 12px 6px; }
+      .options-grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container" id="gameApp">
+  <div class="game-header">
+    <div class="score-box"><span>🏆</span> <span id="scoreValue">0</span></div>
+    <div class="streak-box" id="streakBox"><span>🔥</span> <span id="streakValue">0</span></div>
+    <div class="level-box"><span>⚡</span> Nivel <span id="levelValue">1</span></div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-text" id="questionType">Identifica el adjetivo</div>
+    <div class="hebrew-display" id="hebrewWord">טוֹב</div>
+    <div class="question-hint" id="hintText">⚡ Concordancia y uso</div>
+  </div>
+
+  <div class="options-grid" id="optionsContainer"></div>
+
+  <div class="feedback-area" id="feedbackMsg">
+    💡 Elige la opción correcta. Cada acierto suma puntos.
+  </div>
+  <button class="next-btn" id="nextBtn">➡ SIGUIENTE PREGUNTA</button>
+</div>
+
+<script>
+  // ======================== BANCO DE PREGUNTAS (NIVEL INTERMEDIO) =======================
+  const QUESTION_SET = [
+    { hebrew: "טוֹבָה", correct: "buena (femenino singular)", options: ["bueno", "buena", "buenos", "buenas"], hint: "terminación ◌ָה femenino", type: "Traducción correcta" },
+    { hebrew: "הָאִישׁ הַטּוֹב", correct: "el hombre bueno", options: ["el hombre es bueno", "un hombre bueno", "el hombre bueno", "los hombres buenos"], hint: "artículo en ambos = atributivo definido", type: "Uso atributivo" },
+    { hebrew: "הָאִישׁ טוֹב", correct: "el hombre es bueno", options: ["el hombre bueno", "el hombre es bueno", "un hombre bueno", "el hombre fue bueno"], hint: "sin artículo en adjetivo = predicativo", type: "Uso predicativo" },
+    { hebrew: "חָכָם", correct: "un sabio", options: ["sabio (adj)", "un sabio", "el sabio", "sabios"], hint: "sin artículo, uso sustantivo", type: "Adjetivo como sustantivo" },
+    { hebrew: "הֶחָכָם", correct: "el sabio", options: ["el sabio", "un sabio", "sabio", "los sabios"], hint: "artículo definido + adjetivo sustantivado", type: "Sustantivado definido" },
+    { hebrew: "עִיר גְּדוֹלָה", correct: "ciudad grande", options: ["la ciudad grande", "ciudad grande", "la ciudad es grande", "grande ciudad"], hint: "atributivo indefinido femenino", type: "Frase nominal" },
+    { hebrew: "הַנָּשִׁים טוֹבוֹת", correct: "las mujeres son buenas", options: ["las mujeres buenas", "las mujeres son buenas", "mujeres buenas", "la mujer es buena"], hint: "predicativo plural femenino", type: "Predicativo" },
+    { hebrew: "מִצְרַ֫יְמָה", correct: "hacia Egipto", options: ["desde Egipto", "en Egipto", "hacia Egipto", "Egipto mismo"], hint: "terminación direccional ◌ָה", type: "Direccional" },
+    { hebrew: "יָ֫מָּה", correct: "hacia el mar", options: ["el mar", "desde el mar", "hacia el mar", "en el mar"], hint: "de יָם + terminación direccional", type: "Direccional con cambio" },
+    { hebrew: "סוּסִים רָעִים", correct: "caballos malos", options: ["caballos malos", "los caballos malos", "caballos malvados (definido)", "un caballo malo"], hint: "plural masculino de רַע", type: "Concordancia plural" },
+    { hebrew: "רַבִּים", correct: "muchos (masculino)", options: ["grandes", "muchos (masculino)", "muchas", "grande"], hint: "geminado רַב en plural", type: "Flexión geminada" },
+    { hebrew: "חֲכָמִים", correct: "sabios (plural)", options: ["sabio", "sabios (plural)", "sabias", "el sabio"], hint: "patrón gutural חָכָם", type: "Plural irregular" },
+    { hebrew: "קְדוֹשָׁה", correct: "santa", options: ["santo", "santa", "santos", "santas"], hint: "קָדוֹשׁ femenino con reducción", type: "Género femenino" },
+    { hebrew: "קָשִׁים", correct: "difíciles (masc.)", options: ["difícil", "difíciles (masc.)", "duras", "duro"], hint: "pérdida de ה ֶ", type: "Adjetivo que termina en הֶ" },
+    { hebrew: "רוּת יָפָה", correct: "Rut es hermosa", options: ["Rut hermosa", "Rut es hermosa", "la hermosa Rut", "hermosa Rut"], hint: "nombre + adjetivo sin artículo", type: "Predicativo con nombre" },
+    { hebrew: "הַמְּלָכוֹת הַטּוֹבוֹת", correct: "las reinas buenas", options: ["las reinas son buenas", "las reinas buenas", "reinas buenas", "la reina buena"], hint: "doble artículo, atributivo", type: "Atributo definido" },
+    { hebrew: "אִישׁ צַדִּיק", correct: "un hombre justo / un hombre es justo", options: ["un hombre justo", "el hombre es justo", "un hombre justo / un hombre es justo", "el hombre justo"], hint: "ambigüedad atributiva/predicativa", type: "Ambigüedad" },
+    { hebrew: "קָרוֹב", correct: "cercano", options: ["lejano", "cercano", "grande", "santo"], hint: "opuesto a רָחוֹק", type: "Vocabulario" },
+    { hebrew: "רְשָׁעוֹת", correct: "malvadas (femenino plural)", options: ["malvados", "malvadas", "malvada", "impío"], hint: "plural femenino de רָשָׁע", type: "Género y número" },
+    { hebrew: "הַצַּדִּיק", correct: "el justo", options: ["justo", "el justo", "un justo", "los justos"], hint: "sustantivado con artículo", type: "Sustantivado" }
+  ];
+
+  // Variables globales del juego
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let streak = 0;
+  let level = 1;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentQuestionObj = null;
+
+  // Elementos DOM
+  const hebrewSpan = document.getElementById('hebrewWord');
+  const questionTypeSpan = document.getElementById('questionType');
+  const hintSpan = document.getElementById('hintText');
+  const optionsDiv = document.getElementById('optionsContainer');
+  const feedbackDiv = document.getElementById('feedbackMsg');
+  const nextBtn = document.getElementById('nextBtn');
+  const scoreSpan = document.getElementById('scoreValue');
+  const streakSpan = document.getElementById('streakValue');
+  const levelSpan = document.getElementById('levelValue');
+  const streakBox = document.getElementById('streakBox');
+
+  // Utilidades
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateUIStats() {
+    scoreSpan.innerText = score;
+    streakSpan.innerText = streak;
+    levelSpan.innerText = level;
+    if(streak >= 3) {
+      streakBox.classList.add('streak-fire');
+    } else {
+      streakBox.classList.remove('streak-fire');
+    }
+  }
+
+  function spawnFloatingEmoji(emoji, targetElement) {
+    const rect = targetElement.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = emoji;
+    div.className = 'special-effect';
+    div.style.left = rect.left + rect.width/2 - 15 + 'px';
+    div.style.top = rect.top - 20 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  // Cargar una nueva pregunta
+  function loadQuestion() {
+    if(currentIndex >= currentQuestions.length) {
+      // Ronda completada, reinicia con nuevo set de preguntas aleatorias + bono
+      feedbackDiv.innerHTML = "🏁 ¡Completaste la ronda! +50 puntos bonus. ¡Nueva ronda con preguntas distintas! 🏁";
+      score += 50;
+      updateUIStats();
+      initGame();
+      return;
+    }
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    nextBtn.innerText = "➡ SIGUIENTE PREGUNTA";
+    currentQuestionObj = currentQuestions[currentIndex];
+    hebrewSpan.innerText = currentQuestionObj.hebrew;
+    questionTypeSpan.innerText = currentQuestionObj.type || "Desafío intermedio";
+    hintSpan.innerText = currentQuestionObj.hint;
+    
+    // Mezclar opciones para evitar predecibilidad
+    let opts = [...currentQuestionObj.options];
+    if(!opts.includes(currentQuestionObj.correct)) {
+      opts.push(currentQuestionObj.correct);
+    }
+    opts = shuffleArray(opts);
+    
+    optionsDiv.innerHTML = '';
+    opts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.classList.add('opt-btn');
+      btn.addEventListener('click', (e) => handleAnswer(opt, btn));
+      optionsDiv.appendChild(btn);
+    });
+    feedbackDiv.innerHTML = "🤔 Selecciona una opción...";
+  }
+
+  // Manejar respuesta
+  function handleAnswer(selected, btnElement) {
+    if(!canAnswer || waitingNext) return;
+    const isCorrect = (selected === currentQuestionObj.correct);
+    const allBtns = document.querySelectorAll('.opt-btn');
+    
+    if(isCorrect) {
+      let points = 10;
+      if(streak >= 2) points += 5;
+      if(streak >= 4) points += 5;
+      score += points;
+      streak++;
+      if(streak === 5) {
+        feedbackDiv.innerHTML = "✨ ¡RACHA MÍTICA! +15 puntos extra ✨";
+        score += 15;
+        spawnFloatingEmoji("🔥🔥", btnElement);
+      } else {
+        feedbackDiv.innerHTML = `✅ ¡Correcto! +${points} puntos. (Racha: ${streak})`;
+        spawnFloatingEmoji("✔️", btnElement);
+      }
+      btnElement.classList.add('correct-glow');
+      // Ajuste de nivel por puntuación
+      if(score >= 100 && level === 1) { level = 2; feedbackDiv.innerHTML += " 🎉 ¡SUBISTE A NIVEL 2! 🎉";}
+      else if(score >= 200 && level === 2) { level = 3; feedbackDiv.innerHTML += " 🏅 ¡NIVEL 3 - EXPERTO! 🏅";}
+      updateUIStats();
+    } else {
+      streak = 0;
+      feedbackDiv.innerHTML = `❌ Incorrecto. Respuesta correcta: "${currentQuestionObj.correct}". ¡Sigue así!`;
+      btnElement.classList.add('wrong-glow');
+      const qCard = document.querySelector('.question-card');
+      qCard.classList.add('shake-effect');
+      setTimeout(() => qCard.classList.remove('shake-effect'), 500);
+      spawnFloatingEmoji("💔", btnElement);
+      updateUIStats();
+      // Resaltar respuesta correcta para aprendizaje
+      allBtns.forEach(btn => {
+        if(btn.innerText === currentQuestionObj.correct) {
+          btn.style.border = "3px solid #ffd966";
+          btn.style.backgroundColor = "#3c5e2b";
+        }
+      });
+    }
+    canAnswer = false;
+    waitingNext = true;
+    allBtns.forEach(btn => { 
+      btn.style.pointerEvents = 'none'; 
+      btn.classList.add('disabled-btn'); 
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextQuestion() {
+    if(!waitingNext && canAnswer) {
+      feedbackDiv.innerHTML = "⚠️ ¡Responde la pregunta actual antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadQuestion();
+  }
+
+  // Inicializar juego: selección aleatoria de 12~15 preguntas
+  function initGame() {
+    let shuffledPool = shuffleArray([...QUESTION_SET]);
+    const numQuestions = Math.min(14, shuffledPool.length);
+    currentQuestions = shuffledPool.slice(0, numQuestions);
+    currentIndex = 0;
+    score = 0;
+    streak = 0;
+    level = 1;
+    updateUIStats();
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    loadQuestion();
+  }
+
+  // Eventos
+  nextBtn.addEventListener('click', nextQuestion);
+  initGame();
+</script>
+</body>
+</html>

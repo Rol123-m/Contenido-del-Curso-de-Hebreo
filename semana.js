@@ -143,7 +143,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Preposiciones maqquef, ', url: 'semanas/semana6/html/leccion6_parte2_preposiciones_maqqef.html', icono: 'מִן' },
                     { tipo: 'html', titulo: 'Preposiciones Inseparables', url: 'semanas/semana6/html/leccion6_parte3_preposiciones_inseparables.html', icono: 'עַל' },
                     { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana6/html/leccion6_parte5_vocabulario_resumen.html', icono: '📖' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 5', url: 'vocab.html', icono: '📖' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 6', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
                      { tipo: 'examen', titulo: 'Examen Semana 6- Sustantivos', url: 'https://forms.gle/MtmWfZfneE89Mv9L8', icono: '📝' }
@@ -161,13 +161,18 @@ class SemanaManager {
                 evaluacion: "Examen 7",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Adjetivos', url: 'semanas/semana7/pdf/adjetivos.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Forma de los Adjetivos', url: 'semanas/semana7/html/forma.html', icono: 'טוֹב' },
-                    { tipo: 'html', titulo: 'Adjetivos Atributivos', url: 'semanas/semana7/html/atributivos.html', icono: '⭐' },
-                    { tipo: 'html', titulo: 'Adjetivos Predicativos', url: 'semanas/semana7/html/predicativos.html', icono: '⚡' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'semanas/semana7/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Forma de los Adjetivos', url: 'semanas/semana7/html/semana7_Parte1.html', icono: 'טוֹב' },
+                    { tipo: 'html', titulo: 'Adjetivos Atributivos', url: 'semanas/semana7/html/semana7_Parte2.html', icono: '⭐' },
+                    { tipo: 'html', titulo: 'Adjetivos Predicativos', url: 'semanas/semana7/html/semana7_Parte3.html', icono: '⚡' },
+                    { tipo: 'html', titulo: 'más sobre adjetivos', url: 'semanas/semana7/html/semana7_Parte4.html', icono: '⚡' },
+                   { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 7- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Concordancia', url: 'semanas/semana7/juegos/concordancia.html', icono: '🤝' }
+                    { titulo: 'Concordancia', url: 'semanas/semana7/juegos/juego1.html', icono: '🤝' },
+                    { titulo: 'Más sobre adjetivos', url: 'semanas/semana7/juegos/juego2.html', icono: '🤝' }
                 ]
             },
             

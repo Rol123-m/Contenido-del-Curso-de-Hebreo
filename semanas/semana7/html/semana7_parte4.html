@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 7: El Adjetivo (Parte 4) | Vocabulario Completo y Ejercicios Prácticos</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .flashcard {
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: var(--radius);
+      padding: 15px;
+      text-align: center;
+      border: 2px solid var(--gray-light);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .flashcard:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .flashcard .hebrew-text {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .flashcard .meaning {
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+    .flashcard .frequency {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+    .exercise {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .exercise h4 {
+      color: var(--secondary-dark);
+      margin-bottom: 15px;
+    }
+    .answer {
+      background: var(--gray-light);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+      display: none;
+    }
+    .answer.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    .show-answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      transition: var(--transition);
+    }
+    .show-answer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 7</h1>
+      <p class="subtitle">Vocabulario Completo y Ejercicios Prácticos (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Vocabulario Completo de la Semana 7 -->
+    <section class="content-card">
+      <h2><i class="fas fa-database"></i> Vocabulario Completo - Semana 7</h2>
+      <p>Todos los adjetivos y palabras que debes dominar esta semana. Las cifras entre paréntesis indican la frecuencia de aparición en la Biblia Hebrea.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div class="flashcard" onclick="this.querySelector('.meaning').style.opacity='1'">
+          <span class="hebrew-text">אֶחָד</span>
+          <span class="meaning">uno (976)</span>
+          <span class="frequency">aparece 976 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">גָּדוֹל</span>
+          <span class="meaning">grande, importante (527)</span>
+          <span class="frequency">aparece 527 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">דַּל</span>
+          <span class="meaning">pobre, débil, necesitado (48)</span>
+          <span class="frequency">aparece 48 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">זָקֵן</span>
+          <span class="meaning">viejo, anciano; (sust.) anciano (180)</span>
+          <span class="frequency">aparece 180 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">חָכָם</span>
+          <span class="meaning">sabio, hábil, experimentado (138)</span>
+          <span class="frequency">aparece 138 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">טוֹב</span>
+          <span class="meaning">bueno, agradable (535)</span>
+          <span class="frequency">aparece 535 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">יָפֶה</span>
+          <span class="meaning">hermoso, bello (43)</span>
+          <span class="frequency">aparece 43 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">יָשָׁר</span>
+          <span class="meaning">recto, justo, derecho (119)</span>
+          <span class="frequency">aparece 119 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">כֵּן</span>
+          <span class="meaning">así, de este modo, correcto (741)</span>
+          <span class="frequency">con לָכֵן y עַל־כֵּן</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">מְאֹד</span>
+          <span class="meaning">mucho, en gran manera, muy (300)</span>
+          <span class="frequency">aparece 300 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">מְעַט</span>
+          <span class="meaning">poco, unos pocos (101)</span>
+          <span class="frequency">aparece 101 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">עַתָּה</span>
+          <span class="meaning">ahora (435)</span>
+          <span class="frequency">aparece 435 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">צַדִּיק</span>
+          <span class="meaning">justo, recto, inocente (206)</span>
+          <span class="frequency">aparece 206 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">קֹדֶשׁ</span>
+          <span class="meaning">santidad, cosa sagrada (470)</span>
+          <span class="frequency">aparece 470 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">קָדוֹשׁ</span>
+          <span class="meaning">santo, apartado (117)</span>
+          <span class="frequency">aparece 117 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">קָטֹן</span>
+          <span class="meaning">pequeño, joven, insignificante (74)</span>
+          <span class="frequency">aparece 74 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">קָרוֹב</span>
+          <span class="meaning">cercano, próximo (75)</span>
+          <span class="frequency">aparece 75 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">קָשֶׁה</span>
+          <span class="meaning">difícil, duro, severo (36)</span>
+          <span class="frequency">aparece 36 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">רָחוֹק</span>
+          <span class="meaning">distante, lejano (84)</span>
+          <span class="frequency">aparece 84 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">רַב</span>
+          <span class="meaning">mucho, grande, numeroso (419)</span>
+          <span class="frequency">aparece 419 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">רַע</span>
+          <span class="meaning">malo, malvado, perverso (312)</span>
+          <span class="frequency">aparece 312 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">רָשָׁע</span>
+          <span class="meaning">malvado, culpable, impío (264)</span>
+          <span class="frequency">aparece 264 veces</span>
+        </div>
+        <div class="flashcard">
+          <span class="hebrew-text">שִׁיר</span>
+          <span class="meaning">canción, canto (78)</span>
+          <span class="frequency">aparece 78 veces</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 1: Identificar el uso -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> Ejercicio 1: Identifica el Uso del Adjetivo</h2>
+      <p>Determina si cada frase usa el adjetivo de forma <strong>Atributiva (A)</strong>, <strong>Predicativa (P)</strong> o <strong>Sustantiva (S)</strong>.</p>
+      
+      <div class="exercise">
+        <h4>1. <span class="hebrew-text">הָאִישׁ הַטּוֹב</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('answer1')">Mostrar Respuesta</button>
+        <div id="answer1" class="answer"><strong>Respuesta: A (Atributivo)</strong><br>“El hombre bueno” - el adjetivo modifica directamente al sustantivo y ambos tienen el artículo definido.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>2. <span class="hebrew-text">הֶחָכָם</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('answer2')">Mostrar Respuesta</button>
+        <div id="answer2" class="answer"><strong>Respuesta: S (Sustantivo)</strong><br>“El sabio” - no hay un sustantivo al que modifique; el adjetivo actúa como sustantivo.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>3. <span class="hebrew-text">הַנָּשִׁים טוֹבוֹת</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('answer3')">Mostrar Respuesta</button>
+        <div id="answer3" class="answer"><strong>Respuesta: P (Predicativo)</strong><br>“Las mujeres son buenas” - el adjetivo no tiene artículo y afirma algo sobre el sustantivo.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>4. <span class="hebrew-text">צַדִּיק</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('answer4')">Mostrar Respuesta</button>
+        <div id="answer4" class="answer"><strong>Respuesta: S (Sustantivo)</strong><br>“Un justo” - el adjetivo solo funciona como sustantivo.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>5. <span class="hebrew-text">הַסּוּס הַגָּדוֹל</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('answer5')">Mostrar Respuesta</button>
+        <div id="answer5" class="answer"><strong>Respuesta: A (Atributivo)</strong><br>“El caballo grande” - adjetivo atributivo con concordancia completa.</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 2: Traducción -->
+    <section class="content-card">
+      <h2><i class="fas fa-language"></i> Ejercicio 2: Traduce al Español</h2>
+      
+      <div class="exercise">
+        <h4>1. <span class="hebrew-text">מֶלֶךְ רָשָׁע</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('trans1')">Mostrar Respuesta</button>
+        <div id="trans1" class="answer"><strong>Traducción:</strong> “Un rey malvado” o “rey malvado” (atributivo, indefinido)</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>2. <span class="hebrew-text">הָאִשָּׁה יָפָה</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('trans2')">Mostrar Respuesta</button>
+        <div id="trans2" class="answer"><strong>Traducción:</strong> “La mujer es hermosa” (predicativo - no hay artículo en el adjetivo)</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>3. <span class="hebrew-text">קָדוֹשׁ</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('trans3')">Mostrar Respuesta</button>
+        <div id="trans3" class="answer"><strong>Traducción:</strong> “Santo” (adjetivo) o “un santo” (uso sustantivo)</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>4. <span class="hebrew-text">הַנָּבִיא הַקָּרוֹב</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('trans4')">Mostrar Respuesta</button>
+        <div id="trans4" class="answer"><strong>Traducción:</strong> “El profeta cercano” (atributivo definido)</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>5. <span class="hebrew-text">טוֹבִים הָאֲנָשִׁים</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('trans5')">Mostrar Respuesta</button>
+        <div id="trans5" class="answer"><strong>Traducción:</strong> “Los hombres son buenos” (predicativo con adjetivo antes del sustantivo)</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 3: Terminación Direccional -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-location-arrow"></i> Ejercicio 3: Terminación Direccional</h2>
+      
+      <div class="exercise">
+        <h4>1. <span class="hebrew-text">מִצְרַ֫יְמָה</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('dir1')">Mostrar Respuesta</button>
+        <div id="dir1" class="answer"><strong>Traducción:</strong> “Hacia Egipto”</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>2. <span class="hebrew-text">הַבַּ֫יְתָה</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('dir2')">Mostrar Respuesta</button>
+        <div id="dir2" class="answer"><strong>Traducción:</strong> “Hacia la casa”</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>3. <span class="hebrew-text">שָׁ֫מָּה</span></h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('dir3')">Mostrar Respuesta</button>
+        <div id="dir3" class="answer"><strong>Traducción:</strong> “Hacia allí”, “a ese lugar”</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>4. ¿Qué diferencia hay entre <span class="hebrew-text">תּוֹרָה</span> y <span class="hebrew-text">תּוֹרָ֫תָה</span>?</h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('dir4')">Mostrar Respuesta</button>
+        <div id="dir4" class="answer"><strong>Respuesta:</strong> <span class="hebrew-text">תּוֹרָה</span> es “ley” (sustantivo femenino). <span class="hebrew-text">תּוֹרָ֫תָה</span> es “hacia la ley” (con terminación direccional). La terminación direccional es átona, mientras que la ה del femenino es acentuada.</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 4: Completar la concordancia -->
+    <section class="content-card">
+      <h2><i class="fas fa-puzzle-piece"></i> Ejercicio 4: Completa la Concordancia</h2>
+      
+      <div class="exercise">
+        <h4>1. <span class="hebrew-text">סוּסִים ______</span> (caballos buenos - masculino plural)</h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('conc1')">Mostrar Respuesta</button>
+        <div id="conc1" class="answer"><strong>Respuesta:</strong> <span class="hebrew-text">טוֹבִים</span><br>Explicación: <span class="hebrew-text">סוּסִים</span> es masculino plural, por lo que el adjetivo debe ser <span class="hebrew-text">טוֹבִים</span>.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>2. <span class="hebrew-text">מַלְכָּה ______</span> (reina buena - femenino singular)</h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('conc2')">Mostrar Respuesta</button>
+        <div id="conc2" class="answer"><strong>Respuesta:</strong> <span class="hebrew-text">טוֹבָה</span><br>Explicación: <span class="hebrew-text">מַלְכָּה</span> es femenino singular, por lo que el adjetivo debe ser <span class="hebrew-text">טוֹבָה</span>.</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>3. <span class="hebrew-text">הַנְּעָרִים ______</span> (los jóvenes justos - masculino plural definido)</h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('conc3')">Mostrar Respuesta</button>
+        <div id="conc3" class="answer"><strong>Respuesta:</strong> <span class="hebrew-text">הַצַּדִּיקִים</span><br>Explicación: Concordancia en género (masculino), número (plural) y determinación (artículo definido).</div>
+      </div>
+      
+      <div class="exercise">
+        <h4>4. <span class="hebrew-text">עִיר ______</span> (ciudad grande - femenino singular)</h4>
+        <button class="show-answer-btn" onclick="toggleAnswer('conc4')">Mostrar Respuesta</button>
+        <div id="conc4" class="answer"><strong>Respuesta:</strong> <span class="hebrew-text">גְּדוֹלָה</span><br>Explicación: <span class="hebrew-text">עִיר</span> es femenino (aunque no termina en ה), así que el adjetivo debe ser femenino: <span class="hebrew-text">גְּדוֹלָה</span>.</div>
+      </div>
+    </section>
+
+    <!-- Resumen de la semana hasta ahora -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-check-circle"></i> Puntos Clave para Memorizar</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>Concordancia:</strong> El adjetivo siempre concuerda en género y número con el sustantivo.</li>
+          <li><strong>Atributivo:</strong> Adjetivo DESPUÉS del sustantivo + misma determinación = "el hombre bueno"</li>
+          <li><strong>Predicativo:</strong> Adjetivo SIN artículo + puede ir antes o después = "el hombre es bueno"</li>
+          <li><strong>Sustantivo:</strong> El adjetivo solo = "el sabio", "un justo"</li>
+          <li><strong>Terminación direccional <span class="hebrew-text">◌ָה</span>:</strong> Átona, indica movimiento hacia algo.</li>
+          <li><strong>Forma lexical:</strong> Siempre masculino singular.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info"><p>Curso de Hebreo Bíblico Elemental</p><p>Ministerio "Vivos para Servir"</p><p class="copyright">© 2026 Semana 7: El Adjetivo — Parte 4 de 5</p></div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      answer.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
