@@ -168,7 +168,7 @@ class SemanaManager {
                    { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 7- Sustantivos', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 7- Sustantivos', url: 'https://forms.gle/otZJCNWr5C4eAaNd6', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Concordancia', url: 'semanas/semana7/juegos/juego1.html', icono: '🤝' },
