@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Baúl de los Adjetivos | Hebreo Bíblico - Semana 7</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #1e3c2c, #0f2a1a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .treasure-container {
+      max-width: 600px;
+      width: 100%;
+      background: linear-gradient(145deg, #5c3d2e, #3d261b);
+      border-radius: 60px 60px 40px 40px;
+      padding: 20px;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,200,0.2);
+      border: 1px solid #d4a373;
+      position: relative;
+    }
+
+    .treasure-container::before {
+      content: "📦";
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    /* Header */
+    .treasure-header {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    .treasure-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #f0dbb4;
+      text-shadow: 0 2px 5px #3d261b;
+      letter-spacing: 2px;
+    }
+
+    .treasure-sub {
+      font-size: 0.7rem;
+      color: #c9a87b;
+    }
+
+    /* Stats */
+    .stats-panel {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.4);
+      border-radius: 50px;
+      padding: 8px 18px;
+      margin-bottom: 20px;
+      border: 1px solid #d4a37355;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: #c9a87b;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f0c674;
+      line-height: 1;
+    }
+
+    /* Tesoro (pregunta) */
+    .treasure-chest {
+      background: linear-gradient(145deg, #8b6914, #6b4c2c);
+      border-radius: 40px;
+      padding: 25px 15px;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px solid #f0c674;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .hebrew-gem {
+      font-size: 3rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #1a0f0a;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 50px;
+      color: #ffd98c;
+      letter-spacing: 4px;
+      box-shadow: inset 0 0 0 2px #c9a87b, 0 5px 10px black;
+      margin: 10px 0;
+    }
+
+    .translit-gem {
+      font-size: 1rem;
+      color: #f0dbb4;
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    .freq-gem {
+      font-size: 0.7rem;
+      color: #b89a6a;
+      margin-top: 5px;
+    }
+
+    /* Pistas */
+    .hints-area {
+      background: #1a0f0acc;
+      border-radius: 30px;
+      padding: 10px 15px;
+      margin: 15px 0;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .hint-text {
+      color: #f0c674;
+      font-size: 0.85rem;
+    }
+
+    .hint-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .hint-dot {
+      width: 30px;
+      height: 5px;
+      background: #4a3624;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .hint-dot.revealed {
+      background: #f0c674;
+      box-shadow: 0 0 5px #ffd700;
+    }
+
+    /* Opciones */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .option-btn {
+      background: linear-gradient(145deg, #3e2a1f, #2a1a10);
+      border: 1px solid #c9a87b;
+      padding: 14px 8px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f0dbb4;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .option-btn:active {
+      transform: scale(0.96);
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(145deg, #2c6e2c, #1b4a1b);
+      border-color: #ffd700;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(145deg, #6e2c2c, #4a1b1b);
+      text-decoration: line-through;
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Botón siguiente */
+    .next-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #d4a373, #b5835a);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #1a0f0a;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      margin-top: 10px;
+    }
+
+    .next-btn:active {
+      transform: scale(0.98);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    /* Mensaje */
+    .treasure-msg {
+      background: #000000aa;
+      border-radius: 30px;
+      padding: 8px 15px;
+      margin-top: 12px;
+      text-align: center;
+      color: #f0c674;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    /* Animaciones */
+    @keyframes coinCollect {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-70px) rotate(360deg); }
+    }
+
+    .coin {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: coinCollect 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-gem { font-size: 2rem; padding: 8px 16px; }
+      .option-btn { font-size: 0.75rem; padding: 10px 6px; }
+      .treasure-title { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="treasure-container" id="treasureGame">
+  <div class="treasure-header">
+    <div class="treasure-title">📜 EL BAÚL DE LOS ADJETIVOS 📜</div>
+    <div class="treasure-sub">desbloquea el tesoro del vocabulario hebreo</div>
+  </div>
+
+  <div class="stats-panel">
+    <div class="stat"><div class="stat-label">💎 TESORO</div><div class="stat-value" id="scoreValue">0</div></div>
+    <div class="stat"><div class="stat-label">✅ ACIERTOS</div><div class="stat-value" id="correctValue">0</div></div>
+    <div class="stat"><div class="stat-label">🔥 RACHA</div><div class="stat-value" id="streakValue">0</div></div>
+  </div>
+
+  <div class="treasure-chest">
+    <div class="hebrew-gem" id="hebrewWord">טוֹב</div>
+    <div class="translit-gem" id="translitWord">ṭōv</div>
+    <div class="freq-gem" id="freqWord">📖 aparece 535 veces</div>
+  </div>
+
+  <div class="hints-area">
+    <div class="hint-text" id="hintMessage">💡 Toca una opción para abrir el baúl...</div>
+    <div class="hint-dots" id="hintDots"></div>
+  </div>
+
+  <div class="options-grid" id="optionsContainer"></div>
+  <button class="next-btn" id="nextWordBtn">🔓 SIGUIENTE TESORO 🔓</button>
+  <div class="treasure-msg" id="treasureMsg">🏺 Cada acierto añade monedas a tu tesoro. ¡Acumula riqueza!</div>
+</div>
+
+<script>
+  // VOCABULARIO SEMANA 7
+  const VOCABULARY_WEEK7 = [
+    { hebrew: "טוֹב", translit: "ṭōv", meaning: "bueno, agradable", freq: 535, hints: ["adjetivo positivo", "opuesto a רַע", "Dios lo es"] },
+    { hebrew: "רַע", translit: "ra'", meaning: "malo, malvado, perverso", freq: 312, hints: ["adjetivo negativo", "opuesto a טוֹב", "el mal"] },
+    { hebrew: "גָּדוֹל", translit: "gādōl", meaning: "grande, importante", freq: 527, hints: ["tamaño", "opuesto a קטן", "Dios es grande"] },
+    { hebrew: "קָטֹן", translit: "qāṭōn", meaning: "pequeño, joven, insignificante", freq: 74, hints: ["tamaño pequeño", "opuesto a גדול", "David era el menor"] },
+    { hebrew: "קָדוֹשׁ", translit: "qādōš", meaning: "santo, apartado", freq: 117, hints: ["atributo divino", "apartado", "Santo, Santo, Santo"] },
+    { hebrew: "חָכָם", translit: "ḥāḵām", meaning: "sabio, hábil, experimentado", freq: 138, hints: ["inteligente", "Salomón lo era", "opuesto a necio"] },
+    { hebrew: "צַדִּיק", translit: "ṣadīq", meaning: "justo, recto, inocente", freq: 206, hints: ["recto", "Noé era", "opuesto a רשע"] },
+    { hebrew: "יָשָׁר", translit: "yāšār", meaning: "recto, justo, nivelado, derecho", freq: 119, hints: ["derecho", "recto", "sin torcer"] },
+    { hebrew: "רָשָׁע", translit: "rāšā'", meaning: "malvado, culpable, impío", freq: 264, hints: ["impío", "opuesto a צדיק", "los malvados"] },
+    { hebrew: "עַתָּה", translit: "ʿattâ", meaning: "ahora", freq: 435, hints: ["tiempo presente", "opuesto a אז", "en este momento"] },
+    { hebrew: "אֶחָד", translit: "ʾeḥād", meaning: "uno", freq: 976, hints: ["número", "único", "Shema Israel"] },
+    { hebrew: "רַב", translit: "rav", meaning: "mucho, grande, numeroso", freq: 419, hints: ["abundante", "múltiple", "opuesto a מעט"] },
+    { hebrew: "מְאֹד", translit: "məʾōd", meaning: "mucho, en gran manera, muy", freq: 300, hints: ["adverbio", "intensidad", "muy"] },
+    { hebrew: "מְעַט", translit: "məʿaṭ", meaning: "poco, unos pocos", freq: 101, hints: ["pequeña cantidad", "opuesto a רב", "un poco"] },
+    { hebrew: "יָפֶה", translit: "yāfeh", meaning: "hermoso, bello", freq: 43, hints: ["belleza", "Rut era", "atractivo"] },
+    { hebrew: "זָקֵן", translit: "zāqēn", meaning: "viejo, anciano", freq: 180, hints: ["edad avanzada", "opuesto a נער", "Abraham era"] },
+    { hebrew: "קָרוֹב", translit: "qārōv", meaning: "cercano, próximo", freq: 75, hints: ["distancia corta", "opuesto a רחוק", "cerca"] },
+    { hebrew: "רָחוֹק", translit: "rāḥōq", meaning: "distante, lejano", freq: 84, hints: ["distancia larga", "opuesto a קרוב", "lejos"] },
+    { hebrew: "קָשֶׁה", translit: "qāšeh", meaning: "difícil, duro, severo", freq: 36, hints: ["dificultad", "opuesto a רך", "Faraón tenía corazón"] },
+    { hebrew: "דַּל", translit: "dal", meaning: "pobre, débil, necesitado", freq: 48, hints: ["necesitado", "opuesto a עשיר", "los pobres"] }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let correctTotal = 0;
+  let streak = 0;
+  let hintsRevealed = 0;
+  let maxHints = 3;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentItem = null;
+  let currentOptions = [];
+
+  // DOM elements
+  const hebrewSpan = document.getElementById('hebrewWord');
+  const translitSpan = document.getElementById('translitWord');
+  const freqSpan = document.getElementById('freqWord');
+  const hintMessageSpan = document.getElementById('hintMessage');
+  const hintDotsDiv = document.getElementById('hintDots');
+  const optionsDiv = document.getElementById('optionsContainer');
+  const nextBtn = document.getElementById('nextWordBtn');
+  const treasureMsgSpan = document.getElementById('treasureMsg');
+  const scoreSpan = document.getElementById('scoreValue');
+  const correctSpan = document.getElementById('correctValue');
+  const streakSpan = document.getElementById('streakValue');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function generateOptions(correctMeaning, currentHebrew) {
+    let candidates = [correctMeaning];
+    const allMeanings = VOCABULARY_WEEK7.map(v => v.meaning).filter(m => m !== correctMeaning);
+    const shuffledMeanings = shuffleArray([...allMeanings]);
+    for (let i = 0; i < shuffledMeanings.length && candidates.length < 4; i++) {
+      if (!candidates.includes(shuffledMeanings[i])) {
+        candidates.push(shuffledMeanings[i]);
+      }
+    }
+    return shuffleArray(candidates.slice(0, 4));
+  }
+
+  function updateUIStats() {
+    scoreSpan.innerText = score;
+    correctSpan.innerText = correctTotal;
+    streakSpan.innerText = streak;
+  }
+
+  function updateHintDots() {
+    hintDotsDiv.innerHTML = '';
+    for (let i = 0; i < maxHints; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('hint-dot');
+      if (i < hintsRevealed) dot.classList.add('revealed');
+      hintDotsDiv.appendChild(dot);
+    }
+  }
+
+  function revealHint() {
+    if (hintsRevealed >= maxHints) return;
+    if (!currentItem) return;
+    
+    hintsRevealed++;
+    updateHintDots();
+    
+    const hintIndex = Math.min(hintsRevealed - 1, currentItem.hints.length - 1);
+    hintMessageSpan.innerHTML = `🔮 Pista ${hintsRevealed}: ${currentItem.hints[hintIndex]}`;
+    
+    if (hintsRevealed === maxHints) {
+      treasureMsgSpan.innerHTML = "⚠️ Última pista... ¡decídete pronto!";
+    }
+  }
+
+  function spawnCoin(element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = "🪙";
+    div.className = 'coin';
+    div.style.left = rect.left + rect.width/2 - 15 + 'px';
+    div.style.top = rect.top - 10 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function loadWord() {
+    if (currentIndex >= currentQuestions.length) {
+      treasureMsgSpan.innerHTML = "✨ ¡TESORO COMPLETADO! +100 monedas de bonificación. ¡Nuevo baúl! ✨";
+      score += 100;
+      updateUIStats();
+      initGame();
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentItem = currentQuestions[currentIndex];
+    hintsRevealed = 0;
+    updateHintDots();
+    hintMessageSpan.innerHTML = "💎 ¿Cuál es el significado de esta palabra?";
+    
+    hebrewSpan.innerText = currentItem.hebrew;
+    translitSpan.innerText = currentItem.translit;
+    freqSpan.innerHTML = `📖 aparece ${currentItem.freq} veces`;
+    
+    currentOptions = generateOptions(currentItem.meaning, currentItem.hebrew);
+    
+    optionsDiv.innerHTML = '';
+    currentOptions.forEach(opt => {
+      const btn = document.createElement('div');
+      btn.classList.add('option-btn');
+      btn.innerText = opt;
+      btn.addEventListener('click', (e) => handleAnswer(opt, btn));
+      optionsDiv.appendChild(btn);
+    });
+    
+    treasureMsgSpan.innerHTML = "🪙 Elige la respuesta correcta para ganar monedas.";
+  }
+
+  function handleAnswer(selected, btnElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentItem.meaning);
+    const allBtns = document.querySelectorAll('.option-btn');
+    
+    if (isCorrect) {
+      let pointsEarned = 100;
+      if (hintsRevealed === 1) pointsEarned = 70;
+      else if (hintsRevealed === 2) pointsEarned = 40;
+      else if (hintsRevealed === 3) pointsEarned = 20;
+      
+      if (streak >= 2) pointsEarned += 15;
+      if (streak >= 4) pointsEarned += 20;
+      
+      score += pointsEarned;
+      correctTotal++;
+      streak++;
+      
+      treasureMsgSpan.innerHTML = `✅ ¡CORRECTO! "${currentItem.meaning}" +${pointsEarned} monedas. Racha: ${streak}`;
+      btnElement.classList.add('correct');
+      spawnCoin(btnElement);
+      
+      updateUIStats();
+    } else {
+      streak = 0;
+      treasureMsgSpan.innerHTML = `❌ INCORRECTO. Era "${currentItem.meaning}". ¡Sigue practicando!`;
+      btnElement.classList.add('wrong');
+      updateUIStats();
+      
+      if (hintsRevealed < maxHints) {
+        revealHint();
+      }
+      
+      allBtns.forEach(btn => {
+        if (btn.innerText === currentItem.meaning) {
+          btn.style.border = "3px solid gold";
+          btn.style.background = "#2c6e2c";
+        }
+      });
+    }
+    
+    canAnswer = false;
+    waitingNext = true;
+    allBtns.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextWord() {
+    if (!waitingNext && canAnswer) {
+      treasureMsgSpan.innerHTML = "⚠️ ¡Abre este tesoro antes de pasar al siguiente! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadWord();
+  }
+
+  function initGame() {
+    let shuffled = shuffleArray([...VOCABULARY_WEEK7]);
+    currentQuestions = shuffled.slice(0, 15);
+    currentIndex = 0;
+    score = 0;
+    correctTotal = 0;
+    streak = 0;
+    canAnswer = true;
+    waitingNext = false;
+    updateUIStats();
+    loadWord();
+  }
+
+  nextBtn.addEventListener('click', nextWord);
+  initGame();
+</script>
+</body>
+</html>

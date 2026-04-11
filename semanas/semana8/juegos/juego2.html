@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Pronombres: El Duelo de la Torre | Hebreo Bíblico - Semana 8</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game-wrapper {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 56px;
+      padding: 20px;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    /* Torre visual */
+    .tower-visual {
+      background: #2c2c2c;
+      border-radius: 30px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tower-title {
+      color: #ffd966;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .blocks {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 120px;
+      gap: 3px;
+    }
+
+    .block {
+      width: 30px;
+      height: 0;
+      background: linear-gradient(145deg, #d4a373, #b5835a);
+      border-radius: 6px 6px 0 0;
+      transition: height 0.3s ease;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    }
+
+    .block.filled {
+      height: 25px;
+    }
+
+    .block.miss {
+      background: linear-gradient(145deg, #8b4513, #5c2e0b);
+      opacity: 0.5;
+    }
+
+    .tower-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 8px 15px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 40px;
+      color: #ffd966;
+    }
+
+    /* Pregunta */
+    .question-panel {
+      background: linear-gradient(135deg, #fef9e6, #f5e6c8);
+      border-radius: 40px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2c5364;
+      color: #ffd966;
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      margin-bottom: 12px;
+    }
+
+    .hebrew-display {
+      font-size: 2.8rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #1a2a3a;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 60px;
+      color: #ffefb9;
+      margin: 12px 0;
+      letter-spacing: 2px;
+    }
+
+    .clue {
+      font-size: 0.8rem;
+      color: #7a5a3a;
+      background: #e9dbbe;
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 30px;
+    }
+
+    /* Opciones tipo cartas */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-btn {
+      background: #2c3e50;
+      border: 2px solid #ffd966;
+      padding: 14px 8px;
+      border-radius: 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ffefcf;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .card-btn:active {
+      transform: scale(0.96);
+    }
+
+    .card-btn.correct-card {
+      background: #27ae60;
+      border-color: #f1c40f;
+      box-shadow: 0 0 15px #27ae60;
+    }
+
+    .card-btn.wrong-card {
+      background: #c0392b;
+      text-decoration: line-through;
+      border-color: #e74c3c;
+    }
+
+    .card-btn.disabled-card {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* Feedback */
+    .battle-feedback {
+      background: rgba(0,0,0,0.7);
+      border-radius: 30px;
+      padding: 12px;
+      margin: 15px 0;
+      text-align: center;
+      color: #ffd966;
+      font-size: 0.9rem;
+    }
+
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #f39c12, #e67e22);
+      border: none;
+      padding: 14px;
+      border-radius: 60px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #1a2a3a;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    /* Animación de caída */
+    @keyframes shakeBlock {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+
+    .shake {
+      animation: shakeBlock 0.2s ease-in-out 0s 2;
+    }
+
+    @keyframes floatReward {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-70px); }
+    }
+
+    .reward {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: floatReward 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-display { font-size: 1.8rem; padding: 8px 16px; }
+      .card-btn { font-size: 0.75rem; padding: 10px 6px; }
+      .block { width: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-wrapper" id="towerGame">
+  <!-- Torre visual -->
+  <div class="tower-visual">
+    <div class="tower-title">🏰 TORRE DEL CONOCIMIENTO 🏰</div>
+    <div class="blocks" id="blocksContainer"></div>
+    <div class="tower-stats">
+      <span>🧱 Bloques: <span id="blocksCount">0</span>/<span id="maxBlocks">10</span></span>
+      <span>⚡ Aciertos seguidos: <span id="streakBlocks">0</span></span>
+      <span>💔 Fallos: <span id="missCount">0</span>/3</span>
+    </div>
+  </div>
+
+  <!-- Pregunta -->
+  <div class="question-panel">
+    <div class="badge" id="typeBadge">PRONOMBRE PERSONAL</div>
+    <div class="hebrew-display" id="hebrewQuestion">אֲנִי</div>
+    <div class="clue" id="clueText">⚡ Construye tu torre eligiendo bien</div>
+  </div>
+
+  <!-- Opciones -->
+  <div class="cards-grid" id="cardsContainer"></div>
+  <div class="battle-feedback" id="feedbackArea">🏗️ Cada acierto añade un bloque. ¡3 fallos y la torre se derrumba!</div>
+  <button class="action-btn" id="nextRoundBtn">⬆️ SIGUIENTE BLOQUE ⬆️</button>
+</div>
+
+<script>
+  // Banco de preguntas - Semana 8
+  const QUESTION_BANK = [
+    { hebrew: "אֲנִי", correct: "yo", options: ["yo", "tú", "él", "nosotros"], type: "Pronombre Personal" },
+    { hebrew: "אַתָּה", correct: "tú (masc.)", options: ["tú (masc.)", "tú (fem.)", "él", "ella"], type: "Pronombre Personal" },
+    { hebrew: "אַתְּ", correct: "tú (fem.)", options: ["tú (masc.)", "tú (fem.)", "vosotros", "ellas"], type: "Pronombre Personal" },
+    { hebrew: "הוּא", correct: "él", options: ["él", "ella", "ellos", "nosotros"], type: "Pronombre Personal" },
+    { hebrew: "הִיא", correct: "ella", options: ["él", "ella", "ellos", "vosotras"], type: "Pronombre Personal" },
+    { hebrew: "אֲנַחְנוּ", correct: "nosotros", options: ["nosotros", "vosotros", "ellos", "ellas"], type: "Pronombre Personal" },
+    { hebrew: "אַתֶּם", correct: "vosotros (masc.)", options: ["vosotros (masc.)", "vosotras (fem.)", "nosotros", "ellos"], type: "Pronombre Personal" },
+    { hebrew: "הֵם", correct: "ellos", options: ["ellos", "ellas", "nosotros", "vosotros"], type: "Pronombre Personal" },
+    { hebrew: "הֵן", correct: "ellas", options: ["ellos", "ellas", "nosotros", "vosotras"], type: "Pronombre Personal" },
+    { hebrew: "זֶה", correct: "este (masc.)", options: ["este (masc.)", "esta (fem.)", "estos", "aquel"], type: "Demostrativo" },
+    { hebrew: "זֹאת", correct: "esta (fem.)", options: ["este (masc.)", "esta (fem.)", "estos", "aquella"], type: "Demostrativo" },
+    { hebrew: "אֵלֶּה", correct: "estos/estas", options: ["este", "esta", "estos/estas", "aquel"], type: "Demostrativo" },
+    { hebrew: "אֲשֶׁר", correct: "que, quien", options: ["que, quien", "por qué", "cómo", "dónde"], type: "Relativo" },
+    { hebrew: "מִי", correct: "¿quién?", options: ["¿quién?", "¿qué?", "¿dónde?", "¿cómo?"], type: "Interrogativo" },
+    { hebrew: "מָה", correct: "¿qué?", options: ["¿quién?", "¿qué?", "¿dónde?", "¿por qué?"], type: "Interrogativo" },
+    { hebrew: "הָאִישׁ הַזֶּה", correct: "este hombre", options: ["este hombre", "el hombre es este", "aquel hombre", "hombre este"], type: "Demostrativo" },
+    { hebrew: "זֶה הָאִישׁ", correct: "este es el hombre", options: ["este hombre", "este es el hombre", "el hombre este", "aquel hombre"], type: "Demostrativo" },
+    { hebrew: "לָמָּה", correct: "¿por qué?", options: ["¿qué?", "¿quién?", "¿por qué?", "¿cómo?"], type: "Interrogativo" },
+    { hebrew: "אֵיךְ", correct: "¿cómo?", options: ["¿qué?", "¿quién?", "¿dónde?", "¿cómo?"], type: "Interrogativo" },
+    { hebrew: "הֲשָׁמַרְתָּ", correct: "¿guardaste?", options: ["guardaste", "¿guardaste?", "él guardó", "guardaré"], type: "Interrogativo" }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let blocks = 0;
+  let misses = 0;
+  let streak = 0;
+  let maxBlocks = 10;
+  let maxMisses = 3;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentQ = null;
+
+  // DOM
+  const blocksContainer = document.getElementById('blocksContainer');
+  const blocksCountSpan = document.getElementById('blocksCount');
+  const maxBlocksSpan = document.getElementById('maxBlocks');
+  const streakBlocksSpan = document.getElementById('streakBlocks');
+  const missCountSpan = document.getElementById('missCount');
+  const typeBadge = document.getElementById('typeBadge');
+  const hebrewQuestion = document.getElementById('hebrewQuestion');
+  const clueText = document.getElementById('clueText');
+  const cardsContainer = document.getElementById('cardsContainer');
+  const feedbackArea = document.getElementById('feedbackArea');
+  const nextBtn = document.getElementById('nextRoundBtn');
+
+  maxBlocksSpan.innerText = maxBlocks;
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateTowerVisual() {
+    blocksContainer.innerHTML = '';
+    for (let i = 0; i < maxBlocks; i++) {
+      const block = document.createElement('div');
+      block.classList.add('block');
+      if (i < blocks) {
+        block.classList.add('filled');
+      }
+      if (i >= blocks && i < blocks + misses) {
+        block.classList.add('miss');
+      }
+      blocksContainer.appendChild(block);
+    }
+    blocksCountSpan.innerText = blocks;
+    streakBlocksSpan.innerText = streak;
+    missCountSpan.innerText = misses;
+  }
+
+  function spawnReward(emoji, element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = emoji;
+    div.className = 'reward';
+    div.style.left = rect.left + rect.width/2 - 20 + 'px';
+    div.style.top = rect.top - 15 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function gameOver() {
+    feedbackArea.innerHTML = "💀 ¡TORRE DESTRUIDA! Has cometido 3 fallos. Reiniciando... 💀";
+    canAnswer = false;
+    waitingNext = true;
+    nextBtn.disabled = false;
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+  }
+
+  function resetGame() {
+    blocks = 0;
+    misses = 0;
+    streak = 0;
+    canAnswer = true;
+    waitingNext = false;
+    updateTowerVisual();
+    initRound();
+  }
+
+  function loadQuestion() {
+    if (currentIndex >= currentQuestions.length) {
+      feedbackArea.innerHTML = "🎉 ¡TORRE COMPLETADA! +50 puntos de bonificación. ¡Nueva ronda! 🎉";
+      blocks = Math.min(blocks + 5, maxBlocks);
+      updateTowerVisual();
+      setTimeout(() => {
+        initRound();
+      }, 1500);
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentQ = currentQuestions[currentIndex];
+    
+    hebrewQuestion.innerText = currentQ.hebrew;
+    typeBadge.innerText = currentQ.type;
+    clueText.innerText = "🏗️ Elige la respuesta correcta para añadir un bloque";
+
+    let opts = [...currentQ.options];
+    if (!opts.includes(currentQ.correct)) opts.push(currentQ.correct);
+    opts = shuffleArray(opts);
+
+    cardsContainer.innerHTML = '';
+    opts.forEach(opt => {
+      const card = document.createElement('div');
+      card.classList.add('card-btn');
+      card.innerText = opt;
+      card.addEventListener('click', (e) => handleAnswer(opt, card));
+      cardsContainer.appendChild(card);
+    });
+
+    feedbackArea.innerHTML = "📖 Selecciona la respuesta correcta...";
+  }
+
+  function handleAnswer(selected, cardElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentQ.correct);
+    const allCards = document.querySelectorAll('.card-btn');
+
+    if (isCorrect) {
+      let newBlocks = 1;
+      if (streak >= 2) newBlocks = 2;
+      if (streak >= 4) newBlocks = 3;
+      
+      blocks = Math.min(blocks + newBlocks, maxBlocks);
+      streak++;
+      
+      feedbackArea.innerHTML = `✅ ¡CORRECTO! +${newBlocks} bloque(s). Racha: ${streak}`;
+      cardElement.classList.add('correct-card');
+      spawnReward("🧱", cardElement);
+      
+      if (blocks === maxBlocks) {
+        feedbackArea.innerHTML = "🏆 ¡TORRE COMPLETADA! 🏆 +20 puntos de bonificación. Nueva ronda...";
+        canAnswer = false;
+        waitingNext = true;
+        setTimeout(() => {
+          blocks = 0;
+          misses = 0;
+          streak = 0;
+          updateTowerVisual();
+          initRound();
+        }, 2000);
+        return;
+      }
+      
+      updateTowerVisual();
+    } else {
+      misses++;
+      streak = 0;
+      feedbackArea.innerHTML = `❌ INCORRECTO. Respuesta: "${currentQ.correct}". Fallos: ${misses}/${maxMisses}`;
+      cardElement.classList.add('wrong-card');
+      spawnReward("💔", cardElement);
+      updateTowerVisual();
+      
+      // Mostrar respuesta correcta
+      allCards.forEach(card => {
+        if (card.innerText === currentQ.correct) {
+          card.style.border = "3px solid gold";
+          card.style.background = "#27ae60";
+        }
+      });
+      
+      if (misses >= maxMisses) {
+        gameOver();
+        return;
+      }
+    }
+    
+    canAnswer = false;
+    waitingNext = true;
+    allCards.forEach(card => {
+      card.classList.add('disabled-card');
+      card.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextQuestion() {
+    if (!waitingNext && canAnswer) {
+      feedbackArea.innerHTML = "⚠️ ¡Responde antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadQuestion();
+  }
+
+  function initRound() {
+    let shuffled = shuffleArray([...QUESTION_BANK]);
+    currentQuestions = shuffled.slice(0, 12);
+    currentIndex = 0;
+    canAnswer = true;
+    waitingNext = false;
+    loadQuestion();
+  }
+
+  nextBtn.addEventListener('click', nextQuestion);
+  updateTowerVisual();
+  initRound();
+</script>
+</body>
+</html>

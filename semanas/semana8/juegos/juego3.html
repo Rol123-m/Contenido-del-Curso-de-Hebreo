@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Oráculo de los Pronombres | Hebreo Bíblico - Semana 8</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: radial-gradient(ellipse at 30% 40%, #1a0f0a, #0d0805);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .oracle-container {
+      max-width: 550px;
+      width: 100%;
+      background: linear-gradient(145deg, #2a1f1a, #1a120e);
+      border-radius: 80px 80px 60px 60px;
+      padding: 25px 20px 30px;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,200,0.1);
+      border: 1px solid #c9a87b;
+      position: relative;
+    }
+
+    /* Elementos decorativos */
+    .oracle-container::before {
+      content: "✦";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #f0c674;
+      text-shadow: 0 0 10px #ffd700;
+    }
+
+    /* Cabeza del oráculo */
+    .oracle-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .oracle-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f0c674;
+      text-shadow: 0 2px 5px #5a3a1a;
+      letter-spacing: 3px;
+    }
+
+    .oracle-sub {
+      font-size: 0.7rem;
+      color: #b89a6a;
+      letter-spacing: 2px;
+    }
+
+    /* Puntuación */
+    .score-panel {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #f0c67455;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      color: #b89a6a;
+    }
+
+    .score-value {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #f0c674;
+      line-height: 1;
+    }
+
+    /* Caldero / Área de revelación */
+    .cauldron {
+      background: radial-gradient(circle at 30% 20%, #3a2a1a, #1f1408);
+      border-radius: 60px;
+      padding: 25px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px solid #c9a87b;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .mystery-word {
+      font-size: 2.8rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #0a0603;
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 50px;
+      color: #ffd98c;
+      letter-spacing: 5px;
+      box-shadow: inset 0 0 0 2px #6b4c2c, 0 5px 10px black;
+      margin: 10px 0;
+    }
+
+    .revelation {
+      font-size: 0.85rem;
+      color: #e6c384;
+      background: rgba(0,0,0,0.6);
+      border-radius: 30px;
+      padding: 8px 15px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    /* Pistas progresivas */
+    .hints-area {
+      background: #0d0805cc;
+      border-radius: 30px;
+      padding: 12px 18px;
+      margin: 15px 0;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      border-left: 3px solid #f0c674;
+    }
+
+    .hint-text {
+      color: #e6c384;
+      font-size: 0.9rem;
+    }
+
+    .hint-progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hint-dot {
+      width: 30px;
+      height: 6px;
+      background: #4a3624;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .hint-dot.revealed {
+      background: #f0c674;
+      box-shadow: 0 0 5px #ffd700;
+    }
+
+    /* Opciones estilo runas */
+    .runes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .rune-btn {
+      background: linear-gradient(145deg, #3e2a1f, #2a1a10);
+      border: 1px solid #c9a87b;
+      padding: 14px 8px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f0dbb4;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rune-btn::before {
+      content: "⚜️";
+      position: absolute;
+      left: 10px;
+      opacity: 0.3;
+      font-size: 0.8rem;
+    }
+
+    .rune-btn:active {
+      transform: scale(0.96);
+    }
+
+    .rune-btn.correct-rune {
+      background: linear-gradient(145deg, #2c6e2c, #1b4a1b);
+      border-color: #ffd700;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    .rune-btn.wrong-rune {
+      background: linear-gradient(145deg, #6e2c2c, #4a1b1b);
+      text-decoration: line-through;
+    }
+
+    .rune-btn.disabled-rune {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Botón de hechizo */
+    .spell-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #8b6914, #c9a03d);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #1a0f0a;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      margin-top: 10px;
+    }
+
+    .spell-btn:active {
+      transform: scale(0.98);
+    }
+
+    .spell-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    /* Mensaje del oráculo */
+    .oracle-message {
+      background: #000000aa;
+      border-radius: 30px;
+      padding: 10px 15px;
+      margin-top: 15px;
+      text-align: center;
+      color: #f0c674;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    /* Animaciones */
+    @keyframes glowPulse {
+      0%,100% { text-shadow: 0 0 2px #ffd700; }
+      50% { text-shadow: 0 0 15px #ffd700; }
+    }
+
+    .glow {
+      animation: glowPulse 0.5s ease-in-out;
+    }
+
+    @keyframes floatSpirit {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-80px) rotate(20deg); }
+    }
+
+    .spirit {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: floatSpirit 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .mystery-word { font-size: 1.8rem; padding: 8px 16px; }
+      .rune-btn { font-size: 0.75rem; padding: 10px 6px; }
+      .rune-btn::before { display: none; }
+      .oracle-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="oracle-container" id="oracleGame">
+  <div class="oracle-header">
+    <div class="oracle-title">🔮 EL ORÁCULO DE LOS PRONOMBRES 🔮</div>
+    <div class="oracle-sub">el espíritu del hebreo te habla</div>
+  </div>
+
+  <div class="score-panel">
+    <div class="score-item"><div class="score-label">PUNTOS</div><div class="score-value" id="pointsValue">0</div></div>
+    <div class="score-item"><div class="score-label">ACIERTOS</div><div class="score-value" id="correctCount">0</div></div>
+    <div class="score-item"><div class="score-label">RACHA</div><div class="score-value" id="streakCount">0</div></div>
+  </div>
+
+  <div class="cauldron">
+    <div class="mystery-word" id="mysteryHeb">???</div>
+    <div class="revelation" id="revelationText">✦ El oráculo revelará una palabra ✦</div>
+  </div>
+
+  <div class="hints-area">
+    <div class="hint-text" id="hintMessage">💫 Toca una runa para adivinar... 💫</div>
+    <div class="hint-progress" id="hintDots"></div>
+  </div>
+
+  <div class="runes-grid" id="runesContainer"></div>
+  <button class="spell-btn" id="nextMysteryBtn">🔮 INVOCAR NUEVA PALABRA 🔮</button>
+  <div class="oracle-message" id="oracleMsg">🏺 El oráculo te concederá pistas si fallas... usa tu sabiduría</div>
+</div>
+
+<script>
+  // Banco de palabras mágicas - Semana 8
+  const MYSTERY_SET = [
+    { hebrew: "אֲנִי", correct: "yo", hints: ["1ª persona", "singular", "común (masculino/femenino)"], difficulty: 1 },
+    { hebrew: "אַתָּה", correct: "tú (masculino)", hints: ["2ª persona", "singular", "masculino"], difficulty: 1 },
+    { hebrew: "אַתְּ", correct: "tú (femenino)", hints: ["2ª persona", "singular", "femenino"], difficulty: 1 },
+    { hebrew: "הוּא", correct: "él", hints: ["3ª persona", "singular", "masculino"], difficulty: 1 },
+    { hebrew: "הִיא", correct: "ella", hints: ["3ª persona", "singular", "femenino"], difficulty: 1 },
+    { hebrew: "אֲנַחְנוּ", correct: "nosotros", hints: ["1ª persona", "plural", "común"], difficulty: 2 },
+    { hebrew: "אַתֶּם", correct: "vosotros (masculino)", hints: ["2ª persona", "plural", "masculino"], difficulty: 2 },
+    { hebrew: "הֵם", correct: "ellos", hints: ["3ª persona", "plural", "masculino"], difficulty: 2 },
+    { hebrew: "זֶה", correct: "este (masculino)", hints: ["demostrativo", "cercano", "masculino singular"], difficulty: 2 },
+    { hebrew: "זֹאת", correct: "esta (femenino)", hints: ["demostrativo", "cercano", "femenino singular"], difficulty: 2 },
+    { hebrew: "אֵלֶּה", correct: "estos/estas", hints: ["demostrativo", "plural", "común"], difficulty: 2 },
+    { hebrew: "אֲשֶׁר", correct: "que, quien", hints: ["pronombre relativo", "invariable", "introduce cláusula"], difficulty: 3 },
+    { hebrew: "מִי", correct: "¿quién?", hints: ["interrogativo", "para personas", "¿quién?"], difficulty: 2 },
+    { hebrew: "מָה", correct: "¿qué?", hints: ["interrogativo", "para cosas", "¿qué?"], difficulty: 2 },
+    { hebrew: "לָמָּה", correct: "¿por qué?", hints: ["interrogativo", "causa", "¿por qué?"], difficulty: 3 },
+    { hebrew: "אֵיךְ", correct: "¿cómo?", hints: ["interrogativo", "modo", "¿cómo?"], difficulty: 3 }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let correctTotal = 0;
+  let streak = 0;
+  let hintsRevealed = 0;
+  let maxHints = 3;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentItem = null;
+  let optionsList = [];
+
+  // Elementos DOM
+  const mysteryHebSpan = document.getElementById('mysteryHeb');
+  const revelationSpan = document.getElementById('revelationText');
+  const hintMessageSpan = document.getElementById('hintMessage');
+  const hintDotsDiv = document.getElementById('hintDots');
+  const runesContainer = document.getElementById('runesContainer');
+  const nextBtn = document.getElementById('nextMysteryBtn');
+  const oracleMsgSpan = document.getElementById('oracleMsg');
+  const pointsSpan = document.getElementById('pointsValue');
+  const correctSpan = document.getElementById('correctCount');
+  const streakSpan = document.getElementById('streakCount');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Generar opciones aleatorias (incluye correcta + 3 distractores)
+  function generateOptions(correctAnswer, currentHebrew) {
+    let candidates = [correctAnswer];
+    const allPossible = [
+      "yo", "tú", "él", "ella", "nosotros", "vosotros", "ellos", "ellas",
+      "este", "esta", "estos/estas", "aquel", "aquella", "que, quien",
+      "¿quién?", "¿qué?", "¿por qué?", "¿cómo?", "¿dónde?"
+    ];
+    for (let opt of allPossible) {
+      if (!candidates.includes(opt) && opt !== correctAnswer) {
+        candidates.push(opt);
+      }
+      if (candidates.length >= 4) break;
+    }
+    while (candidates.length < 4) {
+      candidates.push("???");
+    }
+    return shuffleArray(candidates.slice(0, 4));
+  }
+
+  function spawnSpirit(emoji, element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = emoji;
+    div.className = 'spirit';
+    div.style.left = rect.left + rect.width/2 - 20 + 'px';
+    div.style.top = rect.top - 15 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function updateUIStats() {
+    pointsSpan.innerText = score;
+    correctSpan.innerText = correctTotal;
+    streakSpan.innerText = streak;
+  }
+
+  function updateHintDots() {
+    hintDotsDiv.innerHTML = '';
+    for (let i = 0; i < maxHints; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('hint-dot');
+      if (i < hintsRevealed) dot.classList.add('revealed');
+      hintDotsDiv.appendChild(dot);
+    }
+  }
+
+  function revealHint() {
+    if (hintsRevealed >= maxHints) return;
+    if (!currentItem) return;
+    
+    hintsRevealed++;
+    updateHintDots();
+    
+    if (hintsRevealed === 1) {
+      hintMessageSpan.innerHTML = `🔮 Pista 1: ${currentItem.hints[0]}`;
+    } else if (hintsRevealed === 2) {
+      hintMessageSpan.innerHTML = `🔮 Pista 2: ${currentItem.hints[1] || currentItem.hints[0]}`;
+    } else if (hintsRevealed === 3) {
+      hintMessageSpan.innerHTML = `🔮 Pista 3: ${currentItem.hints[2] || currentItem.hints[1] || currentItem.hints[0]}`;
+    }
+    
+    oracleMsgSpan.innerHTML = "🧙 El oráculo susurra una pista... ¡pero pierdes puntos!";
+  }
+
+  function loadMystery() {
+    if (currentIndex >= currentQuestions.length) {
+      oracleMsgSpan.innerHTML = "✨ ¡HAS COMPLETADO EL RITUAL! +100 puntos de bonificación. El oráculo te bendice... Nueva ronda ✨";
+      score += 100;
+      updateUIStats();
+      initGame();
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentItem = currentQuestions[currentIndex];
+    hintsRevealed = 0;
+    updateHintDots();
+    hintMessageSpan.innerHTML = "💫 Elige una runa para revelar el significado... 💫";
+    
+    mysteryHebSpan.innerText = currentItem.hebrew;
+    revelationSpan.innerHTML = "✦ ¿Qué significa esta palabra? ✦";
+    
+    optionsList = generateOptions(currentItem.correct, currentItem.hebrew);
+    
+    runesContainer.innerHTML = '';
+    optionsList.forEach(opt => {
+      const rune = document.createElement('div');
+      rune.classList.add('rune-btn');
+      rune.innerText = opt;
+      rune.addEventListener('click', (e) => handleAnswer(opt, rune));
+      runesContainer.appendChild(rune);
+    });
+  }
+
+  function handleAnswer(selected, runeElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentItem.correct);
+    const allRunas = document.querySelectorAll('.rune-btn');
+    
+    if (isCorrect) {
+      let pointsEarned = 100;
+      // Penalización por pistas usadas
+      if (hintsRevealed === 1) pointsEarned = 70;
+      else if (hintsRevealed === 2) pointsEarned = 40;
+      else if (hintsRevealed === 3) pointsEarned = 20;
+      
+      // Bonificación por racha
+      if (streak >= 2) pointsEarned += 15;
+      if (streak >= 4) pointsEarned += 20;
+      
+      score += pointsEarned;
+      correctTotal++;
+      streak++;
+      
+      revelationSpan.innerHTML = `✅ ¡CORRECTO! "${currentItem.correct}" +${pointsEarned} puntos`;
+      runeElement.classList.add('correct-rune');
+      spawnSpirit("✨", runeElement);
+      oracleMsgSpan.innerHTML = `🎉 ¡El oráculo aprueba! Racha: ${streak}`;
+      
+      updateUIStats();
+    } else {
+      streak = 0;
+      revelationSpan.innerHTML = `❌ INCORRECTO. Era "${currentItem.correct}". El oráculo te da una pista...`;
+      runeElement.classList.add('wrong-rune');
+      spawnSpirit("💀", runeElement);
+      updateUIStats();
+      
+      // Revelar pista automática al fallar
+      if (hintsRevealed < maxHints) {
+        revealHint();
+      } else {
+        oracleMsgSpan.innerHTML = "😔 Has agotado las pistas... Estudia más, joven aprendiz.";
+      }
+      
+      // Resaltar respuesta correcta
+      allRunas.forEach(r => {
+        if (r.innerText === currentItem.correct) {
+          r.style.border = "3px solid gold";
+          r.style.background = "#2c6e2c";
+        }
+      });
+    }
+    
+    canAnswer = false;
+    waitingNext = true;
+    allRunas.forEach(r => {
+      r.classList.add('disabled-rune');
+      r.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextMystery() {
+    if (!waitingNext && canAnswer) {
+      oracleMsgSpan.innerHTML = "⚠️ ¡Debes responder antes de invocar una nueva palabra! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadMystery();
+  }
+
+  function initGame() {
+    let shuffled = shuffleArray([...MYSTERY_SET]);
+    currentQuestions = shuffled.slice(0, 12);
+    currentIndex = 0;
+    score = 0;
+    correctTotal = 0;
+    streak = 0;
+    canAnswer = true;
+    waitingNext = false;
+    updateUIStats();
+    loadMystery();
+  }
+
+  nextBtn.addEventListener('click', nextMystery);
+  initGame();
+</script>
+</body>
+</html>

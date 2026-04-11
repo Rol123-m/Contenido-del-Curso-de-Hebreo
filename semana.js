@@ -172,7 +172,8 @@ class SemanaManager {
                 ],
                 juegos: [
                     { titulo: 'Concordancia', url: 'semanas/semana7/juegos/juego1.html', icono: '🤝' },
-                    { titulo: 'Más sobre adjetivos', url: 'semanas/semana7/juegos/juego2.html', icono: '🤝' }
+                    { titulo: 'Más sobre adjetivos', url: 'semanas/semana7/juegos/juego2.html', icono: '🤝' },
+                    { titulo: 'El baúl de los Adjetivos', url: 'semanas/semana7/juegos/juego3.html', icono: '🤝' }
                 ]
             },
             
@@ -183,13 +184,19 @@ class SemanaManager {
                 evaluacion: "Examen 8",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Pronombres', url: 'semanas/semana8/pdf/pronombres.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Pronombres Personales', url: 'semanas/semana8/html/personales.html', icono: 'אֲנִי' },
-                    { tipo: 'html', titulo: 'Pronombres Demostrativos', url: 'semanas/semana8/html/demostrativos.html', icono: 'זֶה' },
-                    { tipo: 'html', titulo: 'Pronombres Interrogativos', url: 'semanas/semana8/html/interrogativos.html', icono: 'מִי' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 8', url: 'semanas/semana8/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Pronombres Personales', url: 'semanas/semana8/html/semana8_parte1.html', icono: 'אֲנִי' },
+                    { tipo: 'html', titulo: 'Pronombres Demostrativos', url: 'semanas/semana8/html/semana8_parte2.html', icono: 'זֶה' },
+                    { tipo: 'html', titulo: 'Más sobre pronombres.', url: 'semanas/semana8/html/semana8_parte3.html', icono: 'מִי' },
+                    { tipo: 'html', titulo: 'Ejercicios.', url: 'semanas/semana8/html/semana8_parte4.html', icono: 'מִי' },
+                    { tipo: 'html', titulo: 'Resumen.', url: 'semanas/semana8/html/semana8_parte5.html', icono: 'מִי' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 7- Sustantivos', url: 'https://forms.gle/otZJCNWr5C4eAaNd6', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Identifica el Pronombre', url: 'semanas/semana8/juegos/pronombres.html', icono: '👤' }
+                    { titulo: 'Identifica el Pronombre', url: 'semanas/semana8/juegos/juego1.html', icono: '👤' },
+                    { titulo: 'Pronombre', url: 'semanas/semana8/juegos/juego2.html', icono: '👤' }
                 ]
             },
             
