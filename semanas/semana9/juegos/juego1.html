@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Tesoro de los Sufijos | Hebreo Bíblico - Semana 9</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #1a3a2a, #0f2a1a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game-container {
+      max-width: 600px;
+      width: 100%;
+      background: linear-gradient(145deg, #2a4a3a, #1a3a2a);
+      border-radius: 60px;
+      padding: 20px;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,200,0.1);
+      border: 1px solid #c9a87b;
+    }
+
+    .game-header {
+      background: rgba(0,0,0,0.4);
+      border-radius: 50px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stat {
+      background: #1a2a1a;
+      padding: 5px 15px;
+      border-radius: 30px;
+      color: #ffd966;
+      font-weight: bold;
+    }
+
+    .stat span {
+      color: #f0c674;
+      font-size: 1.2rem;
+      margin-right: 5px;
+    }
+
+    .question-area {
+      background: linear-gradient(135deg, #fef9e6, #f5e6c8);
+      border-radius: 40px;
+      padding: 25px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #8b6914;
+      color: #f0dbb4;
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      margin-bottom: 12px;
+    }
+
+    .hebrew-word {
+      font-size: 3rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #2a3a2a;
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 60px;
+      color: #ffd98c;
+      margin: 12px 0;
+      letter-spacing: 2px;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #7a5a3a;
+      background: #e9dbbe;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 30px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: linear-gradient(145deg, #3a5a4a, #2a4a3a);
+      border: 2px solid #c9a87b;
+      padding: 14px 8px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f0dbb4;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .option-btn:active {
+      transform: scale(0.96);
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(145deg, #2c6e2c, #1b4a1b);
+      border-color: #ffd700;
+      box-shadow: 0 0 15px #ffd700;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(145deg, #6e2c2c, #4a1b1b);
+      text-decoration: line-through;
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      background: rgba(0,0,0,0.7);
+      border-radius: 30px;
+      padding: 12px;
+      margin: 15px 0;
+      text-align: center;
+      color: #ffd966;
+    }
+
+    .next-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #c9a03d, #b47c2e);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #1a2a1a;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .next-btn:active {
+      transform: scale(0.98);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    @keyframes coinFloat {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-70px); }
+    }
+
+    .coin {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: coinFloat 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-word { font-size: 2rem; padding: 10px 20px; }
+      .option-btn { font-size: 0.75rem; padding: 10px 6px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container" id="treasureGame">
+  <div class="game-header">
+    <div class="stat"><span>💰</span> <span id="scoreValue">0</span></div>
+    <div class="stat"><span>🔥</span> <span id="streakValue">0</span></div>
+    <div class="stat"><span>🏆</span> Nivel <span id="levelValue">1</span></div>
+  </div>
+
+  <div class="question-area">
+    <div class="badge" id="typeBadge">SUFIJO PRONOMINAL</div>
+    <div class="hebrew-word" id="hebrewWord">סוּסִי</div>
+    <div class="hint" id="hintText">¿Qué significa esta palabra?</div>
+  </div>
+
+  <div class="options-grid" id="optionsContainer"></div>
+  <div class="feedback" id="feedbackMsg">💎 Responde correctamente para ganar monedas de oro.</div>
+  <button class="next-btn" id="nextBtn">🔑 SIGUIENTE TESORO 🔑</button>
+</div>
+
+<script>
+  // Banco de preguntas - Semana 9: Sufijos Pronominales
+  const QUESTIONS = [
+    { hebrew: "סוּסִי", correct: "mi caballo", options: ["tu caballo", "mi caballo", "su caballo", "nuestro caballo"], hint: "sufijo 1cs", type: "Sustantivo + sufijo" },
+    { hebrew: "סוּסְךָ", correct: "tu caballo (masc.)", options: ["mi caballo", "tu caballo (masc.)", "su caballo", "nuestro caballo"], hint: "sufijo 2ms", type: "Sustantivo + sufijo" },
+    { hebrew: "סוּסוֹ", correct: "su caballo (él)", options: ["mi caballo", "tu caballo", "su caballo (él)", "nuestro caballo"], hint: "sufijo 3ms", type: "Sustantivo + sufijo" },
+    { hebrew: "סוּסֵנוּ", correct: "nuestro caballo", options: ["mi caballo", "tu caballo", "su caballo", "nuestro caballo"], hint: "sufijo 1cp", type: "Sustantivo + sufijo" },
+    { hebrew: "תּוֹרָתִי", correct: "mi ley", options: ["tu ley", "mi ley", "su ley", "nuestra ley"], hint: "femenino: תּוֹרָה → תּוֹרָת", type: "Femenino + sufijo" },
+    { hebrew: "תּוֹרָתְךָ", correct: "tu ley (masc.)", options: ["mi ley", "tu ley", "su ley", "nuestra ley"], hint: "sufijo 2ms en femenino", type: "Femenino + sufijo" },
+    { hebrew: "לִי", correct: "a mí / para mí", options: ["a ti", "a él", "a mí", "a nosotros"], hint: "preposición לְ + sufijo 1cs", type: "Preposición + sufijo" },
+    { hebrew: "לְךָ", correct: "a ti (masc.)", options: ["a mí", "a ti", "a él", "a nosotros"], hint: "preposición לְ + sufijo 2ms", type: "Preposición + sufijo" },
+    { hebrew: "לוֹ", correct: "a él", options: ["a mí", "a ti", "a él", "a ella"], hint: "preposición לְ + sufijo 3ms", type: "Preposición + sufijo" },
+    { hebrew: "לָנוּ", correct: "a nosotros", options: ["a mí", "a ti", "a él", "a nosotros"], hint: "preposición לְ + sufijo 1cp", type: "Preposición + sufijo" },
+    { hebrew: "עִמִּי", correct: "conmigo", options: ["contigo", "con él", "conmigo", "con nosotros"], hint: "preposición עִם + sufijo 1cs", type: "Preposición עִם" },
+    { hebrew: "עִמָּנוּ", correct: "con nosotros", options: ["conmigo", "contigo", "con él", "con nosotros"], hint: "¡como en Emanuel!", type: "Preposición עִם" },
+    { hebrew: "אֹתִי", correct: "a mí / me", options: ["a ti / te", "a él / lo", "a mí / me", "a nosotros / nos"], hint: "marcador אֵת + sufijo 1cs", type: "Marcador אֵת" },
+    { hebrew: "אֹתְךָ", correct: "a ti / te (masc.)", options: ["a mí / me", "a ti / te", "a él / lo", "a nosotros / nos"], hint: "marcador אֵת + sufijo 2ms", type: "Marcador אֵת" },
+    { hebrew: "אֹתוֹ", correct: "a él / lo", options: ["a mí / me", "a ti / te", "a él / lo", "a ella / la"], hint: "marcador אֵת + sufijo 3ms", type: "Marcador אֵת" },
+    { hebrew: "אֹתָנוּ", correct: "a nosotros / nos", options: ["a mí / me", "a ti / te", "a él / lo", "a nosotros / nos"], hint: "marcador אֵת + sufijo 1cp", type: "Marcador אֵת" },
+    { hebrew: "בִּי", correct: "en mí / conmigo", options: ["en ti", "en él", "en mí", "en nosotros"], hint: "preposición בְּ + sufijo 1cs", type: "Preposición בְּ" },
+    { hebrew: "עָלַי", correct: "sobre mí", options: ["sobre ti", "sobre él", "sobre mí", "sobre nosotros"], hint: "preposición עַל + sufijo 1cs", type: "Preposición עַל" },
+    { hebrew: "אֵלַי", correct: "hacia mí", options: ["hacia ti", "hacia él", "hacia mí", "hacia nosotros"], hint: "preposición אֶל + sufijo 1cs", type: "Preposición אֶל" }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let streak = 0;
+  let level = 1;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentQuestion = null;
+
+  const hebrewSpan = document.getElementById('hebrewWord');
+  const typeBadge = document.getElementById('typeBadge');
+  const hintSpan = document.getElementById('hintText');
+  const optionsDiv = document.getElementById('optionsContainer');
+  const feedbackDiv = document.getElementById('feedbackMsg');
+  const nextBtn = document.getElementById('nextBtn');
+  const scoreSpan = document.getElementById('scoreValue');
+  const streakSpan = document.getElementById('streakValue');
+  const levelSpan = document.getElementById('levelValue');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateUI() {
+    scoreSpan.innerText = score;
+    streakSpan.innerText = streak;
+    levelSpan.innerText = level;
+  }
+
+  function spawnCoin(element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = '🪙';
+    div.className = 'coin';
+    div.style.left = rect.left + rect.width/2 - 15 + 'px';
+    div.style.top = rect.top - 10 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function loadQuestion() {
+    if (currentIndex >= currentQuestions.length) {
+      feedbackDiv.innerHTML = "🎉 ¡TESORO COMPLETADO! +100 monedas de bonificación. ¡Nueva ronda! 🎉";
+      score += 100;
+      updateUI();
+      initGame();
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentQuestion = currentQuestions[currentIndex];
+    
+    hebrewSpan.innerText = currentQuestion.hebrew;
+    typeBadge.innerText = currentQuestion.type;
+    hintSpan.innerText = currentQuestion.hint;
+
+    let opts = [...currentQuestion.options];
+    if (!opts.includes(currentQuestion.correct)) {
+      opts.push(currentQuestion.correct);
+    }
+    opts = shuffleArray(opts);
+
+    optionsDiv.innerHTML = '';
+    opts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.classList.add('option-btn');
+      btn.addEventListener('click', (e) => handleAnswer(opt, btn));
+      optionsDiv.appendChild(btn);
+    });
+
+    feedbackDiv.innerHTML = "💡 Selecciona la respuesta correcta...";
+  }
+
+  function handleAnswer(selected, btnElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentQuestion.correct);
+    const allBtns = document.querySelectorAll('.option-btn');
+
+    if (isCorrect) {
+      let points = 10;
+      if (streak >= 2) points += 5;
+      if (streak >= 4) points += 5;
+      score += points;
+      streak++;
+      
+      if (streak === 5) {
+        feedbackDiv.innerHTML = "✨ ¡RACHA DE ORO! +15 monedas extra ✨";
+        score += 15;
+        spawnCoin(btnElement);
+      } else {
+        feedbackDiv.innerHTML = `✅ ¡Correcto! +${points} monedas. Racha: ${streak}`;
+        spawnCoin(btnElement);
+      }
+      
+      btnElement.classList.add('correct');
+      
+      if (score >= 100 && level === 1) { level = 2; feedbackDiv.innerHTML += " 🎉 ¡NIVEL 2 - APRENDIZ! 🎉"; }
+      else if (score >= 200 && level === 2) { level = 3; feedbackDiv.innerHTML += " 🏆 ¡NIVEL 3 - MAESTRO! 🏆"; }
+      
+      updateUI();
+    } else {
+      streak = 0;
+      feedbackDiv.innerHTML = `❌ Incorrecto. Respuesta correcta: "${currentQuestion.correct}". ¡Sigue practicando!`;
+      btnElement.classList.add('wrong');
+      updateUI();
+      
+      allBtns.forEach(btn => {
+        if (btn.innerText === currentQuestion.correct) {
+          btn.style.border = "3px solid gold";
+          btn.style.background = "#2c6e2c";
+        }
+      });
+    }
+
+    canAnswer = false;
+    waitingNext = true;
+    allBtns.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextQuestion() {
+    if (!waitingNext && canAnswer) {
+      feedbackDiv.innerHTML = "⚠️ ¡Responde antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadQuestion();
+  }
+
+  function initGame() {
+    let shuffled = shuffleArray([...QUESTIONS]);
+    currentQuestions = shuffled.slice(0, 15);
+    currentIndex = 0;
+    score = 0;
+    streak = 0;
+    level = 1;
+    canAnswer = true;
+    waitingNext = false;
+    updateUI();
+    loadQuestion();
+  }
+
+  nextBtn.addEventListener('click', nextQuestion);
+  initGame();
+</script>
+</body>
+</html>

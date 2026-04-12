@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>El Pergamino del Escriba | Hebreo Bíblico - Semana 9</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #2a2015, #1a1208);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .scroll-container {
+      max-width: 600px;
+      width: 100%;
+      background: linear-gradient(145deg, #f5e6c8, #e8d5b0);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,200,0.5);
+      border: 1px solid #c9a87b;
+      position: relative;
+    }
+
+    .scroll-container::before {
+      content: "📜";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      background: #f5e6c8;
+      padding: 0 10px;
+    }
+
+    .scroll-header {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    .scroll-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #5a3a1a;
+      letter-spacing: 2px;
+    }
+
+    .scroll-sub {
+      font-size: 0.7rem;
+      color: #8a6a3a;
+    }
+
+    .stats-panel {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(90, 58, 26, 0.2);
+      border-radius: 50px;
+      padding: 10px 18px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: #5a3a1a;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #8b6914;
+      line-height: 1;
+    }
+
+    .question-panel {
+      background: #fff8f0;
+      border-radius: 30px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px solid #c9a87b;
+    }
+
+    .question-text {
+      font-size: 0.9rem;
+      color: #5a3a1a;
+      margin-bottom: 10px;
+    }
+
+    .hebrew-base {
+      font-size: 2.5rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #2a3a2a;
+      display: inline-block;
+      padding: 12px 25px;
+      border-radius: 50px;
+      color: #ffd98c;
+      margin: 10px 0;
+    }
+
+    .suffix-space {
+      display: inline-block;
+      min-width: 60px;
+      border-bottom: 2px dashed #8b6914;
+      margin: 0 5px;
+      font-size: 1.5rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      color: #8b6914;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .option-btn {
+      background: linear-gradient(145deg, #5a3a1a, #4a2a0a);
+      border: 1px solid #c9a87b;
+      padding: 12px 5px;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #f0dbb4;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      text-align: center;
+    }
+
+    .option-btn:active {
+      transform: scale(0.96);
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(145deg, #2c6e2c, #1b4a1b);
+      border-color: #ffd700;
+      box-shadow: 0 0 10px #ffd700;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(145deg, #6e2c2c, #4a1b1b);
+      text-decoration: line-through;
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      background: rgba(90, 58, 26, 0.8);
+      border-radius: 20px;
+      padding: 12px;
+      margin: 15px 0;
+      text-align: center;
+      color: #f0dbb4;
+    }
+
+    .next-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #c9a03d, #b47c2e);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #2a1a0a;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .next-btn:active {
+      transform: scale(0.98);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .combo-indicator {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #8b6914;
+    }
+
+    @keyframes inkSplash {
+      0% { opacity: 1; transform: scale(0.5); }
+      100% { opacity: 0; transform: scale(1.5); }
+    }
+
+    .ink {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: inkSplash 0.6s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-base { font-size: 1.8rem; padding: 8px 15px; }
+      .option-btn { font-size: 0.9rem; padding: 8px 4px; }
+      .options-grid { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="scroll-container" id="scribeGame">
+  <div class="scroll-header">
+    <div class="scroll-title">📜 EL PERGAMINO DEL ESCRIBA 📜</div>
+    <div class="scroll-sub">completa el sufijo correcto para cada palabra</div>
+  </div>
+
+  <div class="stats-panel">
+    <div class="stat"><div class="stat-label">✍️ PUNTOS</div><div class="stat-value" id="pointsValue">0</div></div>
+    <div class="stat"><div class="stat-label">✅ ACIERTOS</div><div class="stat-value" id="correctValue">0</div></div>
+    <div class="stat"><div class="stat-label">🔥 RACHA</div><div class="stat-value" id="streakValue">0</div></div>
+  </div>
+
+  <div class="question-panel">
+    <div class="question-text" id="questionText">Completa el sufijo para:</div>
+    <div class="hebrew-base" id="hebrewBase">סוּס</div>
+    <div class="question-text" style="margin-top: 10px;">
+      <span id="meaningText">"mi caballo"</span> → 
+      <span class="hebrew-base" style="font-size: 1.8rem; padding: 5px 15px;" id="hebrewWithBlank">סוּס<span class="suffix-space" id="blankSpace">___</span></span>
+    </div>
+  </div>
+
+  <div class="options-grid" id="optionsContainer"></div>
+  <div class="feedback" id="feedbackMsg">🖋️ Elige el sufijo correcto para completar la palabra.</div>
+  <div class="combo-indicator" id="comboMsg"></div>
+  <button class="next-btn" id="nextBtn">📜 SIGUIENTE PALABRA 📜</button>
+</div>
+
+<script>
+  // Banco de preguntas - Completar sufijos (Semana 9)
+  const SUFFIX_QUESTIONS = [
+    { base: "סוּס", meaning: "mi caballo", correctSuffix: "ִי", fullWord: "סוּסִי", person: "1cs" },
+    { base: "סוּס", meaning: "tu caballo (masc.)", correctSuffix: "ְךָ", fullWord: "סוּסְךָ", person: "2ms" },
+    { base: "סוּס", meaning: "su caballo (él)", correctSuffix: "וֹ", fullWord: "סוּסוֹ", person: "3ms" },
+    { base: "סוּס", meaning: "nuestro caballo", correctSuffix: "ֵנוּ", fullWord: "סוּסֵנוּ", person: "1cp" },
+    { base: "תּוֹרָה", meaning: "mi ley", correctSuffix: "תִי", fullWord: "תּוֹרָתִי", person: "1cs", note: "cambia ה a ת" },
+    { base: "תּוֹרָה", meaning: "tu ley (masc.)", correctSuffix: "תְךָ", fullWord: "תּוֹרָתְךָ", person: "2ms", note: "cambia ה a ת" },
+    { base: "תּוֹרָה", meaning: "su ley (él)", correctSuffix: "תוֹ", fullWord: "תּוֹרָתוֹ", person: "3ms", note: "cambia ה a ת" },
+    { base: "לֶחֶם", meaning: "mi pan", correctSuffix: "ִי", fullWord: "לַחְמִי", person: "1cs", note: "cambio vocálico" },
+    { base: "לֶחֶם", meaning: "tu pan (masc.)", correctSuffix: "ְךָ", fullWord: "לַחְמְךָ", person: "2ms" },
+    { base: "לֶחֶם", meaning: "su pan (él)", correctSuffix: "וֹ", fullWord: "לַחְמוֹ", person: "3ms" },
+    { base: "דָּבָר", meaning: "mi palabra", correctSuffix: "ִי", fullWord: "דְּבָרִי", person: "1cs", note: "cambio vocálico" },
+    { base: "דָּבָר", meaning: "tus palabras (plural)", correctSuffix: "ֶיךָ", fullWord: "דְּבָרֶיךָ", person: "2ms plural" },
+    { base: "עַם", meaning: "mi pueblo", correctSuffix: "ִי", fullWord: "עַמִּי", person: "1cs", note: "con דגש" },
+    { base: "עַם", meaning: "tu pueblo (masc.)", correctSuffix: "ְךָ", fullWord: "עַמְּךָ", person: "2ms" },
+    { base: "עַם", meaning: "su pueblo (él)", correctSuffix: "וֹ", fullWord: "עַמּוֹ", person: "3ms" },
+    { base: "בֵּית", meaning: "mi casa", correctSuffix: "ִי", fullWord: "בֵּיתִי", person: "1cs" },
+    { base: "בֵּית", meaning: "tu casa (masc.)", correctSuffix: "ְךָ", fullWord: "בֵּיתְךָ", person: "2ms" },
+    { base: "בֵּית", meaning: "nuestra casa", correctSuffix: "ֵנוּ", fullWord: "בֵּיתֵנוּ", person: "1cp" }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let correctTotal = 0;
+  let streak = 0;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentQuestion = null;
+  let currentOptions = [];
+
+  // Opciones de sufijos posibles
+  const SUFFIX_OPTIONS = ["ִי", "ְךָ", "וֹ", "ָהּ", "ֵנוּ", "ְכֶם", "ָם", "תִי", "תְךָ", "תוֹ", "ֶיךָ", "ֵינוּ"];
+
+  const hebrewBaseSpan = document.getElementById('hebrewBase');
+  const meaningTextSpan = document.getElementById('meaningText');
+  const hebrewWithBlankSpan = document.getElementById('hebrewWithBlank');
+  const blankSpaceSpan = document.getElementById('blankSpace');
+  const optionsDiv = document.getElementById('optionsContainer');
+  const feedbackDiv = document.getElementById('feedbackMsg');
+  const comboMsgSpan = document.getElementById('comboMsg');
+  const nextBtn = document.getElementById('nextBtn');
+  const pointsSpan = document.getElementById('pointsValue');
+  const correctSpan = document.getElementById('correctValue');
+  const streakSpan = document.getElementById('streakValue');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function generateOptions(correctSuffix) {
+    let candidates = [correctSuffix];
+    const otherSuffixes = SUFFIX_OPTIONS.filter(s => s !== correctSuffix);
+    const shuffled = shuffleArray([...otherSuffixes]);
+    for (let i = 0; i < shuffled.length && candidates.length < 4; i++) {
+      candidates.push(shuffled[i]);
+    }
+    return shuffleArray(candidates.slice(0, 4));
+  }
+
+  function updateUI() {
+    pointsSpan.innerText = score;
+    correctSpan.innerText = correctTotal;
+    streakSpan.innerText = streak;
+    if (streak >= 3) {
+      comboMsgSpan.innerHTML = "🔥 ¡RACHA ACTIVA! +5 puntos extra por acierto 🔥";
+    } else {
+      comboMsgSpan.innerHTML = "📝 Completa 3 aciertos seguidos para activar la racha";
+    }
+  }
+
+  function spawnInk(element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = "✒️";
+    div.className = 'ink';
+    div.style.left = rect.left + rect.width/2 - 15 + 'px';
+    div.style.top = rect.top - 10 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 600);
+  }
+
+  function loadQuestion() {
+    if (currentIndex >= currentQuestions.length) {
+      feedbackDiv.innerHTML = "🎉 ¡PERGAMINO COMPLETADO! +100 puntos de bonificación. ¡Nuevo pergamino! 🎉";
+      score += 100;
+      updateUI();
+      initGame();
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentQuestion = currentQuestions[currentIndex];
+    
+    hebrewBaseSpan.innerText = currentQuestion.base;
+    meaningTextSpan.innerText = currentQuestion.meaning;
+    hebrewWithBlankSpan.innerHTML = `${currentQuestion.base}<span class="suffix-space" id="blankSpace">______</span>`;
+    
+    currentOptions = generateOptions(currentQuestion.correctSuffix);
+    
+    optionsDiv.innerHTML = '';
+    currentOptions.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.classList.add('option-btn');
+      btn.addEventListener('click', (e) => handleAnswer(opt, btn));
+      optionsDiv.appendChild(btn);
+    });
+    
+    feedbackDiv.innerHTML = "🖋️ Selecciona el sufijo correcto para completar la palabra.";
+  }
+
+  function handleAnswer(selected, btnElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentQuestion.correctSuffix);
+    const allBtns = document.querySelectorAll('.option-btn');
+
+    if (isCorrect) {
+      let points = 10;
+      if (streak >= 2) points += 5;
+      if (streak >= 4) points += 5;
+      if (streak >= 3) points += 5; // racha extra
+      
+      score += points;
+      correctTotal++;
+      streak++;
+      
+      feedbackDiv.innerHTML = `✅ ¡Correcto! ${currentQuestion.base}${currentQuestion.correctSuffix} = "${currentQuestion.meaning}" +${points} puntos. Racha: ${streak}`;
+      btnElement.classList.add('correct');
+      spawnInk(btnElement);
+      
+      // Mostrar la palabra completa
+      hebrewWithBlankSpan.innerHTML = `${currentQuestion.fullWord}`;
+      
+      updateUI();
+    } else {
+      streak = 0;
+      feedbackDiv.innerHTML = `❌ Incorrecto. El sufijo correcto es "${currentQuestion.correctSuffix}". ${currentQuestion.base}${currentQuestion.correctSuffix} = "${currentQuestion.meaning}"`;
+      btnElement.classList.add('wrong');
+      spawnInk(btnElement);
+      updateUI();
+      
+      // Mostrar respuesta correcta
+      hebrewWithBlankSpan.innerHTML = `${currentQuestion.fullWord}`;
+      
+      allBtns.forEach(btn => {
+        if (btn.innerText === currentQuestion.correctSuffix) {
+          btn.style.border = "3px solid gold";
+          btn.style.background = "#2c6e2c";
+        }
+      });
+    }
+    
+    canAnswer = false;
+    waitingNext = true;
+    allBtns.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextQuestion() {
+    if (!waitingNext && canAnswer) {
+      feedbackDiv.innerHTML = "⚠️ ¡Elige un sufijo antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadQuestion();
+  }
+
+  function initGame() {
+    let shuffled = shuffleArray([...SUFFIX_QUESTIONS]);
+    currentQuestions = shuffled.slice(0, 12);
+    currentIndex = 0;
+    score = 0;
+    correctTotal = 0;
+    streak = 0;
+    canAnswer = true;
+    waitingNext = false;
+    updateUI();
+    loadQuestion();
+  }
+
+  nextBtn.addEventListener('click', nextQuestion);
+  initGame();
+</script>
+</body>
+</html>

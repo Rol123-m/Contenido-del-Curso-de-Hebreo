@@ -189,7 +189,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Más sobre pronombres.', url: 'semanas/semana8/html/semana8_parte3.html', icono: 'מִי' },
                     { tipo: 'html', titulo: 'Ejercicios.', url: 'semanas/semana8/html/semana8_parte4.html', icono: 'מִי' },
                     { tipo: 'html', titulo: 'Resumen.', url: 'semanas/semana8/html/semana8_parte5.html', icono: 'מִי' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'vocab.html', icono: '📖' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 8', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
                       { tipo: 'examen', titulo: 'Examen Semana 8- Sustantivos', url: 'https://forms.gle/5nDTZtZoH1GD7cUz5', icono: '📝' }
@@ -207,13 +207,19 @@ class SemanaManager {
                 evaluacion: "Examen 9 + Foro 3",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Sufijos Pronominales', url: 'semanas/semana9/pdf/sufijos.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Sufijos en Singular', url: 'semanas/semana9/html/singular.html', icono: 'י' },
-                    { tipo: 'html', titulo: 'Sufijos en Plural', url: 'semanas/semana9/html/plural.html', icono: 'ים' },
-                    { tipo: 'html', titulo: 'Sufijos en Preposiciones', url: 'semanas/semana9/html/preposiciones.html', icono: 'ךָ' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 9', url: 'semanas/semana9/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Sufijos Pronominales', url: 'semanas/semana9/html/semana9_parte1.html', icono: 'י' },
+                    { tipo: 'html', titulo: 'Segunda parte', url: 'semanas/semana9/html/semana9_parte2.html', icono: 'ים' },
+                    { tipo: 'html', titulo: 'Más sobre sufijos', url: 'semanas/semana9/html/semana9_parte3.html', icono: 'ךָ' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana9/html/semana9_parte4.html', icono: 'ךָ' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana9/html/semana9_parte5.html', icono: 'ךָ' },
+                     { tipo: 'html', titulo: 'Vocabulario Semana 9', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 9- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Sufijos en Nombres', url: 'semanas/semana9/juegos/sufijos.html', icono: '🔚' }
+                    { titulo: 'Sufijos', url: 'semanas/semana9/juegos/juego1.html', icono: '🔚' },
+                    { titulo: 'Sufijos II', url: 'semanas/semana9/juegos/juego2.html', icono: '🔚' }
                 ]
             },
             
@@ -223,14 +229,20 @@ class SemanaManager {
                 fecha: "5 may - 11 may",
                 evaluacion: "Examen 10",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Estado Constructo', url: 'semanas/semana10/pdf/constructo.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción al Constructo', url: 'semanas/semana10/html/introduccion.html', icono: 'דְּבַר' },
-                    { tipo: 'html', titulo: 'Formas del Constructo', url: 'semanas/semana10/html/formas.html', icono: 'בֵּית' },
-                    { tipo: 'html', titulo: 'Usos del Constructo', url: 'semanas/semana10/html/usos.html', icono: '🔗' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 10', url: 'semanas/semana10/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF: Cadenas Constructas', url: 'semanas/semana10/pdf/constructo.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Cadenas Constructas', url: 'semanas/semana10/html/semana10_parte1.html', icono: 'י' },
+                    { tipo: 'html', titulo: 'Segunda parte', url: 'semanas/semana10/html/semana10_parte2.html', icono: 'ים' },
+                    { tipo: 'html', titulo: 'Más sobre constructo', url: 'semanas/semana10/html/semana10_parte3.html', icono: 'ךָ' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana10/html/semana10_parte4.html', icono: 'ךָ' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana10/html/semana10_parte5.html', icono: 'ךָ' },
+                     { tipo: 'html', titulo: 'Vocabulario Semana 10', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 10- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Identifica el Constructo', url: 'semanas/semana10/juegos/constructo.html', icono: '⛓️' }
+                    { titulo: 'Sufijos', url: 'semanas/semana10/juegos/juego1.html', icono: '🔚' },
+                    { titulo: 'Sufijos II', url: 'semanas/semana10/juegos/juego2.html', icono: '🔚' }
                 ]
             },
             
