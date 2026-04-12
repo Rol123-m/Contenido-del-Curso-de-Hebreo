@@ -192,7 +192,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 7', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 7- Sustantivos', url: 'https://forms.gle/otZJCNWr5C4eAaNd6', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 8- Sustantivos', url: 'https://forms.gle/5nDTZtZoH1GD7cUz5', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Identifica el Pronombre', url: 'semanas/semana8/juegos/juego1.html', icono: '👤' },
