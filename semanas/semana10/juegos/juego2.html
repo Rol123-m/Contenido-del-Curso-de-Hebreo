@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Chain Breaker | Hebreo Bíblico - Semana 10</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #2c1a2a, #1a0f1a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game-wrapper {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 56px;
+      padding: 20px;
+      border: 1px solid rgba(200,150,100,0.3);
+    }
+
+    .chain-visual {
+      background: #2c2c2c;
+      border-radius: 30px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .chain-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 15px 0;
+    }
+
+    .link {
+      background: linear-gradient(145deg, #d4a373, #b5835a);
+      padding: 10px 18px;
+      border-radius: 30px;
+      color: #1a0f0a;
+      font-weight: bold;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      font-size: 1.2rem;
+      direction: rtl;
+    }
+
+    .link.absoluto {
+      background: linear-gradient(145deg, #e94560, #c72a48);
+      color: white;
+    }
+
+    .chain-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 8px 15px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 40px;
+      color: #ffd966;
+    }
+
+    .question-panel {
+      background: linear-gradient(135deg, #fef9e6, #f5e6c8);
+      border-radius: 40px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hebrew-chain {
+      font-size: 1.8rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #1a2a3a;
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 50px;
+      color: #ffefb9;
+      margin: 12px 0;
+      letter-spacing: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-btn {
+      background: #2c3e50;
+      border: 2px solid #d4a373;
+      padding: 14px 8px;
+      border-radius: 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ffefcf;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .card-btn:active {
+      transform: scale(0.96);
+    }
+
+    .card-btn.correct-card {
+      background: #27ae60;
+      border-color: #f1c40f;
+      box-shadow: 0 0 15px #27ae60;
+    }
+
+    .card-btn.wrong-card {
+      background: #c0392b;
+      text-decoration: line-through;
+    }
+
+    .card-btn.disabled-card {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      background: rgba(0,0,0,0.7);
+      border-radius: 30px;
+      padding: 12px;
+      margin: 15px 0;
+      text-align: center;
+      color: #ffd966;
+    }
+
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #d4a373, #b5835a);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #1a0f0a;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    @keyframes shakeChain {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+
+    .shake {
+      animation: shakeChain 0.2s ease-in-out 0s 2;
+    }
+
+    @keyframes floatReward {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-70px); }
+    }
+
+    .reward {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: floatReward 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-chain { font-size: 1.2rem; padding: 8px 12px; }
+      .link { font-size: 0.9rem; padding: 6px 12px; }
+      .card-btn { font-size: 0.7rem; padding: 10px 5px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-wrapper">
+  <div class="chain-visual">
+    <div class="chain-links" id="chainLinks"></div>
+    <div class="chain-stats">
+      <span>🔗 Aciertos: <span id="correctCount">0</span></span>
+      <span>⚡ Racha: <span id="streakCount">0</span></span>
+      <span>💔 Fallos: <span id="missCount">0</span>/3</span>
+    </div>
+  </div>
+
+  <div class="question-panel">
+    <div class="hebrew-chain" id="hebrewChain">בֵּית הַמֶּלֶךְ</div>
+  </div>
+
+  <div class="cards-grid" id="cardsContainer"></div>
+  <div class="feedback" id="feedbackArea">🔗 ¿Cuál es la traducción correcta de esta cadena constructa?</div>
+  <button class="action-btn" id="nextChainBtn">⛓️ SIGUIENTE CADENA ⛓️</button>
+</div>
+
+<script>
+  const CHAINS = [
+    { hebrew: "בֵּית הַמֶּלֶךְ", correct: "la casa del rey", options: ["la casa del rey", "el rey de la casa", "una casa del rey", "la casa y el rey"], breakdown: ["בֵּית", "הַמֶּלֶךְ"] },
+    { hebrew: "דְּבַר יְהוָה", correct: "la palabra del SEÑOR", options: ["la palabra del SEÑOR", "el SEÑOR de la palabra", "una palabra del SEÑOR", "palabra y SEÑOR"], breakdown: ["דְּבַר", "יְהוָה"] },
+    { hebrew: "עֶבֶד הַמֶּלֶךְ", correct: "el siervo del rey", options: ["el siervo del rey", "el rey del siervo", "un siervo del rey", "el siervo y el rey"], breakdown: ["עֶבֶד", "הַמֶּלֶךְ"] },
+    { hebrew: "בְּנֵי יִשְׂרָאֵל", correct: "los hijos de Israel", options: ["los hijos de Israel", "Israel de los hijos", "un hijo de Israel", "los hijos e Israel"], breakdown: ["בְּנֵי", "יִשְׂרָאֵל"] },
+    { hebrew: "אֱלֹהֵי הַשָּׁמַיִם", correct: "el Dios de los cielos", options: ["el Dios de los cielos", "los cielos de Dios", "un Dios de los cielos", "Dios y los cielos"], breakdown: ["אֱלֹהֵי", "הַשָּׁמַיִם"] },
+    { hebrew: "תּוֹרַת מֹשֶׁה", correct: "la ley de Moisés", options: ["la ley de Moisés", "Moisés de la ley", "una ley de Moisés", "la ley y Moisés"], breakdown: ["תּוֹרַת", "מֹשֶׁה"] },
+    { hebrew: "בֵּית דָּוִד", correct: "la casa de David", options: ["la casa de David", "David de la casa", "una casa de David", "la casa y David"], breakdown: ["בֵּית", "דָּוִד"] },
+    { hebrew: "עֵין הַמַּיִם", correct: "la fuente del agua", options: ["la fuente del agua", "el agua de la fuente", "una fuente del agua", "la fuente y el agua"], breakdown: ["עֵין", "הַמַּיִם"] },
+    { hebrew: "אֲבִי הַנָּבִיא", correct: "el padre del profeta", options: ["el padre del profeta", "el profeta del padre", "un padre del profeta", "el padre y el profeta"], breakdown: ["אֲבִי", "הַנָּבִיא"] },
+    { hebrew: "דִּבְרֵי הַחֲכָמִים", correct: "las palabras de los sabios", options: ["las palabras de los sabios", "los sabios de las palabras", "unas palabras de los sabios", "palabras y sabios"], breakdown: ["דִּבְרֵי", "הַחֲכָמִים"] },
+    { hebrew: "מֶלֶךְ הָאָרֶץ", correct: "el rey de la tierra", options: ["el rey de la tierra", "la tierra del rey", "un rey de la tierra", "el rey y la tierra"], breakdown: ["מֶלֶךְ", "הָאָרֶץ"] },
+    { hebrew: "שְׂדֵה הַכֶּרֶם", correct: "el campo de la viña", options: ["el campo de la viña", "la viña del campo", "un campo de la viña", "el campo y la viña"], breakdown: ["שְׂדֵה", "הַכֶּרֶם"] },
+    { hebrew: "יַד יְהוָה", correct: "la mano del SEÑOR", options: ["la mano del SEÑOR", "el SEÑOR de la mano", "una mano del SEÑOR", "la mano y el SEÑOR"], breakdown: ["יַד", "יְהוָה"] },
+    { hebrew: "בְּרִית שָׁלוֹם", correct: "un pacto de paz", options: ["un pacto de paz", "la paz del pacto", "el pacto de la paz", "pacto y paz"], breakdown: ["בְּרִית", "שָׁלוֹם"] }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let correctCount = 0;
+  let streak = 0;
+  let misses = 0;
+  let maxMisses = 3;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentChain = null;
+
+  const chainLinksDiv = document.getElementById('chainLinks');
+  const hebrewChainSpan = document.getElementById('hebrewChain');
+  const cardsContainer = document.getElementById('cardsContainer');
+  const feedbackArea = document.getElementById('feedbackArea');
+  const nextBtn = document.getElementById('nextChainBtn');
+  const correctSpan = document.getElementById('correctCount');
+  const streakSpan = document.getElementById('streakCount');
+  const missSpan = document.getElementById('missCount');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateUI() {
+    correctSpan.innerText = correctCount;
+    streakSpan.innerText = streak;
+    missSpan.innerText = misses;
+  }
+
+  function spawnReward(emoji, element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = emoji;
+    div.className = 'reward';
+    div.style.left = rect.left + rect.width/2 - 20 + 'px';
+    div.style.top = rect.top - 15 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function updateChainVisual(breakdown) {
+    chainLinksDiv.innerHTML = '';
+    breakdown.forEach((link, idx) => {
+      const linkDiv = document.createElement('div');
+      linkDiv.classList.add('link');
+      if (idx === breakdown.length - 1) linkDiv.classList.add('absoluto');
+      linkDiv.innerText = link;
+      chainLinksDiv.appendChild(linkDiv);
+      if (idx < breakdown.length - 1) {
+        const arrow = document.createElement('span');
+        arrow.innerText = '→';
+        arrow.style.color = '#d4a373';
+        arrow.style.fontSize = '1.2rem';
+        chainLinksDiv.appendChild(arrow);
+      }
+    });
+  }
+
+  function gameOver() {
+    feedbackArea.innerHTML = "💀 ¡CADENA ROTA! Has cometido 3 fallos. Reiniciando... 💀";
+    canAnswer = false;
+    waitingNext = true;
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+  }
+
+  function resetGame() {
+    correctCount = 0;
+    streak = 0;
+    misses = 0;
+    canAnswer = true;
+    waitingNext = false;
+    updateUI();
+    initRound();
+  }
+
+  function loadChain() {
+    if (currentIndex >= currentQuestions.length) {
+      feedbackArea.innerHTML = "🎉 ¡MAESTRO DE CADENAS! +50 puntos de bonificación. ¡Nueva ronda! 🎉";
+      setTimeout(() => {
+        initRound();
+      }, 1500);
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentChain = currentQuestions[currentIndex];
+    
+    hebrewChainSpan.innerText = currentChain.hebrew;
+    updateChainVisual(currentChain.breakdown);
+
+    let opts = [...currentChain.options];
+    if (!opts.includes(currentChain.correct)) opts.push(currentChain.correct);
+    opts = shuffleArray(opts);
+
+    cardsContainer.innerHTML = '';
+    opts.forEach(opt => {
+      const card = document.createElement('div');
+      card.classList.add('card-btn');
+      card.innerText = opt;
+      card.addEventListener('click', (e) => handleAnswer(opt, card));
+      cardsContainer.appendChild(card);
+    });
+
+    feedbackArea.innerHTML = "⛓️ ¿Cuál es la traducción correcta?";
+  }
+
+  function handleAnswer(selected, cardElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentChain.correct);
+    const allCards = document.querySelectorAll('.card-btn');
+
+    if (isCorrect) {
+      correctCount++;
+      streak++;
+      feedbackArea.innerHTML = `✅ ¡CORRECTO! "${currentChain.correct}". Racha: ${streak}`;
+      cardElement.classList.add('correct-card');
+      spawnReward("🔗✅", cardElement);
+      updateUI();
+    } else {
+      misses++;
+      streak = 0;
+      feedbackArea.innerHTML = `❌ INCORRECTO. Respuesta correcta: "${currentChain.correct}". Fallos: ${misses}/${maxMisses}`;
+      cardElement.classList.add('wrong-card');
+      spawnReward("💔", cardElement);
+      updateUI();
+      
+      allCards.forEach(card => {
+        if (card.innerText === currentChain.correct) {
+          card.style.border = "3px solid gold";
+          card.style.background = "#27ae60";
+        }
+      });
+      
+      if (misses >= maxMisses) {
+        gameOver();
+        return;
+      }
+    }
+    
+    canAnswer = false;
+    waitingNext = true;
+    allCards.forEach(card => {
+      card.classList.add('disabled-card');
+      card.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextChain() {
+    if (!waitingNext && canAnswer) {
+      feedbackArea.innerHTML = "⚠️ ¡Responde antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadChain();
+  }
+
+  function initRound() {
+    let shuffled = shuffleArray([...CHAINS]);
+    currentQuestions = shuffled.slice(0, 12);
+    currentIndex = 0;
+    canAnswer = true;
+    waitingNext = false;
+    loadChain();
+  }
+
+  nextBtn.addEventListener('click', nextChain);
+  initRound();
+</script>
+</body>
+</html>

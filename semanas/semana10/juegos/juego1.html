@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Construct Chain Builder | Hebreo Bíblico - Semana 10</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #1a2a3a, #0f1a24);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .game-container {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 48px;
+      padding: 20px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .game-header {
+      background: rgba(0,0,0,0.5);
+      border-radius: 40px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stat {
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      padding: 6px 16px;
+      border-radius: 30px;
+      color: #e94560;
+      font-weight: bold;
+    }
+
+    .stat span {
+      color: #ffd966;
+      font-size: 1.2rem;
+      margin-right: 5px;
+    }
+
+    .question-area {
+      background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+      border-radius: 40px;
+      padding: 25px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hebrew-word {
+      font-size: 2.5rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #1a1a2e;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 50px;
+      color: #ffd966;
+      margin: 10px 0;
+    }
+
+    .translit {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: #0f3460;
+      border: none;
+      padding: 14px 8px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .option-btn:active {
+      transform: scale(0.97);
+    }
+
+    .option-btn.correct {
+      background: #2ecc71;
+      box-shadow: 0 0 15px #2ecc71;
+    }
+
+    .option-btn.wrong {
+      background: #e74c3c;
+      text-decoration: line-through;
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      background: rgba(0,0,0,0.7);
+      border-radius: 30px;
+      padding: 12px;
+      margin: 15px 0;
+      text-align: center;
+      color: #ffd966;
+    }
+
+    .next-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #e94560, #c72a48);
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .next-btn:active {
+      transform: scale(0.98);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    @keyframes float {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-60px); }
+    }
+
+    .floating {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      animation: float 0.8s forwards;
+      z-index: 1000;
+    }
+
+    @media (max-width: 480px) {
+      .hebrew-word { font-size: 1.8rem; padding: 8px 16px; }
+      .option-btn { font-size: 0.75rem; padding: 10px 5px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container">
+  <div class="game-header">
+    <div class="stat"><span>🔗</span> <span id="scoreValue">0</span></div>
+    <div class="stat"><span>🔥</span> <span id="streakValue">0</span></div>
+    <div class="stat"><span>🏆</span> Nivel <span id="levelValue">1</span></div>
+  </div>
+
+  <div class="question-area">
+    <div class="hebrew-word" id="hebrewWord">בֵּית</div>
+    <div class="translit" id="translitWord">(constructo de בַּיִת)</div>
+  </div>
+
+  <div class="options-grid" id="optionsContainer"></div>
+  <div class="feedback" id="feedbackMsg">💡 ¿Cuál es el significado de este estado constructo?</div>
+  <button class="next-btn" id="nextBtn">🔗 SIGUIENTE CADENA 🔗</button>
+</div>
+
+<script>
+  const QUESTIONS = [
+    { hebrew: "בֵּית", translit: "bēt", correct: "casa de", options: ["casa", "casa de", "en casa", "mi casa"], hint: "constructo de בַּיִת" },
+    { hebrew: "דְּבַר", translit: "dəvar", correct: "palabra de", options: ["palabra", "palabra de", "el palabra", "hablar"], hint: "constructo de דָּבָר" },
+    { hebrew: "תּוֹרַת", translit: "tōrat", correct: "ley de", options: ["ley", "ley de", "la ley", "enseñanza"], hint: "constructo de תּוֹרָה" },
+    { hebrew: "אֱלֹהֵי", translit: "elohē", correct: "Dios de", options: ["Dios", "Dios de", "dioses", "mi Dios"], hint: "constructo plural de אֱלֹהִים" },
+    { hebrew: "בְּנֵי", translit: "bənē", correct: "hijos de", options: ["hijos", "hijos de", "mi hijo", "el hijo"], hint: "constructo plural de בָּנִים" },
+    { hebrew: "עֵין", translit: "ēn", correct: "ojo/fuente de", options: ["ojo", "fuente", "ojo de / fuente de", "mis ojos"], hint: "constructo de עַיִן" },
+    { hebrew: "אֲבִי", translit: "avī", correct: "padre de", options: ["padre", "padre de", "mi padre", "el padre"], hint: "constructo de אָב" },
+    { hebrew: "אֲחִי", translit: "aḥī", correct: "hermano de", options: ["hermano", "hermano de", "mi hermano", "el hermano"], hint: "constructo de אָח" },
+    { hebrew: "יַד", translit: "yad", correct: "mano de", options: ["mano", "mano de", "mi mano", "la mano"], hint: "constructo de יָד (monosílabo)" },
+    { hebrew: "בֶּן", translit: "ben", correct: "hijo de", options: ["hijo", "hijo de", "mi hijo", "el hijo"], hint: "constructo de בֵּן" },
+    { hebrew: "מַלְכֵי", translit: "malḵē", correct: "reyes de", options: ["reyes", "reyes de", "el rey", "mi rey"], hint: "constructo plural de מְלָכִים" },
+    { hebrew: "דִּבְרֵי", translit: "divrē", correct: "palabras de", options: ["palabras", "palabras de", "la palabra", "hablar"], hint: "constructo plural de דְּבָרִים" },
+    { hebrew: "שְׂדֵה", translit: "sədē", correct: "campo de", options: ["campo", "campo de", "el campo", "mi campo"], hint: "constructo de שָׂדֶה" },
+    { hebrew: "מִדְבַּר", translit: "midbar", correct: "desierto de", options: ["desierto", "desierto de", "el desierto", "en el desierto"], hint: "constructo de מִדְבָּר" },
+    { hebrew: "עֶבֶד", translit: "eved", correct: "siervo de", options: ["siervo", "siervo de", "el siervo", "mi siervo"], hint: "constructo de עֶבֶד (segholado)" }
+  ];
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let streak = 0;
+  let level = 1;
+  let canAnswer = true;
+  let waitingNext = false;
+  let currentQuestion = null;
+
+  const hebrewSpan = document.getElementById('hebrewWord');
+  const translitSpan = document.getElementById('translitWord');
+  const optionsDiv = document.getElementById('optionsContainer');
+  const feedbackDiv = document.getElementById('feedbackMsg');
+  const nextBtn = document.getElementById('nextBtn');
+  const scoreSpan = document.getElementById('scoreValue');
+  const streakSpan = document.getElementById('streakValue');
+  const levelSpan = document.getElementById('levelValue');
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function updateUI() {
+    scoreSpan.innerText = score;
+    streakSpan.innerText = streak;
+    levelSpan.innerText = level;
+  }
+
+  function spawnFloating(emoji, element) {
+    const rect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    div.innerText = emoji;
+    div.className = 'floating';
+    div.style.left = rect.left + rect.width/2 - 20 + 'px';
+    div.style.top = rect.top - 20 + 'px';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 800);
+  }
+
+  function loadQuestion() {
+    if (currentIndex >= currentQuestions.length) {
+      feedbackDiv.innerHTML = "🎉 ¡CONSTRUCTOR MAESTRO! +100 puntos. ¡Nueva ronda! 🎉";
+      score += 100;
+      updateUI();
+      initGame();
+      return;
+    }
+
+    canAnswer = true;
+    waitingNext = false;
+    nextBtn.disabled = false;
+    currentQuestion = currentQuestions[currentIndex];
+    
+    hebrewSpan.innerText = currentQuestion.hebrew;
+    translitSpan.innerText = currentQuestion.translit;
+
+    let opts = [...currentQuestion.options];
+    if (!opts.includes(currentQuestion.correct)) opts.push(currentQuestion.correct);
+    opts = shuffleArray(opts);
+
+    optionsDiv.innerHTML = '';
+    opts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.classList.add('option-btn');
+      btn.addEventListener('click', (e) => handleAnswer(opt, btn));
+      optionsDiv.appendChild(btn);
+    });
+
+    feedbackDiv.innerHTML = "🔗 ¿Cuál es el significado de este estado constructo?";
+  }
+
+  function handleAnswer(selected, btnElement) {
+    if (!canAnswer || waitingNext) return;
+    
+    const isCorrect = (selected === currentQuestion.correct);
+    const allBtns = document.querySelectorAll('.option-btn');
+
+    if (isCorrect) {
+      let points = 10;
+      if (streak >= 2) points += 5;
+      if (streak >= 4) points += 5;
+      score += points;
+      streak++;
+      
+      if (streak === 5) {
+        feedbackDiv.innerHTML = "✨ ¡RACHA DE CONSTRUCTOR! +15 puntos extra ✨";
+        score += 15;
+        spawnFloating("🔗✨", btnElement);
+      } else {
+        feedbackDiv.innerHTML = `✅ ¡Correcto! +${points} puntos. Racha: ${streak}`;
+        spawnFloating("✅", btnElement);
+      }
+      
+      btnElement.classList.add('correct');
+      
+      if (score >= 100 && level === 1) { level = 2; feedbackDiv.innerHTML += " 🎉 ¡NIVEL 2! 🎉"; }
+      else if (score >= 200 && level === 2) { level = 3; feedbackDiv.innerHTML += " 🏆 ¡NIVEL 3 - MAESTRO CONSTRUCTOR! 🏆"; }
+      
+      updateUI();
+    } else {
+      streak = 0;
+      feedbackDiv.innerHTML = `❌ Incorrecto. Respuesta correcta: "${currentQuestion.correct}". ¡Sigue practicando!`;
+      btnElement.classList.add('wrong');
+      spawnFloating("💔", btnElement);
+      updateUI();
+      
+      allBtns.forEach(btn => {
+        if (btn.innerText === currentQuestion.correct) {
+          btn.style.border = "3px solid gold";
+          btn.style.background = "#2ecc71";
+        }
+      });
+    }
+
+    canAnswer = false;
+    waitingNext = true;
+    allBtns.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+    });
+    nextBtn.disabled = false;
+  }
+
+  function nextQuestion() {
+    if (!waitingNext && canAnswer) {
+      feedbackDiv.innerHTML = "⚠️ ¡Responde antes de continuar! ⚠️";
+      return;
+    }
+    currentIndex++;
+    loadQuestion();
+  }
+
+  function initGame() {
+    let shuffled = shuffleArray([...QUESTIONS]);
+    currentQuestions = shuffled.slice(0, 12);
+    currentIndex = 0;
+    score = 0;
+    streak = 0;
+    level = 1;
+    canAnswer = true;
+    waitingNext = false;
+    updateUI();
+    loadQuestion();
+  }
+
+  nextBtn.addEventListener('click', nextQuestion);
+  initGame();
+</script>
+</body>
+</html>
