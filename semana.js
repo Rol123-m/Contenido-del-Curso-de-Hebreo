@@ -215,7 +215,7 @@ class SemanaManager {
                      { tipo: 'html', titulo: 'Vocabulario Semana 9', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 9- Sustantivos', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 9- Sustantivos', url: 'https://forms.gle/LVTxy4WN7hX1Qd6C7', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Sufijos', url: 'semanas/semana9/juegos/juego1.html', icono: '🔚' },
@@ -238,7 +238,7 @@ class SemanaManager {
                      { tipo: 'html', titulo: 'Vocabulario Semana 10', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 10- Sustantivos', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 10- Sustantivos', url: 'https://forms.gle/MNt7WNBGdmbTTyUe8', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Sufijos', url: 'semanas/semana10/juegos/juego1.html', icono: '🔚' },
