@@ -253,13 +253,19 @@ class SemanaManager {
                 evaluacion: "Examen 11",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Números', url: 'semanas/semana11/pdf/numeros.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Números Cardinales', url: 'semanas/semana11/html/cardinales.html', icono: '1️⃣' },
-                    { tipo: 'html', titulo: 'Números Ordinales', url: 'semanas/semana11/html/ordinales.html', icono: '🥇' },
-                    { tipo: 'html', titulo: 'Concordancia Numérica', url: 'semanas/semana11/html/concordancia.html', icono: '⚖️' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 11', url: 'semanas/semana11/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'Números parte uno', url: 'semanas/semana11/html/intro_numeros_hebreos.html', icono: '1️⃣' },
+                    { tipo: 'html', titulo: 'Números parte dos', url: 'semanas/semana11/html/partedos.html', icono: '🥇' },
+                    { tipo: 'html', titulo: 'Tercera parte', url: 'semanas/semana11/html/parytetres.html', icono: '⚖️' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana11/html/parte4.html', icono: '⚖️' },
+                    { tipo: 'html', titulo: 'resumen', url: 'semanas/semana11/html/parte5.html', icono: '⚖️' },
+                     { tipo: 'html', titulo: 'Vocabulario Semana 10', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 10- Sustantivos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Los Números', url: 'semanas/semana11/juegos/numeros.html', icono: '🔢' }
+                    { titulo: 'Los Números', url: 'semanas/semana11/juegos/juego1.html', icono: '🔢' },
+                     { titulo: 'Práctica', url: 'semanas/semana11/juegos/juego2.html', icono: '🔢' }
                 ]
             },
             
