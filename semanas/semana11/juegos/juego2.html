@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Polaridad y Ordinales | Números Hebreos - Semana 11</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: linear-gradient(145deg, #2a1a3a, #1a0f2a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .game-wrapper {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 56px;
+      padding: 20px;
+      border: 1px solid rgba(200,150,200,0.3);
+    }
+    .chain-visual { background: #2c2c2c; border-radius: 30px; padding: 15px; margin-bottom: 20px; text-align: center; }
+    .chain-stats { display: flex; justify-content: space-between; margin-top: 12px; padding: 8px 15px; background: rgba(0,0,0,0.5); border-radius: 40px; color: #ffd966; }
+    .question-panel { background: linear-gradient(135deg, #fef9e6, #f5e6c8); border-radius: 40px; padding: 20px; text-align: center; margin-bottom: 20px; }
+    .hebrew-phrase { font-size: 1.8rem; font-family: 'Times New Roman', 'Arial Hebrew', serif; direction: rtl; background: #1a2a3a; display: inline-block; padding: 12px 20px; border-radius: 50px; color: #ffefb9; margin: 12px 0; }
+    .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .card-btn { background: #2c3e50; border: 2px solid #d4a373; padding: 14px 8px; border-radius: 28px; font-size: 0.9rem; font-weight: 600; color: #ffefcf; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .card-btn:active { transform: scale(0.96); }
+    .card-btn.correct-card { background: #27ae60; border-color: #f1c40f; box-shadow: 0 0 15px #27ae60; }
+    .card-btn.wrong-card { background: #c0392b; text-decoration: line-through; }
+    .card-btn.disabled-card { pointer-events: none; opacity: 0.6; }
+    .feedback { background: rgba(0,0,0,0.7); border-radius: 30px; padding: 12px; margin: 15px 0; text-align: center; color: #ffd966; }
+    .action-btn { width: 100%; background: linear-gradient(95deg, #d4a373, #b5835a); border: none; padding: 14px; border-radius: 50px; font-weight: bold; font-size: 1rem; color: #1a0f0a; cursor: pointer; }
+    .action-btn:active { transform: scale(0.98); }
+    .action-btn:disabled { opacity: 0.5; cursor: default; }
+    @keyframes floatReward { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-70px); } }
+    .reward { position: fixed; pointer-events: none; font-size: 1.8rem; animation: floatReward 0.8s forwards; z-index: 1000; }
+    @media (max-width: 480px) { .hebrew-phrase { font-size: 1.2rem; padding: 8px 12px; } .card-btn { font-size: 0.7rem; padding: 10px 5px; } }
+  </style>
+</head>
+<body>
+<div class="game-wrapper">
+  <div class="chain-visual">
+    <div class="chain-stats"><span>🎯 Aciertos: <span id="correctCount">0</span></span><span>⚡ Racha: <span id="streakCount">0</span></span><span>💔 Fallos: <span id="missCount">0</span>/3</span></div>
+  </div>
+  <div class="question-panel"><div class="hebrew-phrase" id="hebrewPhrase">שְׁלֹשָׁה בָּנִים</div></div>
+  <div class="cards-grid" id="cardsContainer"></div>
+  <div class="feedback" id="feedbackArea">🔢 ¿Cuál es la traducción correcta? (Polaridad y ordinales)</div>
+  <button class="action-btn" id="nextQuestionBtn">⏩ SIGUIENTE PREGUNTA ⏩</button>
+</div>
+<script>
+  const QUESTIONS = [
+    { hebrew: "שְׁלֹשָׁה בָּנִים", correct: "tres hijos", options: ["tres hijos", "tres hijas", "tres niño", "tres hombre"], type: "polaridad" },
+    { hebrew: "שָׁלֹשׁ בָּנוֹת", correct: "tres hijas", options: ["tres hijos", "tres hijas", "tres niño", "tres mujer"], type: "polaridad" },
+    { hebrew: "עֲשָׂרָה אֲנָשִׁים", correct: "diez hombres", options: ["diez hombres", "diez mujeres", "diez persona", "diez pueblo"], type: "polaridad" },
+    { hebrew: "עֶשֶׂר נָשִׁים", correct: "diez mujeres", options: ["diez hombres", "diez mujeres", "diez persona", "diez pueblo"], type: "polaridad" },
+    { hebrew: "הַיּוֹם הָרִאשׁוֹן", correct: "el primer día", options: ["el primer día", "el día primero", "un primer día", "el día uno"], type: "ordinal" },
+    { hebrew: "הַיּוֹם הַשֵּׁנִי", correct: "el segundo día", options: ["el segundo día", "el día dos", "dos días", "segundo día"], type: "ordinal" },
+    { hebrew: "הַיּוֹם הַשְּׁלִישִׁי", correct: "el tercer día", options: ["el tercer día", "el día tres", "tres días", "tercer día"], type: "ordinal" },
+    { hebrew: "הַיּוֹם הַשְּׁבִיעִי", correct: "el séptimo día", options: ["el séptimo día", "el día siete", "siete días", "séptimo día"], type: "ordinal" },
+    { hebrew: "שְׁנֵים עָשָׂר אִישׁ", correct: "doce hombres", options: ["doce hombres", "doce hombre", "doce personas", "doce varones"], type: "singular_plural" },
+    { hebrew: "שְׁלֹשׁ עֶשְׂרֵה שָׁנָה", correct: "trece años", options: ["trece años", "trece año", "trece temporadas", "trece meses"], type: "singular_plural" }
+  ];
+  let currentQuestions = [], currentIndex = 0, correctCount = 0, streak = 0, misses = 0, maxMisses = 3, canAnswer = true, waitingNext = false, currentQ = null;
+  const hebrewSpan = document.getElementById('hebrewPhrase'), cardsContainer = document.getElementById('cardsContainer'), feedbackArea = document.getElementById('feedbackArea'), nextBtn = document.getElementById('nextQuestionBtn'), correctSpan = document.getElementById('correctCount'), streakSpan = document.getElementById('streakCount'), missSpan = document.getElementById('missCount');
+  function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+  function updateUI() { correctSpan.innerText = correctCount; streakSpan.innerText = streak; missSpan.innerText = misses; }
+  function spawnReward(emoji, element) { const rect = element.getBoundingClientRect(); const div = document.createElement('div'); div.innerText = emoji; div.className = 'reward'; div.style.left = rect.left + rect.width/2 - 20 + 'px'; div.style.top = rect.top - 15 + 'px'; document.body.appendChild(div); setTimeout(() => div.remove(), 800); }
+  function gameOver() { feedbackArea.innerHTML = "💀 ¡DEMASIADOS ERRORES! Reiniciando... 💀"; canAnswer = false; waitingNext = true; setTimeout(() => resetGame(), 2000); }
+  function resetGame() { correctCount = 0; streak = 0; misses = 0; canAnswer = true; waitingNext = false; updateUI(); initRound(); }
+  function loadQuestion() {
+    if (currentIndex >= currentQuestions.length) { feedbackArea.innerHTML = "🎉 ¡MAESTRO DE NÚMEROS! +50 puntos de bonificación. ¡Nueva ronda! 🎉"; setTimeout(() => initRound(), 1500); return; }
+    canAnswer = true; waitingNext = false; nextBtn.disabled = false;
+    currentQ = currentQuestions[currentIndex];
+    hebrewSpan.innerText = currentQ.hebrew;
+    let opts = [...currentQ.options]; if (!opts.includes(currentQ.correct)) opts.push(currentQ.correct);
+    opts = shuffleArray(opts);
+    cardsContainer.innerHTML = '';
+    opts.forEach(opt => { const card = document.createElement('div'); card.classList.add('card-btn'); card.innerText = opt; card.addEventListener('click', (e) => handleAnswer(opt, card)); cardsContainer.appendChild(card); });
+    feedbackArea.innerHTML = "🔢 ¿Cuál es la traducción correcta?";
+  }
+  function handleAnswer(selected, cardElement) {
+    if (!canAnswer || waitingNext) return;
+    const isCorrect = (selected === currentQ.correct); const allCards = document.querySelectorAll('.card-btn');
+    if (isCorrect) { correctCount++; streak++; feedbackArea.innerHTML = `✅ ¡CORRECTO! "${currentQ.correct}". Racha: ${streak}`; cardElement.classList.add('correct-card'); spawnReward("✅", cardElement); updateUI(); }
+    else { misses++; streak = 0; feedbackArea.innerHTML = `❌ INCORRECTO. Respuesta: "${currentQ.correct}". Fallos: ${misses}/${maxMisses}`; cardElement.classList.add('wrong-card'); spawnReward("💔", cardElement); updateUI(); allCards.forEach(card => { if (card.innerText === currentQ.correct) { card.style.border = "3px solid gold"; card.style.background = "#27ae60"; } }); if (misses >= maxMisses) { gameOver(); return; } }
+    canAnswer = false; waitingNext = true;
+    allCards.forEach(card => { card.classList.add('disabled-card'); card.style.pointerEvents = 'none'; });
+    nextBtn.disabled = false;
+  }
+  function nextQuestion() { if (!waitingNext && canAnswer) { feedbackArea.innerHTML = "⚠️ ¡Responde antes de continuar! ⚠️"; return; } currentIndex++; loadQuestion(); }
+  function initRound() { let shuffled = shuffleArray([...QUESTIONS]); currentQuestions = shuffled.slice(0, 10); currentIndex = 0; canAnswer = true; waitingNext = false; loadQuestion(); }
+  nextBtn.addEventListener('click', nextQuestion); initRound();
+</script>
+</body>
+</html>
