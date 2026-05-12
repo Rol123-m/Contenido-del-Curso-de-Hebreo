@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 11: Los Números (Parte 4) | Vocabulario y Ejercicios | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .vocab-card {
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .vocab-card:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+    }
+    .vocab-card .hebrew-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      direction: rtl;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+      transition: var(--transition);
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .luther-box {
+      background: linear-gradient(135deg, rgba(139,95,191,0.08), rgba(74,111,165,0.05));
+      border-left: 4px solid var(--secondary);
+      padding: 20px;
+      border-radius: var(--radius);
+      margin: 20px 0;
+      font-style: italic;
+    }
+    .luther-quote {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      text-align: center;
+      margin: 15px 0;
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 11</h1>
+      <p class="subtitle">Vocabulario Completo, Ejercicios y Reflexión Pastoral (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Vocabulario completo -->
+    <section class="content-card">
+      <h2><i class="fas fa-book"></i> Ñ. Vocabulario Completo Semana 11</h2>
+      <p>Todas las palabras de vocabulario para esta semana, con transliteración y significado.</p>
+      
+      <div class="vocab-grid">
+        <div class="vocab-card"><span class="hebrew-text">אָמָּה</span> (ammah) — codo, antebrazo (medida de longitud)</div>
+        <div class="vocab-card"><span class="hebrew-text">אֵם</span> (em) — madre</div>
+        <div class="vocab-card"><span class="hebrew-text">בֶּגֶד</span> (beged) — vestido, prenda, vestidura</div>
+        <div class="vocab-card"><span class="hebrew-text">זֶרַע</span> (zera) — semilla, descendencia, simiente</div>
+        <div class="vocab-card"><span class="hebrew-text">חָצֵר</span> (chatzer) — patio, atrio, aldea</div>
+        <div class="vocab-card"><span class="hebrew-text">לַיְלָה</span> (laylah) — noche</div>
+        <div class="vocab-card"><span class="hebrew-text">לָכֵן</span (lachen) — por tanto, por eso</div>
+        <div class="vocab-card"><span class="hebrew-text">מוֹעֵד</span> (mo'ed) — tiempo señalado (fiesta), lugar de reunión</div>
+        <div class="vocab-card"><span class="hebrew-text">מַחֲנֶה</span> (machaneh) — campamento, ejército</div>
+        <div class="vocab-card"><span class="hebrew-text">מַלְאָךְ</span> (mal'aj) — mensajero, ángel</div>
+        <div class="vocab-card"><span class="hebrew-text">מַעֲשֶׂה</span> (ma'aseh) — obra, hecho, labor</div>
+        <div class="vocab-card"><span class="hebrew-text">נַעַר</span> (na'ar) — joven, muchacho, siervo</div>
+        <div class="vocab-card"><span class="hebrew-text">נַחֲלָה</span> (nachalah) — heredad, posesión, propiedad</div>
+        <div class="vocab-card"><span class="hebrew-text">עָוֹן</span> (avon) — iniquidad, culpa, transgresión</div>
+        <div class="vocab-card"><span class="hebrew-text">קֶרֶב</span> (kerev) — interior, entrañas; en prep. בְּקֶרֶב: en medio de</div>
+        <div class="vocab-card"><span class="hebrew-text">רַק</span> (rak) — solamente, sin embargo, pero</div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁלוֹם</span> (shalom) — paz, bienestar, integridad, salvación</div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁם</span> (sham) — allí, allá, entonces</div>
+        <div class="vocab-card"><span class="hebrew-text">תָּמִיד</span> (tamid) — continuamente, siempre</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 1: Identificar el género del número -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> Ejercicio 1: Polaridad de Género</h2>
+      <p>Completa con la forma correcta del número (ten en cuenta la polaridad: números 3-10 usan forma masculina con sustantivos femeninos y viceversa).</p>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. ___ בָּנִים (tres hijos)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">שְׁלֹשָׁה</span> (shloshah)<br>
+          <span class="hebrew-text">שְׁלֹשָׁה בָּנִים</span> — forma femenina del número con sustantivo masculino
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. ___ בָּנוֹת (tres hijas)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">שָׁלֹשׁ</span> (shalosh)<br>
+          <span class="hebrew-text">שָׁלֹשׁ בָּנוֹת</span> — forma masculina del número con sustantivo femenino
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. ___ אֲנָשִׁים (diez hombres)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">עֲשָׂרָה</span> (asarah)<br>
+          <span class="hebrew-text">עֲשָׂרָה אֲנָשִׁים</span>
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. ___ נָשִׁים (diez mujeres)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">עֶשֶׂר</span> (eser)<br>
+          <span class="hebrew-text">עֶשֶׂר נָשִׁים</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 2: Números compuestos -->
+    <section class="content-card">
+      <h2><i class="fas fa-plus-circle"></i> Ejercicio 2: Números Compuestos (21-99)</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. Traduce: <span class="hebrew-text">עֶשְׂרִים וְאַרְבָּעָה</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex5')">Mostrar Respuesta</button>
+        <div id="ex5" class="answer-content">
+          <strong>Traducción:</strong> "veinticuatro" (masculino)<br>
+          (lit. veinte y cuatro)
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. Traduce: <span class="hebrew-text">שְׁלֹשִׁים וְשֶׁבַע</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex6')">Mostrar Respuesta</button>
+        <div id="ex6" class="answer-content">
+          <strong>Traducción:</strong> "treinta y siete" (femenino)<br>
+          (lit. treinta y siete)
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. Escribe en hebreo: "cuarenta y dos" (femenino)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex7')">Mostrar Respuesta</button>
+        <div id="ex7" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">אַרְבָּעִים וּשְׁתַּיִם</span> (arba'im ushtayim)
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 3: Ordinales -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-sort-numeric-down"></i> Ejercicio 3: Números Ordinales</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. Traduce: <span class="hebrew-text">בַּיּוֹם הַשְּׁלִישִׁי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex8')">Mostrar Respuesta</button>
+        <div id="ex8" class="answer-content">
+          <strong>Traducción:</strong> "en el tercer día"<br>
+          <span class="hebrew-text">בַּיּוֹם</span> (en el día) + <span class="hebrew-text">הַשְּׁלִישִׁי</span> (el tercero)
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. ¿Cuál es la forma femenina de <span class="hebrew-text">שְׁמִינִי</span> (octavo)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex9')">Mostrar Respuesta</button>
+        <div id="ex9" class="answer-content">
+          <strong>Respuesta:</strong> <span class="hebrew-text">שְׁמִינִית</span> (sheminit)
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. ¿De qué palabra se deriva <span class="hebrew-text">רִאשׁוֹן</span> (primero)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex10')">Mostrar Respuesta</button>
+        <div id="ex10" class="answer-content">
+          <strong>Respuesta:</strong> De <span class="hebrew-text">רֹאשׁ</span> (rosh), que significa "cabeza" o "principio".
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 4: Traducción de cadenas con números -->
+    <section class="content-card">
+      <h2><i class="fas fa-language"></i> Ejercicio 4: Traduce al español</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">שְׁנֵים עָשָׂר אִישׁ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex11')">Mostrar Respuesta</button>
+        <div id="ex11" class="answer-content">
+          <strong>Traducción:</strong> "doce hombres"<br>
+          (sustantivo <span class="hebrew-text">אִישׁ</span> en singular pero se traduce como plural)
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">שְׁלֹשׁ מֵאוֹת אִישׁ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex12')">Mostrar Respuesta</button>
+        <div id="ex12" class="answer-content">
+          <strong>Traducción:</strong> "trescientos hombres"
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">אַרְבָּעָה עָשָׁר יוֹם</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex13')">Mostrar Respuesta</button>
+        <div id="ex13" class="answer-content">
+          <strong>Traducción:</strong> "catorce días"<br>
+          (lit. catorce día)
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 5: Completar la tabla -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-table"></i> Ejercicio 5: Completa la tabla de números cardinales</h2>
+      
+      <table style="width:100%; margin:20px 0;">
+        <thead>
+          <tr style="background: var(--primary); color: white;">
+            <th>Número</th>
+            <th>Masculino Absoluto</th>
+            <th>Femenino Absoluto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t1')">Mostrar</button><div id="t1" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">אֶחָד</span></div></td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t2')">Mostrar</button><div id="t2" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">אַחַת</span></div></td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>2</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t3')">Mostrar</button><div id="t3" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">שְׁנַיִם</span></div></td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t4')">Mostrar</button><div id="t4" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">שְׁתַּיִם</span></div></td></tr>
+          <tr><td>3</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t5')">Mostrar</button><div id="t5" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">שְׁלֹשָׁה</span></div></td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t6')">Mostrar</button><div id="t6" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">שָׁלֹשׁ</span></div></td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>4</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t7')">Mostrar</button><div id="t7" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">אַרְבָּעָה</span></div></td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t8')">Mostrar</button><div id="t8" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">אַרְבַּע</span></div></td></tr>
+          <tr><td>5</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t9')">Mostrar</button><div id="t9" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">חֲמִשָּׁה</span></div></td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t10')">Mostrar</button><div id="t10" class="answer-content" style="margin-top:5px;"><span class="hebrew-text">חָמֵשׁ</span></div></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Reflexión Pastoral: Martín Lutero -->
+    <section class="content-card">
+      <h2><i class="fas fa-church"></i> O. Reflexión Pastoral: Martín Lutero y la Importancia de las Lenguas Bíblicas</h2>
+      
+      <div class="luther-box">
+        <p>El reformador <strong>Martín Lutero (1483-1546)</strong> fue un firme defensor del estudio de las Escrituras en sus idiomas originales. Para él, no era un lujo académico, sino una <strong>necesidad vital</strong> para la iglesia.</p>
+        
+        <div class="luther-quote">
+          <i class="fas fa-quote-left"></i> "Y estemos seguros de esto: no conservaremos por mucho tiempo el Evangelio sin las lenguas. Las lenguas son la vaina en la que se contiene esta espada del Espíritu; son el cofre en el que se guarda esta joya; son la vasija en la que se contiene este vino; son la despensa en la que se almacena este alimento […] Si por negligencia dejamos que las lenguas se pierdan (¡lo que Dios no permita!), […] perderemos el Evangelio." <i class="fas fa-quote-right"></i>
+        </div>
+        
+        <p>Lutero no solo veía su valor para el predicador erudito, sino que entendía que la <strong>sana doctrina dependía de poder juzgar la interpretación según el texto mismo</strong>:</p>
+        
+        <div class="luther-quote">
+          <i class="fas fa-quote-left"></i> "En la iglesia cristiana todos los sermones deben ser juzgados. Para esto, el conocimiento de la lengua es necesario por encima de todo. El predicador o maestro puede exponer la Biblia de cabo a rabo como le plazca, acertada o equivocadamente, si no hay nadie allí para juzgar si lo está haciendo bien o mal. Pero para juzgar, uno debe tener conocimiento de las lenguas; no puede hacerse de otra manera." <i class="fas fa-quote-right"></i>
+        </div>
+        
+        <p>El llamado de Lutero resuena hasta hoy: el estudio del hebreo no es solo para traducir palabras, sino para <strong>ser la iglesia que juzga fielmente, predica con vigor renovado y conserva el Evangelio en toda su pureza</strong>, tratando las Escrituras como un libro abierto, no cerrado.</p>
+      </div>
+      
+      <div class="example-box" style="text-align: center; margin-top: 15px;">
+        <p class="hebrew-text" style="font-size: 1.2rem;">כִּי מִי־גוֹי גָּדוֹל אֲשֶׁר־לוֹ אֱלֹהִים קְרֹבִים אֵלָיו כַּיהוָה אֱלֹהֵינוּ בְּכָל־קָרְאֵנוּ אֵלָיו</p>
+        <p><strong>Deuteronomio 4:7</strong></p>
+        <p><em>"Porque ¿qué nación grande hay que tenga dioses tan cercanos a ella como lo está el SEÑOR nuestro Dios en todo cuanto le pedimos?"</em></p>
+      </div>
+    </section>
+
+    <!-- Resumen de ejercicios -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-check-circle"></i> Resumen de Ejercicios Realizados</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>Ejercicio 1:</strong> Polaridad de género (números 3-10)</li>
+          <li><strong>Ejercicio 2:</strong> Números compuestos (21-99)</li>
+          <li><strong>Ejercicio 3:</strong> Números ordinales (1º-10º)</li>
+          <li><strong>Ejercicio 4:</strong> Traducción de cadenas con números</li>
+          <li><strong>Ejercicio 5:</strong> Completar tabla de números cardinales</li>
+        </ul>
+        <p style="margin-top: 10px;">¡Continúa practicando para dominar los números en hebreo!</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 11: Los Números — Parte 4 de 5 (Vocabulario, Ejercicios y Reflexión)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
