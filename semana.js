@@ -258,10 +258,10 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Tercera parte', url: 'semanas/semana11/html/parytetres.html', icono: '⚖️' },
                     { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana11/html/parte4.html', icono: '⚖️' },
                     { tipo: 'html', titulo: 'resumen', url: 'semanas/semana11/html/parte5.html', icono: '⚖️' },
-                     { tipo: 'html', titulo: 'Vocabulario Semana 10', url: 'vocab.html', icono: '📖' },
+                     { tipo: 'html', titulo: 'Vocabulario Semana 11', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 10- Sustantivos', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 11- Números', url: 'https://forms.gle/DV8k4CdxTSdbhLg66', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Los Números', url: 'semanas/semana11/juegos/juego1.html', icono: '🔢' },
