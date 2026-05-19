@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 13: El Perfecto Qal (Parte 4) | Vocabulario, Ejercicios y Trasfondo Bíblico | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .vocab-card {
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .vocab-card:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+    }
+    .vocab-card .hebrew-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      direction: rtl;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+      transition: var(--transition);
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .abraham-box {
+      background: linear-gradient(135deg, rgba(139,95,191,0.08), rgba(74,111,165,0.05));
+      border-left: 4px solid var(--secondary);
+      padding: 20px;
+      border-radius: var(--radius);
+      margin: 20px 0;
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+    .conjugation-practice {
+      background: linear-gradient(135deg, rgba(46,204,113,0.05), rgba(39,174,96,0.02));
+      padding: 15px;
+      border-radius: var(--radius);
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 13</h1>
+      <p class="subtitle">Vocabulario Completo, Ejercicios y Trasfondo Bíblico (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Vocabulario completo -->
+    <section class="content-card">
+      <h2><i class="fas fa-book"></i> Q. Vocabulario Completo Semana 13</h2>
+      <p>Todos los verbos de esta semana en Qal Perfecto 3ms (forma léxica). Las cifras entre paréntesis indican la frecuencia en el Antiguo Testamento hebreo.</p>
+      
+      <div class="vocab-grid">
+        <div class="vocab-card"><span class="hebrew-text">בָּרַךְ</span> (baráj) — bendecir <span style="color:#666; font-size:0.8rem;">(327)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">זָכַר</span> (zajar) — recordar, mencionar <span style="color:#666; font-size:0.8rem;">(235)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">זָקֵן</span> (zakén) — envejecer, ser/volverse viejo <span style="color:#666; font-size:0.8rem;">(26)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">חָזַק</span> (jazák) — ser/volverse fuerte, animarse <span style="color:#666; font-size:0.8rem;">(290)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">יָדַע</span> (yadá) — conocer, entender, conocer sexualmente <span style="color:#666; font-size:0.8rem;">(956)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">כָּבֵד</span> (kavéd) — ser pesado, ser honrado <span style="color:#666; font-size:0.8rem;">(114)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">כָּתַב</span> (katáv) — escribir, registrar <span style="color:#666; font-size:0.8rem;">(225)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">מָלֵא</span> (malé) — estar lleno, llenar <span style="color:#666; font-size:0.8rem;">(252)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">מָלַךְ</span> (maláj) — llegar a ser rey, reinar <span style="color:#666; font-size:0.8rem;">(350)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">מָצָא</span> (matsá) — encontrar, alcanzar, obtener <span style="color:#666; font-size:0.8rem;">(457)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">פָּקַד</span> (pakád) — atender, visitar, nombrar, contar <span style="color:#666; font-size:0.8rem;">(304)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁכַב</span> (shajáv) — acostarse, tener relaciones sexuales <span style="color:#666; font-size:0.8rem;">(213)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁלַח</span> (shaláj) — enviar, extender la mano <span style="color:#666; font-size:0.8rem;">(854)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁמַר</span> (shamár) — vigilar, guardar, observar, proteger <span style="color:#666; font-size:0.8rem;">(469)</span></div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 1: Completar la conjugación -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> Ejercicio 1: Completa la conjugación de <span class="hebrew-text">שָׁמַר</span> (guardar)</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. 3ms (él guardó)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמַר</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. 3fs (ella guardó)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמְרָה</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. 2ms (tú guardaste - masculino)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמַרְתָּ</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. 1cs (yo guardé)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמַרְתִּי</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">5. 3cp (ellos guardaron)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex5')">Mostrar Respuesta</button>
+        <div id="ex5" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמְרוּ</span></div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 2: Traducir al español -->
+    <section class="content-card">
+      <h2><i class="fas fa-language"></i> Ejercicio 2: Traduce las siguientes formas verbales</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">כָּתַבְתִּי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex6')">Mostrar Respuesta</button>
+        <div id="ex6" class="answer-content"><strong>Traducción:</strong> "yo escribí" / "yo he escrito" (Qal Perfecto 1cs)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">זָכַרְתְּ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex7')">Mostrar Respuesta</button>
+        <div id="ex7" class="answer-content"><strong>Traducción:</strong> "tú recordaste" (femenino singular) (Qal Perfecto 2fs)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">מָצְאוּ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex8')">Mostrar Respuesta</button>
+        <div id="ex8" class="answer-content"><strong>Traducción:</strong> "ellos/ellas encontraron" (Qal Perfecto 3cp)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. <span class="hebrew-text">לֹא שָׁלַחְנוּ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex9')">Mostrar Respuesta</button>
+        <div id="ex9" class="answer-content"><strong>Traducción:</strong> "nosotros no enviamos" (Qal Perfecto 1cp con negación)</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 3: Traducir al hebreo -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-fancy"></i> Ejercicio 3: Traduce al hebreo</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. "ella bendijo" (בָּרַךְ)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex10')">Mostrar Respuesta</button>
+        <div id="ex10" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">בֵּרְכָה</span> (o <span class="hebrew-text">בָּרְכָה</span> según la forma fuerte)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. "ellos reinaron" (מָלַךְ)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex11')">Mostrar Respuesta</button>
+        <div id="ex11" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">מָלְכוּ</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. "tú guardaste" (masculino) (שָׁמַר)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex12')">Mostrar Respuesta</button>
+        <div id="ex12" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">שָׁמַרְתָּ</span></div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 4: Análisis de verbos -->
+    <section class="content-card">
+      <h2><i class="fas fa-search"></i> Ejercicio 4: Analiza los siguientes verbos</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">יָדַעְתִּי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex13')">Mostrar Respuesta</button>
+        <div id="ex13" class="answer-content">
+          <strong>Raíz:</strong> <span class="hebrew-text">ידע</span> (conocer)<br>
+          <strong>Conjugación:</strong> Perfecto Qal<br>
+          <strong>Persona:</strong> 1ª | <strong>Género:</strong> Común | <strong>Número:</strong> Singular<br>
+          <strong>Traducción:</strong> "yo conocí" / "yo he conocido"
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">שָׁלַחְתֶּם</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex14')">Mostrar Respuesta</button>
+        <div id="ex14" class="answer-content">
+          <strong>Raíz:</strong> <span class="hebrew-text">שלח</span> (enviar)<br>
+          <strong>Conjugación:</strong> Perfecto Qal<br>
+          <strong>Persona:</strong> 2ª | <strong>Género:</strong> Masculino | <strong>Número:</strong> Plural<br>
+          <strong>Traducción:</strong> "vosotros enviasteis"
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">נִמְצָא</span> (atención: este es Nifal)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex15')">Mostrar Respuesta</button>
+        <div id="ex15" class="answer-content">
+          <strong>Raíz:</strong> <span class="hebrew-text">מצא</span> (encontrar)<br>
+          <strong>Conjugación:</strong> Nifal Perfecto 3ms<br>
+          <strong>Traducción:</strong> "él fue encontrado" / "él se encontró" (voz pasiva/reflexiva)
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 5: Traducción de oraciones con הִנֵּה -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-eye"></i> Ejercicio 5: Traduce las siguientes oraciones con <span class="hebrew-text">הִנֵּה</span></h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">הִנֵּה אָנֹכִי עִמָּךְ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex16')">Mostrar Respuesta</button>
+        <div id="ex16" class="answer-content"><strong>Traducción:</strong> "He aquí, yo estoy contigo" (Génesis 28:15)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">הִנֵּנִי שְׁלַחֵנִי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex17')">Mostrar Respuesta</button>
+        <div id="ex17" class="answer-content"><strong>Traducción:</strong> "Heme aquí, envíame a mí" (Isaías 6:8)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">וַיֹּאמֶר אַבְרָהָם הִנֵּנִי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex18')">Mostrar Respuesta</button>
+        <div id="ex18" class="answer-content"><strong>Traducción:</strong> "Y dijo Abraham: Heme aquí" (Génesis 22:1)</div>
+      </div>
+    </section>
+
+    <!-- Trasfondo Bíblico: La Disponibilidad de Abraham -->
+    <section class="content-card">
+      <h2><i class="fas fa-mountain"></i> R. Trasfondo Bíblico: La Disponibilidad de Abraham</h2>
+      
+      <div class="abraham-box">
+        <p>El uso de <span class="hebrew-text">הִנֵּה</span> en <strong>Génesis 22</strong> es paradigmático. Cuando Dios llama a Abraham, este responde <strong><span class="hebrew-text">הִנֵּנִי</span></strong> ("Heme aquí"). Esta misma palabra aparece en los momentos culminantes del relato: cuando Abraham se prepara para sacrificar a Isaac, y cuando el ángel lo detiene.</p>
+        
+        <div class="example-box" style="margin: 15px 0;">
+          <p class="hebrew-text" style="font-size: 1.2rem;">וַיְהִי אַחַר הַדְּבָרִים הָאֵלֶּה וְהָאֱלֹהִים נִסָּה אֶת־אַבְרָהָם וַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי</p>
+          <p><strong>Génesis 22:1</strong></p>
+          <p><em>"Y aconteció después de estas cosas, que Dios probó a Abraham, y le dijo: Abraham. Y él respondió: Heme aquí."</em></p>
+        </div>
+        
+        <p>En todos los casos, <span class="hebrew-text">הִנֵּנִי</span> no es una mera respuesta, sino una <strong>declaración de fe activa y disposición total</strong>. El profeta Isaías también responde con <span class="hebrew-text">הִנֵּנִי</span> cuando Dios pregunta: «¿A quién enviaré?» (Isaías 6:8).</p>
+        
+        <p>En cada caso, esta pequeña palabra encierra el <strong>corazón de la relación de pacto</strong>: una disponibilidad inmediata y sin reservas para servir a Dios.</p>
+      </div>
+    </section>
+
+    <!-- Resumen de ejercicios -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-check-circle"></i> Resumen de Ejercicios Realizados</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>Ejercicio 1:</strong> Completar conjugación de <span class="hebrew-text">שָׁמַר</span> (5 formas)</li>
+          <li><strong>Ejercicio 2:</strong> Traducción de formas verbales al español (4 preguntas)</li>
+          <li><strong>Ejercicio 3:</strong> Traducción al hebreo (3 preguntas)</li>
+          <li><strong>Ejercicio 4:</strong> Análisis de verbos (3 verbos)</li>
+          <li><strong>Ejercicio 5:</strong> Traducción de oraciones con <span class="hebrew-text">הִנֵּה</span> (3 preguntas)</li>
+        </ul>
+        <p style="margin-top: 10px;">¡Continúa practicando para dominar el Perfecto Qal!</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 13: El Perfecto Qal — Parte 4 de 5 (Vocabulario, Ejercicios y Trasfondo Bíblico)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
