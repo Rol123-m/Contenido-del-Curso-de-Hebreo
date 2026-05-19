@@ -277,13 +277,20 @@ class SemanaManager {
                 evaluacion: "Examen 12 + Foro 4",
                 recursos: [
                     { tipo: 'pdf', titulo: 'PDF: Introducción Verbos', url: 'semanas/semana12/pdf/introverbos.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'El Sistema Verbal', url: 'semanas/semana12/html/sistema.html', icono: '🔤' },
-                    { tipo: 'html', titulo: 'Raíces Triliteras', url: 'semanas/semana12/html/raices.html', icono: 'שָׁמַר' },
-                    { tipo: 'html', titulo: 'Tiempos y Aspectos', url: 'semanas/semana12/html/tiempos.html', icono: '⏳' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 12', url: 'semanas/semana12/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'html', titulo: 'El Sistema Verbal', url: 'semanas/semana12/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Más sobre los verbos', url: 'semanas/semana12/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Verbos, semana 12', url: 'semanas/semana12/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Verbos, ejercicios', url: 'semanas/semana12/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana12/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 12', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 12- Verbos', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Identifica la Raíz', url: 'semanas/semana12/juegos/raiz.html', icono: '🌱' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana12/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Verbos dinámicos', url: 'semanas/semana12/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
@@ -292,15 +299,22 @@ class SemanaManager {
                 tema: "Conjugaciones del perfecto",
                 fecha: "26 may - 1 jun",
                 evaluacion: "Examen 13",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Qal Perfecto', url: 'semanas/semana13/pdf/qalperfecto.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Paradigma del Perfecto', url: 'semanas/semana13/html/paradigma.html', icono: 'שָׁמַר' },
-                    { tipo: 'html', titulo: 'Traducción del Perfecto', url: 'semanas/semana13/html/traduccion.html', icono: '🌍' },
-                    { tipo: 'html', titulo: 'Ejemplos Bíblicos', url: 'semanas/semana13/html/ejemplos.html', icono: '📖' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 13', url: 'semanas/semana13/html/vocabulario.html', icono: '📖' }
+                 recursos: [
+                    { tipo: 'pdf', titulo: 'PDF: Perfecto de Qal', url: 'semanas/semana13/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'La Raiz Qal', url: 'semanas/semana13/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'El Perfecto', url: 'semanas/semana13/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana13/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Verbos, ejercicios', url: 'semanas/semana13/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana13/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 13', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 13- Perfecto de QAL', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Conjuga el Perfecto', url: 'semanas/semana13/juegos/conjuga.html', icono: '⚡' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana13/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Verbos dinámicos', url: 'semanas/semana13/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
