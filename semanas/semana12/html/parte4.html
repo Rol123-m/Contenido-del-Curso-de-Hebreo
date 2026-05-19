@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 12: Introducción a los Verbos (Parte 4) | Vocabulario y Ejercicios | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .vocab-card {
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .vocab-card:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+    }
+    .vocab-card .hebrew-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      direction: rtl;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+      transition: var(--transition);
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .zuinglio-box {
+      background: linear-gradient(135deg, rgba(139,95,191,0.08), rgba(74,111,165,0.05));
+      border-left: 4px solid var(--secondary);
+      padding: 20px;
+      border-radius: var(--radius);
+      margin: 20px 0;
+      font-style: italic;
+    }
+    .zuinglio-quote {
+      font-size: 1rem;
+      color: var(--primary-dark);
+      text-align: center;
+      margin: 15px 0;
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+    .analysis-practice {
+      background: linear-gradient(135deg, rgba(46,204,113,0.05), rgba(39,174,96,0.02));
+      padding: 15px;
+      border-radius: var(--radius);
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 12</h1>
+      <p class="subtitle">Vocabulario Completo, Ejercicios y Reflexión Pastoral (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Vocabulario completo -->
+    <section class="content-card">
+      <h2><i class="fas fa-book"></i> P. Vocabulario Completo Semana 12</h2>
+      
+      <h3>Verbos (Qal Perfecto 3ms)</h3>
+      <div class="vocab-grid">
+        <div class="vocab-card"><span class="hebrew-text">אָכַל</span> (ajal) — comer, consumir</div>
+        <div class="vocab-card"><span class="hebrew-text">אָמַר</span> (amar) — decir, mencionar, pensar</div>
+        <div class="vocab-card"><span class="hebrew-text">הָלַךְ</span> (halaj) — ir, caminar, morir</div>
+        <div class="vocab-card"><span class="hebrew-text">הָיָה</span> (hayah) — ser, llegar a ser, acontecer</div>
+        <div class="vocab-card"><span class="hebrew-text">יָצָא</span> (yatsa) — salir, salir fuera</div>
+        <div class="vocab-card"><span class="hebrew-text">יָשַׁב</span> (yashav) — sentarse, morar, habitar</div>
+        <div class="vocab-card"><span class="hebrew-text">נָתַן</span> (natan) — dar, poner, colocar</div>
+        <div class="vocab-card"><span class="hebrew-text">עָשָׂה</span> (asah) — hacer, fabricar, crear</div>
+        <div class="vocab-card"><span class="hebrew-text">רָאָה</span> (ra'ah) — ver, percibir, entender</div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁמַע</span> (shama) — oír, escuchar, entender, obedecer</div>
+      </div>
+      
+      <h3>Sustantivos y otros</h3>
+      <div class="vocab-grid">
+        <div class="vocab-card"><span class="hebrew-text">אָרוֹן</span> (arón) — arca, cofre, ataúd</div>
+        <div class="vocab-card"><span class="hebrew-text">מִנְחָה</span> (minjáh) — ofrenda, presente, tributo</div>
+        <div class="vocab-card"><span class="hebrew-text">שַׁבָּת</span> (shabbát) — sábado, período de reposo</div>
+        <div class="vocab-card"><span class="hebrew-text">אַךְ</span> (aj) — solo, ciertamente, sin embargo</div>
+        <div class="vocab-card"><span class="hebrew-text">אַל</span> (al) — no, no (prohibitivo)</div>
+        <div class="vocab-card"><span class="hebrew-text">אִם</span> (im) — si</div>
+        <div class="vocab-card"><span class="hebrew-text">לֹא</span> (lo) — no, no</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 1: Identificar el tallo verbal -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> Ejercicio 1: Identifica el Tallo Verbal</h2>
+      <p>¿A qué tallo pertenece cada verbo? (Qal, Nifal, Piel, Pual, Hifil, Hofal, Hitpael)</p>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">שָׁמַע</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content"><strong>Respuesta:</strong> Qal (acción simple, voz activa, sin aumento)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">נִשְׁמַע</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content"><strong>Respuesta:</strong> Nifal (prefijo נ, voz pasiva/reflexiva)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">הִמְלִיךְ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content"><strong>Respuesta:</strong> Hifil (prefijo ה, acción causativa, voz activa)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. <span class="hebrew-text">הִתְחַפֵּא</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content"><strong>Respuesta:</strong> Hitpael (prefijo הִתְ, voz reflexiva)</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 2: Tipo de acción y voz -->
+    <section class="content-card">
+      <h2><i class="fas fa-microphone-alt"></i> Ejercicio 2: Tipo de Acción y Voz</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. ¿Qué tipo de acción expresa el tallo <strong>Piel</strong>?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex5')">Mostrar Respuesta</button>
+        <div id="ex5" class="answer-content"><strong>Respuesta:</strong> Acción <strong>intensiva</strong>. Ej: <span class="hebrew-text">שָׁבַר</span> (quebrar) → <span class="hebrew-text">שִׁבֵּר</span> (hacer pedazos)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. ¿Qué voz expresa el tallo <strong>Nifal</strong>?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex6')">Mostrar Respuesta</button>
+        <div id="ex6" class="answer-content"><strong>Respuesta:</strong> Voz <strong>pasiva o reflexiva</strong>. Ej: <span class="hebrew-text">נִשְׁמַע</span> (él fue oído / se oyó)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. ¿Qué tallo expresa acción <strong>causativa activa</strong>?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex7')">Mostrar Respuesta</button>
+        <div id="ex7" class="answer-content"><strong>Respuesta:</strong> <strong>Hifil</strong>. Ej: <span class="hebrew-text">הִמְלִיךְ</span> (él hizo rey)</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 3: Análisis de verbos -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-search"></i> Ejercicio 3: Analiza los siguientes verbos</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">נָתַן</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex8')">Mostrar Respuesta</button>
+        <div id="ex8" class="answer-content">
+          <strong>Análisis:</strong><br>
+          • Tallo: Qal<br>
+          • Conjugación: Perfecto<br>
+          • Persona: 3ª<br>
+          • Género: Masculino<br>
+          • Número: Singular<br>
+          • Forma léxica: <span class="hebrew-text">נָתַן</span><br>
+          • Traducción: "él dio"
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">נִשְׁמַע</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex9')">Mostrar Respuesta</button>
+        <div id="ex9" class="answer-content">
+          <strong>Análisis:</strong><br>
+          • Tallo: Nifal<br>
+          • Conjugación: Perfecto<br>
+          • Persona: 3ª<br>
+          • Género: Masculino<br>
+          • Número: Singular<br>
+          • Forma léxica: <span class="hebrew-text">שָׁמַע</span><br>
+          • Traducción: "él fue oído / él se oyó a sí mismo"
+        </div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">הָמְלַךְ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex10')">Mostrar Respuesta</button>
+        <div id="ex10" class="answer-content">
+          <strong>Análisis:</strong><br>
+          • Tallo: Hofal<br>
+          • Conjugación: Perfecto<br>
+          • Persona: 3ª<br>
+          • Género: Masculino<br>
+          • Número: Singular<br>
+          • Forma léxica: <span class="hebrew-text">מָלַךְ</span><br>
+          • Traducción: "él fue hecho rey"
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 4: Orden de palabras -->
+    <section class="content-card">
+      <h2><i class="fas fa-sort-amount-down"></i> Ejercicio 4: Orden de Palabras</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. ¿Cuál es el orden normal de las palabras en una oración verbal hebrea?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex11')">Mostrar Respuesta</button>
+        <div id="ex11" class="answer-content"><strong>Respuesta:</strong> Verbo → Sujeto → Objeto (VSO)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. En Génesis 1:1, identifica el verbo, sujeto y objeto: <span class="hebrew-text">בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex12')">Mostrar Respuesta</button>
+        <div id="ex12" class="answer-content">
+          <strong>Respuesta:</strong><br>
+          • Verbo: <span class="hebrew-text">בָּרָא</span> (creó)<br>
+          • Sujeto: <span class="hebrew-text">אֱלֹהִים</span> (Dios)<br>
+          • Objeto: <span class="hebrew-text">אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ</span> (los cielos y la tierra)
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 5: Completar tabla de tallos -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-table"></i> Ejercicio 5: Completa la tabla de tallos</h2>
+      
+      <table style="width:100%; margin:20px 0;">
+        <thead>
+          <tr style="background: var(--primary); color: white;">
+            <th>Tallo</th>
+            <th>Tipo de acción</th>
+            <th>Voz</th>
+            <th>Diagnóstico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="hebrew-text">קַל</td><td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t1')">Mostrar</button><div id="t1" class="answer-content" style="margin-top:5px;">Simple</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t2')">Mostrar</button><div id="t2" class="answer-content" style="margin-top:5px;">Activa</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t3')">Mostrar</button><div id="t3" class="answer-content" style="margin-top:5px;">Sin aumento</div></td>
+          </tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td class="hebrew-text">נִפְעַל</td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t4')">Mostrar</button><div id="t4" class="answer-content" style="margin-top:5px;">Simple</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t5')">Mostrar</button><div id="t5" class="answer-content" style="margin-top:5px;">Pasiva / Reflexiva</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t6')">Mostrar</button><div id="t6" class="answer-content" style="margin-top:5px;">Prefijo נ</div></td>
+          </tr>
+          <tr><td class="hebrew-text">הִפְעִיל</td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t7')">Mostrar</button><div id="t7" class="answer-content" style="margin-top:5px;">Causativa</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t8')">Mostrar</button><div id="t8" class="answer-content" style="margin-top:5px;">Activa</div></td>
+            <td><button class="answer-btn" style="padding:4px 12px;" onclick="toggleAnswer('t9')">Mostrar</button><div id="t9" class="answer-content" style="margin-top:5px;">Prefijo ה</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Reflexión Pastoral: Ulrico Zuinglio -->
+    <section class="content-card">
+      <h2><i class="fas fa-church"></i> Q. Reflexión Pastoral: Ulrico Zuinglio (1484-1531)</h2>
+      
+      <div class="zuinglio-box">
+        <p>El comienzo de la <strong>Reforma en Suiza</strong> data de las conferencias sobre el Nuevo Testamento de <strong>Ulrico Zuinglio</strong> en 1519, apenas tres años después de que su propio estudio de las Escrituras lo llevara a cuestionar y finalmente renunciar a las enseñanzas de la Iglesia Romana.</p>
+        
+        <div class="zuinglio-quote">
+          <i class="fas fa-quote-left"></i> "Una vez que un joven es instruido en la sólida virtud que es formada por la fe, sigue que se regulará a sí mismo y se adornará ricamente desde adentro; porque solo aquel cuya vida entera está ordenada encuentra fácil dar ayuda y consejo a otros. Pero un hombre no puede ordenar correctamente su propia alma a menos que se ejercite día y noche en la Palabra de Dios. Puede hacerlo más fácilmente si está bien versado en lenguas como el hebreo y el griego, porque una correcta comprensión del Antiguo Testamento es difícil sin la una, y una correcta comprensión del Nuevo es igualmente difícil sin la otra." <i class="fas fa-quote-right"></i>
+        </div>
+        
+        <div class="zuinglio-quote">
+          <i class="fas fa-quote-left"></i> "Ningún cristiano debería usar estas lenguas simplemente para su propio provecho o placer: porque las <strong>lenguas son dones del Espíritu Santo</strong>." <i class="fas fa-quote-right"></i>
+        </div>
+        
+        <div class="zuinglio-quote">
+          <i class="fas fa-quote-left"></i> "Pongo el hebreo al final porque el latín está en uso general y el griego sigue convenientemente. De otra manera, habría dado preferencia al hebreo, porque en muchos lugares incluso entre los griegos, aquellos que ignoran las formas de hablar hebreas tienen gran dificultad al intentar extraer el verdadero sentido de la Escritura." <i class="fas fa-quote-right"></i>
+        </div>
+        
+        <p>El llamado de Zuinglio resuena hoy: <strong>las lenguas bíblicas son dones del Espíritu Santo</strong>. No son un lujo académico, sino herramientas esenciales para penetrar en la sabiduría celestial, con la cual ninguna sabiduría terrenal debería ser considerada.</p>
+      </div>
+      
+      <div class="example-box" style="text-align: center; margin-top: 15px;">
+        <p class="hebrew-text" style="font-size: 1.2rem;">כִּי מִי־גוֹי גָּדוֹל אֲשֶׁר־לוֹ אֱלֹהִים קְרֹבִים אֵלָיו כַּיהוָה אֱלֹהֵינוּ בְּכָל־קָרְאֵנוּ אֵלָיו</p>
+        <p><strong>Deuteronomio 4:7</strong></p>
+        <p><em>"Porque ¿qué nación grande hay que tenga dioses tan cercanos a ella como lo está el SEÑOR nuestro Dios en todo cuanto le pedimos?"</em></p>
+      </div>
+    </section>
+
+    <!-- Diagrama conceptual -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-diagram-project"></i> R. Diagrama Conceptual: Raíz → Tallos → Conjugaciones</h2>
+      
+      <div style="text-align: center; margin: 20px 0;">
+        <div style="background: var(--primary); color: white; padding: 15px; border-radius: 15px; display: inline-block; margin: 5px;">
+          <strong>RAÍZ</strong><br>
+          <span class="hebrew-text">שמע</span>
+        </div>
+        <div style="font-size: 2rem; display: inline-block;">↓</div>
+        <div style="background: var(--secondary); color: white; padding: 15px; border-radius: 15px; display: inline-block; margin: 5px;">
+          <strong>TALLOS</strong><br>
+          Qal, Nifal, Piel, Pual, Hifil, Hofal, Hitpael
+        </div>
+        <div style="font-size: 2rem; display: inline-block;">↓</div>
+        <div style="background: var(--primary); color: white; padding: 15px; border-radius: 15px; display: inline-block; margin: 5px;">
+          <strong>CONJUGACIONES</strong><br>
+          Perfecto, Imperfecto, Imperativo, etc.
+        </div>
+      </div>
+      
+      <div class="important-note" style="text-align: center;">
+        <p><strong>Verbo final:</strong> <span class="hebrew-text">וַיִּשְׁמַע</span> (y él oyó) — Tallo Qal, Imperfecto, 3ms, con conjunción ו</p>
+      </div>
+    </section>
+
+    <!-- Resumen de ejercicios -->
+    <section class="content-card">
+      <h2><i class="fas fa-check-circle"></i> Resumen de Ejercicios Realizados</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>Ejercicio 1:</strong> Identificar el tallo verbal (4 preguntas)</li>
+          <li><strong>Ejercicio 2:</strong> Tipo de acción y voz (3 preguntas)</li>
+          <li><strong>Ejercicio 3:</strong> Análisis completo de verbos (3 verbos)</li>
+          <li><strong>Ejercicio 4:</strong> Orden de palabras en hebreo (2 preguntas)</li>
+          <li><strong>Ejercicio 5:</strong> Completar tabla de tallos (3 tallos)</li>
+        </ul>
+        <p style="margin-top: 10px;">¡Continúa practicando para dominar el sistema verbal hebreo!</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 12: Introducción a los Verbos — Parte 4 de 5 (Vocabulario, Ejercicios y Reflexión)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

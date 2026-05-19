@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 12: Introducción a los Verbos (Parte 3) | Conjugaciones y Análisis | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .conjugation-card {
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .conjugation-card:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+    }
+    .conjugation-card h3 {
+      color: var(--secondary-dark);
+      margin-bottom: 12px;
+    }
+    .conjugation-table {
+      width: 100%;
+      margin: 20px 0;
+    }
+    .conjugation-table th {
+      background: var(--primary);
+      color: white;
+      padding: 10px;
+    }
+    .conjugation-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .analysis-box {
+      background: linear-gradient(135deg, rgba(139,95,191,0.08), rgba(74,111,165,0.05));
+      border-left: 4px solid var(--primary);
+      padding: 15px;
+      border-radius: var(--radius);
+      margin: 15px 0;
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+    .word-order {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius);
+      text-align: center;
+      font-size: 1.1rem;
+      margin: 15px 0;
+    }
+    .word-order span {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+    .verb { background: #e94560; color: white; }
+    .subject { background: #2ecc71; color: white; }
+    .object { background: #3498db; color: white; }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 12</h1>
+      <p class="subtitle">Conjugaciones, Orden de Palabras y Análisis de Verbos (Parte 3 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Sección K: Las 8 Conjugaciones Verbales -->
+    <section class="content-card">
+      <h2><i class="fas fa-layer-group"></i> K. Las 8 Conjugaciones Verbales</h2>
+      <p>En hebreo hay <strong>ocho conjugaciones verbales básicas</strong>. Un verbo en el tallo Qal puede conjugarse en cualquiera de estas ocho formas, y lo mismo ocurre con los tallos derivados.</p>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-check-circle"></i> 1. Perfecto</h3>
+        <p><strong>Acción completada</strong> (pasado en indicativo, pero puede usarse para futuro profético o acción atemporal)</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">כָּתַב</span> → "él escribió"</p>
+        <p><em>Característica: acción terminada, completa, cierta.</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-hourglass-half"></i> 2. Imperfecto</h3>
+        <p><strong>Acción incompleta</strong> (futuro, presente continuo, o acción habitual en el pasado)</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">יִכְתֹּב</span> → "él escribirá" / "él escribe"</p>
+        <p><em>Característica: acción en proceso, repetitiva, o futura.</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-exclamation-circle"></i> 3. Imperativo</h3>
+        <p><strong>Mandato en 2ª persona</strong> (tú, vosotros)</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">כְּתֹב</span> → "escribe"</p>
+        <p><em>Solo existe para segunda persona (singular y plural).</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-user-astronaut"></i> 4. Cohortativo</h3>
+        <p><strong>Volitivo en 1ª persona</strong> ("que yo", "que nosotros")</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">אֶכְתְּבָה</span> → "escribiré" (expresando deseo: "que yo escriba")</p>
+        <p><em>Expresa deseo, intención o propósito.</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-pray"></i> 5. Yusivo</h3>
+        <p><strong>Volitivo en 3ª persona</strong> ("que él", "que ellos")</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">יִכְתֹּב</span> → "que él escriba"</p>
+        <p><em>A menudo idéntico en forma al Imperfecto, diferenciado por contexto.</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-book"></i> 6. Infinitivo Construido</h3>
+        <p><strong>Sustantivo verbal</strong> ("para estudiar", "al estudiar")</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">כְּתֹב</span> → "escribir"</p>
+        <p><em>Puede usarse con preposiciones: <span class="hebrew-text">בִּכְתֹב</span> = "al escribir".</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-gavel"></i> 7. Infinitivo Absoluto</h3>
+        <p><strong>No tiene equivalente exacto en español</strong> — enfatiza la acción verbal</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">כָּתוֹב יִכְתֹּב</span> → "ciertamente él escribirá"</p>
+        <p><em>Se usa junto a un verbo finito para dar énfasis.</em></p>
+      </div>
+      
+      <div class="conjugation-card">
+        <h3><i class="fas fa-running"></i> 8. Participio</h3>
+        <p><strong>Adjetivo verbal</strong> ("escribiendo", "el que escribe")</p>
+        <p><strong>Ejemplo:</strong> <span class="hebrew-example">כֹּתֵב</span> → "escribiendo" / "el que escribe"</p>
+        <p><em>Tiene forma activa y pasiva, y concuerda en género y número.</em></p>
+      </div>
+    </section>
+
+    <!-- Sección L: Orden de Palabras -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-sort-amount-down"></i> L. Orden de Palabras en la Oración Verbal Hebrea</h2>
+      
+      <div class="important-note">
+        <p>En hebreo, el orden normal de las palabras en una oración verbal es <strong>Verbo - Sujeto - Objeto</strong> (VSO).</p>
+      </div>
+      
+      <div class="word-order">
+        <span class="verb">VERBO</span>
+        <i class="fas fa-arrow-right"></i>
+        <span class="subject">SUJETO</span>
+        <i class="fas fa-arrow-right"></i>
+        <span class="object">OBJETO</span>
+      </div>
+      
+      <div class="example-box">
+        <p><strong>Ejemplo: Génesis 1:1</strong></p>
+        <p class="hebrew-text" style="font-size: 1.3rem; text-align: center;">בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ</p>
+        <div class="word-order" style="margin-top: 10px;">
+          <span class="verb">בָּרָא</span>
+          <i class="fas fa-arrow-right"></i>
+          <span class="subject">אֱלֹהִים</span>
+          <i class="fas fa-arrow-right"></i>
+          <span class="object">אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ</span>
+        </div>
+        <p style="text-align: center;">"<strong>Creó</strong> <strong>Dios</strong> <strong>los cielos y la tierra</strong>"</p>
+      </div>
+      
+      <div class="important-note">
+        <p><strong>Nota:</strong> La partícula <span class="hebrew-text">אֵת</span> (con sus variantes) marca el <strong>objeto directo definido</strong>. No se traduce al español.</p>
+      </div>
+    </section>
+
+    <!-- Sección M: Analizar (Pursear) Verbos -->
+    <section class="content-card">
+      <h2><i class="fas fa-search"></i> M. Analizar (Pursear) Verbos Hebreos</h2>
+      <p><strong>Analizar (pursear)</strong> un verbo es identificar sus características gramaticales.</p>
+      
+      <div class="analysis-box">
+        <p><strong>Para analizar un verbo hebreo, debes identificar:</strong></p>
+        <ol>
+          <li><strong>Tallo</strong> (Qal, Nifal, Piel, Pual, Hifil, Hofal, Hitpael)</li>
+          <li><strong>Conjugación</strong> (Perfecto, Imperfecto, Imperativo, etc.)</li>
+          <li><strong>Persona</strong> (1ª, 2ª, 3ª)</li>
+          <li><strong>Género</strong> (masculino, femenino, común)</li>
+          <li><strong>Número</strong> (singular, plural)</li>
+          <li><strong>Forma léxica</strong> (infinitivo o Qal Perfecto 3ms)</li>
+        </ol>
+      </div>
+      
+      <div class="example-box">
+        <p><strong>Ejemplo de análisis:</strong></p>
+        <p><span class="hebrew-example">נִשְׁמַע</span></p>
+        <ul>
+          <li><strong>Tallo:</strong> Nifal (prefijo נ + vocal Pathach)</li>
+          <li><strong>Conjugación:</strong> Perfecto</li>
+          <li><strong>Persona:</strong> 3ª</li>
+          <li><strong>Género:</strong> Masculino</li>
+          <li><strong>Número:</strong> Singular</li>
+          <li><strong>Forma léxica:</strong> <span class="hebrew-text">שָׁמַע</span> (Qal Perfecto 3ms de "oír")</li>
+        </ul>
+        <p><strong>Traducción:</strong> "él fue oído" / "él se oyó a sí mismo"</p>
+      </div>
+    </section>
+
+    <!-- Sección N: Forma Léxica para Verbos -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-book-open"></i> N. Forma Léxica para Verbos Hebreos</h2>
+      
+      <div class="important-note">
+        <p>La <strong>forma léxica</strong> de un verbo triconsonántico es el <strong>Qal Perfecto 3ª persona masculino singular (3ms)</strong>.</p>
+        <p>Esta es la forma del verbo que <strong>memorizarás como vocabulario</strong>.</p>
+      </div>
+      
+      <table class="conjugation-table">
+        <thead>
+          <tr style="background: var(--primary); color: white;">
+            <th>Forma Léxica</th>
+            <th>Transliteración</th>
+            <th>Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="hebrew-text">שָׁמַע</td><td>shamá</td><td>oír, escuchar, obedecer</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td class="hebrew-text">אָמַר</td><td>amár</td><td>decir</td></tr>
+          <tr><td class="hebrew-text">עָשָׂה</td><td>asáh</td><td>hacer</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td class="hebrew-text">הָיָה</td><td>hayáh</td><td>ser, acontecer</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Sección O: Verbos Fuertes y Débiles -->
+    <section class="content-card">
+      <h2><i class="fas fa-weight-hanging"></i> O. Verbos Fuertes y Débiles</h2>
+      
+      <div class="important-note">
+        <ul>
+          <li><strong>Verbos fuertes:</strong> No tienen consonantes débiles. Siguen patrones regulares.</li>
+          <li><strong>Verbos débiles:</strong> Tienen al menos una <strong>consonante débil</strong> (guturales: <span class="hebrew-text">א, ה, ח, ע, ר</span>; y a veces <span class="hebrew-text">נ, י, ו</span> en ciertas posiciones).</li>
+        </ul>
+      </div>
+      
+      <h3>Clasificación de raíces verbales débiles:</h3>
+      
+      <table class="conjugation-table">
+        <thead>
+          <tr style="background: var(--primary); color: white;">
+            <th>Tipo</th>
+            <th>Ejemplo</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>I-Gutural</td><td class="hebrew-text">עמד</td><td>gutural en primera posición</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>II-Gutural</td><td class="hebrew-text">גאל</td><td>gutural en segunda posición</td></tr>
+          <tr><td>III-y/n</td><td class="hebrew-text">בנה</td><td>n o y en tercera posición</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>III-א</td><td class="hebrew-text">מצא</td><td>א en tercera posición</td></tr>
+          <tr><td>I-ו</td><td class="hebrew-text">ישב</td><td>ו en primera posición</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>I-נ</td><td class="hebrew-text">נפל</td><td>נ en primera posición</td></tr>
+          <tr><td>Biconsonántico</td><td class="hebrew-text">דם</td><td>solo dos consonantes</td></tr>
+          <tr style="background:rgba(0,0,0,0.02);"><td>Geminado</td><td class="hebrew-text">סבב</td><td>segunda y tercera consonantes idénticas</td></tr>
+        </tbody>
+      </table>
+      
+      <div class="example-box">
+        <p><strong>Los verbos débiles</strong> presentan irregularidades en su conjugación debido a la naturaleza de sus consonantes débiles. Los estudiaremos en detalle en lecciones posteriores.</p>
+      </div>
+    </section>
+
+    <!-- Versículo -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-bible"></i> Versículo de la Semana (Parte 3)</h2>
+      <div class="example-box" style="text-align: center;">
+        <p class="hebrew-text" style="font-size: 1.3rem;">וַיֹּאמֶר אֱלֹהִים יְהִי אוֹר וַיְהִי אוֹר</p>
+        <p><strong>Génesis 1:3</strong></p>
+        <p><em>"Y dijo Dios: Sea la luz; y fue la luz"</em></p>
+        <p class="small" style="margin-top: 10px;">Observa el orden Verbo-Sujeto: <span class="hebrew-text">וַיֹּאמֶר אֱלֹהִים</span> (Y dijo Dios).</p>
+      </div>
+    </section>
+
+    <!-- Resumen -->
+    <section class="content-card">
+      <h2><i class="fas fa-check-circle"></i> Resumen de esta sección</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>8 conjugaciones:</strong> Perfecto, Imperfecto, Imperativo, Cohortativo, Yusivo, Infinitivo Construido, Infinitivo Absoluto, Participio</li>
+          <li><strong>Orden normal:</strong> Verbo → Sujeto → Objeto (VSO)</li>
+          <li><strong>Analizar un verbo:</strong> identificar tallo, conjugación, persona, género, número y forma léxica</li>
+          <li><strong>Forma léxica:</strong> Qal Perfecto 3ms</li>
+          <li><strong>Verbos fuertes:</strong> sin consonantes débiles</li>
+          <li><strong>Verbos débiles:</strong> con consonantes débiles (guturales, נ, י, ו)</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 12: Introducción a los Verbos — Parte 3 de 5 (Conjugaciones y Análisis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
