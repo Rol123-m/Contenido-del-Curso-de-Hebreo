@@ -285,7 +285,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 12', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 12- Verbos', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 12- Verbos', url: 'https://forms.gle/mZF9FmDymJCqLJpA9', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana12/juegos/juego1.html', icono: '🌱' },
