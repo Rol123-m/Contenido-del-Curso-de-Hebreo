@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 17: El Waw Consecutivo (Parte 4) | Vocabulario y Ejercicios | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .vocab-card {
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 17</h1>
+      <p class="subtitle">Vocabulario Completo, Ejercicios y Trasfondo Bíblico (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Vocabulario completo -->
+    <section class="content-card">
+      <h2><i class="fas fa-book"></i> K. Vocabulario Completo Semana 17</h2>
+      
+      <div class="vocab-grid">
+        <div class="vocab-card"><span class="hebrew-text">אָבַד</span> (avád) — perecer, desaparecer, perderse <span style="color:#666;">(185)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">אָהַב</span> (aháv) — amar <span style="color:#666;">(217)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">אָסַף</span> (asáf) — reunir, recoger, quitar <span style="color:#666;">(200)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">בָּעַר</span> (baár) — quemar, consumir <span style="color:#666;">(60)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">גָּלָה</span> (galáh) — descubrir, revelar <span style="color:#666;">(187)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">זָכַךְ</span> (zajáj) — ser limpio, ser puro <span style="color:#666;">(94)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">כָּלָה</span> (kaláh) — ser completo, terminarse <span style="color:#666;">(207)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">רוּם</span> (rum) — ser alto, ser exaltado <span style="color:#666;">(197)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">שָׁפַט</span> (shafát) — juzgar, decidir <span style="color:#666;">(204)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">אֱמֶת</span> (emét) — verdad, fidelidad <span style="color:#666;">(127)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">כִּסֵּא</span (kisé) — asiento, silla, trono <span style="color:#666;">(135)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">מִסְפָּר</span> (mispár) — número <span style="color:#666;">(134)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">עֶשֶׂר</span> (éser) — diez <span style="color:#666;">(492)</span></div>
+        <div class="vocab-card"><span class="hebrew-text">יֵשַׁב</span> (yéshev) — sol <span style="color:#666;">(134)</span></div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 1: Identificar Waw Consecutivo -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> Ejercicio 1: ¿Waw Consecutivo o conjunción regular?</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">וַיִּקְטֹל</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content"><strong>Respuesta:</strong> Waw Consecutivo + Imperfecto — "y él mató" (pasado)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">וְיִקְטֹל</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content"><strong>Respuesta:</strong> Conjunción regular + Imperfecto — "y él matará" (futuro)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">וְקָטַל</span> (con acento en la última sílaba)</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content"><strong>Respuesta:</strong> Waw Consecutivo + Perfecto — "y él matará" (futuro)</div>
+      </div>
+    </section>
+
+    <!-- Ejercicio 2: Traducir formas consecutivas -->
+    <section class="content-card">
+      <h2><i class="fas fa-language"></i> Ejercicio 2: Traduce las siguientes formas</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">וַיֹּאמֶר</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content"><strong>Traducción:</strong> "y él dijo" (Imperfecto consecutivo de <span class="hebrew-text">אָמַר</span>)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">וַיָּקָם</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex5')">Mostrar Respuesta</button>
+        <div id="ex5" class="answer-content"><strong>Traducción:</strong> "y él se levantó" (Imperfecto consecutivo acortado de <span class="hebrew-text">קוּם</span>)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">וְעָשִׂיתָ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex6')">Mostrar Respuesta</button>
+        <div id="ex6" class="answer-content"><strong>Traducción:</strong> "y tú harás" (Perfecto consecutivo de <span class="hebrew-text">עָשָׂה</span>)</div>
+      </div>
+    </section>
+
+    <!-- Trasfondo Bíblico -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-mountain"></i> L. Trasfondo Bíblico: Creer es Ver</h2>
+      
+      <div class="example-box">
+        <p>La raíz <span class="hebrew-text">רָאָה</span> (ver) es fundamental en la historia de Abraham. Cuando Dios prometió mostrarle la tierra, Abraham confió. En el monte Moriah, Abraham <strong>vio</strong> ( <span class="hebrew-text">וַיַּרְא</span> ) el lugar, <strong>vio</strong> el carnero, y llamó al lugar <span class="hebrew-text">יְהוָה יִרְאֶה</span> — "El SEÑOR ve/provee".</p>
+        <p>En el Antiguo Testamento, la fe a veces se describe como una forma de <strong>visión</strong>. Una de las designaciones más comunes para un profeta es <span class="hebrew-text">רֹאֶה</span>, <strong>vidente</strong>.</p>
+        <p>Abraham sería honrado en Hebreos 11 por una fe definida como la <strong>"certeza de lo que no se ve"</strong>.</p>
+      </div>
+    </section>
+
+    <!-- Resumen de ejercicios -->
+    <section class="content-card">
+      <h2><i class="fas fa-check-circle"></i> Resumen de Ejercicios</h2>
+      <div class="important-note">
+        <ul>
+          <li><strong>Ejercicio 1:</strong> Identificar Waw Consecutivo vs. conjunción regular (3 preguntas)</li>
+          <li><strong>Ejercicio 2:</strong> Traducción de formas consecutivas (3 preguntas)</li>
+        </ul>
+        <p>¡Continúa practicando para dominar el Waw Consecutivo!</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 17: El Waw Consecutivo — Parte 4 de 5</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
