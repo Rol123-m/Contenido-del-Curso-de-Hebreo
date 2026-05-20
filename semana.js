@@ -324,14 +324,21 @@ class SemanaManager {
                 fecha: "2 jun - 8 jun",
                 evaluacion: "Examen 14",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Perfecto Débiles', url: 'semanas/semana14/pdf/debiles.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Verbos I-Gutural', url: 'semanas/semana14/html/igutural.html', icono: 'אָמַר' },
-                    { tipo: 'html', titulo: 'Verbos III-א', url: 'semanas/semana14/html/iiialef.html', icono: 'מָצָא' },
-                    { tipo: 'html', titulo: 'Verbos III-ה', url: 'semanas/semana14/html/iiihe.html', icono: 'בָּנָה' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 14', url: 'semanas/semana14/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana14/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana14/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Verbos con Guturales', url: 'semanas/semana14/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana14/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana14/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana14/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 14', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 14- Verbos con Guturales', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Verbos Débiles', url: 'semanas/semana14/juegos/debiles.html', icono: '🍃' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana14/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Parsing verbos con guturales', url: 'semanas/semana14/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
@@ -341,14 +348,21 @@ class SemanaManager {
                 fecha: "9 jun - 15 jun",
                 evaluacion: "Examen 15 + Foro 5",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Imperfecto Fuertes', url: 'semanas/semana15/pdf/imperfecto.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Paradigma del Imperfecto', url: 'semanas/semana15/html/paradigma.html', icono: 'יִשְׁמֹר' },
-                    { tipo: 'html', titulo: 'Prefijos y Sufijos', url: 'semanas/semana15/html/prefijos.html', icono: '➕' },
-                    { tipo: 'html', titulo: 'Usos del Imperfecto', url: 'semanas/semana15/html/usos.html', icono: '⏱️' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 15', url: 'semanas/semana15/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana15/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana15/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Formas del Imperfecto', url: 'semanas/semana15/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana15/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana15/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana15/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 15', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 15- Formas del imperfecto', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Imperfecto Qal', url: 'semanas/semana15/juegos/imperfecto.html', icono: '⏳' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana15/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Formas del Imperfecto', url: 'semanas/semana15/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
@@ -358,14 +372,21 @@ class SemanaManager {
                 fecha: "16 jun - 22 jun",
                 evaluacion: "Examen 16",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Imperfecto Débiles', url: 'semanas/semana16/pdf/imperfectodeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Verbos I-Nun', url: 'semanas/semana16/html/inun.html', icono: 'נָפַל' },
-                    { tipo: 'html', titulo: 'Verbos I-Yod', url: 'semanas/semana16/html/iyod.html', icono: 'יָשַׁב' },
-                    { tipo: 'html', titulo: 'Verbos Doblemente Débiles', url: 'semanas/semana16/html/doble.html', icono: '⚡' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 16', url: 'semanas/semana16/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana16/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana16/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Imperfecto de débiles', url: 'semanas/semana16/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana16/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana16/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana16/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 16', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 16- Imperfectos de débiles', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Imperfecto Débiles', url: 'semanas/semana16/juegos/imperfectodeb.html', icono: '🍂' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana16/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Imperfecto de débiles', url: 'semanas/semana16/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
@@ -375,14 +396,21 @@ class SemanaManager {
                 fecha: "23 jun - 29 jun",
                 evaluacion: "Examen 17",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Waw Consecutivo', url: 'semanas/semana17/pdf/waw.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Waw + Perfecto', url: 'semanas/semana17/html/wawperfecto.html', icono: 'וְקָטַל' },
-                    { tipo: 'html', titulo: 'Waw + Imperfecto', url: 'semanas/semana17/html/wawimperfecto.html', icono: 'וַיִּקְטֹל' },
-                    { tipo: 'html', titulo: 'Narrativa Hebrea', url: 'semanas/semana17/html/narrativa.html', icono: '📖' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 17', url: 'semanas/semana17/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana17/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana17/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Waw Consecutivo', url: 'semanas/semana17/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana17/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana17/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana17/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 17', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 17- Waw Consecutivo', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Waw Consecutivo', url: 'semanas/semana17/juegos/waw.html', icono: '🔄' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana17/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Waw Consecutivo', url: 'semanas/semana17/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
@@ -392,14 +420,21 @@ class SemanaManager {
                 fecha: "30 jun - 5 jul",
                 evaluacion: "Examen 18 + Foro 6",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Imperativo', url: 'semanas/semana18/pdf/imperativo.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Imperativo Afirmativo', url: 'semanas/semana18/html/afirmativo.html', icono: 'שְׁמֹר' },
-                    { tipo: 'html', titulo: 'Imperativo Negativo', url: 'semanas/semana18/html/negativo.html', icono: 'אַל' },
-                    { tipo: 'html', titulo: 'Cohortativo y Yusivo', url: 'semanas/semana18/html/cohortativo.html', icono: 'אֶקְטְלָה' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 18', url: 'semanas/semana18/html/vocabulario.html', icono: '📖' }
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana18/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana18/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Imperativo, cohortativo, yusivo', url: 'semanas/semana18/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana18/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana18/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana18/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 18', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 18- Imperativo, cohortativo, yusivo', url: '', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Formas Imperativas', url: 'semanas/semana18/juegos/imperativo.html', icono: '⚡' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana18/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Imperativo, cohortativo, yusivo', url: 'semanas/semana18/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
