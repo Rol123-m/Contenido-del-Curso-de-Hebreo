@@ -309,7 +309,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 13', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 13- Perfecto de QAL', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 13- Perfecto de QAL', url: 'https://forms.gle/Sb2AArdLEoVkQvgbA', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana13/juegos/juego1.html', icono: '🌱' },
