@@ -333,7 +333,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 14', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 14- Verbos con Guturales', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 14- Verbos con Guturales', url: 'https://script.google.com/macros/s/AKfycbwyTYKOmdlakpkeW1ArMNOwzEhHhSx0NLKFqz_-7-3ehi-aUVUvahhgNSTbHAfANOB2/exec', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana14/juegos/juego1.html', icono: '🌱' },
