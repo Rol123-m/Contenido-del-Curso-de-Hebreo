@@ -381,7 +381,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 16', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 16- Imperfectos de débiles', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 16- Imperfectos de débiles', url: 'https://script.google.com/macros/s/AKfycbzjLlRKOmfArLW_Xfa3-HgDHQLADt4oVczLDZezuY2zrJ31NpjyRhkSJ_P9g_f1EaEW/exec', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana16/juegos/juego1.html', icono: '🌱' },
