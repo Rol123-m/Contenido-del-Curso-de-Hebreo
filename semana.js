@@ -405,7 +405,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 17', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 17- Waw Consecutivo', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 17- Waw Consecutivo', url: 'https://script.google.com/macros/s/AKfycbxrJCI2pCyBjJ2VLL9ADfvVMQDRsd2lrwgdC8k5qTbEtnRoGUid8ZSmqohZ7D7u0nK7Yw/exec', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana17/juegos/juego1.html', icono: '🌱' },
@@ -429,7 +429,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Vocabulario Semana 18', url: 'vocab.html', icono: '📖' },
                         { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
                       { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
-                      { tipo: 'examen', titulo: 'Examen Semana 18- Imperativo, cohortativo, yusivo', url: '', icono: '📝' }
+                      { tipo: 'examen', titulo: 'Examen Semana 18- Imperativo, cohortativo, yusivo', url: 'https://script.google.com/macros/s/AKfycbwYNdheRKSk-5IjqqI1Q-4WD4ERimjCyDQf81ybsy4maDUmnQ9l3zyHtZZ4XS_9unfO/exec', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Practica lo aprendido', url: 'semanas/semana18/juegos/juego1.html', icono: '🌱' },
