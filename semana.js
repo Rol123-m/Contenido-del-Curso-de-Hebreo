@@ -444,7 +444,7 @@ class SemanaManager {
                 fecha: "6 jul - 12 jul",
                 evaluacion: "Examen Intermedio",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'Guía de Repaso Intermedio', url: 'semanas/semana19/pdf/resumen.pdf', icono: '📚' },
+                    { tipo: 'pdf', titulo: 'Guía de Repaso Intermedio', url: 'semanas/semana19/resumen.pdf', icono: '📚' },
                     { tipo: 'html', titulo: 'Juego para practicar', url: 'semanas/semana19/html/juego1.html', icono: '📝' },
                      { tipo: 'html', titulo: 'Vocabulario en diversas modalidades (recomendado)', url: 'https://rol123-m.github.io/practica-de-vocabulario-hebreo/', icono: '📝' },
                      { tipo: 'html', titulo: 'Vocabulario de Hebreo I', url: 'vocab.html', icono: '📖' },
