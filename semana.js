@@ -444,12 +444,13 @@ class SemanaManager {
                 fecha: "6 jul - 12 jul",
                 evaluacion: "Examen Intermedio",
                 recursos: [
-                    { tipo: 'pdf', titulo: 'Guía de Repaso Intermedio', url: 'semanas/semana19/pdf/repaso.pdf', icono: '📚' },
-                    { tipo: 'html', titulo: 'Resumen Sección 1', url: 'semanas/semana19/html/seccion1.html', icono: '📝' },
-                    { tipo: 'html', titulo: 'Resumen Sección 2', url: 'semanas/semana19/html/seccion2.html', icono: '📝' },
-                    { tipo: 'html', titulo: 'Resumen Verbos Qal', url: 'semanas/semana19/html/verbos.html', icono: '📝' },
-                    { tipo: 'html', titulo: 'Ejercicios de Repaso', url: 'semanas/semana19/html/ejercicios.html', icono: '✍️' },
-                    { tipo: 'examen', titulo: 'Examen Intermedio', url: 'https://forms.gle/intermedio', icono: '📝' }
+                    { tipo: 'pdf', titulo: 'Guía de Repaso Intermedio', url: 'semanas/semana19/pdf/resumen.pdf', icono: '📚' },
+                    { tipo: 'html', titulo: 'Juego para practicar', url: 'semanas/semana19/html/juego1.html', icono: '📝' },
+                     { tipo: 'html', titulo: 'Vocabulario en diversas modalidades (recomendado)', url: 'https://rol123-m.github.io/practica-de-vocabulario-hebreo/', icono: '📝' },
+                     { tipo: 'html', titulo: 'Vocabulario de Hebreo I', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                    { tipo: 'examen', titulo: 'Examen Intermedio', url: 'https://script.google.com/macros/s/AKfycbylSmUm3Dt74fSzYvpngtFM5EMDESZ4P6ObaHfvuIQ0A4aORkJJjEjpnVuaV553xXdK7w/exec', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Repaso General', url: 'semanas/semana19/juegos/repaso.html', icono: '🔄' }
