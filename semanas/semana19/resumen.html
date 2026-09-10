@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebreo I - Repaso y Juego | Vivos para Servir</title>
+    <style>
+        /* --- Estilos Globales y Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        /* --- Encabezado con Logo e Identidad --- */
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid #e9edf2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            max-height: 70px;
+            width: auto;
+            display: block;
+        }
+
+        .header-text {
+            flex-grow: 1;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            color: #1a2a3a;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text h1 span {
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        .header-text .subtitle {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-text .ministerio {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 4px;
+        }
+
+        /* --- Navegación por Pestañas --- */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e9edf2;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: #f0f3f6;
+            color: #2c3e50;
+        }
+
+        .tab-btn.active {
+            background: #c0392b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+        }
+
+        /* --- Contenido de las Pestañas --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Estilos para la Sección de Repaso --- */
+        .review-section {
+            margin-bottom: 30px;
+        }
+
+        .review-section h2 {
+            font-size: 1.5rem;
+            color: #1a2a3a;
+            border-left: 6px solid #c0392b;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-section h3 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 20px 0 10px 0;
+        }
+
+        .review-section ul, .review-section p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .review-section li {
+            list-style-type: none;
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .review-section li::before {
+            content: "•";
+            color: #c0392b;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .grammar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .grammar-table th {
+            background: #e9edf2;
+            color: #1a2a3a;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: left;
+            border: 1px solid #dce1e8;
+        }
+
+        .grammar-table td {
+            padding: 10px 12px;
+            border: 1px solid #dce1e8;
+            background: #fafbfc;
+        }
+
+        .grammar-table tr:nth-child(even) td {
+            background: #f4f7f9;
+        }
+
+        .highlight-box {
+            background: #fef9e7;
+            border-left: 6px solid #f1c40f;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* --- Estilos para el Juego (Cuestionario) --- */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9edf2;
+        }
+
+        .question-counter {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .score-display {
+            background: #2c3e50;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .question-card {
+            background: #fafbfc;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a2a3a;
+            margin-bottom: 25px;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e9edf2;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            border-color: #b0bcc9;
+            background: #f4f7f9;
+        }
+
+        .option-item input[type="radio"] {
+            accent-color: #c0392b;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option-item label {
+            flex-grow: 1;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 5px 0;
+        }
+
+        .option-item.correct {
+            border-color: #27ae60;
+            background: #eafaf1;
+        }
+
+        .option-item.incorrect {
+            border-color: #e74c3c;
+            background: #fdedec;
+        }
+
+        .option-item.disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .option-item.disabled:hover {
+            border-color: #e9edf2;
+            background: white;
+        }
+
+        .feedback-box {
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback-box.show {
+            display: block;
+        }
+
+        .feedback-box.correct {
+            background: #eafaf1;
+            border-left: 6px solid #27ae60;
+        }
+
+        .feedback-box.incorrect {
+            background: #fdedec;
+            border-left: 6px solid #e74c3c;
+        }
+
+        .btn-primary {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: #a93226;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(192, 57, 43, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: #e9edf2;
+            color: #2c3e50;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #dce1e8;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .results-container h2 {
+            font-size: 2rem;
+            color: #1a2a3a;
+            margin-bottom: 15px;
+        }
+
+        .results-container .final-score {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        .results-container .score-label {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 15px;
+            }
+
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .header-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                flex: 1 1 auto;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .grammar-table {
+                font-size: 0.85rem;
+            }
+
+            .grammar-table th, .grammar-table td {
+                padding: 6px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .option-item {
+                padding: 10px 15px;
+            }
+            .quiz-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- ===== ENCABEZADO CON LOGO E IDENTIDAD ===== -->
+    <header class="app-header">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir">
+        </div>
+        <div class="header-text">
+            <h1>Repaso de <span>Hebreo I</span></h1>
+            <div class="subtitle">Fundamentos Gramaticales</div>
+            <div class="ministerio">✝️ Ministerio "Vivos para Servir"</div>
+        </div>
+    </header>
+
+    <!-- ===== NAVEGACIÓN POR PESTAÑAS ===== -->
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="review">📘 Repaso</button>
+        <button class="tab-btn" data-tab="quiz">🎯 Juego de Práctica</button>
+    </nav>
+
+    <!-- ========================================= -->
+    <!-- ===== CONTENIDO: PESTAÑA DE REPASO ===== -->
+    <!-- ========================================= -->
+    <div id="tab-review" class="tab-content active">
+
+        <div class="review-section">
+            <h2>1. Alfabeto y Escritura</h2>
+            <ul>
+                <li>El hebreo tiene <strong>23 consonantes</strong> y se escribe de <strong>derecha a izquierda</strong>.</li>
+                <li><strong>Letras Begadkefat</strong> (ב, ג, ד, כ, פ, ת): tienen dos pronunciaciones (fuerte/suave) indicadas por el Daguesh Lene.</li>
+                <li><strong>Gutturales</strong> (א, ה, ח, ע): no pueden llevar Daguesh y prefieren vocales de tipo "a".</li>
+                <li><strong>Formas finales</strong> (Soffit): cinco letras cambian al final de palabra (ך, ם, ן, ף, ץ).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>2. Vocales y Puntuación</h2>
+            <ul>
+                <li><strong>Vocales largas</strong>: Qamets (ָ), Tsere (ֵ), Holem (ֹ).</li>
+                <li><strong>Vocales breves</strong>: Pathach (ַ), Seghol (ֶ), Hireq (ִ), Qamets Hatuf (ָ), Qibbuts (ֻ).</li>
+                <li><strong>Vocales reducidas</strong>: Hatef Pathach (ֲ), Hatef Seghol (ֱ), Hatef Qamets (ֳ).</li>
+                <li><strong>Shewa</strong>: Puede ser simple (silencioso) o móvil (vocal).</li>
+                <li><strong>Matres Lectionis</strong>: Letras que indican vocales (ה, ו, י).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>3. Silabeo</h2>
+            <ul>
+                <li><strong>Regla 1</strong>: Toda sílaba comienza con consonante y tiene una sola vocal.</li>
+                <li><strong>Regla 2</strong>: Sílabas abiertas (terminan en vocal) o cerradas (terminan en consonante).</li>
+                <li>El acento normalmente recae en la <strong>última sílaba</strong>.</li>
+                <li><strong>Qamets vs. Qamets Hatuf</strong>: Hatuf solo en sílaba cerrada no acentuada.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>4. El Sustantivo</h2>
+            <ul>
+                <li><strong>Género</strong>: Masculino (sin terminación) o Femenino (terminaciones ָה, ֶת, ִית).</li>
+                <li><strong>Número</strong>: Singular, Plural ( masculino ִים, femenino וֹת) y Dual (ַיִם).</li>
+                <li><strong>Excepciones</strong>: Femeninos sin terminación (אֶרֶץ), plurales irregulares (אִישׁ → אֲנָשִׁים).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>5. Artículo Definido</h2>
+            <ul>
+                <li>Forma básica: <strong>הַ</strong> + Daguesh Forte en la primera consonante.</li>
+                <li>Con guturales: alargamiento compensatorio (הָ) o duplicación virtual.</li>
+                <li>No hay artículo indefinido; el sustantivo sin artículo puede ser indefinido.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>6. Preposiciones</h2>
+            <ul>
+                <li><strong>Independientes</strong>: palabras separadas (לִפְנֵי, תַּחַת).</li>
+                <li><strong>Con Maqqef</strong>: unidas con guion (עַל־, אֶל־).</li>
+                <li><strong>Inseparables</strong>: prefijadas (בְּ, לְ, כְּ). Cambian su vocal según la palabra.</li>
+                <li><strong>Marcador de objeto directo</strong> אֵת: <strong>NO SE TRADUCE</strong>, solo función gramatical.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>7. Adjetivo</h2>
+            <ul>
+                <li>Se flexionan en cuatro formas (ms, fs, mp, fp).</li>
+                <li><strong>Uso atributivo</strong>: siguen al sustantivo, conciertan en género, número y definición.</li>
+                <li><strong>Uso predicativo</strong>: no llevan artículo, conciertan solo en género y número.</li>
+                <li><strong>Uso sustantivo</strong>: actúan como sustantivos (חָכָם = un sabio).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>8. Pronombres</h2>
+            <ul>
+                <li><strong>Personales independientes</strong>: אֲנִי, אַתָּה, הוּא, etc.</li>
+                <li><strong>Demostrativos</strong>: como adjetivo (siguen al sustantivo) o como pronombre (preceden).</li>
+                <li><strong>Relativo</strong>: אֲשֶׁר (invariable).</li>
+                <li><strong>Interrogativos</strong>: מִי (quién), מָה (qué).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>9. Sufijos Pronominales</h2>
+            <ul>
+                <li><strong>Tipo 1</strong>: con sustantivos singulares (ִי, ָךְ, וֹ, ָהּ, etc.).</li>
+                <li><strong>Tipo 2</strong>: con sustantivos plurales (contienen Yod).</li>
+                <li>En femenino singular, la ָה se convierte en ת antes del sufijo.</li>
+                <li>Preposiciones con sufijos: לִי (a mí), בִּי (en mí), etc.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>10. Cadena Constructa</h2>
+            <ul>
+                <li>Expresa relación posesiva sin usar "de".</li>
+                <li>El último sustantivo (absoluto) determina la definición de toda la cadena.</li>
+                <li>El constructo nunca lleva artículo definido.</li>
+                <li>Los adjetivos van <strong>después</strong> de toda la cadena.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Ejemplo clave:</strong> קוֹל הָאִישׁ = "la voz del hombre" (lit. "voz el hombre").
+            </div>
+        </div>
+
+        <div class="review-section">
+            <h2>11. Numerales</h2>
+            <ul>
+                <li><strong>Cardinales</strong>: Uno (אֶחָד) a diez (עֲשָׂרָה).</li>
+                <li><strong>Polaridad de género</strong>: números 3-10 usan forma masculina con sustantivos femeninos y viceversa.</li>
+                <li><strong>Ordinales</strong>: רִאשׁוֹן, שֵׁנִי, etc. Son adjetivos y conciertan.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>12. Verbos: Introducción</h2>
+            <ul>
+                <li><strong>Raíces triconsonánticas</strong> (ej. מלך).</li>
+                <li><strong>7 tallos</strong>: Qal, Nifal, Piel, Pual, Hifil, Hofal, Hitpael.</li>
+                <li><strong>8 conjugaciones</strong>: Perfecto, Imperfecto, Imperativo, Cohortativo, Yusivo, Infinitivos, Participio.</li>
+                <li>Orden normal: <strong>Verbo - Sujeto - Objeto</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>13. Perfecto Qal (Fuertes)</h2>
+            <ul>
+                <li>Indica acción <strong>completada</strong>. Se añaden sufijos a la raíz.</li>
+                <li>Paradigma base: קָטַל (él mató).</li>
+                <li><strong>Verbos estativos</strong>: Pathach (גָּדַל), Tsere (כָּבֵד) u Holem (קָטֹן).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>14. Perfecto Qal (Débiles)</h2>
+            <ul>
+                <li><strong>I/II-Gutural</strong>: Hatef Pathach donde el fuerte tiene Shewa.</li>
+                <li><strong>III-א</strong>: Qamets en 2ª radical; la א es silente.</li>
+                <li><strong>III-ה</strong>: Hireq Yod en 1ª y 2ª persona; pérdida de la ה.</li>
+                <li><strong>Geminados</strong>: Daguesh Forte + Holem Waw en 1ª y 2ª persona.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>15. Imperfecto Qal (Fuertes)</h2>
+            <ul>
+                <li>Indica acción <strong>incompleta</strong>. Se usan preformativos.</li>
+                <li>Paradigma: יִקְטֹל (él matará).</li>
+                <li>Preformativos: יִ (3ms), תִּ (3fs/2ms), אֶ (1cs), נִ (1cp).</li>
+                <li>Vocal temática: <strong>Holem</strong> (ֹ).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>16. Imperfecto Qal (Débiles)</h2>
+            <ul>
+                <li><strong>II-Gutural / III-ע/ח</strong>: vocal temática Pathach.</li>
+                <li><strong>III-ה</strong>: terminación ה en formas sin sufijo.</li>
+                <li><strong>I-נ</strong>: asimilación de la נ → Daguesh Forte.</li>
+                <li><strong>I-י</strong>: pérdida de la י (Tipo 1) o conservación como vocal (Tipo 2).</li>
+                <li><strong>Biconsonánticos</strong>: preformativo con Qamets (יָקוּם).</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>17. Waw Consecutivo</h2>
+            <ul>
+                <li><strong>Con Imperfecto</strong> (וַיִּ): se traduce como <strong>pasado</strong>.</li>
+                <li><strong>Con Perfecto</strong> (וְ): se traduce como <strong>futuro</strong>.</li>
+                <li>Se usa en secuencias narrativas.</li>
+                <li>En verbos débiles: cambios en la vocal temática o acortamiento.</li>
+            </ul>
+        </div>
+
+        <div class="review-section">
+            <h2>18. Conjugaciones Volitivas</h2>
+            <ul>
+                <li><strong>Imperativo</strong> (2ª persona): eliminar el preformativo del Imperfecto.</li>
+                <li><strong>Cohortativo</strong> (1ª persona): frecuentemente con terminación ָה.</li>
+                <li><strong>Yusivo</strong> (3ª persona): forma acortada en verbos débiles.</li>
+                <li>Las prohibiciones se hacen con <strong>לֹא/אַל + Imperfecto</strong>, no con Imperativo.</li>
+            </ul>
+        </div>
+
+    </div> <!-- /tab-review -->
+
+    <!-- ========================================= -->
+    <!-- ===== CONTENIDO: PESTAÑA DEL JUEGO ===== -->
+    <!-- ========================================= -->
+    <div id="tab-quiz" class="tab-content">
+
+        <div class="quiz-container" id="quizApp">
+            <!-- El contenido del juego se renderiza aquí con JavaScript -->
+        </div>
+
+    </div> <!-- /tab-quiz -->
+
+</div> <!-- /app-container -->
+
+<script>
+    (function() {
+        'use strict';
+
+        // =============================================
+        // 1. DATOS DEL CUESTIONARIO (10 Preguntas)
+        // =============================================
+        const QUESTIONS = [
+            {
+                question: '¿Cuál de estas letras es una gutural que rechaza el Daguesh?',
+                options: ['ב', 'כ', 'ח', 'פ'],
+                correct: 2
+            },
+            {
+                question: '¿Qué significa la palabra "תּוֹרָה"?',
+                options: ['Profecía', 'Ley, instrucción', 'Salmo', 'Sabiduría'],
+                correct: 1
+            },
+            {
+                question: 'En una cadena constructa, ¿quién determina si la cadena es definida?',
+                options: ['El primer sustantivo', 'El último sustantivo (absoluto)', 'El adjetivo', 'La preposición'],
+                correct: 1
+            },
+            {
+                question: '¿Cuál es la terminación correcta para el plural femenino?',
+                options: ['ִים', 'וֹת', 'ָה', 'ַיִם'],
+                correct: 1
+            },
+            {
+                question: 'El marcador de objeto directo "אֵת" en hebreo...',
+                options: ['Se traduce como "a"', 'Se traduce como "con"', 'No se traduce', 'Siempre es una preposición'],
+                correct: 2
+            },
+            {
+                question: 'El Imperativo Qal se forma eliminando el preformativo del Imperfecto en...',
+                options: ['1ª persona', '2ª persona', '3ª persona', 'Todas las personas'],
+                correct: 1
+            },
+            {
+                question: 'El Waw Consecutivo (וַיִּ) con un verbo en Imperfecto se traduce como:',
+                options: ['Futuro', 'Pasado', 'Imperativo', 'Participio'],
+                correct: 1
+            },
+            {
+                question: '¿Cuál es el preformativo para la 1cs (yo) en el Imperfecto Qal?',
+                options: ['יִ', 'תִּ', 'אֶ', 'נִ'],
+                correct: 2
+            },
+            {
+                question: 'Los números del 3 al 10 en hebreo presentan "polaridad de género", lo que significa que:',
+                options: ['Siempre son masculinos', 'Siempre son femeninos', 'Usan forma masculina con sustantivos femeninos y viceversa', 'No tienen género'],
+                correct: 2
+            },
+            {
+                question: 'En el Perfecto Qal de verbos III-ה (terminados en ה), ¿qué diagnóstico es clave?',
+                options: ['Qamets en la 2ª radical', 'Hireq Yod en 1ª y 2ª persona', 'Daguesh Forte en la 2ª radical', 'Prefijo יִ'],
+                correct: 1
+            }
+        ];
+
+        // =============================================
+        // 2. ESTADO DEL JUEGO
+        // =============================================
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+        let quizStarted = false;
+
+        // =============================================
+        // 3. ELEMENTOS DEL DOM
+        // =============================================
+        const quizContainer = document.getElementById('quizApp');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = {
+            review: document.getElementById('tab-review'),
+            quiz: document.getElementById('tab-quiz')
+        };
+
+        // =============================================
+        // 4. FUNCIONES DEL JUEGO
+        // =============================================
+
+        // Renderiza la pregunta actual
+        function renderQuestion() {
+            if (currentQuestionIndex >= QUESTIONS.length) {
+                renderResults();
+                return;
+            }
+
+            const q = QUESTIONS[currentQuestionIndex];
+            const total = QUESTIONS.length;
+            const progress = ((currentQuestionIndex) / total * 100).toFixed(0);
+
+            let html = `
+                <div class="quiz-progress">
+                    <span class="question-counter">Pregunta ${currentQuestionIndex + 1} de ${total}</span>
+                    <span class="score-display">🏆 ${score} / ${total}</span>
+                </div>
+                <div class="question-card">
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-grid" id="optionsGrid">
+            `;
+
+            q.options.forEach((option, index) => {
+                html += `
+                    <div class="option-item" data-option-index="${index}">
+                        <input type="radio" name="question" id="opt${index}" value="${index}">
+                        <label for="opt${index}">${String.fromCharCode(65 + index)}. ${option}</label>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                    <div id="feedbackBox" class="feedback-box"></div>
+                </div>
+                <div class="quiz-controls">
+                    <button class="btn-secondary" id="resetQuizBtn" type="button">🔄 Reiniciar</button>
+                    <button class="btn-primary" id="nextQuestionBtn" disabled type="button">Siguiente ➜</button>
+                </div>
+            `;
+
+            quizContainer.innerHTML = html;
+            isAnswered = false;
+            document.getElementById('nextQuestionBtn').disabled = true;
+            attachOptionListeners();
+            document.getElementById('resetQuizBtn').addEventListener('click', resetQuiz);
+            document.getElementById('nextQuestionBtn').addEventListener('click', handleNext);
+        }
+
+        // Escucha los clics en las opciones
+        function attachOptionListeners() {
+            const options = document.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                opt.addEventListener('click', function(e) {
+                    // Prevenir si ya se respondió
+                    if (isAnswered) return;
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.checked = true;
+                        handleOptionSelect(parseInt(this.dataset.optionIndex));
+                    }
+                });
+                // También escuchar el cambio del radio
+                const radio = opt.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.addEventListener('change', function() {
+                        if (this.checked && !isAnswered) {
+                            handleOptionSelect(parseInt(this.closest('.option-item').dataset.optionIndex));
+                        }
+                    });
+                }
+            });
+        }
+
+        // Maneja la selección de una opción
+        function handleOptionSelect(selectedIndex) {
+            if (isAnswered) return;
+            const q = QUESTIONS[currentQuestionIndex];
+            const isCorrect = (selectedIndex === q.correct);
+            const options = document.querySelectorAll('.option-item');
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            // Marcar como respondida
+            isAnswered = true;
+            document.getElementById('nextQuestionBtn').disabled = false;
+
+            // Actualizar puntuación
+            if (isCorrect) {
+                score++;
+            }
+
+            // Mostrar retroalimentación
+            options.forEach((opt, idx) => {
+                opt.classList.add('disabled');
+                if (idx === q.correct) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedIndex && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Mostrar mensaje
+            feedbackBox.className = 'feedback-box show';
+            feedbackBox.classList.add(isCorrect ? 'correct' : 'incorrect');
+            feedbackBox.innerHTML = isCorrect
+                ? '✅ ¡Correcto! Muy bien.'
+                : `❌ Incorrecto. La respuesta correcta era: ${q.options[q.correct]}`;
+
+            // Actualizar puntuación en el marcador
+            const total = QUESTIONS.length;
+            const scoreDisplay = document.querySelector('.score-display');
+            if (scoreDisplay) {
+                scoreDisplay.textContent = `🏆 ${score} / ${total}`;
+            }
+        }
+
+        // Maneja el clic en "Siguiente"
+        function handleNext() {
+            currentQuestionIndex++;
+            renderQuestion();
+        }
+
+        // Renderiza los resultados finales
+        function renderResults() {
+            const total = QUESTIONS.length;
+            const percentage = Math.round((score / total) * 100);
+            let emoji = '😅';
+            if (percentage >= 90) emoji = '🌟';
+            else if (percentage >= 70) emoji = '👍';
+            else if (percentage >= 50) emoji = '📖';
+
+            let html = `
+                <div class="results-container">
+                    <h2>🎉 ¡Juego Completado!</h2>
+                    <div class="final-score">${score} <span style="font-size:1.5rem;">/ ${total}</span></div>
+                    <div class="score-label">${emoji} ${percentage}% de respuestas correctas</div>
+                    <div style="margin-top: 25px;">
+                        <button class="btn-primary" id="restartQuizBtn">🔄 Jugar de Nuevo</button>
+                    </div>
+                </div>
+            `;
+            quizContainer.innerHTML = html;
+            document.getElementById('restartQuizBtn').addEventListener('click', resetQuiz);
+        }
+
+        // Reinicia el juego completamente
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            isAnswered = false;
+            renderQuestion();
+        }
+
+        // =============================================
+        // 5. FUNCIONALIDAD DE PESTAÑAS
+        // =============================================
+        function switchTab(tabId) {
+            // Actualizar botones
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                }
+            });
+            // Actualizar contenido
+            Object.keys(tabContents).forEach(key => {
+                tabContents[key].classList.remove('active');
+            });
+            if (tabContents[tabId]) {
+                tabContents[tabId].classList.add('active');
+            }
+            // Si se cambia a la pestaña de juego y no se ha iniciado, renderizar
+            if (tabId === 'quiz' && !quizStarted) {
+                quizStarted = true;
+                renderQuestion();
+            }
+            // Si ya está iniciado, no se vuelve a renderizar (se mantiene el estado)
+        }
+
+        // =============================================
+        // 6. INICIALIZACIÓN
+        // =============================================
+        function init() {
+            // Eventos de pestañas
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+
+            // Iniciar en la pestaña de Repaso (no renderiza el juego hasta que se haga clic)
+            // Pero para que el juego esté listo, lo inicializamos en el primer clic.
+            // El juego se renderizará al cambiar a la pestaña 'quiz' por primera vez.
+            // Si la pestaña activa por defecto es 'review', no pasa nada.
+            // Si por algún motivo se quiere precargar, se puede hacer, pero es mejor bajo demanda.
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+</script>
+
+</body>
+</html>

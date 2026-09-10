@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebreo I - Juegos Creativos | Vivos para Servir</title>
+    <style>
+        /* --- Estilos Globales (Reutilizados y Ampliados) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        /* --- Encabezado --- */
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid #e9edf2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            max-height: 70px;
+            width: auto;
+            display: block;
+        }
+
+        .header-text {
+            flex-grow: 1;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            color: #1a2a3a;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text h1 span {
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        .header-text .subtitle {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-text .ministerio {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 4px;
+        }
+
+        /* --- Navegación por Pestañas (3 juegos) --- */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e9edf2;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: #f0f3f6;
+            color: #2c3e50;
+        }
+
+        .tab-btn.active {
+            background: #c0392b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+            min-height: 400px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Estilos Generales para Juegos --- */
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .game-container h2 {
+            font-size: 1.8rem;
+            color: #1a2a3a;
+            margin-bottom: 10px;
+        }
+
+        .game-container .game-description {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .btn-primary {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: #a93226;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(192, 57, 43, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: #e9edf2;
+            color: #2c3e50;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #dce1e8;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-success:hover {
+            background: #1e8449;
+        }
+
+        /* --- Estilos para el Ahorcado --- */
+        .hangman-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            background: #fafbfc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 2px dashed #dce1e8;
+            margin: 20px 0;
+            min-height: 100px;
+            letter-spacing: 8px;
+            word-break: break-all;
+        }
+
+        .hangman-letters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .hangman-letter-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: 2px solid #dce1e8;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1a2a3a;
+        }
+
+        .hangman-letter-btn:hover:not(:disabled) {
+            background: #e9edf2;
+            border-color: #b0bcc9;
+            transform: scale(1.05);
+        }
+
+        .hangman-letter-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hangman-letter-btn.used-correct {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .hangman-letter-btn.used-incorrect {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .hangman-status {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+
+        .hangman-attempts {
+            color: #e74c3c;
+        }
+
+        /* --- Estilos para Memoria de Raíces --- */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1 / 1;
+            background: #2c3e50;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .memory-card.flipped, .memory-card.matched {
+            background: #ecf0f1;
+            color: #1a2a3a;
+            cursor: default;
+            transform: rotateY(0deg);
+        }
+
+        .memory-card.matched {
+            background: #27ae60;
+            color: white;
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        .memory-card:not(.flipped):not(.matched):hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .memory-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 15px;
+            }
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .header-text h1 {
+                font-size: 1.4rem;
+            }
+            .tabs {
+                flex-wrap: wrap;
+            }
+            .tab-btn {
+                flex: 1 1 auto;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            .hangman-display {
+                font-size: 1.2rem;
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .memory-card {
+                font-size: 0.9rem;
+            }
+            .hangman-letter-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- ===== ENCABEZADO ===== -->
+    <header class="app-header">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir">
+        </div>
+        <div class="header-text">
+            <h1>Juegos de <span>Hebreo I</span></h1>
+            <div class="subtitle">Aprendizaje Creativo</div>
+            <div class="ministerio">✝️ Ministerio "Vivos para Servir"</div>
+        </div>
+    </header>
+
+    <!-- ===== NAVEGACIÓN ===== -->
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="quiz">🎯 Cuestionario</button>
+        <button class="tab-btn" data-tab="hangman">🪢 Ahorcado</button>
+        <button class="tab-btn" data-tab="memory">🧠 Memoria de Raíces</button>
+    </nav>
+
+    <!-- ========================================= -->
+    <!-- ===== 1. CUESTIONARIO (Previo) ===== -->
+    <!-- ========================================= -->
+    <div id="tab-quiz" class="tab-content active">
+        <div id="quizApp" class="game-container">
+            <!-- El contenido del cuestionario se renderiza aquí con JavaScript -->
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ===== 2. AHORCADO HEBREO ===== -->
+    <!-- ========================================= -->
+    <div id="tab-hangman" class="tab-content">
+        <div class="game-container" id="hangmanApp">
+            <h2>🪢 El Ahorcado Hebreo</h2>
+            <p class="game-description">Adivina la palabra hebrea. Cada error te acerca al ahorcado. ¡Salva al profeta!</p>
+
+            <div class="hangman-status" id="hangmanStatus">Adivina la palabra:</div>
+            <div class="hangman-display" id="hangmanDisplay">_ _ _ _ _</div>
+
+            <div class="hangman-attempts" id="hangmanAttempts">Intentos restantes: 6</div>
+
+            <div class="hangman-letters" id="hangmanLetters">
+                <!-- Botones de letras generados por JS -->
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button class="btn-secondary" id="resetHangmanBtn">🔄 Nueva Palabra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ===== 3. MEMORIA DE RAÍCES ===== -->
+    <!-- ========================================= -->
+    <div id="tab-memory" class="tab-content">
+        <div class="game-container" id="memoryApp">
+            <h2>🧠 Memoria de Raíces</h2>
+            <p class="game-description">Encuentra las parejas: raíz verbal (3 consonantes) y su significado en español.</p>
+
+            <div class="memory-stats">
+                <span>🏆 Parejas: <span id="memoryPairs">0</span> / 6</span>
+                <span>🔄 Intentos: <span id="memoryAttempts">0</span></span>
+            </div>
+
+            <div class="memory-grid" id="memoryGrid">
+                <!-- Tarjetas generadas por JS -->
+            </div>
+
+            <button class="btn-secondary" id="resetMemoryBtn">🔄 Nuevo Juego</button>
+        </div>
+    </div>
+
+</div> <!-- /app-container -->
+
+<script>
+    (function() {
+        'use strict';
+
+        // ============================================================
+        // 1. DATOS COMPARTIDOS
+        // ============================================================
+
+        // Banco de palabras para el Ahorcado (hebreo transliterado con significado)
+        const HANGMAN_WORDS = [
+            { word: 'SHALOM', hint: 'Paz' },
+            { word: 'TORAH', hint: 'Ley, instrucción' },
+            { word: 'MELECH', hint: 'Rey' },
+            { word: 'NAVI', hint: 'Profeta' },
+            { word: 'CHESED', hint: 'Misericordia, amor leal' },
+            { word: 'YISRAEL', hint: 'Israel' },
+            { word: 'ELOHIM', hint: 'Dios' },
+            { word: 'DAVAR', hint: 'Palabra, cosa' },
+            { word: 'BRIT', hint: 'Pacto, alianza' },
+            { word: 'RUACH', hint: 'Espíritu, viento' }
+        ];
+
+        // Pares para el juego de memoria: [Raíz (3 cons.), Significado]
+        const MEMORY_PAIRS = [
+            { root: 'מלך', meaning: 'Reinar' },
+            { root: 'דבר', meaning: 'Hablar' },
+            { root: 'כתב', meaning: 'Escribir' },
+            { root: 'שמע', meaning: 'Oír' },
+            { root: 'נתן', meaning: 'Dar' },
+            { root: 'עשה', meaning: 'Hacer' }
+        ];
+
+        // ============================================================
+        // 2. CUESTIONARIO (Reutilizado del código anterior)
+        // ============================================================
+        const QUIZ_QUESTIONS = [
+            { question: '¿Cuál de estas letras es una gutural que rechaza el Daguesh?', options: ['ב', 'כ', 'ח', 'פ'], correct: 2 },
+            { question: '¿Qué significa la palabra "תּוֹרָה"?', options: ['Profecía', 'Ley, instrucción', 'Salmo', 'Sabiduría'], correct: 1 },
+            { question: 'En una cadena constructa, ¿quién determina si la cadena es definida?', options: ['El primer sustantivo', 'El último sustantivo (absoluto)', 'El adjetivo', 'La preposición'], correct: 1 },
+            { question: '¿Cuál es la terminación correcta para el plural femenino?', options: ['ִים', 'וֹת', 'ָה', 'ַיִם'], correct: 1 },
+            { question: 'El marcador de objeto directo "אֵת" en hebreo...', options: ['Se traduce como "a"', 'Se traduce como "con"', 'No se traduce', 'Siempre es una preposición'], correct: 2 },
+            { question: 'El Imperativo Qal se forma eliminando el preformativo del Imperfecto en...', options: ['1ª persona', '2ª persona', '3ª persona', 'Todas las personas'], correct: 1 },
+            { question: 'El Waw Consecutivo (וַיִּ) con un verbo en Imperfecto se traduce como:', options: ['Futuro', 'Pasado', 'Imperativo', 'Participio'], correct: 1 },
+            { question: '¿Cuál es el preformativo para la 1cs (yo) en el Imperfecto Qal?', options: ['יִ', 'תִּ', 'אֶ', 'נִ'], correct: 2 },
+            { question: 'Los números del 3 al 10 en hebreo presentan "polaridad de género", lo que significa que:', options: ['Siempre son masculinos', 'Siempre son femeninos', 'Usan forma masculina con sustantivos femeninos y viceversa', 'No tienen género'], correct: 2 },
+            { question: 'En el Perfecto Qal de verbos III-ה (terminados en ה), ¿qué diagnóstico es clave?', options: ['Qamets en la 2ª radical', 'Hireq Yod en 1ª y 2ª persona', 'Daguesh Forte en la 2ª radical', 'Prefijo יִ'], correct: 1 }
+        ];
+
+        // --- Estado del Cuestionario ---
+        let quizState = {
+            current: 0,
+            score: 0,
+            isAnswered: false,
+            started: false
+        };
+
+        // --- Funciones del Cuestionario ---
+        function renderQuiz() {
+            const container = document.getElementById('quizApp');
+            if (!container) return;
+
+            if (quizState.current >= QUIZ_QUESTIONS.length) {
+                const total = QUIZ_QUESTIONS.length;
+                const pct = Math.round((quizState.score / total) * 100);
+                container.innerHTML = `
+                    <div style="padding: 40px 20px; text-align:center;">
+                        <h2>🎉 ¡Cuestionario Completado!</h2>
+                        <div style="font-size:3.5rem; font-weight:700; color:#c0392b; margin:15px 0;">${quizState.score} <span style="font-size:1.5rem;">/ ${total}</span></div>
+                        <div style="font-size:1.1rem; color:#7f8c8d;">${pct}% de respuestas correctas</div>
+                        <button class="btn-primary" style="margin-top:25px;" id="restartQuizBtn2">🔄 Jugar de Nuevo</button>
+                    </div>
+                `;
+                document.getElementById('restartQuizBtn2')?.addEventListener('click', resetQuiz);
+                return;
+            }
+
+            const q = QUIZ_QUESTIONS[quizState.current];
+            const total = QUIZ_QUESTIONS.length;
+            let html = `
+                <div style="display:flex; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <span style="font-weight:600;">Pregunta ${quizState.current + 1} de ${total}</span>
+                    <span style="background:#2c3e50; color:white; padding:4px 16px; border-radius:20px; font-weight:600;">🏆 ${quizState.score} / ${total}</span>
+                </div>
+                <div style="background:#fafbfc; border-radius:16px; padding:25px; box-shadow:0 4px 15px rgba(0,0,0,0.05);">
+                    <div style="font-size:1.2rem; font-weight:600; margin-bottom:20px;">${q.question}</div>
+                    <div style="display:flex; flex-direction:column; gap:12px; text-align:left;" id="quizOptions">
+            `;
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <div style="display:flex; align-items:center; gap:15px; padding:12px 20px; background:white; border-radius:10px; border:2px solid #e9edf2; cursor:pointer; transition:all 0.2s;" data-opt="${idx}" class="quiz-option">
+                        <input type="radio" name="quizQ" value="${idx}" style="accent-color:#c0392b; width:18px; height:18px; flex-shrink:0;">
+                        <label style="flex-grow:1; cursor:pointer; font-size:1rem;">${String.fromCharCode(65 + idx)}. ${opt}</label>
+                    </div>
+                `;
+            });
+            html += `
+                    </div>
+                    <div id="quizFeedback" style="margin-top:20px; padding:15px; border-radius:10px; display:none;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:20px; flex-wrap:wrap; gap:15px;">
+                    <button class="btn-secondary" id="resetQuizBtn2">🔄 Reiniciar</button>
+                    <button class="btn-primary" id="nextQuizBtn2" disabled>Siguiente ➜</button>
+                </div>
+            `;
+            container.innerHTML = html;
+
+            // Eventos del cuestionario
+            document.querySelectorAll('.quiz-option').forEach(el => {
+                el.addEventListener('click', function() {
+                    if (quizState.isAnswered) return;
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                    handleQuizSelect(parseInt(this.dataset.opt));
+                });
+                const radio = el.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.addEventListener('change', function() {
+                        if (this.checked && !quizState.isAnswered) {
+                            handleQuizSelect(parseInt(this.closest('.quiz-option').dataset.opt));
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('resetQuizBtn2')?.addEventListener('click', resetQuiz);
+            document.getElementById('nextQuizBtn2')?.addEventListener('click', () => { quizState.current++; renderQuiz(); });
+            quizState.isAnswered = false;
+            document.getElementById('nextQuizBtn2').disabled = true;
+        }
+
+        function handleQuizSelect(idx) {
+            if (quizState.isAnswered) return;
+            const q = QUIZ_QUESTIONS[quizState.current];
+            const correct = idx === q.correct;
+            quizState.isAnswered = true;
+            if (correct) quizState.score++;
+
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((opt, i) => {
+                opt.style.cursor = 'default';
+                opt.style.opacity = '0.7';
+                if (i === q.correct) {
+                    opt.style.borderColor = '#27ae60';
+                    opt.style.background = '#eafaf1';
+                } else if (i === idx && !correct) {
+                    opt.style.borderColor = '#e74c3c';
+                    opt.style.background = '#fdedec';
+                }
+            });
+
+            const fb = document.getElementById('quizFeedback');
+            fb.style.display = 'block';
+            fb.className = correct ? 'feedback-box show correct' : 'feedback-box show incorrect';
+            fb.style.background = correct ? '#eafaf1' : '#fdedec';
+            fb.style.borderLeft = correct ? '6px solid #27ae60' : '6px solid #e74c3c';
+            fb.innerHTML = correct ? '✅ ¡Correcto! Muy bien.' : `❌ Incorrecto. La respuesta correcta era: ${q.options[q.correct]}`;
+
+            document.getElementById('nextQuizBtn2').disabled = false;
+
+            // Actualizar puntuación
+            const total = QUIZ_QUESTIONS.length;
+            const scoreDisplay = document.querySelector('#quizApp .score-display');
+            // No hay score display fijo, se actualizará en el próximo render.
+        }
+
+        function resetQuiz() {
+            quizState.current = 0;
+            quizState.score = 0;
+            quizState.isAnswered = false;
+            renderQuiz();
+        }
+
+        // ============================================================
+        // 3. AHORCADO HEBREO
+        // ============================================================
+
+        let hangmanState = {
+            word: '',
+            hint: '',
+            display: [],
+            attempts: 6,
+            guessedLetters: [],
+            usedLetters: new Set()
+        };
+
+        function initHangman() {
+            const wordObj = HANGMAN_WORDS[Math.floor(Math.random() * HANGMAN_WORDS.length)];
+            hangmanState.word = wordObj.word.toUpperCase();
+            hangmanState.hint = wordObj.hint;
+            hangmanState.display = Array(hangmanState.word.length).fill('_');
+            hangmanState.attempts = 6;
+            hangmanState.guessedLetters = [];
+            hangmanState.usedLetters = new Set();
+            renderHangman();
+        }
+
+        function renderHangman() {
+            const displayEl = document.getElementById('hangmanDisplay');
+            const statusEl = document.getElementById('hangmanStatus');
+            const attemptsEl = document.getElementById('hangmanAttempts');
+            const lettersContainer = document.getElementById('hangmanLetters');
+
+            if (!displayEl || !statusEl || !attemptsEl || !lettersContainer) return;
+
+            // Mostrar palabra
+            displayEl.textContent = hangmanState.display.join(' ');
+
+            // Estado y pista
+            statusEl.textContent = `Adivina la palabra (Pista: ${hangmanState.hint})`;
+
+            // Intentos
+            attemptsEl.textContent = `Intentos restantes: ${hangmanState.attempts}`;
+            attemptsEl.style.color = hangmanState.attempts <= 2 ? '#e74c3c' : '#333';
+
+            // Letras
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let html = '';
+            for (let char of letters) {
+                const used = hangmanState.usedLetters.has(char);
+                const isCorrect = used && hangmanState.word.includes(char);
+                const isIncorrect = used && !hangmanState.word.includes(char);
+                let cls = 'hangman-letter-btn';
+                if (isCorrect) cls += ' used-correct';
+                if (isIncorrect) cls += ' used-incorrect';
+                html += `<button class="${cls}" data-letter="${char}" ${used ? 'disabled' : ''}>${char}</button>`;
+            }
+            lettersContainer.innerHTML = html;
+
+            // Eventos de letras
+            lettersContainer.querySelectorAll('.hangman-letter-btn:not(:disabled)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const letter = this.dataset.letter;
+                    handleHangmanGuess(letter);
+                });
+            });
+
+            // Verificar fin del juego
+            if (hangmanState.attempts <= 0) {
+                statusEl.textContent = `💀 ¡Perdiste! La palabra era: ${hangmanState.word}`;
+                lettersContainer.querySelectorAll('.hangman-letter-btn').forEach(b => b.disabled = true);
+                document.getElementById('resetHangmanBtn').textContent = '🔄 Nueva Partida';
+                return;
+            }
+
+            if (!hangmanState.display.includes('_')) {
+                statusEl.textContent = `🎉 ¡Ganaste! La palabra es: ${hangmanState.word}`;
+                lettersContainer.querySelectorAll('.hangman-letter-btn').forEach(b => b.disabled = true);
+                document.getElementById('resetHangmanBtn').textContent = '🔄 Nueva Partida';
+                return;
+            }
+
+            document.getElementById('resetHangmanBtn').textContent = '🔄 Nueva Palabra';
+        }
+
+        function handleHangmanGuess(letter) {
+            if (hangmanState.attempts <= 0) return;
+            if (hangmanState.usedLetters.has(letter)) return;
+            if (!hangmanState.display.includes('_')) return;
+
+            hangmanState.usedLetters.add(letter);
+            const isCorrect = hangmanState.word.includes(letter);
+            if (!isCorrect) {
+                hangmanState.attempts--;
+            } else {
+                for (let i = 0; i < hangmanState.word.length; i++) {
+                    if (hangmanState.word[i] === letter) {
+                        hangmanState.display[i] = letter;
+                    }
+                }
+            }
+            renderHangman();
+        }
+
+        // ============================================================
+        // 4. MEMORIA DE RAÍCES
+        // ============================================================
+
+        let memoryState = {
+            cards: [],
+            flippedIndices: [],
+            matchedPairs: 0,
+            attempts: 0,
+            isLocked: false,
+            timeoutId: null
+        };
+
+        function initMemory() {
+            // Crear pares: cada raíz y su significado
+            let cards = [];
+            MEMORY_PAIRS.forEach((pair, idx) => {
+                cards.push({ id: idx * 2, pairId: idx, content: pair.root, type: 'root' });
+                cards.push({ id: idx * 2 + 1, pairId: idx, content: pair.meaning, type: 'meaning' });
+            });
+            // Barajar
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            memoryState.cards = cards;
+            memoryState.flippedIndices = [];
+            memoryState.matchedPairs = 0;
+            memoryState.attempts = 0;
+            memoryState.isLocked = false;
+            if (memoryState.timeoutId) {
+                clearTimeout(memoryState.timeoutId);
+                memoryState.timeoutId = null;
+            }
+            renderMemory();
+        }
+
+        function renderMemory() {
+            const grid = document.getElementById('memoryGrid');
+            const pairsSpan = document.getElementById('memoryPairs');
+            const attemptsSpan = document.getElementById('memoryAttempts');
+            if (!grid || !pairsSpan || !attemptsSpan) return;
+
+            pairsSpan.textContent = memoryState.matchedPairs;
+            attemptsSpan.textContent = memoryState.attempts;
+
+            let html = '';
+            memoryState.cards.forEach((card, index) => {
+                const isFlipped = memoryState.flippedIndices.includes(index);
+                const isMatched = card.matched || false;
+                let classes = 'memory-card';
+                if (isFlipped) classes += ' flipped';
+                if (isMatched) classes += ' matched';
+                html += `<div class="${classes}" data-index="${index}" data-pair="${card.pairId}" data-type="${card.type}">`;
+                if (isFlipped || isMatched) {
+                    html += card.content;
+                } else {
+                    html += '❓';
+                }
+                html += '</div>';
+            });
+            grid.innerHTML = html;
+
+            // Eventos de clic en tarjetas (si no están bloqueadas y no son pares)
+            grid.querySelectorAll('.memory-card:not(.matched)').forEach(el => {
+                el.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    if (memoryState.isLocked) return;
+                    if (memoryState.flippedIndices.includes(index)) return;
+                    handleMemoryFlip(index);
+                });
+            });
+        }
+
+        function handleMemoryFlip(index) {
+            if (memoryState.isLocked) return;
+            const card = memoryState.cards[index];
+            if (card.matched) return;
+            if (memoryState.flippedIndices.length >= 2) return;
+
+            // Voltear
+            memoryState.flippedIndices.push(index);
+            renderMemory();
+
+            if (memoryState.flippedIndices.length === 2) {
+                memoryState.attempts++;
+                const idx1 = memoryState.flippedIndices[0];
+                const idx2 = memoryState.flippedIndices[1];
+                const card1 = memoryState.cards[idx1];
+                const card2 = memoryState.cards[idx2];
+
+                if (card1.pairId === card2.pairId && idx1 !== idx2) {
+                    // ¡Pareja encontrada!
+                    card1.matched = true;
+                    card2.matched = true;
+                    memoryState.matchedPairs++;
+                    memoryState.flippedIndices = [];
+                    renderMemory();
+                    // Verificar si se completó
+                    if (memoryState.matchedPairs === MEMORY_PAIRS.length) {
+                        setTimeout(() => {
+                            alert('🎉 ¡Felicidades! Has encontrado todas las parejas.');
+                        }, 300);
+                    }
+                } else {
+                    // No coinciden: bloquear y desvoltear
+                    memoryState.isLocked = true;
+                    memoryState.timeoutId = setTimeout(() => {
+                        memoryState.flippedIndices = [];
+                        memoryState.isLocked = false;
+                        memoryState.timeoutId = null;
+                        renderMemory();
+                    }, 800);
+                }
+            }
+        }
+
+        // ============================================================
+        // 5. NAVEGACIÓN Y INICIALIZACIÓN
+        // ============================================================
+
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = {
+            quiz: document.getElementById('tab-quiz'),
+            hangman: document.getElementById('tab-hangman'),
+            memory: document.getElementById('tab-memory')
+        };
+
+        function switchTab(tabId) {
+            tabBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabId);
+            });
+            Object.keys(tabContents).forEach(key => {
+                tabContents[key].classList.toggle('active', key === tabId);
+            });
+
+            // Inicializar juegos al cambiar a su pestaña
+            if (tabId === 'quiz') {
+                if (!quizState.started) { quizState.started = true; renderQuiz(); }
+            }
+            if (tabId === 'hangman') {
+                // Si no hay palabra, inicializar
+                if (!hangmanState.word) initHangman();
+                // Si la palabra ya está y no hay partida, reiniciar visual
+                renderHangman();
+            }
+            if (tabId === 'memory') {
+                // Inicializar o renderizar el estado actual
+                if (memoryState.cards.length === 0) initMemory();
+                else renderMemory();
+            }
+        }
+
+        // Eventos de pestañas
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                switchTab(tabId);
+            });
+        });
+
+        // Eventos de reinicio de juegos
+        document.getElementById('resetHangmanBtn')?.addEventListener('click', initHangman);
+        document.getElementById('resetMemoryBtn')?.addEventListener('click', initMemory);
+
+        // Iniciar con la pestaña activa (quiz)
+        // Si la pestaña activa es quiz, inicializar.
+        const activeTab = document.querySelector('.tab-btn.active');
+        if (activeTab) {
+            // Inicializar el quiz solo cuando se necesita
+            // Pero para evitar problemas, lo dejamos.
+        }
+
+        // Inicializar el cuestionario al cargar la página si la pestaña quiz está activa
+        // Forzamos la inicialización de la pestaña activa.
+        const initialTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'quiz';
+        // Si es quiz, inicializar el quiz.
+        if (initialTab === 'quiz') {
+            quizState.started = true;
+            renderQuiz();
+        }
+
+        // Pero también queremos que el ahorcado y memoria estén listos si se les llama.
+        // Pre-inicializar los juegos para que estén listos.
+        initHangman();
+        initMemory();
+
+        // Exponer las funciones de reinicio a los botones (ya hecho con addEventListener)
+        // Pero también necesitamos asegurarnos de que los botones de reinicio del ahorcado y memoria estén conectados.
+        // Ya están conectados arriba.
+
+        console.log('🎮 Juegos de Hebreo I cargados. ¡A estudiar!');
+    })();
+</script>
+
+</body>
+</html>
