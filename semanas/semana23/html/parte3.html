@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 23: Cuestiones de Sintaxis Oracional (Parte 3) | Cláusulas | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .clause-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .clause-card h3 {
+      color: var(--secondary-dark);
+      margin-bottom: 12px;
+    }
+    .hebrew-example {
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 5px;
+    }
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 23</h1>
+      <p class="subtitle">Cláusulas Condicionales, Causal, Propósito, Resultado y Concesiva (Parte 3 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Cláusulas Condicionales -->
+    <section class="content-card">
+      <h2><i class="fas fa-code-branch"></i> H. Cláusulas Condicionales</h2>
+      
+      <div class="important-note">
+        <p>Una oración condicional consta de dos unidades:</p>
+        <ul>
+          <li><strong>Prótasis</strong> (cláusula "si"): establece la condición</li>
+          <li><strong>Apódosis</strong> (cláusula "entonces"): establece la consecuencia</li>
+        </ul>
+      </div>
+      
+      <div class="example-box">
+        <p><span class="hebrew-example">אִם תֵּלְכִי עִמִּי וְהָלָכְתִּי</span></p>
+        <p>"<strong>Si</strong> tú vas conmigo, <strong>entonces</strong> yo iré" (Jueces 4:8)</p>
+        <p><strong>Prótasis:</strong> <span class="hebrew-text">אִם תֵּלְכִי עִמִּי</span> (si tú vas conmigo)</p>
+        <p><strong>Apódosis:</strong> <span class="hebrew-text">וְהָלָכְתִּי</span> (entonces yo iré)</p>
+      </div>
+      
+      <div class="rule-box">
+        <p><strong>Marcadores de la prótasis:</strong></p>
+        <ul>
+          <li><span class="hebrew-text">אִם</span> (si) — el más común</li>
+          <li><span class="hebrew-text">הֵן</span>, <span class="hebrew-text">כִּי</span>, <span class="hebrew-text">אֲשֶׁר</span> (también pueden introducir condiciones)</li>
+        </ul>
+        <p><strong>Marcadores de la apódosis:</strong></p>
+        <ul>
+          <li>Frecuentemente comienza con la conjunción <span class="hebrew-text">וְ</span></li>
+        </ul>
+      </div>
+      
+      <div class="example-box">
+        <p><span class="hebrew-example">אִם יֶשְׁךָ מְשַׁלֵּחַ אֶת־אָחִינוּ אִתָּנוּ נֵרְדָה</span></p>
+        <p>"<strong>Si</strong> envías a nuestro hermano con nosotros, <strong>descenderemos</strong>" (Génesis 43:4)</p>
+        <p><span class="hebrew-example">וְאִם־עֲזָבוֹ אָבִיו וָמֵת</span></p>
+        <p>"Y <strong>si</strong> su padre lo abandona, <strong>morirá</strong>" (Génesis 44:22)</p>
+      </div>
+    </section>
+
+    <!-- Cláusula Causal -->
+    <section class="content-card rules">
+      <div class="clause-card">
+        <h3><i class="fas fa-causes"></i> 1. Cláusula Causal (Indica la Causa)</h3>
+        <p><strong>Marcador:</strong> <span class="hebrew-text">כִּי</span> ("porque, pues") o <span class="hebrew-text">אֲשֶׁר</span> ("porque, puesto que")</p>
+        
+        <div class="example-box">
+          <p><span class="hebrew-example">לֹא נֵרֵד כִּי הָאִישׁ אָמַר אֵלֵינוּ</span></p>
+          <p>"<strong>No</strong> descenderemos, <strong>porque</strong> el hombre nos dijo" (Génesis 43:5)</p>
+          <p><span class="hebrew-example">קְדֹשִׁים תִּהְיוּ כִּי קָדוֹשׁ אֲנִי</span></p>
+          <p>"Santos seréis, <strong>porque</strong> yo soy santo" (Levítico 19:2)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cláusula de Propósito -->
+    <section class="content-card">
+      <div class="clause-card">
+        <h3><i class="fas fa-bullseye"></i> 2. Cláusula de Propósito (Indica el Propósito)</h3>
+        <p><strong>Marcadores:</strong> <span class="hebrew-text">לְמַעַן</span> ("para que"), <span class="hebrew-text">בַּעֲבוּר</span> ("para que"), <span class="hebrew-text">אֲשֶׁר</span> ("para que"), <span class="hebrew-text">פֶּן</span> ("no sea que")</p>
+        
+        <div class="example-box">
+          <p><span class="hebrew-example">וְשָׁמַרְתָּ לַעֲשׂוֹת אֲשֶׁר יִיטַב לְךָ</span></p>
+          <p>"Guardarás para hacer, <strong>para que</strong> te vaya bien" (Deuteronomio 6:3)</p>
+          <p><span class="hebrew-example">נַעֲשֶׂה־לָנוּ שֵׁם פֶּן־נָפוּץ</span></p>
+          <p>"Hagámonos un nombre, <strong>no sea que</strong> seamos esparcidos" (Génesis 11:4)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cláusula de Resultado -->
+    <section class="content-card rules">
+      <div class="clause-card">
+        <h3><i class="fas fa-arrow-right"></i> 3. Cláusula de Resultado (Indica el Resultado)</h3>
+        <p><strong>Marcadores:</strong> <span class="hebrew-text">וַיִּקְטֹל</span> (Waw Consecutivo) o <span class="hebrew-text">כִּי</span> ("que, para que")</p>
+        
+        <div class="example-box">
+          <p><span class="hebrew-example">וַיֹּאמֶר יוֹאָב יָקֻמוּ וַיָּקֻמוּ</span></p>
+          <p>"Y Joab dijo: 'Levántense', <strong>y se levantaron</strong>" (2 Samuel 2:14)</p>
+          <p><span class="hebrew-example">מִי אָנֹכִי כִּי אֵלֵךְ אֶל־פַּרְעֹה</span></p>
+          <p>"¿Quién soy yo <strong>para que</strong> vaya a Faraón?" (Éxodo 3:11)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cláusula Concesiva -->
+    <section class="content-card">
+      <div class="clause-card">
+        <h3><i class="fas fa-umbrella"></i> 4. Cláusula Concesiva (Expresa Algo que No Impide)</h3>
+        <p><strong>Marcadores:</strong> <span class="hebrew-text">כִּי</span>, <span class="hebrew-text">וְ</span>, <span class="hebrew-text">גַּם כִּי</span>, <span class="hebrew-text">גַּם</span>, <span class="hebrew-text">אִם</span></p>
+        <p><strong>Traducción:</strong> "aunque" o "aun cuando"</p>
+        
+        <div class="example-box">
+          <p><span class="hebrew-example">גַּם כִּי־אֵלֵךְ בְּגֵיא צַלְמָוֶת לֹא־אִירָא רָע</span></p>
+          <p>"<strong>Aunque</strong> ande en valle de sombra de muerte, <strong>no</strong> temeré mal" (Salmo 23:4)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ejercicios -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-pen-alt"></i> I. Ejercicios: Identifica el Tipo de Cláusula</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. <span class="hebrew-text">אִם תֵּלְכִי עִמִּי וְהָלָכְתִּי</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content"><strong>Respuesta:</strong> Cláusula Condicional (si... entonces)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. <span class="hebrew-text">לֹא נֵרֵד כִּי הָאִישׁ אָמַר אֵלֵינוּ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content"><strong>Respuesta:</strong> Cláusula Causal (porque)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. <span class="hebrew-text">נַעֲשֶׂה־לָנוּ שֵׁם פֶּן־נָפוּץ</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content"><strong>Respuesta:</strong> Cláusula de Propósito (no sea que)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. <span class="hebrew-text">גַּם כִּי־אֵלֵךְ בְּגֵיא צַלְמָוֶת לֹא־אִירָא</span></div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content"><strong>Respuesta:</strong> Cláusula Concesiva (aunque)</div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 23: Cuestiones de Sintaxis Oracional — Parte 3 de 5</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

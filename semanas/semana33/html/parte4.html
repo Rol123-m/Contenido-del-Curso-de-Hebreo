@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 33: El Tallo Hophal — Verbos Débiles (Parte 4) | Ejercicios | Hebreo Bíblico</title>
+  <link rel="stylesheet" href="semana.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .exercise-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .answer-btn {
+      background: var(--gradient-secondary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .answer-content {
+      background: var(--gray-light);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+      display: none;
+    }
+    .answer-content.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hebrew-example {
+      font-size: 1.1rem;
+      font-family: 'Times New Roman', 'Arial Hebrew', serif;
+      direction: rtl;
+      background: #f0ebe0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 3px;
+    }
+  </style>
+</head>
+<body>
+  <header class="week-header">
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir" class="logo-main">
+    </div>
+    <div class="header-title">
+      <h1>Hebreo Bíblico - Semana 33</h1>
+      <p class="subtitle">Ejercicios de Práctica (Parte 4 de 5)</p>
+    </div>
+  </header>
+
+  <div class="week-container">
+    <!-- Ejercicios -->
+    <section class="content-card">
+      <h2><i class="fas fa-pen-alt"></i> L. Ejercicios de Práctica</h2>
+      
+      <div class="exercise-box">
+        <div class="exercise-title">1. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">עָמַד</span> (I-Gutural)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex1')">Mostrar Respuesta</button>
+        <div id="ex1" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הָעֳמַד</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">2. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">גָּלָה</span> (III-ה)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex2')">Mostrar Respuesta</button>
+        <div id="ex2" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הָגְלָה</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">3. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">נָצַל</span> (I-נ)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex3')">Mostrar Respuesta</button>
+        <div id="ex3" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הֻצַּל</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">4. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">יָשַׁב</span> (I-י)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex4')">Mostrar Respuesta</button>
+        <div id="ex4" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הוּשַׁב</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">5. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">קוּם</span> (biconsonántico)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex5')">Mostrar Respuesta</button>
+        <div id="ex5" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הוּקַם</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">6. ¿Cuál es el Hophal Perfecto 3ms de <span class="hebrew-text">סָבַב</span> (geminado)?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex6')">Mostrar Respuesta</button>
+        <div id="ex6" class="answer-content"><strong>Respuesta:</strong> <span class="hebrew-text">הוּסַב</span></div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">7. ¿Qué significa <span class="hebrew-text">אֵשֶׁת זְנוּנִים</span> en Oseas 1:2?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex7')">Mostrar Respuesta</button>
+        <div id="ex7" class="answer-content"><strong>Respuesta:</strong> "Mujer caracterizada por infidelidad espiritual" (no literalmente prostituta)</div>
+      </div>
+
+      <div class="exercise-box">
+        <div class="exercise-title">8. ¿Qué expresa el plural masculino en <span class="hebrew-text">זְנוּנִים</span>?</div>
+        <button class="answer-btn" onclick="toggleAnswer('ex8')">Mostrar Respuesta</button>
+        <div id="ex8" class="answer-content"><strong>Respuesta:</strong> Abstracción — el concepto de "prostitución" (infidelidad espiritual)</div>
+      </div>
+    </section>
+
+    <!-- Versículo -->
+    <section class="content-card rules">
+      <h2><i class="fas fa-bible"></i> Versículo de la Semana (Parte 4)</h2>
+      <div class="example-box" style="text-align: center;">
+        <p class="hebrew-text" style="font-size: 1.2rem;">וְהוּשַׁב</p>
+        <p><strong>Jeremías 30:18</strong></p>
+        <p><em>"Y será restaurada"</em></p>
+        <p class="small"><span class="hebrew-text">וְהוּשַׁב</span> = Hophal Perfecto 3ms con Waw Consecutivo de <span class="hebrew-text">שׁוּב</span>.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="week-footer">
+    <div class="footer-content">
+      <div class="footer-logo"><img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Ministerio Vivos para Servir"></div>
+      <div class="footer-info">
+        <p>Curso de Hebreo Bíblico Elemental</p>
+        <p>Ministerio "Vivos para Servir"</p>
+        <p class="copyright">© 2026 Semana 33: El Tallo Hophal — Verbos Débiles — Parte 4 de 5</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAnswer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

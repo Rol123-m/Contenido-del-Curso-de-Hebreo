@@ -462,285 +462,398 @@ class SemanaManager {
                 tema: "Sufijos en formas verbales",
                 fecha: "1 sep - 7 sep",
                 evaluacion: "Examen 19",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Sufijos Verbales', url: 'semanas/semana20/pdf/sufijosverb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Sufijos en Perfecto', url: 'semanas/semana20/html/perfecto.html', icono: 'קְטָלַנִי' },
-                    { tipo: 'html', titulo: 'Sufijos en Imperfecto', url: 'semanas/semana20/html/imperfecto.html', icono: 'יִקְטְלֵנִי' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 20', url: 'semanas/semana20/html/vocabulario.html', icono: '📖' }
+               recursos: [
+                    { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana19/pdf/introverbos.pdf', icono: '📄' },
+                    { tipo: 'html', titulo: 'Introducción al contenido de la semana', url: 'semanas/semana19/html/parte1.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Los Sufijos Pronominales en Verbos', url: 'semanas/semana19/html/parte2.html', icono: 'שָׁמַר' },
+                    { tipo: 'html', titulo: 'Más contenido', url: 'semanas/semana19/html/parte3.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Ejercicios', url: 'semanas/semana19/html/parte4.html', icono: '⏳' },
+                    { tipo: 'html', titulo: 'Resumen', url: 'semanas/semana19/html/parte5.html', icono: '🔤' },
+                    { tipo: 'html', titulo: 'Vocabulario Semana 19', url: 'vocab.html', icono: '📖' },
+                        { tipo: 'html', titulo: 'practica de Vocabulario', url: 'multiple.html', icono: '📖' },
+                      { tipo: 'html', titulo: 'practica de audición', url: 'audio.html', icono: '📖' },
+                      { tipo: 'examen', titulo: 'Examen Semana 19- Los Sufijos Pronominales en Verbos', url: 'https://forms.gle/9EDJgKMHaaN1bWy69', icono: '📝' }
                 ],
                 juegos: [
-                    { titulo: 'Sufijos en Verbos', url: 'semanas/semana20/juegos/sufijosverb.html', icono: '🔤' }
+                    { titulo: 'Practica lo aprendido', url: 'semanas/semana19/juegos/juego1.html', icono: '🌱' },
+                     { titulo: 'Imperativo, cohortativo, yusivo', url: 'semanas/semana19/juegos/juego2.html', icono: '🌱' }
+
                 ]
             },
             
-            21: {
-                titulo: "Qal Infinitivo Constructo",
-                tema: "Infinitivo constructo",
-                fecha: "8 sep - 14 sep",
-                evaluacion: "Examen 20 + Foro 7",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Infinitivo Constructo', url: 'semanas/semana21/pdf/infconstructo.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Forma del Infinitivo', url: 'semanas/semana21/html/forma.html', icono: 'לִשְׁמֹר' },
-                    { tipo: 'html', titulo: 'Usos del Constructo', url: 'semanas/semana21/html/usos.html', icono: 'לְ' },
-                    { tipo: 'html', titulo: 'Preposiciones con Infinitivo', url: 'semanas/semana21/html/preposiciones.html', icono: 'בִּשְׁמֹר' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 21', url: 'semanas/semana21/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Infinitivo Constructo', url: 'semanas/semana21/juegos/infinitivo.html', icono: '🔧' }
-                ]
-            },
-            
-            22: {
-                titulo: "Qal Infinitivo Absoluto",
-                tema: "Infinitivo absoluto",
-                fecha: "15 sep - 21 sep",
-                evaluacion: "Examen 21",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Infinitivo Absoluto', url: 'semanas/semana22/pdf/infabsoluto.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Forma del Absoluto', url: 'semanas/semana22/html/forma.html', icono: 'שָׁמֹר' },
-                    { tipo: 'html', titulo: 'Usos del Absoluto', url: 'semanas/semana22/html/usos.html', icono: 'הָלֹךְ' },
-                    { tipo: 'html', titulo: 'Infinitivo Absoluto + Verbo', url: 'semanas/semana22/html/compuesto.html', icono: 'מוֹת תָּמוּת' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 22', url: 'semanas/semana22/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Infinitivo Absoluto', url: 'semanas/semana22/juegos/absoluto.html', icono: '⚡' }
-                ]
-            },
-            
-            23: {
-                titulo: "Qal Participio",
-                tema: "Participios activos y pasivos",
-                fecha: "22 sep - 28 sep",
-                evaluacion: "Examen 22 + Foro 8",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Participios', url: 'semanas/semana23/pdf/participios.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Participio Activo', url: 'semanas/semana23/html/activo.html', icono: 'שֹׁמֵר' },
-                    { tipo: 'html', titulo: 'Participio Pasivo', url: 'semanas/semana23/html/pasivo.html', icono: 'שָׁמוּר' },
-                    { tipo: 'html', titulo: 'Usos del Participio', url: 'semanas/semana23/html/usos.html', icono: '📌' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 23', url: 'semanas/semana23/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Participios Qal', url: 'semanas/semana23/juegos/participios.html', icono: '📌' }
-                ]
-            },
-            
-            24: {
-                titulo: "Sintaxis de la Oración",
-                tema: "Estructura oracional",
-                fecha: "29 sep - 5 oct",
-                evaluacion: "Examen 23",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Sintaxis', url: 'semanas/semana24/pdf/sintaxis.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Orden de Palabras', url: 'semanas/semana24/html/orden.html', icono: '🔤' },
-                    { tipo: 'html', titulo: 'Oraciones Verbales', url: 'semanas/semana24/html/verbales.html', icono: '📝' },
-                    { tipo: 'html', titulo: 'Oraciones Nominales', url: 'semanas/semana24/html/nominales.html', icono: '⚖️' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 24', url: 'semanas/semana24/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Sintaxis Básica', url: 'semanas/semana24/juegos/sintaxis.html', icono: '📐' }
-                ]
-            },
-            
-            // SECCIÓN 4: Tallos Derivados
-            25: {
-                titulo: "Niphal - Verbos Fuertes",
-                tema: "Tallo Niphal fuerte",
-                fecha: "6 oct - 12 oct",
-                evaluacion: "Examen 24 + Foro 9",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Niphal', url: 'semanas/semana25/pdf/niphal.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Niphal', url: 'semanas/semana25/html/intro.html', icono: 'נִקְטַל' },
-                    { tipo: 'html', titulo: 'Perfecto Niphal', url: 'semanas/semana25/html/perfecto.html', icono: 'נִשְׁמַר' },
-                    { tipo: 'html', titulo: 'Imperfecto Niphal', url: 'semanas/semana25/html/imperfecto.html', icono: 'יִשָּׁמֵר' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 25', url: 'semanas/semana25/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Niphal', url: 'semanas/semana25/juegos/niphal.html', icono: '🔄' }
-                ]
-            },
-            
-            26: {
-                titulo: "Niphal - Verbos Débiles",
-                tema: "Niphal en verbos débiles",
-                fecha: "13 oct - 19 oct",
-                evaluacion: "Examen 25",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Niphal Débiles', url: 'semanas/semana26/pdf/niphaldeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Niphal I-Gutural', url: 'semanas/semana26/html/igutural.html', icono: 'נֶאֱמַר' },
-                    { tipo: 'html', titulo: 'Niphal I-Nun', url: 'semanas/semana26/html/inun.html', icono: 'נִגַּשׁ' },
-                    { tipo: 'html', titulo: 'Niphal III-ה', url: 'semanas/semana26/html/iiihe.html', icono: 'נִבְנָה' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 26', url: 'semanas/semana26/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Niphal Débiles', url: 'semanas/semana26/juegos/niphaldeb.html', icono: '🍃' }
-                ]
-            },
-            
-            27: {
-                titulo: "Piel - Verbos Fuertes",
-                tema: "Tallo Piel fuerte",
-                fecha: "20 oct - 26 oct",
-                evaluacion: "Examen 26 + Foro 10",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Piel', url: 'semanas/semana27/pdf/piel.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Piel', url: 'semanas/semana27/html/intro.html', icono: 'קִטֵּל' },
-                    { tipo: 'html', titulo: 'Perfecto Piel', url: 'semanas/semana27/html/perfecto.html', icono: 'דִּבֶּר' },
-                    { tipo: 'html', titulo: 'Imperfecto Piel', url: 'semanas/semana27/html/imperfecto.html', icono: 'יְדַבֵּר' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 27', url: 'semanas/semana27/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Piel', url: 'semanas/semana27/juegos/piel.html', icono: '🔨' }
-                ]
-            },
-            
-            28: {
-                titulo: "Piel - Verbos Débiles",
-                tema: "Piel en verbos débiles",
-                fecha: "27 oct - 2 nov",
-                evaluacion: "Examen 27",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Piel Débiles', url: 'semanas/semana28/pdf/pieldeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Piel I-Gutural', url: 'semanas/semana28/html/igutural.html', icono: 'בֵּרַךְ' },
-                    { tipo: 'html', titulo: 'Piel III-ה', url: 'semanas/semana28/html/iiihe.html', icono: 'כִּלָּה' },
-                    { tipo: 'html', titulo: 'Piel Doblemente Débil', url: 'semanas/semana28/html/doble.html', icono: '⚡' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 28', url: 'semanas/semana28/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Piel Débiles', url: 'semanas/semana28/juegos/pieldeb.html', icono: '🍂' }
-                ]
-            },
-            
-            29: {
-                titulo: "Pual - Verbos Fuertes",
-                tema: "Tallo Pual fuerte",
-                fecha: "3 nov - 9 nov",
-                evaluacion: "Examen 28",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Pual', url: 'semanas/semana29/pdf/pual.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Pual', url: 'semanas/semana29/html/intro.html', icono: 'קֻטַּל' },
-                    { tipo: 'html', titulo: 'Perfecto Pual', url: 'semanas/semana29/html/perfecto.html', icono: 'בֻּקַּשׁ' },
-                    { tipo: 'html', titulo: 'Imperfecto Pual', url: 'semanas/semana29/html/imperfecto.html', icono: 'יְבֻקַּשׁ' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 29', url: 'semanas/semana29/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Pual', url: 'semanas/semana29/juegos/pual.html', icono: '🔇' }
-                ]
-            },
-            
-            30: {
-                titulo: "Pual - Verbos Débiles",
-                tema: "Pual en verbos débiles",
-                fecha: "10 nov - 16 nov",
-                evaluacion: "Examen 29 + Foro 11",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Pual Débiles', url: 'semanas/semana30/pdf/pualdeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Pual III-ה', url: 'semanas/semana30/html/iiihe.html', icono: 'בֻּנְּתָה' },
-                    { tipo: 'html', titulo: 'Pual con Guturales', url: 'semanas/semana30/html/guturales.html', icono: 'אֻמַּץ' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 30', url: 'semanas/semana30/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Pual Débiles', url: 'semanas/semana30/juegos/pualdeb.html', icono: '🔇' }
-                ]
-            },
-            
-            31: {
-                titulo: "Hiphil - Verbos Fuertes",
-                tema: "Tallo Hiphil fuerte",
-                fecha: "17 nov - 23 nov",
-                evaluacion: "Examen 30",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hiphil', url: 'semanas/semana31/pdf/hiphil.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Hiphil', url: 'semanas/semana31/html/intro.html', icono: 'הִקְטִיל' },
-                    { tipo: 'html', titulo: 'Perfecto Hiphil', url: 'semanas/semana31/html/perfecto.html', icono: 'הִשְׁמִיד' },
-                    { tipo: 'html', titulo: 'Imperfecto Hiphil', url: 'semanas/semana31/html/imperfecto.html', icono: 'יַשְׁמִיד' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 31', url: 'semanas/semana31/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hiphil', url: 'semanas/semana31/juegos/hiphil.html', icono: '⬆️' }
-                ]
-            },
-            
-            32: {
-                titulo: "Hiphil - Verbos Débiles",
-                tema: "Hiphil en verbos débiles",
-                fecha: "24 nov - 30 nov",
-                evaluacion: "Examen 31",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hiphil Débiles', url: 'semanas/semana32/pdf/hiphildeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Hiphil I-Gutural', url: 'semanas/semana32/html/igutural.html', icono: 'הֶעֱמִיד' },
-                    { tipo: 'html', titulo: 'Hiphil I-Nun', url: 'semanas/semana32/html/inun.html', icono: 'הִפִּיל' },
-                    { tipo: 'html', titulo: 'Hiphil III-ה', url: 'semanas/semana32/html/iiihe.html', icono: 'הִגְלָה' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 32', url: 'semanas/semana32/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hiphil Débiles', url: 'semanas/semana32/juegos/hiphildeb.html', icono: '⬆️' }
-                ]
-            },
-            
-            33: {
-                titulo: "Hophal - Verbos Fuertes",
-                tema: "Tallo Hophal fuerte",
-                fecha: "1 dic - 7 dic",
-                evaluacion: "Examen 32 + Foro 12",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hophal', url: 'semanas/semana33/pdf/hophal.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Hophal', url: 'semanas/semana33/html/intro.html', icono: 'הָקְטַל' },
-                    { tipo: 'html', titulo: 'Perfecto Hophal', url: 'semanas/semana33/html/perfecto.html', icono: 'הָשְׁמַד' },
-                    { tipo: 'html', titulo: 'Imperfecto Hophal', url: 'semanas/semana33/html/imperfecto.html', icono: 'יָשְׁמַד' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 33', url: 'semanas/semana33/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hophal', url: 'semanas/semana33/juegos/hophal.html', icono: '⬇️' }
-                ]
-            },
-            
-            34: {
-                titulo: "Hophal - Verbos Débiles",
-                tema: "Hophal en verbos débiles",
-                fecha: "8 dic - 14 dic",
-                evaluacion: "Examen 33",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hophal Débiles', url: 'semanas/semana34/pdf/hophaldeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Hophal III-ה', url: 'semanas/semana34/html/iiihe.html', icono: 'הָגְלָה' },
-                    { tipo: 'html', titulo: 'Hophal con Guturales', url: 'semanas/semana34/html/guturales.html', icono: 'הָעֳמַד' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 34', url: 'semanas/semana34/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hophal Débiles', url: 'semanas/semana34/juegos/hophaldeb.html', icono: '⬇️' }
-                ]
-            },
-            
-            35: {
-                titulo: "Hithpael - Verbos Fuertes",
-                tema: "Tallo Hithpael fuerte",
-                fecha: "15 dic - 21 dic",
-                evaluacion: "Examen 34",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hithpael', url: 'semanas/semana35/pdf/hithpael.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Introducción a Hithpael', url: 'semanas/semana35/html/intro.html', icono: 'הִתְקַטֵּל' },
-                    { tipo: 'html', titulo: 'Perfecto Hithpael', url: 'semanas/semana35/html/perfecto.html', icono: 'הִתְהַלֵּךְ' },
-                    { tipo: 'html', titulo: 'Imperfecto Hithpael', url: 'semanas/semana35/html/imperfecto.html', icono: 'יִתְהַלֵּךְ' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 35', url: 'semanas/semana35/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hithpael', url: 'semanas/semana35/juegos/hithpael.html', icono: '🔄' }
-                ]
-            },
+            // ============================================================
+// SEMANAS 21 - 35: CURSO DE HEBREO BÍBLICO
+// PATRÓN RÍGIDO: 5 partes + vocabulario + práctica + examen + 2 juegos
+// RUTA: Semana 21 → carpeta semana20, etc.
+// VOCABULARIO: en la raíz (vocab.html, multiple.html, audio.html)
+// ============================================================
+
+    21: {
+        titulo: "Qal Infinitivo Constructo",
+        tema: "Infinitivo constructo",
+        fecha: "8 sep - 14 sep",
+        evaluacion: "Examen 20 + Foro 7",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana20/pdf/infconstructo.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Forma', url: 'semanas/semana20/html/parte1.html', icono: 'לִשְׁמֹר' },
+            { tipo: 'html', titulo: 'Parte 2: Usos del Constructo', url: 'semanas/semana20/html/parte2.html', icono: 'לְ' },
+            { tipo: 'html', titulo: 'Parte 3: Preposiciones con Infinitivo', url: 'semanas/semana20/html/parte3.html', icono: 'בִּשְׁמֹר' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana20/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana20/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 21', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 21 - Qal Infinitivo Constructo', url: 'https://forms.gle/ejemplo21', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Infinitivo Constructo Challenge', url: 'semanas/semana20/juegos/juego1.html', icono: '🔧' },
+            { titulo: 'Juego 2: Infinitivo Constructo Parsing', url: 'semanas/semana20/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    22: {
+        titulo: "Qal Infinitivo Absoluto",
+        tema: "Infinitivo absoluto",
+        fecha: "15 sep - 21 sep",
+        evaluacion: "Examen 21",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana21/pdf/infabsoluto.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Forma', url: 'semanas/semana21/html/parte1.html', icono: 'שָׁמֹר' },
+            { tipo: 'html', titulo: 'Parte 2: Usos del Absoluto', url: 'semanas/semana21/html/parte2.html', icono: 'הָלֹךְ' },
+            { tipo: 'html', titulo: 'Parte 3: Infinitivo Absoluto + Verbo', url: 'semanas/semana21/html/parte3.html', icono: 'מוֹת תָּמוּת' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana21/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana21/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 22', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 22 - Qal Infinitivo Absoluto', url: 'https://forms.gle/ejemplo22', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Infinitivo Absoluto Challenge', url: 'semanas/semana21/juegos/juego1.html', icono: '⚡' },
+            { titulo: 'Juego 2: Infinitivo Absoluto Parsing', url: 'semanas/semana21/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    23: {
+        titulo: "Qal Participio",
+        tema: "Participios activos y pasivos",
+        fecha: "22 sep - 28 sep",
+        evaluacion: "Examen 22 + Foro 8",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana22/pdf/participios.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Activo', url: 'semanas/semana22/html/parte1.html', icono: 'שֹׁמֵר' },
+            { tipo: 'html', titulo: 'Parte 2: Participio Pasivo', url: 'semanas/semana22/html/parte2.html', icono: 'שָׁמוּר' },
+            { tipo: 'html', titulo: 'Parte 3: Usos del Participio', url: 'semanas/semana22/html/parte3.html', icono: '📌' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana22/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana22/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 23', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 23 - Qal Participio', url: 'https://forms.gle/ejemplo23', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Participios Qal Challenge', url: 'semanas/semana22/juegos/juego1.html', icono: '📌' },
+            { titulo: 'Juego 2: Participios Qal Parsing', url: 'semanas/semana22/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    24: {
+        titulo: "Sintaxis de la Oración",
+        tema: "Estructura oracional",
+        fecha: "29 sep - 5 oct",
+        evaluacion: "Examen 23",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana23/pdf/sintaxis.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Orden', url: 'semanas/semana23/html/parte1.html', icono: '🔤' },
+            { tipo: 'html', titulo: 'Parte 2: Oraciones Verbales', url: 'semanas/semana23/html/parte2.html', icono: '📝' },
+            { tipo: 'html', titulo: 'Parte 3: Oraciones Nominales', url: 'semanas/semana23/html/parte3.html', icono: '⚖️' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana23/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana23/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 24', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 24 - Sintaxis de la Oración', url: 'https://forms.gle/ejemplo24', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Sintaxis Challenge', url: 'semanas/semana23/juegos/juego1.html', icono: '📐' },
+            { titulo: 'Juego 2: Sintaxis Parsing', url: 'semanas/semana23/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    25: {
+        titulo: "Niphal - Verbos Fuertes",
+        tema: "Tallo Niphal fuerte",
+        fecha: "6 oct - 12 oct",
+        evaluacion: "Examen 24 + Foro 9",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana24/pdf/niphal.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana24/html/parte1.html', icono: 'נִקְטַל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana24/html/parte2.html', icono: 'יִשָּׁמֵר' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana24/html/parte3.html', icono: 'נִשְׁמָר' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana24/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana24/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 25', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 25 - Niphal Verbos Fuertes', url: 'https://forms.gle/ejemplo25', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Niphal Challenge', url: 'semanas/semana24/juegos/juego1.html', icono: '🔄' },
+            { titulo: 'Juego 2: Niphal Parsing', url: 'semanas/semana24/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    26: {
+        titulo: "Niphal - Verbos Débiles",
+        tema: "Niphal en verbos débiles",
+        fecha: "13 oct - 19 oct",
+        evaluacion: "Examen 25",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana25/pdf/niphaldeb.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Niphal I-Gutural', url: 'semanas/semana25/html/parte1.html', icono: 'נֶאֱמַר' },
+            { tipo: 'html', titulo: 'Parte 2: Niphal I-Nun', url: 'semanas/semana25/html/parte2.html', icono: 'נִגַּשׁ' },
+            { tipo: 'html', titulo: 'Parte 3: Niphal III-ה', url: 'semanas/semana25/html/parte3.html', icono: 'נִבְנָה' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana25/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana25/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 26', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 26 - Niphal Verbos Débiles', url: 'https://forms.gle/ejemplo26', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Niphal Débiles Challenge', url: 'semanas/semana25/juegos/juego1.html', icono: '🍃' },
+            { titulo: 'Juego 2: Niphal Débiles Parsing', url: 'semanas/semana25/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    27: {
+        titulo: "Piel - Verbos Fuertes",
+        tema: "Tallo Piel fuerte",
+        fecha: "20 oct - 26 oct",
+        evaluacion: "Examen 26 + Foro 10",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana26/pdf/piel.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana26/html/parte1.html', icono: 'קִטֵּל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana26/html/parte2.html', icono: 'יְדַבֵּר' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana26/html/parte3.html', icono: 'מְדַבֵּר' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana26/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana26/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 27', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 27 - Piel Verbos Fuertes', url: 'https://forms.gle/ejemplo27', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Piel Challenge', url: 'semanas/semana26/juegos/juego1.html', icono: '🔨' },
+            { titulo: 'Juego 2: Piel Parsing', url: 'semanas/semana26/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    28: {
+        titulo: "Piel - Verbos Débiles",
+        tema: "Piel en verbos débiles",
+        fecha: "27 oct - 2 nov",
+        evaluacion: "Examen 27",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana27/pdf/pieldeb.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Piel I-Gutural', url: 'semanas/semana27/html/parte1.html', icono: 'בֵּרַךְ' },
+            { tipo: 'html', titulo: 'Parte 2: Piel III-ה', url: 'semanas/semana27/html/parte2.html', icono: 'כִּלָּה' },
+            { tipo: 'html', titulo: 'Parte 3: Piel Doblemente Débil', url: 'semanas/semana27/html/parte3.html', icono: '⚡' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana27/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana27/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 28', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 28 - Piel Verbos Débiles', url: 'https://forms.gle/ejemplo28', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Piel Débiles Challenge', url: 'semanas/semana27/juegos/juego1.html', icono: '🍂' },
+            { titulo: 'Juego 2: Piel Débiles Parsing', url: 'semanas/semana27/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    29: {
+        titulo: "Pual - Verbos Fuertes",
+        tema: "Tallo Pual fuerte",
+        fecha: "3 nov - 9 nov",
+        evaluacion: "Examen 28",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana28/pdf/pual.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana28/html/parte1.html', icono: 'קֻטַּל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana28/html/parte2.html', icono: 'יְבֻקַּשׁ' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana28/html/parte3.html', icono: 'מְבֻקַּשׁ' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana28/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana28/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 29', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 29 - Pual Verbos Fuertes', url: 'https://forms.gle/ejemplo29', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Pual Challenge', url: 'semanas/semana28/juegos/juego1.html', icono: '🔇' },
+            { titulo: 'Juego 2: Pual Parsing', url: 'semanas/semana28/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    30: {
+        titulo: "Pual - Verbos Débiles",
+        tema: "Pual en verbos débiles",
+        fecha: "10 nov - 16 nov",
+        evaluacion: "Examen 29 + Foro 11",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana29/pdf/pualdeb.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Pual III-ה', url: 'semanas/semana29/html/parte1.html', icono: 'בֻּנְּתָה' },
+            { tipo: 'html', titulo: 'Parte 2: Pual con Guturales', url: 'semanas/semana29/html/parte2.html', icono: 'אֻמַּץ' },
+            { tipo: 'html', titulo: 'Parte 3: Resumen de Diagnósticos', url: 'semanas/semana29/html/parte3.html', icono: '📊' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana29/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana29/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 30', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 30 - Pual Verbos Débiles', url: 'https://forms.gle/ejemplo30', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Pual Débiles Challenge', url: 'semanas/semana29/juegos/juego1.html', icono: '🔇' },
+            { titulo: 'Juego 2: Pual Débiles Parsing', url: 'semanas/semana29/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    31: {
+        titulo: "Hiphil - Verbos Fuertes",
+        tema: "Tallo Hiphil fuerte",
+        fecha: "17 nov - 23 nov",
+        evaluacion: "Examen 30",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana30/pdf/hiphil.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana30/html/parte1.html', icono: 'הִקְטִיל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana30/html/parte2.html', icono: 'יַשְׁמִיד' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana30/html/parte3.html', icono: 'מַשְׁמִיד' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana30/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana30/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 31', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 31 - Hiphil Verbos Fuertes', url: 'https://forms.gle/ejemplo31', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hiphil Challenge', url: 'semanas/semana30/juegos/juego1.html', icono: '⬆️' },
+            { titulo: 'Juego 2: Hiphil Parsing', url: 'semanas/semana30/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    32: {
+        titulo: "Hiphil - Verbos Débiles",
+        tema: "Hiphil en verbos débiles",
+        fecha: "24 nov - 30 nov",
+        evaluacion: "Examen 31",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana31/pdf/hiphildeb.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Hiphil I-Gutural', url: 'semanas/semana31/html/parte1.html', icono: 'הֶעֱמִיד' },
+            { tipo: 'html', titulo: 'Parte 2: Hiphil I-Nun', url: 'semanas/semana31/html/parte2.html', icono: 'הִפִּיל' },
+            { tipo: 'html', titulo: 'Parte 3: Hiphil III-ה', url: 'semanas/semana31/html/parte3.html', icono: 'הִגְלָה' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana31/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana31/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 32', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 32 - Hiphil Verbos Débiles', url: 'https://forms.gle/ejemplo32', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hiphil Débiles Challenge', url: 'semanas/semana31/juegos/juego1.html', icono: '⬆️' },
+            { titulo: 'Juego 2: Hiphil Débiles Parsing', url: 'semanas/semana31/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    33: {
+        titulo: "Hophal - Verbos Fuertes",
+        tema: "Tallo Hophal fuerte",
+        fecha: "1 dic - 7 dic",
+        evaluacion: "Examen 32 + Foro 12",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana32/pdf/hophal.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana32/html/parte1.html', icono: 'הָקְטַל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana32/html/parte2.html', icono: 'יָשְׁמַד' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana32/html/parte3.html', icono: 'מָשְׁמַד' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana32/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana32/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 33', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 33 - Hophal Verbos Fuertes', url: 'https://forms.gle/ejemplo33', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hophal Challenge', url: 'semanas/semana32/juegos/juego1.html', icono: '⬇️' },
+            { titulo: 'Juego 2: Hophal Parsing', url: 'semanas/semana32/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    34: {
+        titulo: "Hophal - Verbos Débiles",
+        tema: "Hophal en verbos débiles",
+        fecha: "8 dic - 14 dic",
+        evaluacion: "Examen 33",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana33/pdf/hophaldeb.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Hophal III-ה', url: 'semanas/semana33/html/parte1.html', icono: 'הָגְלָה' },
+            { tipo: 'html', titulo: 'Parte 2: Hophal con Guturales', url: 'semanas/semana33/html/parte2.html', icono: 'הָעֳמַד' },
+            { tipo: 'html', titulo: 'Parte 3: Resumen de Diagnósticos', url: 'semanas/semana33/html/parte3.html', icono: '📊' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana33/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana33/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 34', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 34 - Hophal Verbos Débiles', url: 'https://forms.gle/ejemplo34', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hophal Débiles Challenge', url: 'semanas/semana33/juegos/juego1.html', icono: '⬇️' },
+            { titulo: 'Juego 2: Hophal Débiles Parsing', url: 'semanas/semana33/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
+
+    35: {
+        titulo: "Hithpael - Verbos Fuertes",
+        tema: "Tallo Hithpael fuerte",
+        fecha: "15 dic - 21 dic",
+        evaluacion: "Examen 34",
+        recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana34/pdf/hithpael.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Fundamentos y Perfecto', url: 'semanas/semana34/html/parte1.html', icono: 'הִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 2: Imperfecto e Imperativo', url: 'semanas/semana34/html/parte2.html', icono: 'יִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 3: Participio y Resumen', url: 'semanas/semana34/html/parte3.html', icono: 'מִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana34/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana34/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 35', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 35 - Hithpael Verbos Fuertes', url: 'https://forms.gle/ejemplo35', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hithpael Challenge', url: 'semanas/semana34/juegos/juego1.html', icono: '🔄' },
+            { titulo: 'Juego 2: Hithpael Parsing', url: 'semanas/semana34/juegos/juego2.html', icono: '🧩' }
+        ]
+    },
             
             36: {
                 titulo: "Hithpael - Verbos Débiles",
                 tema: "Hithpael en verbos débiles",
                 fecha: "22 dic - 28 dic",
                 evaluacion: "Examen 35 + Foro 13",
-                recursos: [
-                    { tipo: 'pdf', titulo: 'PDF: Hithpael Débiles', url: 'semanas/semana36/pdf/hithpaeldeb.pdf', icono: '📄' },
-                    { tipo: 'html', titulo: 'Hithpael con Silbantes', url: 'semanas/semana36/html/silbantes.html', icono: 'הִשְׁתַּחֲוָה' },
-                    { tipo: 'html', titulo: 'Hithpael III-ה', url: 'semanas/semana36/html/iiihe.html', icono: 'הִתְגַּלָּה' },
-                    { tipo: 'html', titulo: 'Vocabulario Semana 36', url: 'semanas/semana36/html/vocabulario.html', icono: '📖' }
-                ],
-                juegos: [
-                    { titulo: 'Hithpael Débiles', url: 'semanas/semana36/juegos/hithpaeldeb.html', icono: '🔄' }
-                ]
+                   recursos: [
+            { tipo: 'pdf', titulo: 'PDF de la semana, disponible en el grupo', url: 'semanas/semana35/pdf/hithpael.pdf', icono: '📄' },
+            { tipo: 'html', titulo: 'Parte 1: Hithpael - Verbos Débiles', url: 'semanas/semana35/html/parte1.html', icono: 'הִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 2: Hithpael - Verbos Débiles', url: 'semanas/semana35/html/parte2.html', icono: 'יִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 3: Resumen', url: 'semanas/semana35/html/parte3.html', icono: 'מִתְקַטֵּל' },
+            { tipo: 'html', titulo: 'Parte 4: Ejercicios y Práctica', url: 'semanas/semana35/html/parte4.html', icono: '✍️' },
+            { tipo: 'html', titulo: 'Parte 5: Resumen Completo', url: 'semanas/semana35/html/parte5.html', icono: '📋' },
+            { tipo: 'html', titulo: 'Vocabulario Semana 35', url: 'vocab.html', icono: '📖' },
+            { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
+            { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
+            { tipo: 'examen', titulo: 'Examen Semana 35 - Hithpael Verbos Fuertes', url: 'https://forms.gle/ejemplo35', icono: '📝' }
+        ],
+        juegos: [
+            { titulo: 'Juego 1: Hithpael Challenge', url: 'semanas/semana35/juegos/juego1.html', icono: '🔄' },
+            { titulo: 'Juego 2: Hithpael Parsing', url: 'semanas/semana35/juegos/juego2.html', icono: '🧩' }
+        ]
             },
             
             // Vacaciones de fin de año
