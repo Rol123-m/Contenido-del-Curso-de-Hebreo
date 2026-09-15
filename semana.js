@@ -504,7 +504,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 21', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 21 - Qal Infinitivo Constructo', url: 'https://forms.gle/ejemplo21', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 21 - Qal Infinitivo Constructo', url: 'https://forms.gle/2EHDzjyFCcWBNS3Q7', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Infinitivo Constructo Challenge', url: 'semanas/semana20/juegos/juego1.html', icono: '🔧' },
