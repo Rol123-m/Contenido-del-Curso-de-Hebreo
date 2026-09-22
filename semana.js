@@ -527,7 +527,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 22', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 22 - Qal Infinitivo Absoluto', url: 'https://forms.gle/ejemplo22', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 22 - Qal Infinitivo Absoluto', url: 'https://forms.gle/qufhBcmRGBiPgtLTA', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Infinitivo Absoluto Challenge', url: 'semanas/semana21/juegos/juego1.html', icono: '⚡' },
