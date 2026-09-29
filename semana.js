@@ -550,7 +550,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 23', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 23 - Qal Participio', url: 'https://forms.gle/ejemplo23', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 23 - Qal Participio', url: 'https://forms.gle/Zju9HCAswrE7ZTvx5', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Participios Qal Challenge', url: 'semanas/semana22/juegos/juego1.html', icono: '📌' },
