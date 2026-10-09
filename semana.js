@@ -573,7 +573,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 24', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 24 - Sintaxis de la Oración', url: 'https://forms.gle/ejemplo24', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 24 - Sintaxis de la Oración', url: 'https://forms.gle/9edvPDwqsKaaBH4C9', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Sintaxis Challenge', url: 'semanas/semana23/juegos/juego1.html', icono: '📐' },
@@ -596,7 +596,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 25', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 25 - Niphal Verbos Fuertes', url: 'https://forms.gle/ejemplo25', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 25 - Niphal Verbos Fuertes', url: 'https://forms.gle/AFVm2tMipasZcyva9', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Niphal Challenge', url: 'semanas/semana24/juegos/juego1.html', icono: '🔄' },
