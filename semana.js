@@ -619,7 +619,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 26', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 26 - Niphal Verbos Débiles', url: 'https://forms.gle/ejemplo26', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 26 - Niphal Verbos Débiles', url: 'https://forms.gle/QxN5mNKqvL5cof5U9', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Niphal Débiles Challenge', url: 'semanas/semana25/juegos/juego1.html', icono: '🍃' },
