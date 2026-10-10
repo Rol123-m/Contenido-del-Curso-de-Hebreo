@@ -642,7 +642,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 27', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 27 - Piel Verbos Fuertes', url: 'https://forms.gle/ejemplo27', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 27 - Piel Verbos Fuertes', url: 'https://forms.gle/3DvG97XG9RDKVw5g9', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Piel Challenge', url: 'semanas/semana26/juegos/juego1.html', icono: '🔨' },
