@@ -711,7 +711,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 30', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 30 - Pual Verbos Débiles', url: 'https://forms.gle/ejemplo30', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 30 - Pual Verbos Débiles', url: 'https://forms.gle/Ns7yTjNzYor8CEAU7', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Pual Débiles Challenge', url: 'semanas/semana29/juegos/juego1.html', icono: '🔇' },
