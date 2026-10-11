@@ -665,7 +665,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 28', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 28 - Piel Verbos Débiles', url: 'https://forms.gle/ejemplo28', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 28 - Piel Verbos Débiles', url: 'https://forms.gle/jWRXMECDqSiPYpon8', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Piel Débiles Challenge', url: 'semanas/semana27/juegos/juego1.html', icono: '🍂' },
