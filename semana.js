@@ -688,7 +688,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 29', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 29 - Pual Verbos Fuertes', url: 'https://forms.gle/ejemplo29', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 29 - Pual Verbos Fuertes', url: 'https://forms.gle/WovzDVJUj8QM1DGi7', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Pual Challenge', url: 'semanas/semana28/juegos/juego1.html', icono: '🔇' },
