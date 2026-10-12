@@ -757,7 +757,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 32', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 32 - Hiphil Verbos Débiles', url: 'https://forms.gle/ejemplo32', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 32 - Hiphil Verbos Débiles', url: 'https://forms.gle/pCrhg8a6ZRHghrzy6', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Hiphil Débiles Challenge', url: 'semanas/semana31/juegos/juego1.html', icono: '⬆️' },
