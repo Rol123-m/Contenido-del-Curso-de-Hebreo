@@ -803,7 +803,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 34', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 34 - Hophal Verbos Débiles', url: 'https://forms.gle/ejemplo34', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 34 - Hophal Verbos Débiles', url: 'https://forms.gle/V55QtxyhGMNsqhf96', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Hophal Débiles Challenge', url: 'semanas/semana33/juegos/juego1.html', icono: '⬇️' },
