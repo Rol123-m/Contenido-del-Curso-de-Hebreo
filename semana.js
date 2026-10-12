@@ -734,7 +734,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 31', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 31 - Hiphil Verbos Fuertes', url: 'https://forms.gle/ejemplo31', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 31 - Hiphil Verbos Fuertes', url: 'https://forms.gle/JdwNX454Gw1AC9Rt8', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Hiphil Challenge', url: 'semanas/semana30/juegos/juego1.html', icono: '⬆️' },
