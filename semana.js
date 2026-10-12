@@ -868,7 +868,7 @@ class SemanaManager {
                     { tipo: 'html', titulo: 'Resumen Tallos Derivados', url: 'semanas/semana37/html/tallos.html', icono: '📝' },
                     { tipo: 'html', titulo: 'Tabla Comparativa', url: 'semanas/semana37/html/comparativa.html', icono: '📊' },
                     { tipo: 'html', titulo: 'Ejercicios de Traducción', url: 'semanas/semana37/html/ejercicios.html', icono: '✍️' },
-                    { tipo: 'examen', titulo: 'Examen Final', url: 'https://forms.gle/final', icono: '📝' }
+                    { tipo: 'examen', titulo: 'Examen Final', url: 'https://forms.gle/CjXQNE88DtQfZT4u9', icono: '📝' }
                 ],
                 juegos: [
                     { titulo: 'Repaso General', url: 'semanas/semana37/juegos/repaso.html', icono: '🔄' }
