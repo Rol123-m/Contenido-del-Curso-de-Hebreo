@@ -780,7 +780,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 33', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 33 - Hophal Verbos Fuertes', url: 'https://forms.gle/ejemplo33', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 33 - Hophal Verbos Fuertes', url: 'https://forms.gle/ysLStLmZHixpXaoW8', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Hophal Challenge', url: 'semanas/semana32/juegos/juego1.html', icono: '⬇️' },
