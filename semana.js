@@ -826,7 +826,7 @@ class SemanaManager {
             { tipo: 'html', titulo: 'Vocabulario Semana 35', url: 'vocab.html', icono: '📖' },
             { tipo: 'html', titulo: 'Práctica de Vocabulario', url: 'multiple.html', icono: '🎯' },
             { tipo: 'html', titulo: 'Práctica de Audición', url: 'audio.html', icono: '🎧' },
-            { tipo: 'examen', titulo: 'Examen Semana 35 - Hithpael Verbos Fuertes', url: 'https://forms.gle/ejemplo35', icono: '📝' }
+            { tipo: 'examen', titulo: 'Examen Semana 35 - Hithpael Verbos Fuertes', url: 'https://forms.gle/cXa9Qw9YLXQdzhzb7', icono: '📝' }
         ],
         juegos: [
             { titulo: 'Juego 1: Hithpael Challenge', url: 'semanas/semana34/juegos/juego1.html', icono: '🔄' },
